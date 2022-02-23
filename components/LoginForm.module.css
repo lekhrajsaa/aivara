@@ -1,0 +1,61 @@
+.screen {
+  background-color: #c2934d;
+}
+
+.login {
+  width: 10px;
+  height: 20px;
+  background-color: #b10000;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+ 
+
+}
+
+#logo_cont {
+  width: 60px;
+
+}
+
+.logo {
+  width: 100%;
+  object-fit: contain;
+}
+
+.bottomLine{
+  background: linear-gradient(118.65deg, #3699FB 6.89%, rgba(255, 172, 242, 0) 107.01%);
+  height: 3.5px;
+  border: 1px solid #000000;
+  
+}
+.email:focus{
+  outline: none;
+
+}
+.email::placeholder{
+  color:#DCD3E9 ;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+ 
+  font-family: Sora;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 13px;
+color:  #7B757A;
+
+  
+
+} 
+
+#placeholder{
+ color:  #DCD3E9;
+}
