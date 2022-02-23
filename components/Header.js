@@ -7,8 +7,8 @@ import { Link, NavLink} from 'react-router-dom';
 const Header = () => {
   return (
    
-    <nav class="navbar navbar-light " style={{marginTop:"4%" , marginLeft:"6%"}} >
-    <div class="container">
+    <nav class="navbar navbar-light " style={{marginTop:"4%" , marginLeft:"11%"}} >
+    <div >
       <a class="navbar-brand" href="#">
         <img src="/Frame.png" alt=""/>
       </a>
