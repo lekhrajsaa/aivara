@@ -28,9 +28,12 @@
 
 .bottomLine{
   background: linear-gradient(118.65deg, #3699FB 6.89%, rgba(255, 172, 242, 0) 107.01%);
-  height: 3.5px;
-  border: 1px solid #000000;
-  
+  height: 24%;
+  width: 88%;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  */
+}
+.email{
+   
 }
 .email:focus{
   outline: none;
@@ -38,24 +41,200 @@
 }
 .email::placeholder{
   color:#DCD3E9 ;
+  font-size: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 .footer {
   position: fixed;
   left: 0;
   bottom: 0;
-  width: 100%;
+  width: 65%;
+
  
-  font-family: Sora;
+  font-family: 'Roboto', sans-serif;
   font-style: normal;
   font-weight: normal;
-  font-size: 10px;
-  line-height: 13px;
-color:  #7B757A;
-
-  
+  font-size: 70%;
+  margin-bottom: 2.5%;
+  text-align: justify;
+color:  #7B757A 
 
 } 
 
+
+
+@media screen and (max-width: 650px) {
+  .signup {
+    font-size: 120% !important;
+   
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .secure {
+    font-size: 80% !important;
+   
+  }
+}
+@media screen and (max-width: 580px) {
+  .secure {
+    font-size: 70% !important;
+   
+  }
+}
+@media screen and (max-width: 285px) {
+  .only {
+    font-size: 70% !important;
+   
+  }
+}
+@media screen and (max-width: 500px) {
+  .secure {
+    font-size: 60% !important;
+    
+   
+  }
+}
+
+@media screen and (min-width: 740px) and (max-width:980px){
+  .secure {
+    font-size: 80% !important;
+    width: 120% !important;
+    
+   
+  }
+}
+@media screen and (min-width: 760px) and (max-width:930px){
+  .bottomLine {
+ 
+    width: 130% !important;
+    
+   
+  }
+}
+@media screen and (min-width: 260px) and (max-width:430px){
+  .bottomLine {
+ 
+    width: 110% !important;
+    
+   
+  }
+}
+@media screen and (min-width: 120px) {
+  .footer {
+    margin-left: 11%;
+   
+  }
+}
+@media screen and (min-width: 260px) and (max-width:430px){
+  .footer {
+ 
+    font-size: 60% !important;
+    
+   
+  }
+}
+
+
 #placeholder{
  color:  #DCD3E9;
+ font-family: 'Roboto', sans-serif;
+ font-size: 80%;
+}
+.success{
+  color: #C4C4C4;
+  font-size: 150%;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 10%;
+}
+.resend{
+  color: #818181;
+  font-size: 87%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
+/* Header FOR APP */
+
+.navbarCustom {
+  background-color: black;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.headerText{
+  font-family: 'Roboto';
+  color: white;
+}
+.testTab:focus{
+  color: #395D89 !important;
+  font-weight: bold;
+}
+.testTab{
+  margin-left: 2.5%;
+  border: 0px solid white !important;
+  border-color: white;
+  text-transform: initial;
+  font-weight: 400;
+  font-family: 'Roboto'!important;
+  background: white !important;
+  color: #8A8A8A ;
+
+}
+
+.test{
+  border: 0px solid white !important;
+  border-color: white;
+  text-transform: initial;
+
+  
+}
+
+.generate{
+  display: flex;
+  justify-content: center;
+align-items: center;
+}
+
+
+@media (max-width:900px) and (min-width:590px){
+  .uploadBox{width: 51% !important; margin-left: 20% !important; font-size: 85% !important; }
+  
+}
+
+@media (max-width: 450px) {
+  .uploadBox { font-size: 75%}
+}
+@media (max-width: 370px) {
+  .uploadBox { font-size: 70%; }
+}
+@media (max-width: 345px) {
+  .uploadBox { font-size: 65%; }
+}
+
+
+
+
+/* New page */
+
+.img{
+  margin-bottom: 1%; 
+}
+
+.uploadBox{
+width: 85%;
+margin-left: 2.5%;
+margin-top: 3%;
+}
+
+/* HEADER */
+.back a{
+  font-family: Roboto;
+  color: #818181;
+  font-weight: bold;
+
+}
+.back :hover{
+  cursor: pointer;
 }
