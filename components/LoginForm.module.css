@@ -238,3 +238,60 @@ margin-top: 3%;
 .back :hover{
   cursor: pointer;
 }
+
+/* Profile Page */
+.report{
+  margin-top: 2%;
+
+}
+.profileLine{
+  border: 0.5px solid #3F3D3F;
+  margin-top: 1%;
+
+
+}
+.hello{
+  color: #3699FB;
+  font-family: 'Roboto';
+  font-size: 150%;
+  
+}
+
+.name{
+  margin-top: 3%;
+}
+.time{
+  color: #C4C4C4;
+}
+.proCol3{
+  text-align: right ;
+  font-family: 'Roboto';
+  font-weight: 500;
+  color: #395D89;
+  border: none;
+  text-decoration: none;
+  background: none;
+}
+.proCol2{
+  text-align: right;
+  font-family: 'Roboto';
+  font-weight: 400;
+  color: #606060;
+}
+.proCol{
+  font-family: 'Roboto';
+  
+}
+.heading{
+  margin-bottom: 2%;
+  color:#395D89;
+  font-size: 105%;
+  font-weight: 550;
+  font-family: 'Roboto';
+}
+.rowe{
+  border-bottom: 0.5px solid #3F3D3F;
+  margin-bottom: 2%;
+  padding-bottom: 1%;
+  border-width: 50% !important;
+}

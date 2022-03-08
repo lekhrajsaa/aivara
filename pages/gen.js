@@ -7,7 +7,7 @@ import getTabs from "../components/tab"
 import Tabs from 'react-responsive-tabs';
 
 
-import StyledDropzone from "../components/Upload"
+
 
 export default function ge(){
  

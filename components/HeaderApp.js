@@ -2,7 +2,7 @@ import React from "react";
 
 import classes from "./LoginForm.module.css";
 import { Link, NavLink } from "react-router-dom";
-import { motion } from 'framer-motion';
+
 
 
 
@@ -13,24 +13,33 @@ const HeaderApp = () => {
     <nav class="navbar" >
       <div class="container-fluid">
         
-      <motion.div style={{ marginLeft: "4%" ,color:"white" }}  >
+      <div style={{ marginLeft: "4%" ,color:"white" }}  >
           <a class="navbar-brand"   >
            <img src="/AivarA.svg" style={{color:"white"}}/>
           </a>
-          </motion.div> 
+          </div> 
+     
+    
         <a
           className={classes.gen}
           class="gen navbar-brand"
           href="/"
           style={{
-            marginRight: "7%",
+            marginRight: "15%",
             fontFamily: "Roboto",
-            fontSize: "75%",
+            fontSize: "80%",
             color: "#B7D7F7",
           }}
         >
-          Signout
+          Sign out 
+         
+          <a> <img src="Settings.svg" style={{marginLeft:"10%"}} /></a>
         </a>
+      
+       
+      
+    
+      
       </div>
     </nav>
     </div>

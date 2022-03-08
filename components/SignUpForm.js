@@ -116,6 +116,8 @@ const enterKey =(e) =>{
           console.log("Password Matched");
           setSuccess(true);
           window.location.href="/gen"
+          localStorage.setItem("name",name)
+          
           //Register API here
         } else {
           console.log("password Not matched");
