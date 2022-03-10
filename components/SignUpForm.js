@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./LoginForm.module.css";
 import { useState } from "react";
 import Slide from "react-reveal/Slide";
+import Cookies from "js-cookie";
 
 const SignUpForm = () => {
   const [name, setName] = useState("");
@@ -115,9 +116,11 @@ const enterKey =(e) =>{
         if (password === confirmPassword) {
           console.log("Password Matched");
           setSuccess(true);
-          window.location.href="/gen"
-          localStorage.setItem("name",name)
-          
+          localStorage.setItem("name",name);
+          Cookies.set("name",name)
+          window.location.href="/profile"
+         
+
           //Register API here
         } else {
           console.log("password Not matched");
@@ -162,7 +165,9 @@ const enterKey =(e) =>{
         if (password === confirmPassword) {
           console.log("Password Matched");
           setSuccess(true);
-          window.location.href="/gen"
+          localStorage.setItem("name",name);
+          Cookies.set("name",name)
+          window.location.href="/profile"
           //Register API here
         } else {
           console.log("password Not matched");

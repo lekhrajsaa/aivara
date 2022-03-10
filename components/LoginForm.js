@@ -35,7 +35,8 @@ const LoginForm = () => {
     if (e.key === 'Enter') {
       if (show) {
         console.log(email, password);
-        window.location.href="/gen"
+        localStorage.setItem("name",'');
+        window.location.href="/profile"
         // login API comes here
       }
      
@@ -48,7 +49,8 @@ const LoginForm = () => {
    
     if (show) {
       console.log(email, password);
-      window.location.href="/gen"
+      localStorage.setItem("name",'');
+      window.location.href="/profile"
       // login API comes here
     }
    

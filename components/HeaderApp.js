@@ -9,7 +9,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const HeaderApp = () => {
   return (
-    <div style={{backgroundColor: "#000000" , padding:"6px"}}>
+    <div style={{backgroundColor: "#000000" , padding:"6px"}} className={classes.mobileH}>
     <nav class="navbar" >
       <div class="container-fluid">
         
