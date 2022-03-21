@@ -4,6 +4,13 @@ import { useState } from "react";
 import Slide from "react-reveal/Slide";
 import Cookies from "js-cookie";
 
+import { Col, Container, Row } from "reactstrap";
+
+import { ProSidebar, SidebarContent } from "react-pro-sidebar";
+import Header from "./Header";
+import "react-pro-sidebar/dist/css/styles.css";
+import sidebar from "./Sidenav.module.css";
+
 const SignUpForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,31 +41,31 @@ const SignUpForm = () => {
       );
   };
 const handleBack=()=>{
-  if(showEmail){
+  if(showPhoneNumber){
   
-    setPhoneNumberDisplay("hidden");
+    setEmailDisplay("hidden");
    
-    setShowEmail(false);
+    setShowPhoneNumber(false);
  
       setText("name");
       setNameDisplay("text");
       setShowName(true);
 
   }
-  if (showPhoneNumber) {
-    setShowPhoneNumber(false);
-    setEmailDisplay("email");
-    setText("enter email id");
-    setEmailDisplay("email");
-    setShowName(false)
-    setNameDisplay("hidden")
-    setShowEmail(true)
-  }
-  if (showPassword) {
-    setShowPhoneNumber(true);
-    setEmailDisplay("hidden");
+  if (showEmail) {
+    setShowEmail(false);
+    setPhoneNumberDisplay("number");
     setText("enter phone number");
     setPhoneNumberDisplay("number");
+    setShowName(false)
+    setNameDisplay("hidden")
+    setShowPhoneNumber(true)
+  }
+  if (showPassword) {
+    setShowEmail(true);
+    setPhoneNumberDisplay("hidden");
+    setText("enter email id");
+    setEmailDisplay("email");
     setShowName(false)
     setPasswordDisplay("hidden")
     setNameDisplay("hidden")
@@ -86,24 +93,26 @@ const handleBack=()=>{
 const enterKey =(e) =>{
   if (e.key === 'Enter') {
     if (showName) {
-      setShowEmail(true);
-      setNameDisplay("hidden");
-      setText("enter email id");
-      setEmailDisplay("email");
-      setShowName(false);
-    }
-    if (showEmail) {
       setShowPhoneNumber(true);
-      setEmailDisplay("hidden");
+      setNameDisplay("hidden");
       setText("enter phone number");
       setPhoneNumberDisplay("text");
+      setShowName(false);
     }
     if (showPhoneNumber) {
-      setShowPassword(true);
+      setShowEmail(true);
       setPhoneNumberDisplay("hidden");
+      setText("enter email id");
+      setEmailDisplay("email");
+     
+    }
+    if (showEmail) {
+      setShowPassword(true);
+      setEmailDisplay("hidden");
       setText("enter password");
       setPasswordDisplay("password");
     }
+   
     if (showPassword) {
       setShowConfirmPassword(true);
       setPasswordDisplay("hidden");
@@ -135,24 +144,26 @@ const enterKey =(e) =>{
 }
   const changeField = () => {
     if (showName) {
-      setShowEmail(true);
-      setNameDisplay("hidden");
-      setText("enter email id");
-      setEmailDisplay("email");
-      setShowName(false);
-    }
-    if (showEmail) {
       setShowPhoneNumber(true);
-      setEmailDisplay("hidden");
+      setNameDisplay("hidden");
       setText("enter phone number");
       setPhoneNumberDisplay("text");
+      setShowName(false);
     }
     if (showPhoneNumber) {
-      setShowPassword(true);
+      setShowEmail(true);
       setPhoneNumberDisplay("hidden");
+      setText("enter email id");
+      setEmailDisplay("email");
+     
+    }
+    if (showEmail) {
+      setShowPassword(true);
+      setEmailDisplay("hidden");
       setText("enter password");
       setPasswordDisplay("password");
     }
+   
     if (showPassword) {
       setShowConfirmPassword(true);
       setPasswordDisplay("hidden");
@@ -180,18 +191,23 @@ const enterKey =(e) =>{
   };
 
   return (
+ 
     // <div class="row" style={{ marginTop: "10%", marginLeft: "10%" }}>
     //   <div class="col-md-5 col-xs-12">
     //     <form>
-    <div> <div class={classes.back} style={{position:"absolute",
+    <div>
+       
+      <div class={classes.back} style={{position:"absolute",
      top :"7%",
      left: "78%", textDecoration:"underline", color:"#818181"}}>
       <a onClick={()=>handleBack()}>back</a>
      </div>
    
+  
    <div>
       {" "}
       {success ? (
+
     
         <div>
           <p className={classes.success}>
@@ -201,24 +217,83 @@ const enterKey =(e) =>{
           <p className={classes.resend}>resend</p>
         </div>
       ) : (
-        <div
+        <Container fluid className={classes.main}>
+        <Row>
+          <Col md={2}>
+           
+          <div >
+      <ProSidebar breakPoint="lg" className={sidebar.sideBar}  >
+        <SidebarContent className={sidebar.sideav__reg__content}>
+          <Header />
+          <ul className={sidebar.sidenav_reg__screens}>
+            <li className={sidebar.listFont}>
+              <span
+                className={`${sidebar.dot} ${showEmail && sidebar.disable__dot}`}
+              >
+                {showEmail && <span>&#10003;</span>}
+              </span>
+              General Information
+            </li>
+            <li className={sidebar.listFont}>
+              {!showEmail ?  <span
+                className={`${sidebar.ext} `}
+              >
+               
+              </span> : <span
+                className={`${sidebar.dot} ${showPassword && sidebar.disable__dot}`}
+              >
+                {showPassword && <span>&#10003;</span>}
+              </span>}
+              
+              Enter Email Id
+            </li>
+            <li className={sidebar.listFont}>
+            {!showPassword ?  <span
+                className={`${sidebar.ext} `}
+              >
+               
+              </span> : <span
+                className={`${sidebar.dot} ${showConfirmPassword && sidebar.disable__dot}`}
+              >
+                {showConfirmPassword && <span>&#10003;</span>}
+              </span>}
+             
+              Enter Password
+            </li>
+            <li className={sidebar.listFont}>
+            {!showConfirmPassword ?  <span
+                className={`${sidebar.ext} `}
+              >
+               
+              </span> :  <span className={`${sidebar.dot}`}></span>}
+            
+              Your accout is ready!
+            </li>
+          </ul>
+        </SidebarContent>
+      </ProSidebar>
+    </div>
+          </Col>
+          <Col md={8}>
+          <div
           
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
-        >
+          className={classes.signup}>
           <label
             for="exampleInputEmail1"
             style={{
-              fontFamily: "Roboto, sans-serif",
+              fontFamily: "Sora, sans-serif",
               fontSize: "150%",
               color: "#DCD3E9",
-              marginBottom: "14%",
+              marginBottom: "10%",
+              marginTop:"6%",
             }}
-            className={classes.signup}
+          
           >
-            Signup
+            Sign up
           </label>
           <div class="row">
-            <div class="col-7 col-xs-8">
+            <div class="col-4 col-xs-8">
               <input
                onKeyPress={(event) => enterKey(event)}
                 type={nameDisplay}
@@ -228,7 +303,7 @@ const enterKey =(e) =>{
                 style={{
                   border: "0px",
                   outline: "none",
-                  fontFamily: "Roboto, sans-serif",
+                  fontFamily: "Sora, sans-serif",
                 }}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -243,7 +318,7 @@ const enterKey =(e) =>{
                     style={{
                       border: "0px",
                       outline: "none",
-                      fontFamily: "Roboto, sans-serif",
+                      fontFamily: "Sora, sans-serif",
                     }}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -260,7 +335,7 @@ const enterKey =(e) =>{
                     style={{
                       border: "0px",
                       outline: "none",
-                      fontFamily: "Roboto, sans-serif",
+                      fontFamily: "Sora, sans-serif",
                     }}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                   />
@@ -277,7 +352,7 @@ const enterKey =(e) =>{
                     style={{
                       border: "0px",
                       outline: "none",
-                      fontFamily: "Roboto, sans-serif",
+                      fontFamily: "Sora, sans-serif",
                     }}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -294,7 +369,7 @@ const enterKey =(e) =>{
                     style={{
                       border: "0px",
                       outline: "none",
-                      fontFamily: "Roboto, sans-serif",
+                      fontFamily: "Sora, sans-serif",
                     }}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
@@ -304,8 +379,8 @@ const enterKey =(e) =>{
             <div class="col-2" style={{ zIndex: "100" }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="26"
+                height="26"
                 fill="currentColor"
                 class="bi bi-arrow-right"
                 viewBox="0 0 16 16"
@@ -331,12 +406,12 @@ const enterKey =(e) =>{
             </div>
           </div>
 
-          <div
+          {/* <div
             id="emailHelp"
             class="form-text"
             style={{
               marginTop: "4%",
-              fontFamily: "Roboto, sans-serif",
+              fontFamily: "Sora, sans-serif",
               fontStyle: "normal",
               fontWeight: "300",
               fontSize: "88%",
@@ -345,10 +420,11 @@ const enterKey =(e) =>{
             }}
          className={classes.secure} >
             We'll send a secure magic link to the email address.
-          </div>
+          </div> */}
           <div
             style={{
-              fontFamily: "Roboto, sans-serif",
+              marginTop: "4%",
+              fontFamily: "Sora, sans-serif",
               fontStyle: "normal",
               fontWeight: "300",
               fontSize: "88%",
@@ -359,7 +435,17 @@ const enterKey =(e) =>{
           >
             Already registered click here to <a href="/">Login</a>
           </div>
+          <div className={classes.step}>
+        {
+          showEmail && !showPassword? <p>Step 2 of 4</p> :
+          showPassword && !showConfirmPassword? <p> Step 3 of 4</p> :
+          showConfirmPassword ? <p> Step 4 of 4</p> : <p>Step 1 of 4</p>
+        }
+          </div>
         </div>
+            </Col>
+       </Row>
+       </Container>
         
       )}
     </div>

@@ -4,13 +4,13 @@ import React from 'react'
 import classes from "./Header.module.css";
 
 
-const Header = () => {
+const HeaderMobile = () => {
   return (
    
  
 
 
-<div class={classes.header}>
+<div class={classes.headerMobile}>
   <d ><img src="/Frame.svg" alt=""/></d>
   
 </div>
@@ -19,4 +19,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default HeaderMobile

@@ -1,11 +1,8 @@
-.screen {
-  background-color: #c2934d;
-}
-
 .login {
+
   width: 10px;
   height: 20px;
-  background-color: #b10000;
+
 }
 
 .header {
@@ -20,6 +17,18 @@
   width: 60px;
 
 }
+.step{
+  font-family: 'Sora', sans-serif;
+  font-size: 95%;
+  color: #9B9B9B;
+  margin-top: 1%;
+}
+@media screen and (max-width: 1000px) {
+  .step {
+   display: none;
+   
+  }
+}
 
 .logo {
   width: 100%;
@@ -28,13 +37,11 @@
 
 .bottomLine{
   background: linear-gradient(118.65deg, #3699FB 6.89%, rgba(255, 172, 242, 0) 107.01%);
-  height: 24%;
-  width: 88%;
+  height: 16%;
+  width: 48%;
   /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  */
 }
-.email{
-   
-}
+
 .email:focus{
   outline: none;
 
@@ -42,7 +49,7 @@
 .email::placeholder{
   color:#DCD3E9 ;
   font-size: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Sora', sans-serif;
 }
 .footer {
   position: fixed;
@@ -51,7 +58,7 @@
   width: 65%;
 
  
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Sora', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 70%;
@@ -60,15 +67,45 @@
 color:  #7B757A 
 
 } 
+.signup{
+  margin-top: 25% !important;
+  margin-left: 8% !important;
+}
+@media screen and (max-width: 1300px) and (min-width:990px){
+  .signup {
+    margin-top: 35% !important;
+    margin-left: 20% !important;
+   
+  }
+}
+@media screen and (max-width: 1500px) and (min-width:1400px){
+  .signup {
+    margin-top: 30% !important;
+    margin-left: 11% !important;
+   
+  }
+}
+@media screen and (max-width: 1400px) and (min-width:1300px){
+  .signup {
+    margin-top: 31% !important;
+    margin-left: 12% !important;
+   
+  }
+}
+@media screen and (max-width: 1300px) and (min-width:990px){
+  .footer {
+   
+    margin-left: 28% !important;
+   
+  }
+}
 
-
-
-@media screen and (max-width: 650px) {
+/* @media screen and (max-width: 650px) {
   .signup {
     font-size: 120% !important;
    
   }
-}
+} */
 
 @media screen and (max-width: 650px) {
   .secure {
@@ -85,7 +122,7 @@ color:  #7B757A
 @media screen and (max-width: 285px) {
   .only {
     font-size: 70% !important;
-   
+ 
   }
 }
 @media screen and (max-width: 500px) {
@@ -120,9 +157,15 @@ color:  #7B757A
    
   }
 }
-@media screen and (min-width: 120px) {
+@media screen and (min-width: 120px) and (max-width:1000px) {
   .footer {
     margin-left: 11%;
+   
+  }
+}
+@media screen and (min-width:1001px) {
+  .footer {
+    margin-left: 22%;
    
   }
 }
@@ -138,19 +181,19 @@ color:  #7B757A
 
 #placeholder{
  color:  #DCD3E9;
- font-family: 'Roboto', sans-serif;
+ font-family: 'Sora', sans-serif;
  font-size: 80%;
 }
 .success{
   color: #C4C4C4;
   font-size: 150%;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Sora', sans-serif;
   margin-top: 10%;
 }
 .resend{
   color: #818181;
   font-size: 87%;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Sora', sans-serif;
   font-weight: bold;
   text-decoration: underline;
 }
@@ -164,7 +207,7 @@ color:  #7B757A
 }
 
 .headerText{
-  font-family: 'Roboto';
+  font-family: 'Sora';
   color: white;
 }
 .testTab:focus{
@@ -177,7 +220,7 @@ color:  #7B757A
   border-color: white;
   text-transform: initial;
   font-weight: 400;
-  font-family: 'Roboto'!important;
+  font-family: 'Sora'!important;
   background: white !important;
   color: #8A8A8A ;
 
@@ -230,7 +273,7 @@ margin-top: 3%;
 
 /* HEADER */
 .back a{
-  font-family: Roboto;
+  font-family: Sora;
   color: #818181;
   font-weight: bold;
 
@@ -242,17 +285,46 @@ margin-top: 3%;
 /* Profile Page */
 .report{
   margin-top: 10%;
-
 }
 .profileLine{
   border: 0.5px solid #c0bec0;
   margin-top: 1%;
-
+}
+.scrollRep{
+  overflow-y: scroll;
+ height: 250px;
+}
+.scrollRep::-webkit-scrollbar {
+  display: none;
+}
+.uploadicon{
+  margin-left: 77%;
+  margin-top: 8%;
+  font-family: 'Sora';
+  font-weight: 500;
+  
 
 }
+@media screen and (max-height: 900px) {
+  .uploadicon {
+ 
+    margin-top: 5%;
+    
+   
+  }
+}
+@media screen and (max-height: 770px) {
+  .uploadicon {
+ 
+    margin-top: 2%;
+    
+   
+  }
+}
+
 .hello{
   color: #3699FB;
-  font-family: 'Roboto';
+  font-family: 'Sora';
   font-size: 160%;
   
 }
@@ -265,7 +337,7 @@ margin-top: 3%;
 }
 .proCol3{
   text-align: right ;
-  font-family: 'Roboto';
+  font-family: 'Sora';
   font-weight: 500;
   color: #395D89;
   border: none;
@@ -275,13 +347,13 @@ margin-top: 3%;
 }
 .proCol2{
   text-align: right;
-  font-family: 'Roboto';
+  font-family: 'Sora';
   font-weight: 350;
   color: #606060;
   font-size: 95%;
 }
 .proCol{
-  font-family: 'Roboto';
+  font-family: 'Sora';
   font-weight: 540;
   
 }
@@ -290,7 +362,7 @@ margin-top: 3%;
   color:#395D89;
   font-size: 105%;
   font-weight: 550;
-  font-family: 'Roboto';
+  font-family: 'Sora';
 }
 .rowe{
   border-bottom: 0.5px solid #3F3D3F;
@@ -328,7 +400,7 @@ margin-top: 3%;
   background-color: #f1f1f1;
   /* min-width: 160px; */
   width:150%;
-  font-family: 'Roboto';
+  font-family: 'Sora';
   font-size: 80%;
   color: #606060;
  
@@ -430,4 +502,8 @@ margin-top: 3%;
   .report {
     margin-top: 44% !important; 
   }
+}
+
+.main{
+  padding-left: 0px !important;
 }

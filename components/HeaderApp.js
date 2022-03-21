@@ -26,7 +26,7 @@ const HeaderApp = () => {
           href="/"
           style={{
             marginRight: "15%",
-            fontFamily: "Roboto",
+            fontFamily: "Sora",
             fontSize: "80%",
             color: "#B7D7F7",
           }}

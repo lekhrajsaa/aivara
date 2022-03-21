@@ -15,14 +15,14 @@ export default function ge(){
          <>
        <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;700&display=swap" rel="stylesheet"/>
          <HeaderApp>
          </HeaderApp>
 {/* <BasicTabs/> */}
 <div style={{
                 marginTop:"2%",
                 fontWeight: "700",
-                fontFamily: "Roboto",
+                fontFamily: "Sora",
                 fontSize: "110%",
                 
                 marginLeft:"10%",

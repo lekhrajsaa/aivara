@@ -26,7 +26,7 @@ const SignUpForm = () => {
         style={{
           border: "0px",
           outline: "none",
-          fontFamily: "Roboto, sans-serif",
+          fontFamily: "Sora, sans-serif",
         }}
         onChange={(e) => setEmail(e.target.value)}
       />
@@ -68,7 +68,7 @@ const SignUpForm = () => {
               {login ?  <label
               for="exampleInputEmail1"
               style={{
-                fontFamily: "Roboto, sans-serif",
+                fontFamily: "Sora, sans-serif",
                 fontSize: "24px",
                 color: "#DCD3E9",
                 marginBottom: "14%",
@@ -79,7 +79,7 @@ const SignUpForm = () => {
              <label
              for="exampleInputEmail1"
              style={{
-               fontFamily: "Roboto, sans-serif",
+               fontFamily: "Sora, sans-serif",
                fontSize: "24px",
                color: "#DCD3E9",
                marginBottom: "14%",
@@ -126,7 +126,7 @@ const SignUpForm = () => {
               class="form-text"
               style={{
                 marginTop: "4%",
-                fontFamily: 'Roboto, sans-serif',
+                fontFamily: 'Sora, sans-serif',
                 fontStyle: "normal",
                 fontWeight: "300",
                 fontSize: "12px",
@@ -138,7 +138,7 @@ const SignUpForm = () => {
             </div>
             <div
               style={{
-                fontFamily: 'Roboto, sans-serif',
+                fontFamily: 'Sora, sans-serif',
                 fontStyle: "normal",
                 fontWeight: "300",
                 fontSize: "12px",

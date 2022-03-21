@@ -87,7 +87,7 @@ export default function BasicTabs() {
                 
                 textTransform: "capitalize",
                 fontWeight: "800",
-                fontFamily: "Roboto",
+                fontFamily: "Sora",
                 fontSize: "110%",
                 color: ' #395D89',
                 marginLeft:"4%"
@@ -99,7 +99,7 @@ export default function BasicTabs() {
               style={{
                 textTransform:"initial",
                 fontWeight: "400",
-                fontFamily: "Roboto",
+                fontFamily: "Sora",
                 fontSize: "110%",
                 color:'#8A8A8A',
                 marginLeft:"1%"
@@ -111,7 +111,7 @@ export default function BasicTabs() {
               style={{
                 textTransform:"initial",
                 fontWeight: "400",
-                fontFamily: "Roboto",
+                fontFamily: "Sora",
                 fontSize: "110%",
                 color:'#8A8A8A',
                 marginLeft:"1%"

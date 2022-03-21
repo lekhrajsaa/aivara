@@ -2,10 +2,32 @@
   
 .header {
     overflow: hidden;
-    background-color: white;
+    margin-left: 15%;
+margin-top: 20%;
+margin-bottom: 60%;
+  }
+  .header_signup {
+    overflow: hidden;
+    background-color: #313131 !important;
     padding: 20px 10px;
+    padding-left: 0;
+  }
+  .headerMobile{
+    overflow: hidden;
+  margin-top: 5%;
+
+display: none;  
+}
+@media screen and (max-width: 995px) {
+  .headerMobile {
+   
+    display: block;
+    
   }
   
+  
+}
+
 .header a {
     float: left;
     color:  #818181;
@@ -18,10 +40,10 @@
     border-radius: 4px;
     margin-left: 65%;
     margin-top: 2%;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Sora', sans-serif;
     font-weight: 600;
   }
-  .header d {
+  .headerMobile d {
     float: left;
     text-align: center;
     padding: 12px;
@@ -30,6 +52,14 @@
     margin-top: 3%;
   }
   
+  .header d {
+    float: left;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    margin-left: 10%;
+    margin-top: 3%;
+  }
 .header a.active {
     background-color: dodgerblue;
     color: white;

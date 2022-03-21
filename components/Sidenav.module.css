@@ -1,0 +1,113 @@
+.sidenav__reg {
+  grid-area: sidenav;
+  background-color: #313131 !important;
+  width: 340px;
+  height: 100%;
+}
+.listFont{
+  font-family: 'Sora' ,sans-serif;
+  font-weight: 300 !important;
+  color: #DCD3E9 !important;
+  font-size: 90% !important;
+}
+.sidenav__reg__wrapper {
+  width: 75%;
+  margin: 75px auto;
+}
+.sidenav__reg__top {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+  /*44.08*48*/
+}
+.sidenav__reg__top > img {
+  width: 44.08px;
+  height: 48px;
+}
+.sidenav__reg__content {
+  padding: 30px;
+  margin-top: 65px;
+}
+.sidenav__reg__content > h3 {
+  color: #fff;
+  font-size: 15px;
+  line-height: 25px;
+  position: relative;
+  font-weight: bold;
+}
+.sidenav__reg__content > h3::after {
+  content: "";
+  width: 20px;
+  position: absolute;
+  background-color: #fff;
+  height: 3px;
+  top: 30px;
+  left: 0;
+}
+.sidenav_reg__screens {
+  margin-top: 20px !important;
+  list-style: none;
+  margin-left: 20% !important;
+  padding-bottom: 80px !important;
+}
+.sidenav_reg__screens > li {
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+.sidenav_reg__screens > li {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.sidenav_reg__screens > li > span {
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: #3699FB;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 45px;
+  left: -5px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+.sideBar{
+  height:100vh !important;
+
+}
+.disable__dot {
+  background-color: transparent !important;
+  color: #3699FB;
+}
+.ext{
+  background-color: #fff !important;
+}
+.sidenav_reg__screens > li::after {
+  position: absolute;
+  content: "";
+
+  width: 1px;
+  height: 99px;
+  background-color:#3699FB;
+  top: 60px;
+  left: 0;
+  z-index: 1;
+ 
+}
+.sidenav_reg__screens > li:last-child::after {
+  display: none;
+}
+
+@media screen and (max-width: 1054px) {
+  .sidenav__reg {
+    display: none;
+  }
+}

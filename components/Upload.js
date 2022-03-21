@@ -17,7 +17,7 @@ const baseStyle = {
   color: "#bdbdbd",
   outline: "none",
 
-  fontFamily: "Roboto",
+  fontFamily: "Sora",
 };
 
 const focusedStyle = {
@@ -58,7 +58,7 @@ function StyledDropzone(props) {
             style={{
               color: "#717171",
               fontSize: "100%",
-              fontFamily: "Roboto",
+              fontFamily: "Sora",
               fontWeight: "400",
             }}
           >
@@ -68,14 +68,14 @@ function StyledDropzone(props) {
             style={{
               color: "#717171",
               fontSize: "90%",
-              fontFamily: "Roboto",
+              fontFamily: "Sora",
               fontWeight: "400",
             }}
           >
             Drag & drop or click to{" "}
             <a style={{ textDecoration: "underline" }}>select</a>
           </p>
-          <p style={{ marginTop: "15%", fontSize: "75%", color: "#A7A7A7", fontFamily: "Roboto",
+          <p style={{ marginTop: "15%", fontSize: "75%", color: "#A7A7A7", fontFamily: "Sora",
               fontWeight: "400",}} className={classes.only}>
             only .jpeg and .png formats not exceeding 100 MB
           </p>
