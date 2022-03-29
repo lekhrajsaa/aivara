@@ -13,9 +13,9 @@ export default function ge(){
  
      return(
          <>
-       <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
          <HeaderApp>
          </HeaderApp>
 {/* <BasicTabs/> */}
@@ -27,7 +27,7 @@ export default function ge(){
                 
                 marginLeft:"10%",
               }}>
-         <Tabs items={getTabs()}     />
+         <Tabs items={getTabs()}   selectedTabKey={0}  />
       
               </div>
 

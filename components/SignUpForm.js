@@ -24,7 +24,7 @@ const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const [text, setText] = useState("name");
+  const [text, setText] = useState("Enter name");
   const [nameDisplay, setNameDisplay] = useState("name");
   const [emailDisplay, setEmailDisplay] = useState("hidden");
   const [phoneNumberDisplay, setPhoneNumberDisplay] = useState("hidden");
@@ -47,7 +47,7 @@ const handleBack=()=>{
    
     setShowPhoneNumber(false);
  
-      setText("name");
+      setText("Enter name");
       setNameDisplay("text");
       setShowName(true);
 
@@ -423,7 +423,7 @@ const enterKey =(e) =>{
           </div> */}
           <div
             style={{
-              marginTop: "4%",
+              marginTop: "3%",
               fontFamily: "Sora, sans-serif",
               fontStyle: "normal",
               fontWeight: "300",

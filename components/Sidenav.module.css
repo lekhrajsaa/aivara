@@ -111,3 +111,40 @@
     display: none;
   }
 }
+@media screen and (max-height: 860px) {
+  .sidenav_reg__screens{
+    margin-top: -50px !important;
+    padding-bottom: 60px !important;
+  }
+ 
+
+  .listFont{
+    font-family: 'Sora' ,sans-serif;
+    font-weight: 200 !important;
+    color: #DCD3E9 !important;
+    font-size: 80% !important;
+  }
+}
+@media screen and (max-height: 700px) {
+  .sidenav_reg__screens{
+    margin-top: -70px !important;
+    padding-bottom: 50px !important;
+  }
+ 
+
+  .listFont{
+    font-family: 'Roboto' ,sans-serif;
+    font-weight: 160 !important;
+    color: #DCD3E9 !important;
+    font-size: 75% !important;
+  }
+}
+@media screen and (max-height: 980px) {
+  .listFont{
+    font-family: 'Roboto' ,sans-serif;
+    font-weight: 300 !important;
+    color: #DCD3E9 !important;
+    padding: 20px;
+  }
+ 
+}

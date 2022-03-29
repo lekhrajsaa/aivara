@@ -188,7 +188,8 @@ color:  #7B757A
   color: #C4C4C4;
   font-size: 150%;
   font-family: 'Sora', sans-serif;
-  margin-top: 10%;
+  margin-top: 20%;
+  margin-left: 20%;
 }
 .resend{
   color: #818181;
@@ -196,6 +197,7 @@ color:  #7B757A
   font-family: 'Sora', sans-serif;
   font-weight: bold;
   text-decoration: underline;
+  margin-left: 20%;
 }
 
 
@@ -222,7 +224,7 @@ color:  #7B757A
   font-weight: 400;
   font-family: 'Sora'!important;
   background: white !important;
-  color: #8A8A8A ;
+  color: #8A8A8A !important;
 
 }
 
@@ -284,7 +286,8 @@ margin-top: 3%;
 
 /* Profile Page */
 .report{
-  margin-top: 10%;
+  margin-top: 8%;
+  font-size: 14px;
 }
 .profileLine{
   border: 0.5px solid #c0bec0;
@@ -309,6 +312,14 @@ margin-top: 3%;
   .uploadicon {
  
     margin-top: 5%;
+  
+   
+  }
+}
+@media screen and (max-height: 770px) {
+  .uploadicon {
+ 
+    margin-top: 2%;
     
    
   }
@@ -321,11 +332,11 @@ margin-top: 3%;
    
   }
 }
-
 .hello{
   color: #3699FB;
   font-family: 'Sora';
   font-size: 160%;
+  font-weight: 300;
   
 }
 
@@ -338,7 +349,7 @@ margin-top: 3%;
 .proCol3{
   text-align: right ;
   font-family: 'Sora';
-  font-weight: 500;
+  font-weight: 400;
   color: #395D89;
   border: none;
   text-decoration: none;
@@ -354,14 +365,15 @@ margin-top: 3%;
 }
 .proCol{
   font-family: 'Sora';
-  font-weight: 540;
+  font-weight: 500;
+  color: black;
   
 }
 .heading{
   margin-bottom: 4%;
-  color:#395D89;
+  color:#395D89 !important;
   font-size: 105%;
-  font-weight: 550;
+  font-weight: 600;
   font-family: 'Sora';
 }
 .rowe{
@@ -437,7 +449,7 @@ margin-top: 3%;
 @media screen and (min-width: 250px) and (max-width:560px){
   .rowe {
  
-    width: 120% !important;
+    width: 100% !important;
     
    
   }
@@ -481,26 +493,39 @@ margin-top: 3%;
    
   }
 }
+@media screen and (min-width: 250px) and (max-width:415px){
+  .report {
+ 
+margin-left: 30px;
+   
+  }
+}
 @media screen and (min-width: 870px) and (max-width:1200px){
   .report {
  
-    margin-top: 15% !important; 
+    margin-top: 12% !important; 
    
+  }
+}
+@media screen and (min-width: 416px) and (max-width:569px){
+  .report {
+   margin-left: 35px;
   }
 }
 @media screen and (min-width: 525px) and (max-width:870px){
   .report {
+    margin-top: 22% !important; 
+  }
+}
+@media screen and (min-width: 430px) and (max-width:525px){
+  .report {
+    margin-top: 30% !important; 
+  }
+}
+@media screen and (min-width: 250px) and (max-width:430px){
+  .report {
     margin-top: 25% !important; 
-  }
-}
-@media screen and (min-width: 400px) and (max-width:525px){
-  .report {
-    margin-top: 37% !important; 
-  }
-}
-@media screen and (min-width: 250px) and (max-width:400px){
-  .report {
-    margin-top: 44% !important; 
+    font-size: small;
   }
 }
 
