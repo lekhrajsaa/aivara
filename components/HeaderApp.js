@@ -14,7 +14,7 @@ const HeaderApp = () => {
       <div class="container-fluid">
         
       <div style={{ marginLeft: "4%" ,color:"white" }}  >
-          <a class="navbar-brand"   >
+          <a class="navbar-brand"  href="/home" >
            <img src="/AivarA.svg" style={{color:"white"}}/>
           </a>
           </div> 

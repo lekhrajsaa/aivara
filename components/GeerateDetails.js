@@ -14,7 +14,7 @@ const GenerateDetails = () => {
           color: "#000000",
         }}
       >
-        <a onClick={() => handleBack()}>back</a>
+        <a href="/gen">back</a>
       </div>
 
       <form>

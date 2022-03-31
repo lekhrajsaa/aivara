@@ -25,12 +25,12 @@ export default function Home() {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script src="https://kit.fontawesome.com/4a4ddc9f6c.js" crossorigin="anonymous"></script>
-    
+
      
       </Head>
       
 <LoginForm/>
-   <Footer></Footer>
+  
     
         
       </>

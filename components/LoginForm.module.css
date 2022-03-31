@@ -52,21 +52,29 @@
   font-family: 'Sora', sans-serif;
 }
 .footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 65%;
 
- 
+  width: 60%;
+padding-left: 0%;
+ margin: 0%;
+ position: absolute;
+ bottom: 5%;
   font-family: 'Sora', sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 70%;
-  margin-bottom: 2.5%;
+
   text-align: justify;
 color:  #7B757A 
 
 } 
+@media screen and (max-width: 1300px) and (min-width:990px){
+  .footer {
+ 
+
+   
+  }
+}
+
 .signup{
   margin-top: 25% !important;
   margin-left: 8% !important;
@@ -92,13 +100,7 @@ color:  #7B757A
    
   }
 }
-@media screen and (max-width: 1300px) and (min-width:990px){
-  .footer {
-   
-    margin-left: 28% !important;
-   
-  }
-}
+
 
 /* @media screen and (max-width: 650px) {
   .signup {
@@ -157,26 +159,7 @@ color:  #7B757A
    
   }
 }
-@media screen and (min-width: 120px) and (max-width:1000px) {
-  .footer {
-    margin-left: 11%;
-   
-  }
-}
-@media screen and (min-width:1001px) {
-  .footer {
-    margin-left: 22%;
-   
-  }
-}
-@media screen and (min-width: 260px) and (max-width:430px){
-  .footer {
- 
-    font-size: 60% !important;
-    
-   
-  }
-}
+
 
 
 #placeholder{
@@ -288,6 +271,21 @@ margin-top: 3%;
 .report{
   margin-top: 8%;
   font-size: 14px;
+ 
+}
+.report2{
+  text-align: right;
+  padding-right: 0%;
+  margin-top: 5%;
+  font-family: 'Sora';
+
+}
+@media screen and (max-height: 750px) {
+  .report2 {
+    margin-top: 3% !important;
+   
+   
+  }
 }
 .profileLine{
   border: 0.5px solid #c0bec0;
@@ -300,15 +298,15 @@ margin-top: 3%;
 .scrollRep::-webkit-scrollbar {
   display: none;
 }
-.uploadicon{
+/* .uploadicon{
   margin-left: 77%;
   margin-top: 8%;
   font-family: 'Sora';
   font-weight: 500;
   
 
-}
-@media screen and (max-height: 900px) {
+} */
+/* @media screen and (max-height: 900px) {
   .uploadicon {
  
     margin-top: 5%;
@@ -331,7 +329,7 @@ margin-top: 3%;
     
    
   }
-}
+} */
 .hello{
   color: #3699FB;
   font-family: 'Sora';

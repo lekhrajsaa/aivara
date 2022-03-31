@@ -103,14 +103,17 @@ const Profile = () => {
           })}
         </div>
       </Container>
+      <Container className={classes.report2}>
       <div className={classes.uploadicon}>
         
         <i
           class="fa-solid fa-arrow-up-from-bracket"
           style={{ color: "#395D89" }}
         ></i> 
-        <a href="/gen"style={{ color: "#395D89" , textDecoration:"none"}} >  Upload report</a>
+        <a href="/gen"style={{ color: "#395D89" , textDecoration:"none"}} >  Generate report</a>
       </div>
+      </Container>
+     
     </>
   );
 };

@@ -83,6 +83,14 @@
   height:100vh !important;
 
 }
+.scroll{
+ overflow-y: hidden !important;
+}
+@media screen and (max-height: 660px) {
+  .scroll {
+   overflow-y: auto !important;
+  }
+}
 .disable__dot {
   background-color: transparent !important;
   color: #3699FB;

@@ -10,6 +10,7 @@ import { ProSidebar, SidebarContent } from "react-pro-sidebar";
 import Header from "./Header";
 import "react-pro-sidebar/dist/css/styles.css";
 import sidebar from "./Sidenav.module.css";
+import Footer from "./Footer";
 
 const SignUpForm = () => {
   const [name, setName] = useState("");
@@ -127,7 +128,7 @@ const enterKey =(e) =>{
           setSuccess(true);
           localStorage.setItem("name",name);
           Cookies.set("name",name)
-          window.location.href="/profile"
+          window.location.href="/home"
          
 
           //Register API here
@@ -178,7 +179,7 @@ const enterKey =(e) =>{
           setSuccess(true);
           localStorage.setItem("name",name);
           Cookies.set("name",name)
-          window.location.href="/profile"
+          window.location.href="/home"
           //Register API here
         } else {
           console.log("password Not matched");
@@ -223,6 +224,7 @@ const enterKey =(e) =>{
            
           <div >
       <ProSidebar breakPoint="lg" className={sidebar.sideBar}  >
+        <div className={sidebar.scroll}>
         <SidebarContent className={sidebar.sideav__reg__content}>
           <Header />
           <ul className={sidebar.sidenav_reg__screens}>
@@ -271,6 +273,8 @@ const enterKey =(e) =>{
             </li>
           </ul>
         </SidebarContent>
+        </div>
+       
       </ProSidebar>
     </div>
           </Col>
@@ -299,6 +303,7 @@ const enterKey =(e) =>{
                 type={nameDisplay}
                 id="name"
                 className={classes.email}
+                autoFocus
                 placeholder={text}
                 style={{
                   border: "0px",
@@ -315,6 +320,7 @@ const enterKey =(e) =>{
                     id="exampleInputEmail1"
                     className={classes.email}
                     placeholder={text}
+                    autoFocus
                     style={{
                       border: "0px",
                       outline: "none",
@@ -332,6 +338,7 @@ const enterKey =(e) =>{
                     id="exampleInputEmail1"
                     className={classes.email}
                     placeholder={text}
+                    autoFocus
                     style={{
                       border: "0px",
                       outline: "none",
@@ -349,6 +356,7 @@ const enterKey =(e) =>{
                     id="exampleInputEmail1"
                     className={classes.email}
                     placeholder={text}
+                    autoFocus
                     style={{
                       border: "0px",
                       outline: "none",
@@ -365,6 +373,7 @@ const enterKey =(e) =>{
                     type={confirmPasswordDisplay}
                     id="exampleInputEmail1"
                     className={classes.email}
+                    autoFocus
                     placeholder={text}
                     style={{
                       border: "0px",
@@ -442,6 +451,7 @@ const enterKey =(e) =>{
           showConfirmPassword ? <p> Step 4 of 4</p> : <p>Step 1 of 4</p>
         }
           </div>
+          <Footer/>
         </div>
             </Col>
        </Row>

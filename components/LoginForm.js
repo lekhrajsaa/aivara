@@ -9,6 +9,7 @@ import { Col, Container, Row } from "reactstrap";
 import sidebar from "./Sidenav.module.css";
 import Header from "./Header";
 import HeaderMobile from "./HeaderMobile";
+import Footer from "./Footer";
 const LoginForm = () => {
   const [text, setText] = useState("enter email id");
   const [show, setShow] = useState(false);
@@ -40,7 +41,7 @@ const LoginForm = () => {
       if (show) {
         console.log(email, password);
         localStorage.setItem("name", "");
-        window.location.href = "/profile";
+        window.location.href = "/home";
         // login API comes here
       }
 
@@ -53,7 +54,7 @@ const LoginForm = () => {
     if (show) {
       console.log(email, password);
       localStorage.setItem("name", "");
-      window.location.href = "/profile";
+      window.location.href = "/home";
       // login API comes here
     }
 
@@ -75,6 +76,7 @@ const LoginForm = () => {
              
             <div >
       <ProSidebar breakPoint="lg" className={sidebar.sideBar}  >
+       <div className={sidebar.scroll}>
         <SidebarContent className={sidebar.sideav__reg__content}>
           <Header />
           <ul className={sidebar.sidenav_reg__screens}>
@@ -98,6 +100,7 @@ const LoginForm = () => {
          
           </ul>
         </SidebarContent>
+        </div>
       </ProSidebar>
     </div>
             </Col>
@@ -150,6 +153,7 @@ const LoginForm = () => {
                           className={classes.email}
                           placeholder={text}
                           value={email}
+                          autoFocus
                           onChange={(e) => setEmail(e.target.value)}
                           style={{
                             border: "0px",
@@ -167,6 +171,7 @@ const LoginForm = () => {
                             id="exampleInputEmail1"
                             className={classes.email}
                             placeholder={text}
+                            autoFocus
                             style={{
                               border: "0px",
                               outline: "none",
@@ -235,8 +240,11 @@ const LoginForm = () => {
                     }
                     
                   </div>
+                  <Footer/>
                 </div>
+            
               </div>
+            
             </Col>
           </Row>
         </Container>

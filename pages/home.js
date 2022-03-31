@@ -1,10 +1,11 @@
 import HeaderApp from "../components/HeaderApp"
 import Profile from "../components/Profile"
 
-export default function profile(){
+export default function home (){
 
     return(
         <>
+    
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <script src="https://kit.fontawesome.com/f80c821559.js" crossorigin="anonymous"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
