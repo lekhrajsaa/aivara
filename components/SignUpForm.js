@@ -16,17 +16,20 @@ const SignUpForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [labName,setLabName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [showName, setShowName] = useState(true);
   const [showEmail, setShowEmail] = useState(false);
+  const[showLabName , setShowLabName] = useState(false);
   const [showPhoneNumber, setShowPhoneNumber] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [text, setText] = useState("Enter name");
   const [nameDisplay, setNameDisplay] = useState("name");
+  const [labNameDisplay, setLabNameDisplay]= useState("hidden");
   const [emailDisplay, setEmailDisplay] = useState("hidden");
   const [phoneNumberDisplay, setPhoneNumberDisplay] = useState("hidden");
   const [passwordDisplay, setPasswordDisplay] = useState("hidden");
@@ -42,24 +45,31 @@ const SignUpForm = () => {
       );
   };
 const handleBack=()=>{
+  if(showLabName){
+   
+    setShowLabName(false);
+    setText("Enter name");
+    setNameDisplay("text");
+    setShowName(true);
+  }
   if(showPhoneNumber){
   
-    setEmailDisplay("hidden");
+   
    
     setShowPhoneNumber(false);
  
-      setText("Enter name");
-      setNameDisplay("text");
-      setShowName(true);
+      setText("Enter lab name");
+      setLabNameDisplay("text");
+      setShowLabName(true);
 
   }
   if (showEmail) {
     setShowEmail(false);
-    setPhoneNumberDisplay("number");
+ 
     setText("enter phone number");
     setPhoneNumberDisplay("number");
-    setShowName(false)
-    setNameDisplay("hidden")
+    setShowLabName(false)
+    setLabNameDisplay("hidden")
     setShowPhoneNumber(true)
   }
   if (showPassword) {
@@ -94,11 +104,18 @@ const handleBack=()=>{
 const enterKey =(e) =>{
   if (e.key === 'Enter') {
     if (showName) {
-      setShowPhoneNumber(true);
+      setShowLabName(true);
       setNameDisplay("hidden");
+      setText("enter lab name");
+      setLabNameDisplay("text");
+      setShowName(false);
+    }
+    if(showLabName){
+      setShowPhoneNumber(true);
+      setLabNameDisplay("hidden");
       setText("enter phone number");
       setPhoneNumberDisplay("text");
-      setShowName(false);
+      setShowLabName(false);
     }
     if (showPhoneNumber) {
       setShowEmail(true);
@@ -145,11 +162,18 @@ const enterKey =(e) =>{
 }
   const changeField = () => {
     if (showName) {
-      setShowPhoneNumber(true);
+      setShowLabName(true);
       setNameDisplay("hidden");
+      setText("enter lab name");
+      setLabNameDisplay("text");
+      setShowName(false);
+    }
+    if(showLabName){
+      setShowPhoneNumber(true);
+      setLabNameDisplay("hidden");
       setText("enter phone number");
       setPhoneNumberDisplay("text");
-      setShowName(false);
+      setShowLabName(false);
     }
     if (showPhoneNumber) {
       setShowEmail(true);
@@ -327,6 +351,24 @@ const enterKey =(e) =>{
                       fontFamily: "Sora, sans-serif",
                     }}
                     onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Slide>
+              }
+               {showLabName &&
+                <Slide right >
+                  <input
+                   onKeyPress={(event) => enterKey(event)}
+                    type={labNameDisplay}
+                    id="exampleInputEmail1"
+                    className={classes.email}
+                    placeholder={text}
+                    autoFocus
+                    style={{
+                      border: "0px",
+                      outline: "none",
+                      fontFamily: "Sora, sans-serif",
+                    }}
+                    onChange={(e) => setLabName(e.target.value)}
                   />
                 </Slide>
               }
