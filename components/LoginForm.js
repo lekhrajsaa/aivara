@@ -128,7 +128,7 @@ const LoginForm = () => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  className={classes.signup}
+                  className={classes.login}
                 >
                   <label
                     for="exampleInputEmail1"

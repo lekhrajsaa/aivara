@@ -75,42 +75,107 @@ color:  #7B757A
   }
 }
 
-.signup{
-  margin-top: 25% !important;
-  margin-left: 8% !important;
+ .signup{
+  margin-top: 21% !important;
+  margin-left: 10% !important;
 }
-@media screen and (max-width: 1300px) and (min-width:990px){
-  .signup {
-    margin-top: 35% !important;
+.login{
+  margin-top: 20% !important;
+  margin-left: 10% !important;
+  width: auto;
+ }
+/* @media screen and (max-width: 1300px) and (min-width:990px){
+   .signup {
+    margin-top: 30% !important;
     margin-left: 20% !important;
-   
   }
+ 
 }
 @media screen and (max-width: 1500px) and (min-width:1400px){
   .signup {
-    margin-top: 30% !important;
+    margin-top: 25% !important;
     margin-left: 11% !important;
-   
   }
+  
+ 
 }
 @media screen and (max-width: 1400px) and (min-width:1300px){
-  .signup {
+ .signup {
     margin-top: 31% !important;
     margin-left: 12% !important;
-   
+  }
+  
+ 
+}
+*/
+ 
+@media screen and (max-width:1530px)  {
+  
+  .signup,.login{
+    margin-top: 21.22% !important;
+    margin-left: 15% !important;
+    width: auto;
   }
 }
-/* change here */
+@media screen and (min-width:1400px) and (max-width:1530px)  {
+  
+  .signup,.login{
+    margin-top: 21.22% !important;
+    margin-left: 15% !important;
+  }
+}
+@media screen and (max-width:1400px) {
+  
+  .signup,.login{
+    margin-top: 32% !important;
+    margin-left: 15% !important; 
+  }
+ 
+}
+@media screen and (max-width:1399px) {
+  
+  .signup,.login{
+    margin-top: 27% !important;
+    margin-left: 15% !important; 
+  }
+ 
+}
+@media screen and (max-width:1200px) {
+  
+  .signup,.login{
+    margin-top: 30% !important;
+    margin-left: 15% !important; 
+  }
+ 
+}
+@media screen and (max-width:1090px) {
+  
+  .signup,.login{
+    margin-top: 35% !important;
+    margin-left: 20% !important; 
+  }
+ 
+}
+/* @media screen and (max-height:1200px) {
+  
+  .signup .login{
+    margin-top: 30% !important;
+    margin-left: 20% !important; 
+  }
+ 
+} */
+
 @media screen and (max-height: 700px) {
   .signup {
-    margin-top: 23% !important;
-    /* margin-left: 12% !important; */
-   
-  }
-}
-
-
-
+      margin-top: 31% !important; 
+    }
+  }  
+  @media screen and (max-width:1630px) and  (max-height: 700px) {
+   .signup, .login {
+        margin-top: 18% !important; 
+      }
+    }  
+  
 
 /* @media screen and (max-width: 650px) {
   .signup {
