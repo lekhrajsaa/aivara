@@ -167,11 +167,16 @@ color:  #7B757A
 
 @media screen and (max-height: 700px) {
   .signup {
-      margin-top: 31% !important; 
+      margin-top: 22% !important; 
     }
   }  
+  @media screen and (min-height: 700px) and (max-height: 840px) {
+    .signup {
+        margin-top: 25% !important; 
+      }
+    }  
   @media screen and (max-width:1630px) and  (max-height: 700px) {
-   .signup, .login {
+   .login {
         margin-top: 18% !important; 
       }
     }  
