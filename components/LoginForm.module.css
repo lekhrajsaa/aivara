@@ -362,6 +362,20 @@ margin-top: 3%;
    
   }
 }
+
+@media screen and (max-height: 700px) {
+  .report2 {
+    margin-top: 2% !important;
+  }
+  .report{
+    margin-top: 6%;
+    font-size: 14px;
+   
+  }
+}
+
+
+
 .profileLine{
   border: 0.5px solid #c0bec0;
   margin-top: 1%;

@@ -10,6 +10,7 @@ import sidebar from "./Sidenav.module.css";
 import Header from "./Header";
 import HeaderMobile from "./HeaderMobile";
 import Footer from "./Footer";
+import axios from "axios";
 const LoginForm = () => {
   const [text, setText] = useState("enter email id");
   const [show, setShow] = useState(false);
@@ -36,27 +37,86 @@ const LoginForm = () => {
       setShow(false);
     }
   };
-  const enterKey = (e) => {
+  const enterKey = async(e) => {
     if (e.key === "Enter") {
       if (show) {
         console.log(email, password);
         localStorage.setItem("name", "");
-        window.location.href = "/home";
+        // window.location.href = "/home";
         // login API comes here
-      }
 
+        let body =  { 
+          query: 
+          `{
+            login(email:"${String(email)}",password:"${String(password)}") {
+                token
+            }
+        }`
+          , 
+          variables: {}
+      }
+      let options = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    try{
+      const resp = await axios.post(
+        `${process.env.REACT_APP_SERVER}/graphql`,body,options
+      );
+      console.log(resp);
+         if(resp.status === 200){
+           localStorage.setItem("token",resp.data.data.login.token);
+           window.location.href = "/home";
+          }
+    }catch(err){
+      console.log(err)
+    }
+  }
+       
+      
+      
       setText("enter password");
       setShow(true);
       setFieldDisplay("password");
     }
   };
-  const changeField = () => {
+  const changeField = async() => {
     if (show) {
       console.log(email, password);
       localStorage.setItem("name", "");
-      window.location.href = "/home";
+      // window.location.href = "/home";
       // login API comes here
+      let body =  { 
+        query: 
+        `{
+          login(email:${email},password:${password}) {
+              token
+          }
+      }`
+        , 
+        variables: {}
     }
+    let options = {
+      headers: {
+          'Content-Type': 'application/json'
+      }
+  }
+  try{
+    const resp = await axios.post(
+      `${process.env.REACT_APP_SERVER}/graphql`,body,options
+    );
+    console.log(resp);
+    if(resp.status === 200){
+      localStorage.setItem("token",resp.data.data.login.token);
+      window.location.href = "/home";
+     }
+  }catch(err){
+    console.log(err)
+  }
+    }
+
+ 
 
     setText("enter password");
     setShow(true);

@@ -1,14 +1,16 @@
 import { Col, Container, Row } from "reactstrap";
 import classes from "./LoginForm.module.css";
-
+import axios from "axios";
 
 
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 const Profile = () => {
+  const [user ,setuser] = useState();
+  const[Token,setToken] = useState();
   const [name, setName] = useState("")
   useEffect(() => {
-     var name = localStorage.getItem('name')
+     var name = user.name;
     name= name.split(" ")[0]
    setName(name)
    
@@ -46,9 +48,47 @@ const Profile = () => {
   date:"08/03/22;23:00"
 },
 
-   
-
   ]
+  
+
+  const getUserData = async()=>{
+    let body =  { 
+      query: 
+      `{
+        getUser {
+          name
+          labName
+          phoneNo
+          email
+          userId
+        }
+      }`
+      , 
+      variables: {}
+  }
+  let options = {
+    headers: {
+        'Content-Type': 'application/json',
+        "Authorization" : `Bearer ${String(Token)}`
+    },
+   
+}
+try{
+  const resp = await axios.post(
+    `${process.env.REACT_APP_SERVER}/graphql`,body,options
+  );
+  console.log(resp);
+  setuser(resp.data.data.getUser);
+}catch(err){
+  console.log(err)
+}
+  }
+
+ useEffect(()=>{
+  setToken(localStorage.getItem('token'));
+  getUserData();
+ },[]) 
+ console.log(user);
   return (
     <>
       <Container className={classes.name}>

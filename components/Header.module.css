@@ -28,7 +28,7 @@ display: none;
   
 }
 
-.header a {
+.header a{
     float: left;
     color:  #818181;
     
@@ -78,7 +78,130 @@ display: none;
     }
     
     .header-right {
-      float: none;
+      float: right;
   
     }
+}
+
+/* verify Email page */
+
+.verifyEmail_header{
+ display: flex;
+ flex-direction: row;
+}
+.verifyEmail_header d{
+ margin-top: 3%;
+ margin-left: 10%;
+}
+.verifyEmail_backButton{
+  /* position: absolute;
+  top: 7%;
+  left: 78%;
+  text-decoration: underline; */
+  color:  #818181;
+  
+  text-align: center;
+  padding: 8px;
+  text-decoration: underline;
+  font-size: 16px; 
+  line-height: 25px;
+  border-radius: 4px;
+  margin-left: 74%;
+  margin-top: 2%;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  
+}
+.verifyEmail_headerMobile{
+  visibility: hidden;
+}
+/* .verifyEmail_content{
+  margin-top: 20%;
+  margin-left: 5%;
+} */
+.verifyEmail_text{
+  color: #C4C4C4;
+  font-size: 150%;
+  font-family: 'Sora', sans-serif;
+  margin-top: 18%;
+  margin-left: 10%;
+}
+.verifyEmail_resend{
+  color: #818181;
+  font-size: 87%;
+  font-family: 'Sora', sans-serif;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-left: 10%;
+}
+
+/* @media  screen and (max-width:765) {
+  .verifyEmail_heade d{
+  float: left;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  margin-left: 10%;
+  margin-top: 3%;}
+  .verifyEmail_content{
+    margin-top: 20%;
+   font-size: 20px;
+  }
+  .verifyEmail_header d{
+    margin-top: 4%;
+   }
+} */
+
+@media  screen and (max-width:1000px) {
+  .verifyEmail_backButton{
+    float: left;
+    color:  #818181;
+    
+    text-align: center;
+    padding: 10px;
+    text-decoration: underline;
+    font-size: 16px; 
+    line-height: 25px;
+    border-radius: 4px;
+    margin-left: 65%;
+    margin-top: 2%;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+}
+}
+.verifyEmail_headerMobile a{
+margin-top: -10%;
+}
+
+@media  screen and (max-width:996px) {
+  .verifyEmail_header{
+ visibility: hidden;
+  }
+  .verifyEmail_headerMobile{
+    margin-top: -12%;
+  }
+  .verifyEmail_headerMobile{
+   visibility: visible;
+   font-weight: 900;
+
+  }
+  
+  .verifyEmail_header {
+    margin: 0%;
+  }
+  .verifyEmail_text{
+    margin-top: 25%;
+  }
+  .verifyEmail_text{
+    margin-top: 30%;
+  }
+  .logo{
+    margin-top: -12%;
+  }
+
+}
+@media screen and (max-width:1550px){
+  .verifyEmail_text{
+    margin-top: 25%;
+  }
 }

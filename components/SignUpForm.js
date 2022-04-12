@@ -3,7 +3,7 @@ import classes from "./LoginForm.module.css";
 import { useState } from "react";
 import Slide from "react-reveal/Slide";
 import Cookies from "js-cookie";
-
+import axios from "axios";
 import { Col, Container, Row } from "reactstrap";
 
 import { ProSidebar, SidebarContent } from "react-pro-sidebar";
@@ -101,7 +101,7 @@ const handleBack=()=>{
 
 
 }
-const enterKey =(e) =>{
+const enterKey = async(e) =>{
   if (e.key === 'Enter') {
     if (showName) {
       setShowLabName(true);
@@ -138,17 +138,49 @@ const enterKey =(e) =>{
       setConfirmPasswordDisplay("password");
     }
     if (showConfirmPassword) {
-      console.log(name, email, phoneNumber, password, confirmPassword);
+      console.log(name,labName, email, phoneNumber, password, confirmPassword);
       if (validateEmail(email)) {
         if (password === confirmPassword) {
           console.log("Password Matched");
           setSuccess(true);
           localStorage.setItem("name",name);
           Cookies.set("name",name)
-          window.location.href="/home"
-         
+          // window.location.href="/home"
 
           //Register API here
+          let body =  { 
+            query: 
+            `mutation {
+              signup(signupInput:{
+                name:"${String(name)}",
+                labName:"${String(labName)}",
+                phoneNo:"${String(phoneNumber)}",
+                email:"${String(email)}",
+                password:"${String(password)}",
+                confirmPassword:"${String(confirmPassword)}"
+              }) {
+                message
+              }
+          }`
+            , 
+            variables: {}
+        }
+        let options = {
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }
+          try{
+            const resp = await axios.post(
+              `${process.env.REACT_APP_SERVER}/graphql`,body,options
+            );
+            console.log(resp)
+          }catch(err){
+            console.log(err)
+          }
+        
+          localStorage.setItem("email", email);
+            window.location.href="/verify"
         } else {
           console.log("password Not matched");
           // Error Display here
@@ -160,7 +192,7 @@ const enterKey =(e) =>{
    
   }
 }
-  const changeField = () => {
+  const changeField = async() => {
     if (showName) {
       setShowLabName(true);
       setNameDisplay("hidden");
@@ -196,15 +228,51 @@ const enterKey =(e) =>{
       setConfirmPasswordDisplay("password");
     }
     if (showConfirmPassword) {
-      console.log(name, email, phoneNumber, password, confirmPassword);
+      console.log(name, email,labName, phoneNumber, password, confirmPassword);
       if (validateEmail(email)) {
         if (password === confirmPassword) {
           console.log("Password Matched");
           setSuccess(true);
           localStorage.setItem("name",name);
           Cookies.set("name",name)
-          window.location.href="/home"
+          // window.location.href="/home"
           //Register API here
+
+          let body =  { 
+            query: 
+            `mutation{
+              signup(signupInput:{
+                name:"${String(name)}",
+                labName:"${String(labName)}",
+                phoneNo:"${String(phoneNumber)}",
+                email:"${String(email)}",
+                password:"${String(password)}",
+                confirmPassword:"${String(confirmPassword)}"
+              }) {
+                message
+              }
+          }`
+            , 
+            variables: {}
+        }
+        let options = {
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      }
+          try{
+            const resp = await axios.post(
+              `${process.env.REACT_APP_SERVER}/graphql`,body,options
+            );
+            console.log(resp)
+          }catch(err){
+            console.log(err)
+          }
+        
+
+          localStorage.setItem("email", email);
+         window.location.href="/verify"
+         
         } else {
           console.log("password Not matched");
           // Error Display here
