@@ -156,14 +156,14 @@ color:  #7B757A
   }
  
 }
-/* @media screen and (max-height:1200px) {
+@media screen and (max-height:900px) {
   
-  .signup .login{
+  .signup,.login{
     margin-top: 30% !important;
     margin-left: 20% !important; 
   }
- 
-} */
+
+}
 
 @media screen and (max-height: 700px) {
   .signup {
@@ -239,7 +239,10 @@ color:  #7B757A
    
   }
 }
-
+.strongpassword{
+  margin-top: -15px;
+  margin-bottom: 2px;
+}
 
 
 #placeholder{
@@ -322,7 +325,9 @@ align-items: center;
 }
 
 
-
+.PasswordValid li{
+  list-style: none;
+}
 
 /* New page */
 

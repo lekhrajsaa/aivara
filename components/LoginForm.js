@@ -69,8 +69,9 @@ const LoginForm = () => {
            localStorage.setItem("token",resp.data.data.login.token);
            window.location.href = "/home";
           }
-    }catch(err){
-      console.log(err)
+    }catch(resData){
+      console.log(resData)
+      
     }
   }
        
@@ -90,7 +91,7 @@ const LoginForm = () => {
       let body =  { 
         query: 
         `{
-          login(email:${email},password:${password}) {
+          login(email:"${String(email)}",password:"${String(password)}") {
               token
           }
       }`
