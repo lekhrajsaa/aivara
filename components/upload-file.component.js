@@ -10,4 +10,6 @@ import Dropzone from 'react-dropzone'
       </div>
     </section>
   )}
+ 
 </Dropzone>
+ console.log(getRootProps)

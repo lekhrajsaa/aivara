@@ -31,8 +31,8 @@ export default function ge(){
          <Tabs items={getTabs()}   selectedTabKey={0}  />
       
               </div>
-
     
+   
          </>
      )
  }

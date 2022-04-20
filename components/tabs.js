@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import StyledDropzone from "./Upload";
 import { decomposeColor } from "@mui/material";
 
+import PreviewMultipleImages from "./multiplefile";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -123,6 +125,7 @@ export default function BasicTabs() {
       </div>
       <TabPanel value={value} index={0}>
         <StyledDropzone />
+      
       </TabPanel>
       <TabPanel value={value} index={1}></TabPanel>
       <TabPanel value={value} index={2}></TabPanel>

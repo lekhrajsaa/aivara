@@ -5,13 +5,24 @@ import Slide from "react-reveal/Slide";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { Col, Container, Row } from "reactstrap";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 import { ProSidebar, SidebarContent } from "react-pro-sidebar";
 import Header from "./Header";
 import "react-pro-sidebar/dist/css/styles.css";
 import sidebar from "./Sidenav.module.css";
 import Footer from "./Footer";
+import validator from 'validator' 
+import { set } from "lodash";
 
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+var errors;
 const SignUpForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,6 +47,7 @@ const SignUpForm = () => {
   const [confirmPasswordDisplay, setConfirmPasswordDisplay] =
     useState("hidden");
   const [success, setSuccess] = useState(false);
+  const[ErrorMessage,setErrorMessage] = useState(false);
 
   const validateEmail = (email) => {
     return String(email)
@@ -44,6 +56,27 @@ const SignUpForm = () => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
+ const validatePhoneNumber = (number) => {
+     return String(number).match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im);
+   }
+
+   const Passwordvalidate = (value) => {
+  
+    if (validator.isStrongPassword(value, {
+      minLength: 8, minLowercase: 1,
+      minUppercase: 1, minNumbers: 1, minSymbols: 1
+    })) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  let textinfo =()=>{
+    <div>
+      <h1>Strong password</h1>
+    </div>
+  }
+  
 const handleBack=()=>{
   if(showLabName){
    
@@ -116,33 +149,59 @@ const enterKey = async(e) =>{
       setText("enter phone number");
       setPhoneNumberDisplay("text");
       setShowLabName(false);
+   
     }
     if (showPhoneNumber) {
-      setShowEmail(true);
-      setPhoneNumberDisplay("hidden");
-      setText("enter email id");
-      setEmailDisplay("email");
-     
+      if(validatePhoneNumber(phoneNumber)){
+        setShowEmail(true);
+        setPhoneNumberDisplay("hidden");
+        setText("enter email id");
+        setEmailDisplay("email");
+      }else{
+        setShowPhoneNumber(true);
+        errors = "Enter valid phone number";
+        setErrorMessage(true);
+      }
     }
     if (showEmail) {
-      setShowPassword(true);
-      setEmailDisplay("hidden");
-      setText("enter password");
-      setPasswordDisplay("password");
+      if(validateEmail(email)){
+        setShowPassword(true);
+        setEmailDisplay("hidden");
+        setText("enter password");
+        setPasswordDisplay("password");
+      }else{
+        setShowEmail(true);
+        errors = " Enter valid email";
+        setErrorMessage(true);
+      }
     }
    
     if (showPassword) {
-      setShowConfirmPassword(true);
-      setPasswordDisplay("hidden");
-      setText("confirm  password");
-      setConfirmPasswordDisplay("password");
+     if(Passwordvalidate(password)){
+       setShowConfirmPassword(true);
+       setPasswordDisplay("hidden");
+       setText("confirm  password");
+       setConfirmPasswordDisplay("password");
+      }else{
+       // errors = "please Enter valid password";
+         errors=<div><h6>Password must contains</h6>
+                       <div className={classes.PasswordValid}>
+                         <li>Minmum 8 Character</li> 
+                         <li>At least one Number</li>  
+                         <li>At least one Uppercase</li> 
+                         <li>At least one Special Charaters</li> 
+                        </div>
+                </div>;
+        setErrorMessage(true);
+      }
     }
     if (showConfirmPassword) {
+ 
       console.log(name,labName, email, phoneNumber, password, confirmPassword);
       if (validateEmail(email)) {
         if (password === confirmPassword) {
           console.log("Password Matched");
-          setSuccess(true);
+          // setSuccess(true);
           localStorage.setItem("name",name);
           Cookies.set("name",name)
           // window.location.href="/home"
@@ -174,24 +233,33 @@ const enterKey = async(e) =>{
             const resp = await axios.post(
               `${process.env.REACT_APP_SERVER}/graphql`,body,options
             );
-            console.log(resp)
+            const Response = await resp.json();
+            console.log(Response);
+            if(resp.status === 200){
+              window.location.href="/verify";
+            }
+            errors = "Email Already Registered";
+            setErrorMessage(true)
           }catch(err){
             console.log(err)
           }
         
           localStorage.setItem("email", email);
-            window.location.href="/verify"
+            // window.location.href="/verify"
         } else {
           console.log("password Not matched");
-          // Error Display here
+          setConfirmPassword(true)
+          errors ="password Not matched";
+          setErrorMessage(true);
         }
       } else {
-        console.log("Please enter valid email address");
+        console.log(" Enter valid email address");
       }
     }
    
   }
 }
+
   const changeField = async() => {
     if (showName) {
       setShowLabName(true);
@@ -208,24 +276,49 @@ const enterKey = async(e) =>{
       setShowLabName(false);
     }
     if (showPhoneNumber) {
+      if(validatePhoneNumber(phoneNumber)){
       setShowEmail(true);
       setPhoneNumberDisplay("hidden");
       setText("enter email id");
       setEmailDisplay("email");
+      }else{
+        setShowPhoneNumber(true);
+        errors = "Enter valid phone number";
+        setErrorMessage(true);
+      }
      
     }
     if (showEmail) {
+      if(validateEmail(email)){
       setShowPassword(true);
       setEmailDisplay("hidden");
       setText("enter password");
       setPasswordDisplay("password");
+      }else{
+        setShowEmail(true);
+      errors = " Enter valid email";
+      setErrorMessage(true);
+      }
     }
    
     if (showPassword) {
-      setShowConfirmPassword(true);
-      setPasswordDisplay("hidden");
-      setText("confirm  password");
-      setConfirmPasswordDisplay("password");
+      if(Passwordvalidate(password)){
+        setShowConfirmPassword(true);
+        setPasswordDisplay("hidden");
+        setText("confirm  password");
+        setConfirmPasswordDisplay("password");
+      }else{
+       // errors = "please Enter valid password";
+        errors=<div><h6>Password must contains</h6>
+                      <div className={classes.PasswordValid}>
+                        <li>Minmum 8 Character</li> 
+                        <li>At least one Number</li>  
+                        <li>At least one Uppercase</li> 
+                        <li>At least one Special Charaters</li> 
+                       </div>
+               </div>;
+       setErrorMessage(true);
+      }
     }
     if (showConfirmPassword) {
       console.log(name, email,labName, phoneNumber, password, confirmPassword);
@@ -234,6 +327,7 @@ const enterKey = async(e) =>{
           console.log("Password Matched");
           setSuccess(true);
           localStorage.setItem("name",name);
+          localStorage.setItem("email", email);
           Cookies.set("name",name)
           // window.location.href="/home"
           //Register API here
@@ -264,17 +358,25 @@ const enterKey = async(e) =>{
             const resp = await axios.post(
               `${process.env.REACT_APP_SERVER}/graphql`,body,options
             );
-            console.log(resp)
+            console.log(resp);
+            if(resp.status === 200){
+              window.location.href="/verify"
+            }else{
+              errors = "Email Already Registered";
+              setErrorMessage(true);
+            }
           }catch(err){
             console.log(err)
           }
         
 
-          localStorage.setItem("email", email);
-         window.location.href="/verify"
+         
+        
+        //  window.location.href="/verify"
          
         } else {
-          console.log("password Not matched");
+          errors ="password Not matched";
+          setErrorMessage(true);
           // Error Display here
         }
       } else {
@@ -283,11 +385,11 @@ const enterKey = async(e) =>{
     }
   };
 
-  return (
+  return (<>
  
-    // <div class="row" style={{ marginTop: "10%", marginLeft: "10%" }}>
+    {/* // <div class="row" style={{ marginTop: "10%", marginLeft: "10%" }}>
     //   <div class="col-md-5 col-xs-12">
-    //     <form>
+    //     <form> */}
     <div>
        
       <div class={classes.back} style={{position:"absolute",
@@ -552,6 +654,9 @@ const enterKey = async(e) =>{
             }}
             className={classes.secure}
           >
+          <div className={classes.strongpassword}>
+          
+          </div>
             Already registered click here to <a href="/">Login</a>
           </div>
           <div className={classes.step}>
@@ -573,7 +678,16 @@ const enterKey = async(e) =>{
    
     
     </div>
+    
+    <Stack spacing={2} sx={{ width: '100%' }}>
+      <Snackbar open={ErrorMessage} autoHideDuration={6000} onClose={()=>setErrorMessage(false)}>
+        <Alert onClose={()=>setErrorMessage(false)} severity="error" sx={{ width: '100%' }}>
+       {errors}
+      </Alert>
+     </Snackbar>
+     </Stack>
+  
 
-  );
+  </>);
 };
 export default SignUpForm;

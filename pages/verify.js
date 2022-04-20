@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import classes from "../components/Header.module.css";
 import HeaderMobile from "../components/HeaderMobile";
 import styles from "../components/LoginForm.module.css"
+import { useRouter } from 'next/router'
+
 export default function verify(){
   const[email,setemail] = useState();
+  const route = useRouter();
   useEffect(()=>{
    setemail(localStorage.getItem('email'));
   },[])
@@ -12,7 +15,7 @@ return(<>
          <div className={classes.verifyEmail} >
              <div className={classes.verifyEmail_header}>
                <d ><img src="/Frame.svg" alt=""/></d> 
-               <a className={classes.verifyEmail_backButton}>Back</a>
+               <a className={classes.verifyEmail_backButton}  onClick={()=>route.push("/")}>Back</a>
              </div>
               <div className={classes.verifyEmail_headerMobile}>
          

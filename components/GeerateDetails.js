@@ -1,6 +1,66 @@
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { Col, Container, Row } from "reactstrap";
 import classes from "./GenerateDetails.module.css";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import { useSelector } from "react-redux";
+import axios from "axios"
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+let messg;
 const GenerateDetails = () => {
+  
+  const[CompanyName,setCompanyName] = useState();
+  const[natureOfWork,setnatureOfWork] = useState();
+  const[generated,setgenerated] = useState();
+  const[ErrorMessage,setErrorMessage] = useState(false);
+  const[Token,setToken] = useState();
+  const images = useSelector((state)=>state.userdata.lab_images)
+  console.log(images)
+  const SubmitReport = async(e)=>{
+    e.preventDefault();
+    if(!CompanyName || !natureOfWork || !generated) messg="Enter all fileds", setErrorMessage(true)
+    // photos: ["xyz.jpg","abc.png"],
+    let body =  { 
+      query: 
+      `mutation {
+        postReport(reportInput:{
+          photos: "${String(images)}",
+          companyName: "${String(CompanyName)}",
+          natureOfWork: "${String(natureOfWork)}",
+          generatedBy: "${String(generated)}"
+        }) {
+          message
+        }
+      }`
+      , 
+      variables: {}
+  }
+  let options = {
+    headers: {
+        'Content-Type': 'application/json',
+        "Authorization" : `Bearer ${String(Token)}`
+    }
+}
+    try{
+      const resp = await axios.post(
+        `${process.env.REACT_APP_SERVER}/graphql`,body,options
+      );
+      console.log(resp);
+      
+    }catch(err){
+      console.log(err)
+    }
+
+  }
+
+  useEffect(()=>{
+    setToken(localStorage.getItem('token'));
+  },[])
   return (
     <>
       <p className={classes.head}> <span className={classes.head2}>Generate : </span> Add details</p>
@@ -26,7 +86,7 @@ const GenerateDetails = () => {
               </label>
             </Col>
             <Col md={5} >
-              <input type="text" name="CompanyName" className={classes.fill} />
+              <input type="text" name="CompanyName" className={classes.fill} value={CompanyName} onChange={(e)=>setCompanyName(e.target.value)}/>
             </Col>
           </Row>
           <Row className={classes.rowe}>
@@ -37,7 +97,7 @@ const GenerateDetails = () => {
               </label>
             </Col>
             <Col md={5} >
-              <input type="text" name="natureOfWork" className={classes.fill} />
+              <input type="text" name="natureOfWork" className={classes.fill}  value={natureOfWork} onChange={(e)=>setnatureOfWork(e.target.value)} />
             </Col>
           </Row>
           <Row className={classes.rowe}>
@@ -51,12 +111,14 @@ const GenerateDetails = () => {
               <input
                 type="text"
                 name="generated"
-              
+                value={generated}
+                onChange={(e)=>setgenerated(e.target.value)}
+                
                 className={classes.fill}
               />
             </Col>
           </Row>
-          <button type="submit" className={classes.sub}>
+          <button  className={classes.sub} onClick={SubmitReport}>
             SUBMIT
           </button>
         </Container>
@@ -64,6 +126,14 @@ const GenerateDetails = () => {
       <Container className={classes.footer}>
           <p> copyright aivara | terms and coditions </p>
       </Container>
+
+      <Stack spacing={2} sx={{ width: '100%' }}>
+      <Snackbar open={ErrorMessage} autoHideDuration={6000} onClose={()=>setErrorMessage(false)}>
+        <Alert onClose={()=>setErrorMessage(false)} severity="error" sx={{ width: '100%' }}>
+       {messg}
+      </Alert>
+     </Snackbar>
+     </Stack>
     </>
   );
 };

@@ -1,10 +1,16 @@
 import { Col, Container, Row } from "reactstrap";
 import classes from "./LoginForm.module.css";
 import axios from "axios";
+<<<<<<< HEAD
+=======
+import { Getting_user_data } from "../Data/dataAction";
+import { useDispatch, useSelector } from "react-redux";
+>>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
 
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 const Profile = () => {
+<<<<<<< HEAD
   const [user, setuser] = useState();
   const [Token, setToken] = useState();
   const [name, setName] = useState("");
@@ -13,6 +19,19 @@ const Profile = () => {
   //   name= name.split(" ")[0]
   //  setName(name)
 
+=======
+  const [user, setuser] = useState([]);
+  const [token, setToken] = useState();
+  const [name, setName] = useState();
+  const userdata = useSelector((state) => state.userdata.userdata);
+
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //    var name = user.name;
+  //   name= name.split(" ")[0]
+  //  setName(name)
+
+>>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
   // }, [])
 
   const array = [
@@ -44,16 +63,22 @@ const Profile = () => {
       date: "08/03/22;23:00",
     },
   ];
+<<<<<<< HEAD
 
+=======
+  console.log(process.env.REACT_APP_SERVERAPI);
+>>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
   const getUserData = async () => {
     let body = {
       query: `{
         getUser {
           name
-          labName
-          phoneNo
-          email
-          userId
+    labName
+    phoneNo
+    email
+    userId
+    lastLoggedIn
+    password
         }
       }`,
       variables: {},
@@ -61,7 +86,12 @@ const Profile = () => {
     let options = {
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `Bearer ${String(Token)}`,
+=======
+        Authorization: `Bearer ${String(token)}`,
+        "x-api-key": process.env.REACT_APP_API,
+>>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
       },
     };
     try {
@@ -70,8 +100,14 @@ const Profile = () => {
         body,
         options
       );
+<<<<<<< HEAD
       console.log(resp);
       setuser(resp.data.data.getUser);
+=======
+      // console.log(resp);
+      await setuser(resp.data.data.getUser);
+      dispatch(Getting_user_data(resp.data.data.getUser));
+>>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
     } catch (err) {
       console.log(err);
     }
@@ -79,15 +115,28 @@ const Profile = () => {
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
+<<<<<<< HEAD
     getUserData();
   }, []);
   console.log(user);
+=======
+    if (token) {
+      getUserData();
+    }
+  }, [token]);
+
+  console.log(userdata);
+>>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
   return (
     <>
       <Container className={classes.name}>
         <Row>
           <Col md={11} xs={10}>
+<<<<<<< HEAD
             <div className={classes.hello}>Hello, Abhishek</div>
+=======
+            <div className={classes.hello}>Hello, {userdata.name}</div>
+>>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
             <div
               style={{
                 color: "#C4C4C4",
