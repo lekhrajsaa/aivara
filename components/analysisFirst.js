@@ -1,6 +1,6 @@
-import classes from "../components/analysis.module.css";
+import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
-const analysisfirst = () => {
+const Analysisheader = () => {
   return (
     <>
       <div className={classes.analysis_header}>
@@ -15,4 +15,4 @@ const analysisfirst = () => {
     </>
   );
 };
-export default analysisfirst;
+export default Analysisheader;

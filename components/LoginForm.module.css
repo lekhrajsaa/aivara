@@ -1,32 +1,26 @@
 .login {
-
   width: 10px;
   height: 20px;
-
 }
 
 .header {
   position: sticky;
   top: 0;
   z-index: 100;
- 
-
 }
 
 #logo_cont {
   width: 60px;
-
 }
-.step{
-  font-family: 'Sora', sans-serif;
+.step {
+  font-family: "Sora", sans-serif;
   font-size: 95%;
-  color: #9B9B9B;
+  color: #9b9b9b;
   margin-top: 1%;
 }
 @media screen and (max-width: 1000px) {
   .step {
-   display: none;
-   
+    display: none;
   }
 }
 
@@ -35,55 +29,53 @@
   object-fit: contain;
 }
 
-.bottomLine{
-  background: linear-gradient(118.65deg, #3699FB 6.89%, rgba(255, 172, 242, 0) 107.01%);
+.bottomLine {
+  background: linear-gradient(
+    118.65deg,
+    #3699fb 6.89%,
+    rgba(255, 172, 242, 0) 107.01%
+  );
   height: 16%;
   width: 48%;
   /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  */
 }
 
-.email:focus{
+.email:focus {
   outline: none;
-
 }
-.email::placeholder{
-  color:#DCD3E9 ;
+.email::placeholder {
+  color: #dcd3e9;
   font-size: 100%;
-  font-family: 'Sora', sans-serif;
+  font-family: "Sora", sans-serif;
 }
 .footer {
-
   width: 60%;
-padding-left: 0%;
- margin: 0%;
- position: absolute;
- bottom: 5%;
-  font-family: 'Sora', sans-serif;
+  padding-left: 0%;
+  margin: 0%;
+  position: absolute;
+  bottom: 5%;
+  font-family: "Sora", sans-serif;
   font-style: normal;
   font-weight: normal;
   font-size: 70%;
 
   text-align: justify;
-color:  #7B757A 
-
-} 
-@media screen and (max-width: 1300px) and (min-width:990px){
+  color: #7b757a;
+}
+@media screen and (max-width: 1300px) and (min-width: 990px) {
   .footer {
- 
-
-   
   }
 }
 
- .signup{
+.signup {
   margin-top: 21% !important;
   margin-left: 10% !important;
 }
-.login{
+.login {
   margin-top: 20% !important;
   margin-left: 10% !important;
   width: auto;
- }
+}
 /* @media screen and (max-width: 1300px) and (min-width:990px){
    .signup {
     margin-top: 30% !important;
@@ -108,79 +100,81 @@ color:  #7B757A
  
 }
 */
- 
-@media screen and (max-width:1530px)  {
-  
-  .signup,.login{
+
+@media screen and (max-width: 1530px) {
+  .signup,
+  .login {
     margin-top: 21.22% !important;
     margin-left: 15% !important;
     width: auto;
   }
 }
-@media screen and (min-width:1400px) and (max-width:1530px)  {
-  
-  .signup,.login{
+@media screen and (width: 1024px) and (height: 600px) {
+  .signup,
+  .login {
+    margin-top: 28.22% !important;
+    margin-left: 15% !important;
+    width: auto;
+  }
+}
+@media screen and (min-width: 1400px) and (max-width: 1530px) {
+  .signup,
+  .login {
     margin-top: 21.22% !important;
     margin-left: 15% !important;
   }
 }
-@media screen and (max-width:1400px) {
-  
-  .signup,.login{
+@media screen and (max-width: 1400px) {
+  .signup,
+  .login {
     margin-top: 32% !important;
-    margin-left: 15% !important; 
+    margin-left: 15% !important;
   }
- 
 }
-@media screen and (max-width:1399px) {
-  
-  .signup,.login{
+@media screen and (max-width: 1399px) {
+  .signup,
+  .login {
     margin-top: 27% !important;
-    margin-left: 15% !important; 
+    margin-left: 15% !important;
   }
- 
 }
-@media screen and (max-width:1200px) {
-  
-  .signup,.login{
+@media screen and (max-width: 1200px) {
+  .signup,
+  .login {
     margin-top: 30% !important;
-    margin-left: 15% !important; 
+    margin-left: 15% !important;
   }
- 
 }
-@media screen and (max-width:1090px) {
-  
-  .signup,.login{
+@media screen and (max-width: 1090px) {
+  .signup,
+  .login {
     margin-top: 35% !important;
-    margin-left: 20% !important; 
+    margin-left: 20% !important;
   }
- 
 }
-@media screen and (max-height:900px) {
-  
-  .signup,.login{
+@media screen and (max-height: 900px) {
+  .signup,
+  .login {
     margin-top: 30% !important;
-    margin-left: 20% !important; 
+    margin-left: 20% !important;
   }
-
 }
 
 @media screen and (max-height: 700px) {
   .signup {
-      margin-top: 22% !important; 
-    }
-  }  
-  @media screen and (min-height: 700px) and (max-height: 840px) {
-    .signup {
-        margin-top: 25% !important; 
-      }
-    }  
-  @media screen and (max-width:1630px) and  (max-height: 700px) {
-   .login {
-        margin-top: 18% !important; 
-      }
-    }  
-  
+    margin-top: 22% !important;
+  }
+}
+@media screen and (min-height: 700px) and (max-height: 840px) {
+  .signup {
+    margin-top: 25% !important;
+  }
+}
+@media screen and (max-width: 1630px) and (max-height: 700px) {
+  .login {
+    margin-top: 18% !important;
+  }
+}
 
 /* @media screen and (max-width: 650px) {
   .signup {
@@ -192,80 +186,65 @@ color:  #7B757A
 @media screen and (max-width: 650px) {
   .secure {
     font-size: 80% !important;
-   
   }
 }
 @media screen and (max-width: 580px) {
   .secure {
     font-size: 70% !important;
-   
   }
 }
 @media screen and (max-width: 285px) {
   .only {
     font-size: 70% !important;
- 
   }
 }
 @media screen and (max-width: 500px) {
   .secure {
     font-size: 60% !important;
-    
-   
   }
 }
 
-@media screen and (min-width: 740px) and (max-width:980px){
+@media screen and (min-width: 740px) and (max-width: 980px) {
   .secure {
     font-size: 80% !important;
     width: 120% !important;
-    
-   
   }
 }
-@media screen and (min-width: 760px) and (max-width:930px){
+@media screen and (min-width: 760px) and (max-width: 930px) {
   .bottomLine {
- 
     width: 130% !important;
-    
-   
   }
 }
-@media screen and (min-width: 260px) and (max-width:430px){
+@media screen and (min-width: 260px) and (max-width: 430px) {
   .bottomLine {
- 
     width: 110% !important;
-    
-   
   }
 }
-.strongpassword{
+.strongpassword {
   margin-top: -15px;
   margin-bottom: 2px;
 }
 
-
-#placeholder{
- color:  #DCD3E9;
- font-family: 'Sora', sans-serif;
- font-size: 80%;
+#placeholder {
+  color: #dcd3e9;
+  font-family: "Sora", sans-serif;
+  font-size: 80%;
 }
-.success{
-  color: #C4C4C4;
+.success {
+  color: #c4c4c4;
   font-size: 150%;
-  font-family: 'Sora', sans-serif;
+  font-family: "Sora", sans-serif;
   margin-top: 20%;
   margin-left: 20%;
 }
-.resend{
+.resend {
   color: #818181;
   font-size: 87%;
-  font-family: 'Sora', sans-serif;
+  font-family: "Sora", sans-serif;
   font-weight: bold;
   text-decoration: underline;
   margin-left: 20%;
 }
-
 
 /* Header FOR APP */
 
@@ -274,102 +253,101 @@ color:  #7B757A
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 
-.headerText{
-  font-family: 'Sora';
+.headerText {
+  font-family: "Sora";
   color: white;
 }
-.testTab:focus{
-  color: #395D89 !important;
+.testTab:focus {
+  color: #395d89 !important;
   font-weight: bold;
 }
-.testTab{
+.testTab {
   margin-left: 2.5%;
   border: 0px solid white !important;
   border-color: white;
   text-transform: initial;
   font-weight: 400;
-  font-family: 'Sora'!important;
+  font-family: "Sora" !important;
   background: white !important;
-  color: #8A8A8A !important;
-
+  color: #8a8a8a !important;
 }
 
-.test{
+.test {
   border: 0px solid white !important;
   border-color: white;
   text-transform: initial;
-
-  
 }
 
-.generate{
+.generate {
   display: flex;
   justify-content: center;
-align-items: center;
+  align-items: center;
 }
 
-
-@media (max-width:900px) and (min-width:590px){
-  .uploadBox{width: 51% !important; margin-left: 20% !important; font-size: 85% !important; }
-  
+@media (max-width: 900px) and (min-width: 590px) {
+  .uploadBox {
+    width: 51% !important;
+    margin-left: 20% !important;
+    font-size: 85% !important;
+  }
 }
 
 @media (max-width: 450px) {
-  .uploadBox { font-size: 75%}
+  .uploadBox {
+    font-size: 75%;
+  }
 }
 @media (max-width: 370px) {
-  .uploadBox { font-size: 70%; }
+  .uploadBox {
+    font-size: 70%;
+  }
 }
 @media (max-width: 345px) {
-  .uploadBox { font-size: 65%; }
+  .uploadBox {
+    font-size: 65%;
+  }
 }
 
-
-.PasswordValid li{
+.PasswordValid li {
   list-style: none;
 }
 
 /* New page */
 
-.img{
-  margin-bottom: 1%; 
+.img {
+  margin-bottom: 1%;
 }
 
-.uploadBox{
-width: 85%;
-margin-left: 2.5%;
-margin-top: 3%;
+.uploadBox {
+  width: 85%;
+  margin-left: 2.5%;
+  margin-top: 3%;
 }
 
 /* HEADER */
-.back a{
+.back a {
   font-family: Sora;
   color: #818181;
   font-weight: bold;
-
 }
-.back :hover{
+.back :hover {
   cursor: pointer;
 }
 
 /* Profile Page */
-.report{
+.report {
   margin-top: 8%;
   font-size: 14px;
- 
 }
-.report2{
+.report2 {
   text-align: right;
   padding-right: 0%;
   margin-top: 5%;
-  font-family: 'Sora';
-
+  font-family: "Sora";
 }
 @media screen and (max-height: 750px) {
   .report2 {
     margin-top: 3% !important;
-   
-   
   }
 }
 
@@ -377,22 +355,19 @@ margin-top: 3%;
   .report2 {
     margin-top: 2% !important;
   }
-  .report{
+  .report {
     margin-top: 6%;
     font-size: 14px;
-   
   }
 }
 
-
-
-.profileLine{
+.profileLine {
   border: 0.5px solid #c0bec0;
   margin-top: 1%;
 }
-.scrollRep{
+.scrollRep {
   overflow-y: scroll;
- height: 250px;
+  height: 250px;
 }
 .scrollRep::-webkit-scrollbar {
   display: none;
@@ -429,63 +404,60 @@ margin-top: 3%;
    
   }
 } */
-.hello{
-  color: #3699FB;
-  font-family: 'Sora';
+.hello {
+  color: #3699fb;
+  font-family: "Sora";
   font-size: 160%;
   font-weight: 300;
-  
 }
 
-.name{
+.name {
   margin-top: 3%;
 }
-.time{
-  color: #C4C4C4;
+.time {
+  color: #c4c4c4;
 }
-.proCol3{
-  text-align: right ;
-  font-family: 'Sora';
+.proCol3 {
+  text-align: right;
+  font-family: "Sora";
   font-weight: 400;
-  color: #395D89;
+  color: #395d89;
   border: none;
   text-decoration: none;
   background: none;
- 
 }
-.proCol2{
+.proCol2 {
   text-align: right;
-  font-family: 'Sora';
+  font-family: "Sora";
   font-weight: 350;
   color: #606060;
   font-size: 95%;
 }
-.proCol{
-  font-family: 'Sora';
+.proCol {
+  font-family: "Sora";
   font-weight: 500;
   color: black;
-  
 }
-.heading{
+.heading {
   margin-bottom: 4%;
-  color:#395D89 !important;
+  color: #395d89 !important;
   font-size: 105%;
   font-weight: 600;
-  font-family: 'Sora';
+  font-family: "Sora";
 }
-.rowe{
-  border-bottom: 0.5px solid #3F3D3F;
+.rowe {
+  border-bottom: 0.5px solid #3f3d3f;
   margin-bottom: 2%;
   padding-bottom: 1%;
   border-width: 50% !important;
 }
 .dropdown-toggle::after {
   display: none !important;
-  content: none !important; 
+  content: none !important;
 }
-.icon::after{
+.icon::after {
   display: none !important;
-  content: none !important; 
+  content: none !important;
 }
 .my-dropdown-toggle:after {
   display: none !important;
@@ -494,13 +466,11 @@ margin-top: 3%;
   color: white;
   background-color: white !important;
   border: none;
- 
 }
 
 .dropdown {
   position: relative;
   display: inline-block;
-
 }
 
 .dropdown_content {
@@ -508,11 +478,11 @@ margin-top: 3%;
   position: absolute;
   background-color: #f1f1f1;
   /* min-width: 160px; */
-  width:150%;
-  font-family: 'Sora';
+  width: 150%;
+  font-family: "Sora";
   font-size: 80%;
   color: #606060;
- 
+
   z-index: 1;
 }
 
@@ -522,112 +492,88 @@ margin-top: 3%;
   text-decoration: none;
   display: block;
 }
-.dropdown_content a:hover {background-color: #ddd;}
+.dropdown_content a:hover {
+  background-color: #ddd;
+}
 
-.dropdown:hover .dropdown_content {display: block;}
+.dropdown:hover .dropdown_content {
+  display: block;
+}
 
-
-@media screen and (min-width: 250px) and (max-width:570px){
+@media screen and (min-width: 250px) and (max-width: 570px) {
   .mobileH {
- 
     width: 120% !important;
-    
-   
   }
 }
-@media screen and (min-width: 250px) and (max-width:570px){
+@media screen and (min-width: 250px) and (max-width: 570px) {
   .profileLine {
- 
     width: 120% !important;
-    
-   
   }
 }
-@media screen and (min-width: 250px) and (max-width:560px){
+@media screen and (min-width: 250px) and (max-width: 560px) {
   .rowe {
- 
     width: 100% !important;
-    
-   
   }
 }
-@media screen and (min-width: 450px) and (max-width:560px){
+@media screen and (min-width: 450px) and (max-width: 560px) {
   .dropdown {
- 
     width: 140% !important;
     font-size: 90%;
-    
-   
   }
 }
-@media screen and (min-width: 990px) and (max-width:1100px){
+@media screen and (min-width: 990px) and (max-width: 1100px) {
   .mobileH {
- 
     width: 110% !important;
- 
-    
-   
   }
 }
-@media screen and (min-width: 770px) and (max-width:900px){
+@media screen and (min-width: 770px) and (max-width: 900px) {
   .mobileH {
- 
-    width: 110% !important; 
-   
+    width: 110% !important;
   }
 }
-@media screen and (min-width: 555px) and (max-width:670px){
+@media screen and (min-width: 555px) and (max-width: 670px) {
   .mobileH {
- 
-    width: 110% !important; 
-   
+    width: 110% !important;
   }
 }
-@media screen and (min-width: 1193px) and (max-width:1255px){
+@media screen and (min-width: 1193px) and (max-width: 1255px) {
   .mobileH {
- 
-    width: 105% !important; 
-   
+    width: 105% !important;
   }
 }
-@media screen and (min-width: 250px) and (max-width:415px){
+@media screen and (min-width: 250px) and (max-width: 415px) {
   .report {
- 
-margin-left: 30px;
-   
+    margin-left: 30px;
   }
 }
-@media screen and (min-width: 870px) and (max-width:1200px){
+@media screen and (min-width: 870px) and (max-width: 1200px) {
   .report {
- 
-    margin-top: 12% !important; 
-   
+    margin-top: 12% !important;
   }
 }
-@media screen and (min-width: 416px) and (max-width:569px){
+@media screen and (min-width: 416px) and (max-width: 569px) {
   .report {
-   margin-left: 35px;
+    margin-left: 35px;
   }
 }
-@media screen and (min-width: 525px) and (max-width:870px){
+@media screen and (min-width: 525px) and (max-width: 870px) {
   .report {
-    margin-top: 22% !important; 
+    margin-top: 22% !important;
   }
 }
-@media screen and (min-width: 430px) and (max-width:525px){
+@media screen and (min-width: 430px) and (max-width: 525px) {
   .report {
-    margin-top: 30% !important; 
+    margin-top: 30% !important;
   }
 }
-@media screen and (min-width: 250px) and (max-width:430px){
+@media screen and (min-width: 250px) and (max-width: 430px) {
   .report {
-    margin-top: 25% !important; 
+    margin-top: 25% !important;
     font-size: small;
   }
 }
 
-.main{
+.main {
   padding-left: 0px !important;
   /* padding: 56px; */
 }
-

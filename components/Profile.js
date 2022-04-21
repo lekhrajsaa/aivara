@@ -3,7 +3,7 @@ import classes from "./LoginForm.module.css";
 import axios from "axios";
 import { Getting_user_data } from "../Data/dataAction";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Xapkey } from "../apikey";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 const Profile = () => {
@@ -49,7 +49,7 @@ const Profile = () => {
       date: "08/03/22;23:00",
     },
   ];
-  console.log(process.env.REACT_APP_SERVERAPI);
+
   const getUserData = async () => {
     let body = {
       query: `{
@@ -69,7 +69,7 @@ const Profile = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${String(token)}`,
-        "x-api-key": process.env.REACT_APP_API,
+        "x-api-key": Xapkey,
       },
     };
     try {
@@ -107,7 +107,7 @@ const Profile = () => {
                 fontSize: "80%",
               }}
             >
-              Last login 22-2-22; 14:00
+              Last login {userdata.lastLoggedIn}
             </div>
           </Col>
 

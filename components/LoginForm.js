@@ -37,7 +37,8 @@ const LoginForm = () => {
       setShow(false);
     }
   };
-  const enterKey = async(e) => {
+  console.log(process.env.REACT_APP_SERVER);
+  const enterKey = async (e) => {
     if (e.key === "Enter") {
       if (show) {
         console.log(email, password);
@@ -45,79 +46,96 @@ const LoginForm = () => {
         // window.location.href = "/home";
         // login API comes here
 
-        let body =  { 
-          query: 
-          `{
+        let bodys = {
+          query: `{
             login(email:"${String(email)}",password:"${String(password)}") {
                 token
             }
-        }`
-          , 
-          variables: {}
-      }
-      let options = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-    try{
-      const resp = await axios.post(
-        `${process.env.REACT_APP_SERVER}/graphql`,body,options
-      );
-      console.log(resp);
-         if(resp.status === 200){
-           localStorage.setItem("token",resp.data.data.login.token);
-           window.location.href = "/home";
+        }`,
+          variables: {},
+        };
+        let options = {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+        try {
+          const resp = await axios.post(
+            "http://15.206.145.166/api/v1",
+            bodys,
+            options
+          );
+          console.log(resp);
+          if (resp.status === 200) {
+            localStorage.setItem("token", resp.data.data.login.token);
+            window.location.href = "/home";
           }
-    }catch(resData){
-      console.log(resData)
-      
-    }
-  }
-       
-      
-      
+        } catch (err) {
+          console.log(err);
+        }
+
+        // fetch(`${process.env.REACT_APP_SERVER}/graphql`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(bodys),
+        // })
+        //   .then((res) => {
+        //     return res.json();
+        //   })
+        //   .then((resData) => {
+        //     if (resData.errors && resData.errors[0].status === 422) {
+        //       throw new Error(
+        //         "Validation failed. Make sure the email address isn't used yet!"
+        //       );
+        //     }
+        //     if (resData.errors) {
+        //       throw new Error("User creation failed!");
+        //     }
+        //     console.log(resData);
+        //   });
+      }
+
       setText("enter password");
       setShow(true);
       setFieldDisplay("password");
     }
   };
-  const changeField = async() => {
+  const changeField = async () => {
     if (show) {
       console.log(email, password);
       localStorage.setItem("name", "");
       // window.location.href = "/home";
       // login API comes here
-      let body =  { 
-        query: 
-        `{
+      let body = {
+        query: `{
           login(email:"${String(email)}",password:"${String(password)}") {
               token
           }
-      }`
-        , 
-        variables: {}
-    }
-    let options = {
-      headers: {
-          'Content-Type': 'application/json'
+      }`,
+        variables: {},
+      };
+      let options = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      try {
+        const resp = await axios.post(
+          "http://15.206.145.166/api/v1",
+          body,
+          options
+        );
+        console.log(resp);
+        if (resp.status === 200) {
+          localStorage.setItem("token", resp.data.data.login.token);
+          window.location.href = "/home";
+        }
+      } catch (err) {
+        console.log(err);
       }
-  }
-  try{
-    const resp = await axios.post(
-      `${process.env.REACT_APP_SERVER}/graphql`,body,options
-    );
-    console.log(resp);
-    if(resp.status === 200){
-      localStorage.setItem("token",resp.data.data.login.token);
-      window.location.href = "/home";
-     }
-  }catch(err){
-    console.log(err)
-  }
     }
-
- 
 
     setText("enter password");
     setShow(true);
@@ -128,47 +146,39 @@ const LoginForm = () => {
 
     //   <div class="col-md-5 col-xs-12">
     <>
-     <HeaderMobile/>
+      <HeaderMobile />
       {login ? (
         <Container fluid className={classes.main}>
-         
           <Row>
-            <Col md={2} >
-             
-            <div >
-      <ProSidebar breakPoint="lg" className={sidebar.sideBar}  >
-       <div className={sidebar.scroll}>
-        <SidebarContent className={sidebar.sideav__reg__content}>
-          <Header />
-          <ul className={sidebar.sidenav_reg__screens}>
-           
-            <li className={sidebar.listFont}>
-              <span
-                className={`${sidebar.dot} ${show && sidebar.disable__dot}`}
-              >
-                {show && <span>&#10003;</span>}
-              </span>
-              Enter Email Id
-            </li>
-            <li className={sidebar.listFont}>
-              <span
-                className={`${!show && sidebar.ext} `}
-              >
-               
-              </span>
-              Enter Password
-            </li>
-         
-          </ul>
-        </SidebarContent>
-        </div>
-      </ProSidebar>
-    </div>
+            <Col md={2}>
+              <div>
+                <ProSidebar breakPoint="lg" className={sidebar.sideBar}>
+                  <div className={sidebar.scroll}>
+                    <SidebarContent className={sidebar.sideav__reg__content}>
+                      <Header />
+                      <ul className={sidebar.sidenav_reg__screens}>
+                        <li className={sidebar.listFont}>
+                          <span
+                            className={`${sidebar.dot} ${
+                              show && sidebar.disable__dot
+                            }`}
+                          >
+                            {show && <span>&#10003;</span>}
+                          </span>
+                          Enter Email Id
+                        </li>
+                        <li className={sidebar.listFont}>
+                          <span className={`${!show && sidebar.ext} `}></span>
+                          Enter Password
+                        </li>
+                      </ul>
+                    </SidebarContent>
+                  </div>
+                </ProSidebar>
+              </div>
             </Col>
             <Col md={8}>
-           
               <div>
-              
                 <div
                   className={classes.back}
                   style={{
@@ -182,7 +192,6 @@ const LoginForm = () => {
                   <a onClick={() => handleBack()}>back</a>
                 </div>
                 <div
-                 
                   class="mb-3"
                   style={{
                     flex: 1,
@@ -198,14 +207,13 @@ const LoginForm = () => {
                       fontSize: "150%",
                       color: "#DCD3E9",
                       marginBottom: "10%",
-                      marginTop:"6%",
+                      marginTop: "6%",
                     }}
-                 
                   >
                     Login
                   </label>
                   <div class="row">
-                    <div class="col-4 col-xs-8" >
+                    <div class="col-4 col-xs-8">
                       {!show && (
                         <input
                           onKeyPress={(event) => enterKey(event)}
@@ -296,16 +304,12 @@ const LoginForm = () => {
                       Signup
                     </a>
                   </div>
-                  <div className={classes.step}>{
-                    show ? <p>Step 2 of 2 </p>:<p>Step 1 of 2</p>
-                    }
-                    
+                  <div className={classes.step}>
+                    {show ? <p>Step 2 of 2 </p> : <p>Step 1 of 2</p>}
                   </div>
-                  <Footer/>
+                  <Footer />
                 </div>
-            
               </div>
-            
             </Col>
           </Row>
         </Container>
