@@ -5,6 +5,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Tab from "@mui/material/Tab";
 import classes from "./EditProfile.module.css";
 import { Button, Form, Modal } from "react-bootstrap";
+import { Xapkey } from "../aivara";
 
 //saving data edited on variables sent by backend
 const EditProfile = () => {
@@ -30,6 +31,7 @@ const EditProfile = () => {
       phoneNo
       email
       userId
+      password
     }
   }`;
   console.log(process.env.REACT_APP_API);
@@ -41,7 +43,7 @@ const EditProfile = () => {
       headers: {
         Authorization: `Bearer ${Token}`,
         "Content-Type": "application/json",
-        // "x-api-key": `${String(process.env.REACT_APP_API)}`,
+        // "x-api-key": Xapkey,
       },
       body: JSON.stringify({ query: LAUNCHES_QUERY }),
     })
@@ -96,6 +98,7 @@ const EditProfile = () => {
       headers: {
         Authorization: `Bearer ${Token}`,
         "Content-Type": "application/json",
+        // "x-api-key": Xapkey,
       },
       body: JSON.stringify({ query: UPDATE_QUERY }),
     })
@@ -110,11 +113,13 @@ const EditProfile = () => {
   const [check, setCheck] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  const checkMessage = () => {
+    setCheck(!check);
+  };
   const onSubmitPassword = () => {
     console.log(user.oldPassword);
     console.log(user.newPassword);
-    
+
     const UPDATE_QUERY = `mutation {
       updateProfile(updateInput:{
         oldPassword: "${user.oldPassword}",
@@ -144,11 +149,13 @@ const EditProfile = () => {
         console.log(data);
       });
   };
-
+console.log(launches.password);
   return (
     <>
-      <Tab label="Your Profile" className={classes.heading} />
-      <Tab label="back" className={classes.back} />
+      {/* <Tab label="Your Profile" className={classes.heading} /> */}
+      <label className={classes.heading}>Your Profile</label>
+      {/* <Tab label="back" className={classes.back} /> */}
+      <label className={classes.back}>back</label>
 
       <div className={classes.details}>
         <form>
@@ -245,12 +252,20 @@ const EditProfile = () => {
                   >
                     <Form.Label>Conform Password</Form.Label>
                     <Form.Control
+                      onClick={checkMessage}
                       type="text"
                       placeholder=""
                       name="newPassword"
                       onChange={userInput}
                       autoFocus
                     />
+                    {user.newPassword === user.checkPassword ? (
+                      <p>The password Matches New Password</p>
+                    ) : (
+                      <p style={{ color: "red" }}>
+                        The password does not Match New Password
+                      </p>
+                    )}
                   </Form.Group>
                 </Form>
               </Modal.Body>
@@ -258,15 +273,17 @@ const EditProfile = () => {
                 <Button variant="secondary" onClick={handleClose}>
                   Close
                 </Button>
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    onSubmitPassword();
-                    handleClose();
-                  }}
-                >
-                  Save Changes
-                </Button>
+                {check && user.newPassword === user.checkPassword ? (
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      onSubmitPassword();
+                      handleClose();
+                    }}
+                  >
+                    Save Password
+                  </Button>
+                ) : null}
               </Modal.Footer>
             </Modal>
           </div>

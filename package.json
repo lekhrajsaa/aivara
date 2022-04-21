@@ -36,15 +36,10 @@
     "react-router-bootstrap": "^0.26.0",
     "react-router-dom": "^6.2.1",
     "reactstrap": "^9.0.1",
-<<<<<<< HEAD
-    "redux-form": "^8.3.8",
-    "swiper": "^6.8.4"
-=======
     "redux": "^4.1.2",
     "swiper": "^6.8.4",
     "validator": "^13.7.0",
     "zxcvbn": "^4.4.2"
->>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
   },
   "devDependencies": {
     "eslint": "8.9.0",

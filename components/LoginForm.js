@@ -69,13 +69,6 @@ const LoginForm = () => {
             localStorage.setItem("token", resp.data.data.login.token);
             window.location.href = "/home";
           }
-<<<<<<< HEAD
-        } catch (err) {
-          console.log(err);
-        }
-      }
-
-=======
     }catch(resData){
       console.log(resData)
       
@@ -84,7 +77,6 @@ const LoginForm = () => {
        
       
       
->>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
       setText("enter password");
       setShow(true);
       setFieldDisplay("password");
@@ -96,16 +88,10 @@ const LoginForm = () => {
       localStorage.setItem("name", "");
       // window.location.href = "/home";
       // login API comes here
-<<<<<<< HEAD
-      let body = {
-        query: `{
-          login(email:${email},password:${password}) {
-=======
       let body =  { 
         query: 
         `{
           login(email:"${String(email)}",password:"${String(password)}") {
->>>>>>> 40c94f75ec7f80b5311a044cfaa78cf41716aaa2
               token
           }
       }`,

@@ -1,22 +1,22 @@
 .heading {
   text-transform: capitalize;
-  font-weight: 800;
+  font-weight: 700;
   font-family: sora;
-  font-size: 180%;
-  color: #395d89;
-  margin-left: 4%;
+  font-size: 100%;
+  color: #395D89;
+  margin-left: 10%;
   margin-top: 5%;
 }
 
 .back {
-  text-transform: capitalize;
+  text-transform: lowercase;
   font-family: sora;
   font-style: normal;
   font-weight: 400;
-  font-size: 180%;
+  font-size: 100%;
   line-height: 18px;
   float: right;
-  margin-right: 5%;
+  margin-right: 10%;
   margin-top: 5%;
   text-decoration: underline;
   color: #000000;
@@ -24,22 +24,22 @@
 
 .details {
   margin-top: 10%;
-  margin-left: 5%;
+  margin-left: 10%;
 }
 
 .parent {
   display: flex;
 
   margin-top: 4vh;
-  font-size: 130%;
+  font-size: 85%;
   font-weight: 400;
-  font-family: "Sora";
+  font-family: Sora;
   font-style: normal;
-  color: #313131;
+  color: #606060;
 }
 .child {
-  flex: 0 3 400px;
-  color: #000000!;
+  flex: 0 3 250px;
+  color: #313131!;
 }
 
 .input {
@@ -54,23 +54,24 @@
   border-width: 0 0 2px;
   border-color: black;
 }
-.btn{
+.btn {
   margin-top: 4%;
   background-color: #0095ff;
   border: 1px solid transparent;
   border-radius: 3px;
-  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+  box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0 0 inset;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: -apple-system,system-ui,"Segoe UI","Liberation Sans",sans-serif;
+  font-family: -apple-system, system-ui, "Segoe UI", "Liberation Sans",
+    sans-serif;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.15385;
   outline: none;
-  padding: 8px .8em;
-  
+  padding: 8px 0.8em;
+
   text-align: center;
   text-decoration: none;
   user-select: none;
@@ -79,5 +80,3 @@
   vertical-align: baseline;
   white-space: nowrap;
 }
-
-
