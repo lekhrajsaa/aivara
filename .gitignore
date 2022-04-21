@@ -33,4 +33,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+<<<<<<< HEAD
 xapikey.js
+=======
+
+
+aivara.js
+>>>>>>> aabe82762942cd0655f72caf4683ef1d41004ebc

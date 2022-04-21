@@ -46,7 +46,7 @@ const LoginForm = () => {
         // window.location.href = "/home";
         // login API comes here
 
-        let bodys = {
+        let body = {
           query: `{
             login(email:"${String(email)}",password:"${String(password)}") {
                 token

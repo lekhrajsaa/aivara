@@ -1,0 +1,42 @@
+.heading {
+  text-transform: capitalize;
+  font-weight: 700;
+  font-family: sora;
+  font-size: 100%;
+  color: #395d89;
+  margin-left: 10%;
+  margin-top: 5%;
+}
+
+.back {
+  text-transform: lowercase;
+  font-family: sora;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 100%;
+  line-height: 18px;
+  float: right;
+  margin-right: 10%;
+  margin-top: 5%;
+  text-decoration: underline;
+  color: #000000;
+}
+
+.details {
+  margin-top: 10%;
+  margin-left: 10%;
+}
+
+.parent {
+  display: flex;
+  margin-top: 4vh;
+  font-size: 85%;
+  font-weight: 400;
+  font-family: Sora;
+  font-style: normal;
+  color: #606060;
+}
+.child {
+  flex: 0 3 250px;
+  color: #313131!;
+}
