@@ -4,9 +4,11 @@ import axios from "axios";
 import { Getting_user_data } from "../Data/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
-import { Link } from "react-router-dom";
+import { Link,Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
+
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
@@ -14,6 +16,7 @@ const Profile = () => {
   const userdata = useSelector((state) => state.userdata.userdata);
 
   const dispatch = useDispatch();
+  const router = useRouter();
   // useEffect(() => {
   //    var name = user.name;
   //   name= name.split(" ")[0]
@@ -75,7 +78,7 @@ const Profile = () => {
     };
     try {
       const resp = await axios.post(
-        `${process.env.REACT_APP_SERVER}/graphql`,
+        "http://15.206.145.166/api/v1",
         body,
         options
       );
@@ -119,8 +122,8 @@ const Profile = () => {
                 <img src="/user.svg"></img>
               </button>
               <div className={classes.dropdown_content}>
-                <a href="#">View Profile</a>
-                <a href="#">Edit Profile</a>
+                <a onClick={()=>router.push("/viewProfile")}>View Profile</a>
+                <a onClick={()=>router.push("/editProfile")}>Edit Profile</a>
                 <a href="#">Delete account</a>
                 <a href="#">Help & Support</a>
               </div>

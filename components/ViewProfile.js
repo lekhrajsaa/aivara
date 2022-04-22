@@ -2,23 +2,23 @@ import classes from "./ViewProfile.module.css";
 import Tab from "@mui/material/Tab";
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
-
-const LAUNCHES_QUERY = `
-{
-  getUser {
-    name
-    labName
-    phoneNo
-    email
-    userId
-  }
-}`;
+import { useRouter } from "next/router";
+// const LAUNCHES_QUERY = `
+// {
+//   getUser {
+//     name
+//     labName
+//     phoneNo
+//     email
+//     userId
+//   }
+// }`;
 
 const ViewProfile = () => {
-  const [launches, setLaunches] = React.useState([]);
-
+  // const [launches, setLaunches] = React.useState([]);
+  const router = useRouter();
   const userdata = useSelector((state) => state.userdata.userdata);
-
+  console.log(userdata);
   // React.useEffect(() => {
   //   const Token = localStorage.getItem("token");
   //   fetch("http://localhost:5000/graphql", {
@@ -37,29 +37,46 @@ const ViewProfile = () => {
   //     });
   // }, []);
 
-
   return (
     <>
       {/* <Tab label="Your Profile" className={classes.heading} /> */}
       <label className={classes.heading}>Your Profile</label>
-      <label className={classes.back}>back</label>
+      <a onClick={() => router.push("/home")} className={classes.back}>
+        back
+      </a>
       {/* <Tab label="back" className={classes.back} /> */}
       <div className={classes.details}>
         <div className={classes.parent}>
-          <div className={classes.child}>Username :</div>
-          <div className={classes.child}>{userdata.name} </div>
+          <div className={`${classes.child} ${classes.tit}`}>Username :</div>
+          <div className={`${classes.child} ${classes.val}`}>
+            {userdata.name}
+          </div>
         </div>
         <div className={classes.parent}>
-          <div className={classes.child}>Lab Name :</div>
-          <div className={classes.child}>{userdata.labName}</div>
+          <div className={`${classes.child} ${classes.tit}`}>Lab Name :</div>
+          <div className={`${classes.child} ${classes.val}`}>
+            {userdata.labName}
+          </div>
         </div>
         <div className={classes.parent}>
-          <div className={classes.child}>Email Address :</div>
-          <div className={classes.child}>{userdata.email} </div>
+          <div className={`${classes.child} ${classes.tit}`}>
+            Email Address :
+          </div>
+          <div className={`${classes.child} ${classes.val}`}>
+            {userdata.email}{" "}
+          </div>
         </div>
         <div className={classes.parent}>
-          <div className={classes.child}>Password :</div>
-          <div className={classes.child}>*********</div>
+          <div className={`${classes.child} ${classes.tit}`}>Password :</div>
+          {/* <div className={classes.child}>*********</div> */}
+          <input
+            disabled
+            id="myInput"
+            type="password"
+            name="pass"
+            value={userdata.password}
+            className={`${classes.child} ${classes.val} ${classes.input}`}
+          />
         </div>
       </div>
     </>
