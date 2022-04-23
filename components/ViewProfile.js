@@ -18,6 +18,7 @@ const ViewProfile = () => {
   const [launches, setLaunches] = React.useState([]);
 
   const userdata = useSelector((state) => state.userdata.userdata);
+  console.log(userdata);
 
   // React.useEffect(() => {
   //   const Token = localStorage.getItem("token");
@@ -36,7 +37,6 @@ const ViewProfile = () => {
   //       setLaunches(data.data.getUser);
   //     });
   // }, []);
-
 
   return (
     <>

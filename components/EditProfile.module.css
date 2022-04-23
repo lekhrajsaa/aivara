@@ -3,7 +3,7 @@
   font-weight: 700;
   font-family: sora;
   font-size: 100%;
-  color: #395D89;
+  color: #395d89;
   margin-left: 10%;
   margin-top: 5%;
 }
@@ -55,7 +55,7 @@
   border-color: black;
 }
 .btn {
-  margin-top: 4%;
+  /* margin-top: 4%;
   background-color: #0095ff;
   border: 1px solid transparent;
   border-radius: 3px;
@@ -78,5 +78,15 @@
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: baseline;
-  white-space: nowrap;
+  white-space: nowrap; */
+
+  background-color: #b7d7f7;
+  font-family: "Sora";
+  font-size: 15px;
+  padding: 10px 25px 10px 25px;
+  margin-top: 4%;
+  border: none;
+  border-radius: 5px;
+  color: #000000;
+  font-weight: 500;
 }

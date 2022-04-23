@@ -5,8 +5,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Tab from "@mui/material/Tab";
 import classes from "./EditProfile.module.css";
 import { Button, Form, Modal } from "react-bootstrap";
-import { Xapkey } from "../aivara";
-
+// import { Xapkey } from "../aivara";
+import { Xapkey } from "../apikey";
 //saving data edited on variables sent by backend
 const EditProfile = () => {
   const [user, setuser] = useState({
@@ -34,16 +34,16 @@ const EditProfile = () => {
       password
     }
   }`;
-  console.log(process.env.REACT_APP_API);
+
   const [launches, setLaunches] = React.useState([]);
   React.useEffect(() => {
     const Token = localStorage.getItem("token");
-    fetch("http://localhost:5000/graphql", {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${Token}`,
         "Content-Type": "application/json",
-        // "x-api-key": Xapkey,
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
       },
       body: JSON.stringify({ query: LAUNCHES_QUERY }),
     })
@@ -70,7 +70,8 @@ const EditProfile = () => {
   }
 
   // logic for submiting the data once edited
-  const onsubmit = () => {
+  const onsubmit = (e) => {
+    e.preventDefault();
     if (user.username === "" || user.username.length === 0) {
       user.username = launches.name;
     }
@@ -93,12 +94,12 @@ const EditProfile = () => {
     }`;
 
     const Token = localStorage.getItem("token");
-    fetch("http://localhost:5000/graphql", {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${Token}`,
         "Content-Type": "application/json",
-        // "x-api-key": Xapkey,
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
       },
       body: JSON.stringify({ query: UPDATE_QUERY }),
     })
@@ -136,11 +137,12 @@ const EditProfile = () => {
   }`;
 
     const Token = localStorage.getItem("token");
-    fetch("http://localhost:5000/graphql", {
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${Token}`,
         "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
       },
       body: JSON.stringify({ query: UPDATE_QUERY }),
     })
@@ -149,7 +151,7 @@ const EditProfile = () => {
         console.log(data);
       });
   };
-console.log(launches.password);
+  console.log(launches.password);
   return (
     <>
       {/* <Tab label="Your Profile" className={classes.heading} /> */}

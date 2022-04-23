@@ -1,15 +1,21 @@
+.analysis_main {
+  margin-left: 190px;
+  margin-top: 80px;
+  margin-right: 50px;
+}
+
 .analysis_header {
   display: flex;
   justify-content: space-between;
-  margin-left: 150px;
+  /* margin-left: 150px;
   margin-top: 80px;
-  margin-right: 50px;
+  margin-right: 50px; */
 }
 
 .analysis_second_main h1 {
   font-weight: 800;
   font-size: 35px;
-  color: rgb(153, 145, 205);
+  color: #b7d7f7;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
@@ -26,10 +32,59 @@
   font-size: 25px;
   cursor: pointer;
 }
+.analysis_body {
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 200px;
+}
+.analysis_body_tags {
+  width: 60%;
+}
+.analysis_image {
+  margin-top: 10px;
+  width: auto;
+}
+.analysis_image img {
+  width: 60%;
+  height: 18rem;
+  border: #b7d7f78b solid 9px;
+}
+.analysis_image p {
+  position: relative;
+}
+.analysis_tags {
+  margin-top: 20px;
+}
+.analysis_body_tag2 {
+  margin-top: 10px;
+}
+.analysis_form {
+  margin-top: 35px;
+}
 @media screen and (max-width: 996px) {
-  .analysis_header {
+  .analysis_main {
     margin-left: 20px;
     margin-top: 30px;
+    width: 100%;
+  }
+  /* .analysis_body_tags {
+    width: 100%;
+    margin: auto;
+  } */
+  .analysis_image {
+    width: 90%;
+  }
+  .analysis_image img {
+    margin-top: 10px;
+    width: 100%;
+    height: 30vh;
+  }
+  .analysis_body {
+    width: 100%;
+    margin: 0 auto 0 auto;
+    /* text-align: center; */
+    display: block;
   }
 }
 
@@ -37,10 +92,29 @@
   .analysis_second_main h1 {
     font-size: 30px;
   }
+
   .analysis_second_main h5 {
     font-size: 15px;
   }
   .analysis_cross_icon {
     font-size: 20px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .analysis_main {
+    margin-left: 100px;
+    margin-top: 30px;
+    margin-right: 0px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .analysis_body {
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-right: auto;
+  }
+  .analysis_main {
+    margin-left: 30px;
+    margin-top: 20px;
   }
 }

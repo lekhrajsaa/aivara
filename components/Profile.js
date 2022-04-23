@@ -1,18 +1,18 @@
 import { Col, Container, Row } from "reactstrap";
 import classes from "./LoginForm.module.css";
 import axios from "axios";
-import { Getting_user_data } from "../Data/dataAction";
+import { Getting_user_data } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
   const [name, setName] = useState();
   const userdata = useSelector((state) => state.userdata.userdata);
-
+  const router = useRouter();
   const dispatch = useDispatch();
   // useEffect(() => {
   //    var name = user.name;
@@ -70,12 +70,12 @@ const Profile = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${String(token)}`,
-        "x-api-key": Xapkey,
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
       },
     };
     try {
       const resp = await axios.post(
-        `${process.env.REACT_APP_SERVER}/graphql`,
+        `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
         body,
         options
       );
@@ -119,8 +119,8 @@ const Profile = () => {
                 <img src="/user.svg"></img>
               </button>
               <div className={classes.dropdown_content}>
-                <a href="#">View Profile</a>
-                <a href="#">Edit Profile</a>
+                <a onClick={() => router.push("/viewProfile")}>View Profile</a>
+                <a onClick={() => router.push("/editProfile")}>Edit Profile</a>
                 <a href="#">Delete account</a>
                 <a href="#">Help & Support</a>
               </div>

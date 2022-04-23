@@ -577,3 +577,7 @@
   padding-left: 0px !important;
   /* padding: 56px; */
 }
+
+.Inputimg {
+  visibility: hidden;
+}
