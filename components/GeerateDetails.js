@@ -36,7 +36,7 @@ const GenerateDetails = () => {
   //     console.log(err);
   //   }
   // }
-  console.log(photos);
+  // console.log(photos);
   const SubmitReport = async (e) => {
     e.preventDefault();
     if (!CompanyName || !natureOfWork || !generated)

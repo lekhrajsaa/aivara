@@ -40,12 +40,10 @@ const rejectStyle = {
 
 function StyledDropzone(props) {
   // const [files, setFiles] = useState();
-  // const [fileName, setFileName] = useState("");
+  const [fileName, setFileName] = useState([]);
 
   const [files, setFiles] = useState([]);
-  const [message, setMessage] = useState("");
-  const inputRef = useRef(null);
-  const formRef = useRef(null);
+  // const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -61,13 +59,35 @@ function StyledDropzone(props) {
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
       accept: "image/jpeg,image/png",
-      onDrop: (acceptedFiles) => {
-        setFiles(acceptedFiles);
+      onDrop: async (acceptedFiles) => {
         setFileName(acceptedFiles);
-        saveFile(acceptedFiles);
-        console.log(acceptedFiles);
+        const formData = new FormData();
+        acceptedFiles.forEach((file) => {
+          formData.append("uploadImages", file);
+        });
+
+        try {
+          const res = await axios.post(
+            "http://localhost:5000/postReport",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          setFiles("");
+          console.log(res);
+        } catch (err) {
+          if (err.response.status === 500) {
+            console.log(err);
+          } else {
+            console.log(err.response.data.msg);
+          }
+        }
       },
     });
+  console.log(fileName);
 
   // const fileupload = async (e) => {
   //   try {
@@ -109,37 +129,69 @@ function StyledDropzone(props) {
   //   }
   // };
 
-  const handleClick = () =>
-    inputRef && inputRef.current && inputRef.current.click();
-  const handleFiles = (e) => {
-    setFiles(e.target.files ? Array.from(e.target.files) : []);
-    handleSubmit(e);
+  const onSubmit = async () => {
+    // e.preventDefault();
+    console.log("Pamuuuuuuu");
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append("uploadImages", file);
+    });
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/postReport",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setFiles("");
+      console.log(res);
+    } catch (err) {
+      if (err.response.status === 500) {
+        console.log(err);
+      } else {
+        console.log(err.response.data.msg);
+      }
+    }
   };
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    if (files.length > 0) {
-      console.log("hdhhdhhf");
-      const formData = new FormData();
-      files.forEach((file) => formData.append("multipleImages", file));
-      axios
-        .post("http://localhost:5000/postReport", formData)
-        .then((data) => {
-          setMessage(data.data.message);
-          console.log(data);
-        })
-        .catch((error) => {
-          setMessage("Error");
-          console.log(error);
-        });
-      setFiles([]);
-      formRef.current && formRef.current.reset();
-      setTimeout(() => {
-        setMessage("");
-      }, 4000);
-    }
-    console.log("end");
-  };
+  // const onChanges = async (e) => {
+  //   console.log("fff");
+  //   console.log(
+  //     e.target.files,
+
+  //     "hello"
+  //   );
+  //   setFiles(e.target.files);
+  //   const formData = new FormData();
+  //   e.target.files.forEach((file) => {
+  //     console.log("appe");
+  //     formData.append("uploadImages", file);
+  //   });
+
+  //   try {
+  //     const res = await axios.post(
+  //       "http://localhost:5000/postReport",
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
+  //     );
+  //     setFiles("");
+  //     console.log(res);
+  //   } catch (err) {
+  //     if (err.response.status === 500) {
+  //       console.log(err);
+  //     } else {
+  //       console.log(err.response.data.msg);
+  //     }
+  //   }
+  // };
 
   const style = useMemo(
     () => ({
@@ -177,15 +229,17 @@ function StyledDropzone(props) {
         }}
       ></div>
       <div className={classes.uploadBox}>
-        <div onClick={handleClick}>
+        <div {...getRootProps({ style })}>
+          {/* <form onSubmit={onSubmit}> */}
           <input
-            type="file"
-            ref={inputRef}
-            onChange={handleFiles}
-            className={classes.Inputimg}
             multiple
+            type="file"
+            name="uploadImages"
+            onChange={(e) => onChanges(e)}
+            className={classes.Inputimg}
           />
-
+          {/* <input type="submit" value="Upload" />
+          </form> */}
           <img
             width="50"
             height="50"
@@ -242,3 +296,8 @@ export default StyledDropzone;
 // }
 //{...getInputProps()}
 //{...getRootProps({ style })}
+// type="file"
+// name="uploadImages"
+// multiple
+// onChange={onChanges}
+// className={classes.Inputimg}

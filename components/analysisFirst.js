@@ -1,22 +1,28 @@
+import React from "react";
 import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 const image =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ8tbWBPpebnEMYaL2RhjNq6EM-VIIf75FvQ&usqp=CAU";
 const Analysisheader = () => {
-  const [demospecies, setdemospecies] = useState("");
-  const [species, setspecies] = useState(["family a", "family b"]);
+  const [tags, setTags] = React.useState([]);
+  const handleKeyDown = (e) => {
+    if (e.key !== "Enter") return;
+    const value = e.target.value;
+    if (!value.trim()) return;
+    setTags([...tags, value]);
+    e.target.value = "";
+  };
 
-  const InputSpecies = (e) => {
-    setdemospecies(e.target.value);
-    addspecies();
-  };
-  const addspecies = () => {
-    setspecies((prevalue) => {
-      return [...prevalue, demospecies];
+  const removeTag = (id) => {
+    // setTags(tags.filter((el, i) => i == index));
+    setTags((prevalue) => {
+      return prevalue.filter((item, index) => {
+        return index !== id;
+      });
     });
-    demospecies(" ");
   };
+
   return (
     <>
       <div className={classes.analysis_main}>
@@ -39,9 +45,18 @@ const Analysisheader = () => {
             </div>
             <div className={classes.analysis_tags}>
               <div>
-                <p>Genus identified</p>
-                {species.map((val) => (
-                  <button>{val}</button>
+                {tags.map((tag, index) => (
+                  <div className={classes.tag_item_div} key={index}>
+                    <span className={classes.tag_text}>
+                      {tag}
+                      <button
+                        className={classes.tag_delete}
+                        onClick={() => removeTag(index)}
+                      >
+                        <AiOutlineClose />
+                      </button>
+                    </span>
+                  </div>
                 ))}
               </div>
 
@@ -57,8 +72,7 @@ const Analysisheader = () => {
                   type="text"
                   class="form-control"
                   id="Inputspecies"
-                  aria-describedby="Help"
-                  onChange={InputSpecies}
+                  onKeyDown={handleKeyDown}
                 />
               </div>
 
