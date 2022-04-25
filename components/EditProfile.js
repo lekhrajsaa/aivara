@@ -199,12 +199,12 @@ const EditProfile = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Token}`,
-        "x-api-key": Xapkey,
+        "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
       },
     };
     try {
       const resp = await axios.post(
-        "http://15.206.145.166/api/v1",
+        `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
         body,
         options
       );
@@ -286,12 +286,12 @@ const EditProfile = () => {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${Token}`,
-        "x-api-key": Xapkey,
+        "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
       },
     };
     try {
       const resp = await axios.post(
-        "http://15.206.145.166/api/v1",
+        `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
         body,
         options
       );
