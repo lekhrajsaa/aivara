@@ -41,11 +41,12 @@ const rejectStyle = {
 function StyledDropzone(props) {
   // const [files, setFiles] = useState();
   const [fileName, setFileName] = useState([]);
-
+  const [Token, setToken] = useState();
   const [files, setFiles] = useState([]);
   // const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
+  const [ImageData, setImagedata] = useState([]);
 
   const config = {
     bucketName: "aivara-images",
@@ -61,6 +62,7 @@ function StyledDropzone(props) {
       accept: "image/jpeg,image/png",
       onDrop: async (acceptedFiles) => {
         setFileName(acceptedFiles);
+        console.log(acceptedFiles);
         const formData = new FormData();
         acceptedFiles.forEach((file) => {
           formData.append("uploadImages", file);
@@ -73,22 +75,34 @@ function StyledDropzone(props) {
             {
               headers: {
                 "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${Token}`,
+                "x-api-key": process.env.NEXT_PUBLIC_XAPI,
               },
             }
           );
           setFiles("");
-          console.log(res);
-        } catch (err) {
-          if (err.response.status === 500) {
-            console.log(err);
-          } else {
-            console.log(err.response.data.msg);
+          console.log(res.status);
+          if (res.status === 200) {
+            console.log(res);
+            let arr = [];
+            res.data.result.forEach((item) => {
+              let obj = { key: item.key, location: item.Location };
+              arr.push(obj);
+            });
+            console.log(arr);
+            dispatch(setImages(arr));
+            router.push("/detail");
           }
+        } catch (err) {
+          console.log(err);
         }
       },
     });
   console.log(fileName);
-
+  useEffect(() => {
+    setToken(localStorage.getItem("token"));
+  }, []);
+  console.log(ImageData);
   // const fileupload = async (e) => {
   //   try {
   //     // console.log("hh");

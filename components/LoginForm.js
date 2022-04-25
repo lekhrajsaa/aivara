@@ -61,7 +61,7 @@ const LoginForm = () => {
         };
         try {
           const resp = await axios.post(
-            "http://15.206.145.166/api/v1",
+            "http://localhost:5000/api/v1",
             body,
             options
           );
@@ -101,7 +101,7 @@ const LoginForm = () => {
       };
       try {
         const resp = await axios.post(
-          "http://15.206.145.166/api/v1",
+          "http://localhost:5000/api/v1",
           body,
           options
         );

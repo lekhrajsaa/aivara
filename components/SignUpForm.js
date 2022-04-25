@@ -233,7 +233,7 @@ const SignUpForm = () => {
             };
             try {
               const resp = await axios.post(
-                `http://localhost:5000/graphql`,
+                `http://localhost:5000/api/v1`,
                 body,
                 options
               );
@@ -359,7 +359,7 @@ const SignUpForm = () => {
           };
           try {
             const resp = await axios.post(
-              `${process.env.REACT_APP_SERVER}/graphql`,
+              "http://localhost:5000/api/v1",
               body,
               options
             );
