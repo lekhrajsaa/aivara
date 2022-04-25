@@ -76,7 +76,7 @@ function StyledDropzone(props) {
               headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${Token}`,
-                "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+                "x-api-key":`${process.env.NEXT_PUBLIC_XAPI}`,
               },
             }
           );
@@ -233,6 +233,7 @@ function StyledDropzone(props) {
   // };
 
   // className: 'dropzone'
+  console.log(process.env.NEXT_PUBLIC_XAPI);
   return (
     <div>
       <div

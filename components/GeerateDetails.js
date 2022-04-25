@@ -29,7 +29,7 @@ const GenerateDetails = () => {
     let body = {
       query: `mutation {
         postReport(reportInput:{
-          photos: "${images}",
+          photos: ${images},
           companyName: "${String(CompanyName)}",
           natureOfWork: "${String(natureOfWork)}",
           generatedBy: "${String(generated)}"
