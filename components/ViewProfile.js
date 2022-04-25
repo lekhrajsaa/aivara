@@ -3,52 +3,18 @@ import Tab from "@mui/material/Tab";
 import { useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-// const LAUNCHES_QUERY = `
-// {
-//   getUser {
-//     name
-//     labName
-//     phoneNo
-//     email
-//     userId
-//   }
-// }`;
 
 const ViewProfile = () => {
-  // const [launches, setLaunches] = React.useState([]);
   const router = useRouter();
   const userdata = useSelector((state) => state.userdata.userdata);
-  console.log(userdata);
-<<<<<<< HEAD
-=======
-
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
-  // React.useEffect(() => {
-  //   const Token = localStorage.getItem("token");
-  //   fetch("http://localhost:5000/graphql", {
-  //     method: "POST",
-  //     headers: {
-  //       "Authorization": `Bearer ${Token}`,
-  //       "Content-Type": "application/json",
-  //       // "x-api-key" : `${String(process.env.REACT_APP_API)}`
-
-  //     },
-  //     body: JSON.stringify({ query: LAUNCHES_QUERY }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setLaunches(data.data.getUser);
-  //     });
-  // }, []);
 
   return (
     <>
-      {/* <Tab label="Your Profile" className={classes.heading} /> */}
       <label className={classes.heading}>Your Profile</label>
       <a onClick={() => router.push("/home")} className={classes.back}>
         back
       </a>
-      {/* <Tab label="back" className={classes.back} /> */}
+
       <div className={classes.details}>
         <div className={classes.parent}>
           <div className={`${classes.child} ${classes.tit}`}>Username :</div>
@@ -72,7 +38,7 @@ const ViewProfile = () => {
         </div>
         <div className={classes.parent}>
           <div className={`${classes.child} ${classes.tit}`}>Password :</div>
-          {/* <div className={classes.child}>*********</div> */}
+
           <input
             disabled
             id="myInput"

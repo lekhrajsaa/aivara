@@ -5,16 +5,11 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Tab from "@mui/material/Tab";
 import classes from "./EditProfile.module.css";
 import { Button, Form, Modal } from "react-bootstrap";
-<<<<<<< HEAD
 import { Xapkey } from "../aivara";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Visibility } from "@mui/icons-material";
-=======
-// import { Xapkey } from "../aivara";
-import { Xapkey } from "../apikey";
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
 //saving data edited on variables sent by backend
 
 let masg;
@@ -37,120 +32,6 @@ const EditProfile = () => {
   const userdata = useSelector((state) => state.userdata.userdata);
   const [errorHandle, setErrorHandle] = useState(false);
 
-  // getting data from the backend
-<<<<<<< HEAD
-  // const LAUNCHES_QUERY = `
-  // {
-  //   getUser {
-  //     name
-  //     labName
-  //     phoneNo
-  //     email
-  //     userId
-  //     password
-  //   }
-  // }`;
-  // console.log(process.env.REACT_APP_API);
-  // const [launches, setLaunches] = React.useState([]);
-  // React.useEffect(() => {
-  //   const Token = localStorage.getItem("token");
-  //   fetch("http://localhost:5000/graphql", {
-  //     method: "POST",
-  //     headers: {
-  //       Authorization: `Bearer ${Token}`,
-  //       "Content-Type": "application/json",
-  //       // "x-api-key": Xapkey,
-  //     },
-  //     body: JSON.stringify({ query: LAUNCHES_QUERY }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data, error) => {
-  //       if (data) {
-  //         setLaunches(data.data.getUser);
-  //       } else {
-  //         console.log(error);
-  //       }
-  //     });
-  // }, []);
-
-  // const getUserData = async () => {
-  //   let body = {
-  //     query: `{
-  //       getUser {
-  //         name
-  //   labName
-  //   phoneNo
-  //   email
-  //   userId
-  //   lastLoggedIn
-  //   password
-  //       }
-  //     }`,
-  //     variables: {},
-  //   };
-  //   let options = {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${String(Token)}`,
-  //       // "x-api-key": Xapkey,
-  //     },
-  //   };
-  //   try {
-  //     const resp = await axios.post(
-  //       "http://15.206.145.166/api/v1",
-  //       body,
-  //       options
-  //     );
-  //     // console.log(resp);
-  //     await setLaunches(resp.data.data.getUser);
-  //     // dispatch(Getting_user_data(resp.data.data.getUser));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const Token = localStorage.getItem("token");
-  //   if (Token) {
-  //     getUserData();
-  //   }
-  // }, []);
-=======
-  const LAUNCHES_QUERY = `
-  {
-    getUser {
-      name
-      labName
-      phoneNo
-      email
-      userId
-      password
-    }
-  }`;
-
-  const [launches, setLaunches] = React.useState([]);
-  React.useEffect(() => {
-    const Token = localStorage.getItem("token");
-    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${Token}`,
-        "Content-Type": "application/json",
-        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-      },
-      body: JSON.stringify({ query: LAUNCHES_QUERY }),
-    })
-      .then((response) => response.json())
-      .then((data, error) => {
-        if (data) {
-          setLaunches(data.data.getUser);
-        } else {
-          console.log(error);
-        }
-      });
-  }, []);
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
-
   // logic for enabling and disabling the input field
 
   const [usernameDisabled, setUsernameDisabled] = useState(true);
@@ -163,50 +44,6 @@ const EditProfile = () => {
     setEmailDisabled(!emailDisabled);
   }
 
-  // logic for submiting the data once edited
-<<<<<<< HEAD
-  // const onsubmit = (e) => {
-  //   setUsernameDisabled(true);
-  //   setEmailDisabled(true);
-  //   e.preventDefault();
-
-  //   if (user.username === "" || user.username.length === 0) {
-  //     user.username = userdata.name;
-  //   }
-  //   if (user.labName === "" || user.labName.length === 0) {
-  //     user.labName = userdata.labName;
-  //   }
-  //   const UPDATE_QUERY = `mutation {
-  //       updateProfile(updateInput:{
-  //           name: "${user.username}",
-  //           labName: "${user.labName}"
-  //       })
-  //        {
-  //           email
-  //           userId
-  //           name
-  //           labName
-  //           phoneNo
-  //           isVerified
-  //       }
-  //   }`;
-
-  //   const Token = localStorage.getItem("token");
-  //   fetch("http://localhost:5000/graphql", {
-  //     method: "POST",
-  //     headers: {
-  //       Authorization: `Bearer ${Token}`,
-  //       "Content-Type": "application/json",
-  //       // "x-api-key": Xapkey,
-  //     },
-  //     body: JSON.stringify({ query: UPDATE_QUERY }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  // };
-
   ////TRY
   const Token = localStorage.getItem("token");
   const onsubmit = async (e) => {
@@ -214,10 +51,6 @@ const EditProfile = () => {
     setEmailDisabled(true);
     e.preventDefault();
 
-=======
-  const onsubmit = (e) => {
-    e.preventDefault();
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
     if (user.username === "" || user.username.length === 0) {
       user.username = userdata.name;
     }
@@ -238,26 +71,14 @@ const EditProfile = () => {
             phoneNo
             isVerified
         }
-<<<<<<< HEAD
     }`,
       varibles: {},
     };
     let options = {
-=======
-    }`;
-
-    const Token = localStorage.getItem("token");
-    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
-      method: "POST",
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
       headers: {
         "Content-Type": "application/json",
-<<<<<<< HEAD
         Authorization: `Bearer ${Token}`,
         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
-=======
-        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
       },
     };
     try {
@@ -280,49 +101,12 @@ const EditProfile = () => {
   const checkMessage = () => {
     setCheck(!check);
   };
-  // const onSubmitPassword = () => {
-  //   console.log(user.oldPassword);
-  //   console.log(user.newPassword);
-
-  //   const UPDATE_QUERY = `mutation {
-  //     updateProfile(updateInput:{
-  //       oldPassword: "${user.oldPassword}",
-  //       newPassword: "${user.newPassword}"
-  //     })
-  //      {
-  //         email
-  //         userId
-  //         name
-  //         labName
-  //         phoneNo
-  //         isVerified
-  //     }
-  // }`;
-
-<<<<<<< HEAD
-  //   const Token = localStorage.getItem("token");
-  //   fetch("http://localhost:5000/graphql", {
-  //     method: "POST",
-  //     headers: {
-  //       Authorization: `Bearer ${Token}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ query: UPDATE_QUERY }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-
-  //   window.location.reload();
-  // };
 
   const onSubmitPassword = async () => {
     if (userdata.password !== user.oldPassword) {
-    
       setErrorHandle(true);
     }
-    
+
     let body = {
       query: `mutation {
           updateProfile(updateInput:{
@@ -342,19 +126,10 @@ const EditProfile = () => {
       varibles: {},
     };
     let options = {
-=======
-    const Token = localStorage.getItem("token");
-    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
-      method: "POST",
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
       headers: {
         "Content-Type": "application/json",
-<<<<<<< HEAD
         Authorization: `Bearer ${Token}`,
         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
-=======
-        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
       },
     };
     try {
@@ -363,14 +138,13 @@ const EditProfile = () => {
         body,
         options
       );
-      
+
       console.log(resp.data.data.updateProfile);
       handleClose();
     } catch (err) {
       console.log(err);
     }
   };
-<<<<<<< HEAD
 
   function showPassword() {
     var x = document.getElementById("myInput");
@@ -380,14 +154,10 @@ const EditProfile = () => {
       x.type = "password";
     }
   }
-=======
-  console.log(launches.password);
->>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
   return (
     <>
-      {/* <Tab label="Your Profile" className={classes.heading} /> */}
       <label className={classes.heading}>Your Profile</label>
-      {/* <Tab label="back" className={classes.back} /> */}
+
       <a onClick={() => router.push("/home")} className={classes.back}>
         back
       </a>
@@ -518,16 +288,12 @@ const EditProfile = () => {
                       onChange={userInput}
                       autoFocus
                     />
-                    {/* {!user.newPassword.length == 0 &&
-                    user.newPassword === user.checkPassword ? (
-                      <p>The password Matches New Password</p>
-                    ) : (
-                      <p style={{ color: "red", Visibility: "hidden" }}>
-                        The password does not Match New Password
-                      </p>
-                    )} */}
 
-                    {errorHandle && <p style={{ color: "red" }}>The Old Password is incorrect </p>}
+                    {errorHandle && (
+                      <p style={{ color: "red" }}>
+                        The Old Password is incorrect{" "}
+                      </p>
+                    )}
                   </Form.Group>
                 </Form>
               </Modal.Body>
@@ -540,13 +306,12 @@ const EditProfile = () => {
                     variant="primary"
                     onClick={() => {
                       onSubmitPassword();
-                
                     }}
                     className={classes.passwordBtn}
                   >
                     Save Password
                   </Button>
-                 ) : null} 
+                ) : null}
               </Modal.Footer>
             </Modal>
           </div>
