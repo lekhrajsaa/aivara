@@ -19,6 +19,10 @@ const ViewProfile = () => {
   const router = useRouter();
   const userdata = useSelector((state) => state.userdata.userdata);
   console.log(userdata);
+<<<<<<< HEAD
+=======
+
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
   // React.useEffect(() => {
   //   const Token = localStorage.getItem("token");
   //   fetch("http://localhost:5000/graphql", {

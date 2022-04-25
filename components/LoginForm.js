@@ -62,7 +62,7 @@ const LoginForm = () => {
         try {
           const resp = await axios.post(
             "http://15.206.145.166/api/v1",
-            bodys,
+            body,
             options
           );
           console.log(resp);
@@ -73,28 +73,6 @@ const LoginForm = () => {
         } catch (err) {
           console.log(err);
         }
-
-        // fetch(`${process.env.REACT_APP_SERVER}/graphql`, {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        //   body: JSON.stringify(bodys),
-        // })
-        //   .then((res) => {
-        //     return res.json();
-        //   })
-        //   .then((resData) => {
-        //     if (resData.errors && resData.errors[0].status === 422) {
-        //       throw new Error(
-        //         "Validation failed. Make sure the email address isn't used yet!"
-        //       );
-        //     }
-        //     if (resData.errors) {
-        //       throw new Error("User creation failed!");
-        //     }
-        //     console.log(resData);
-        //   });
       }
 
       setText("enter password");

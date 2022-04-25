@@ -5,11 +5,16 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Tab from "@mui/material/Tab";
 import classes from "./EditProfile.module.css";
 import { Button, Form, Modal } from "react-bootstrap";
+<<<<<<< HEAD
 import { Xapkey } from "../aivara";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Visibility } from "@mui/icons-material";
+=======
+// import { Xapkey } from "../aivara";
+import { Xapkey } from "../apikey";
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
 //saving data edited on variables sent by backend
 
 let masg;
@@ -33,6 +38,7 @@ const EditProfile = () => {
   const [errorHandle, setErrorHandle] = useState(false);
 
   // getting data from the backend
+<<<<<<< HEAD
   // const LAUNCHES_QUERY = `
   // {
   //   getUser {
@@ -109,6 +115,41 @@ const EditProfile = () => {
   //     getUserData();
   //   }
   // }, []);
+=======
+  const LAUNCHES_QUERY = `
+  {
+    getUser {
+      name
+      labName
+      phoneNo
+      email
+      userId
+      password
+    }
+  }`;
+
+  const [launches, setLaunches] = React.useState([]);
+  React.useEffect(() => {
+    const Token = localStorage.getItem("token");
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${Token}`,
+        "Content-Type": "application/json",
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+      },
+      body: JSON.stringify({ query: LAUNCHES_QUERY }),
+    })
+      .then((response) => response.json())
+      .then((data, error) => {
+        if (data) {
+          setLaunches(data.data.getUser);
+        } else {
+          console.log(error);
+        }
+      });
+  }, []);
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
 
   // logic for enabling and disabling the input field
 
@@ -123,6 +164,7 @@ const EditProfile = () => {
   }
 
   // logic for submiting the data once edited
+<<<<<<< HEAD
   // const onsubmit = (e) => {
   //   setUsernameDisabled(true);
   //   setEmailDisabled(true);
@@ -172,6 +214,10 @@ const EditProfile = () => {
     setEmailDisabled(true);
     e.preventDefault();
 
+=======
+  const onsubmit = (e) => {
+    e.preventDefault();
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
     if (user.username === "" || user.username.length === 0) {
       user.username = userdata.name;
     }
@@ -192,14 +238,26 @@ const EditProfile = () => {
             phoneNo
             isVerified
         }
+<<<<<<< HEAD
     }`,
       varibles: {},
     };
     let options = {
+=======
+    }`;
+
+    const Token = localStorage.getItem("token");
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+      method: "POST",
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `Bearer ${Token}`,
         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
+=======
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
       },
     };
     try {
@@ -241,6 +299,7 @@ const EditProfile = () => {
   //     }
   // }`;
 
+<<<<<<< HEAD
   //   const Token = localStorage.getItem("token");
   //   fetch("http://localhost:5000/graphql", {
   //     method: "POST",
@@ -283,10 +342,19 @@ const EditProfile = () => {
       varibles: {},
     };
     let options = {
+=======
+    const Token = localStorage.getItem("token");
+    fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+      method: "POST",
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
       headers: {
         "Content-Type": "application/json",
+<<<<<<< HEAD
         Authorization: `Bearer ${Token}`,
         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
+=======
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
       },
     };
     try {
@@ -302,6 +370,7 @@ const EditProfile = () => {
       console.log(err);
     }
   };
+<<<<<<< HEAD
 
   function showPassword() {
     var x = document.getElementById("myInput");
@@ -311,6 +380,9 @@ const EditProfile = () => {
       x.type = "password";
     }
   }
+=======
+  console.log(launches.password);
+>>>>>>> e432cbfdab05804a1fd4225c13afcfe82cbadfb4
   return (
     <>
       {/* <Tab label="Your Profile" className={classes.heading} /> */}

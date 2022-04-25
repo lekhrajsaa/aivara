@@ -20,38 +20,67 @@ const GenerateDetails = () => {
   const [ErrorMessage, setErrorMessage] = useState(false);
   const [Token, setToken] = useState();
   const images = useSelector((state) => state.userdata.lab_images);
-  console.log(images);
+  // const [photos, setphotos] = useState([]);
+  // const photos = [];
+  // if (images.length != 0) {
+  //   try {
+  //     // var img_array = images.split(",");
+
+  //     for (var i = 0; i < images.length; i++) {
+  //       images[i] = images[i].replace(/^\s*/, "").replace(/\s*$/, "");
+
+  //       console.log(images[i]);
+  //       photos.push(images[i]);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+  // console.log(photos);
   const SubmitReport = async (e) => {
     e.preventDefault();
     if (!CompanyName || !natureOfWork || !generated)
       (messg = "Enter all fileds"), setErrorMessage(true);
     // photos: ["xyz.jpg","abc.png"],
-    let body = {
-      query: `mutation {
-        postReport(reportInput:{
-          photos: "${String(images)}",
-          companyName: "${String(CompanyName)}",
-          natureOfWork: "${String(natureOfWork)}",
-          generatedBy: "${String(generated)}"
-        }) {
-          message
-        }
-      }`,
-      variables: {},
-    };
-    let options = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${String(Token)}`,
-        "x-api-key": Xapkey,
-      },
-    };
+    // let body = {
+    //   query: `mutation {
+    //     postReport(reportInput:{
+    //       photos: "${String(photos)}",
+    //       companyName: "${String(CompanyName)}",
+    //       natureOfWork: "${String(natureOfWork)}",
+    //       generatedBy: "${String(generated)}"
+    //     }) {
+    //       message
+    //     }
+    //   }`,
+    //   variables: {},
+    // };
+    // let options = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: `Bearer ${String(Token)}`,
+    //     "x-api-key": Xapkey,
+    //   },
+    // };
+    // try {
+    //   const resp = await axios.post(
+    //     `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
+    //     body,
+    //     options
+    //   );
+    //   console.log(resp);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    const formData = new FormData();
+    // formData.append("file", file);
+    formData.append("fileName", images);
+
     try {
-      const resp = await axios.post(
-        `${process.env.REACT_APP_SERVER}/graphql`,
-        body,
-        options
-      );
+      const resp = await axios.post("http://localhost:5000/postReport", {
+        headers: { Authorization: `Bearer ${Token}`, "x-api-key": Xapkey },
+        body: JSON.stringify({ formData }),
+      });
       console.log(resp);
     } catch (err) {
       console.log(err);
