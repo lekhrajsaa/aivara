@@ -485,7 +485,6 @@
 
   z-index: 1;
   border-radius: 8px;
-
 }
 
 .dropdown_content a {
@@ -582,4 +581,7 @@
 
 .Inputimg {
   visibility: hidden;
+}
+.dropdown_conten a {
+  cursor: pointer;
 }

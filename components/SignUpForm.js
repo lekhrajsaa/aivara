@@ -221,7 +221,8 @@ const SignUpForm = () => {
                 password:"${String(password)}",
                 confirmPassword:"${String(confirmPassword)}"
               }) {
-                message
+                message,
+                status
               }
           }`,
               variables: {},
@@ -231,22 +232,62 @@ const SignUpForm = () => {
                 "Content-Type": "application/json",
               },
             };
-            try {
-              const resp = await axios.post(
-                `http://localhost:5000/api/v1`,
-                body,
-                options
-              );
-              const Response = await resp.json();
-              console.log(Response);
-              if (resp.status === 200) {
-                window.location.href = "/verify";
-              }
-              errors = "Email Already Registered";
-              setErrorMessage(true);
-            } catch (err) {
-              console.log(err);
-            }
+            // try {
+            //   const resp = await axios.post(
+            //     `http://localhost:5000/api/v1`,
+            //     body,
+            //     options
+            //   );
+            //   const data = await resp.json();
+            //   console.log(data);
+            //   if (data != null && data.data.signup.status === 200) {
+            //     localStorage.setItem("email", email);
+            //     window.location.href = "/verify";
+            //   }
+            //   if (data.errors && data.errors[0].status === 401) {
+            //     console.log(data.errors[0].message);
+            //     errors = data.errors[0].message;
+            //     setErrorMessage(true);
+            //   } else {
+            //     errors = "server Error";
+            //     setErrorMessage(true);
+            //   }
+
+            //   setErrorMessage(true);
+            // } catch (err) {
+            //   console.log(err);
+            // }
+
+            fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(body),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                if (data.errors && data.errors[0].status === 401) {
+                  console.log(data.errors[0].message);
+                  errors = data.errors[0].message;
+                  setErrorMessage(true);
+                }
+
+                if (data.errors && data.errors[0].status === 401) {
+                  console.log(data.errors[0].message);
+                  errors = data.errors[0].message;
+                  setErrorMessage(true);
+                } else {
+                  if (data != null && data.data.signup.status === 200) {
+                    localStorage.setItem("email", email);
+                    window.location.href = "/verify";
+                  } else {
+                    errors = "server Error";
+                    setErrorMessage(true);
+                  }
+                }
+              });
 
             localStorage.setItem("email", email);
             // window.location.href="/verify"
@@ -348,6 +389,7 @@ const SignUpForm = () => {
                 confirmPassword:"${String(confirmPassword)}"
               }) {
                 message
+                status
               }
           }`,
             variables: {},
@@ -357,22 +399,46 @@ const SignUpForm = () => {
               "Content-Type": "application/json",
             },
           };
-          try {
-            const resp = await axios.post(
-              "http://localhost:5000/api/v1",
-              body,
-              options
-            );
-            console.log(resp);
-            if (resp.status === 200) {
-              window.location.href = "/verify";
-            } else {
-              errors = "Email Already Registered";
-              setErrorMessage(true);
-            }
-          } catch (err) {
-            console.log(err);
-          }
+          // try {
+          //   const resp = await axios.post(
+          //     "http://localhost:5000/api/v1",
+          //     body,
+          //     options
+          //   );
+          //   console.log(resp);
+          //   if (resp.status === 200) {
+          //     window.location.href = "/verify";
+          //   } else {
+          //     errors = "Email Already Registered";
+          //     setErrorMessage(true);
+          //   }
+          // } catch (err) {
+          //   console.log(err);
+          // }
+
+          fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.errors && data.errors[0].status === 401) {
+                console.log(data.errors[0].message);
+                errors = data.errors[0].message;
+                setErrorMessage(true);
+              } else {
+                if (data != null && data.data.signup.status === 200) {
+                  localStorage.setItem("email", email);
+                  window.location.href = "/verify";
+                } else {
+                  errors = "server Error";
+                  setErrorMessage(true);
+                }
+              }
+            });
 
           //  window.location.href="/verify"
         } else {

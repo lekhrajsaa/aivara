@@ -20,6 +20,7 @@
   margin-top: 5%;
   text-decoration: underline;
   color: #000000;
+  cursor: pointer;
 }
 
 .details {
@@ -34,6 +35,7 @@
   font-weight: 400;
   font-family: Sora;
   font-style: normal;
+  word-wrap: break-word;
 }
 .child {
   flex: 0 3 250px;
@@ -45,6 +47,11 @@
 .tit {
   color: #606060;
 }
-.val{
+.val {
   color: #313131;
+}
+@media screen and (max-width: 768px) {
+  .details {
+    margin-top: 20px;
+  }
 }

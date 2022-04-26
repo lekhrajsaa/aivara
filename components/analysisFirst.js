@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -209,7 +210,10 @@ const Analysisheader = () => {
                   Lorem ipsum text, some info regarding the bacteria may come
                   here
                 </p>
-                <p className={classes.image_modal_download}>Download</p>
+                <p className={classes.image_modal_download}>
+                  <FileDownloadOutlinedIcon />
+                  Download
+                </p>
               </div>
             )}
           </div>
