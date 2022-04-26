@@ -4,11 +4,11 @@ import axios from "axios";
 import { Getting_user_data } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
-import { Link,Route } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-
+import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
@@ -81,7 +81,7 @@ const Profile = () => {
         body,
         options
       );
-      // console.log(resp);
+      console.log(resp);
       await setuser(resp.data.data.getUser);
       dispatch(Getting_user_data(resp.data.data.getUser));
     } catch (err) {
@@ -121,8 +121,18 @@ const Profile = () => {
                 <img src="/user.svg"></img>
               </button>
               <div className={classes.dropdown_content}>
-                <a onClick={()=>router.push("/viewProfile")}>View Profile</a>
-                <a onClick={()=>router.push("/editProfile")}>Edit Profile</a>
+                <a
+                  onClick={() => router.push("/viewProfile")}
+                  style={{ cursor: "pointer" }}
+                >
+                  View Profile
+                </a>
+                <a
+                  onClick={() => router.push("/editProfile")}
+                  style={{ cursor: "pointer" }}
+                >
+                  Edit Profile
+                </a>
                 <a href="#">Delete account</a>
                 <a href="#">Help & Support</a>
               </div>
@@ -153,12 +163,13 @@ const Profile = () => {
       </Container>
       <Container className={classes.report2}>
         <div className={classes.uploadicon}>
-          <i
-            class="fa-solid fa-arrow-up-from-bracket"
+          {/* <i
+            className="fa-solid fa-arrow-up-from-bracket"
             style={{ color: "#395D89" }}
-          ></i>
+          ></i> */}
           <a href="/gen" style={{ color: "#395D89", textDecoration: "none" }}>
             {" "}
+            <FileUploadOutlinedIcon />
             Generate report
           </a>
         </div>

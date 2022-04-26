@@ -11,6 +11,16 @@ import Header from "./Header";
 import HeaderMobile from "./HeaderMobile";
 import Footer from "./Footer";
 import axios from "axios";
+
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+var errors;
 const LoginForm = () => {
   const [text, setText] = useState("enter email id");
   const [show, setShow] = useState(false);
@@ -21,6 +31,10 @@ const LoginForm = () => {
   const [login, setLogin] = useState(false);
   const [register, setRegister] = useState(false);
   const [dis, setDis] = useState("block");
+
+  const [success, setSuccess] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState(false);
+
   useEffect(() => {
     if (window.location.pathname === "/") {
       setLogin(true);
@@ -50,6 +64,7 @@ const LoginForm = () => {
           query: `{
             login(email:"${String(email)}",password:"${String(password)}") {
                 token
+                status
             }
         }`,
           variables: {},
@@ -59,20 +74,45 @@ const LoginForm = () => {
             "Content-Type": "application/json",
           },
         };
-        try {
-          const resp = await axios.post(
-            "http://localhost:5000/api/v1",
-            body,
-            options
-          );
-          console.log(resp);
-          if (resp.status === 200) {
-            localStorage.setItem("token", resp.data.data.login.token);
-            window.location.href = "/home";
-          }
-        } catch (err) {
-          console.log(err);
-        }
+        // try {
+        //   const resp = await axios.post(
+        //     "http://localhost:5000/api/v1",
+        //     body,
+        //     options
+        //   );
+        //   console.log(resp);
+        //   if (resp.status === 200) {
+        //     localStorage.setItem("token", resp.data.data.login.token);
+        //     window.location.href = "/home";
+        //   }
+        // } catch (err) {
+        //   console.log(err);
+        // }
+
+        fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            if (data.errors && data.errors[0].status === 401) {
+              console.log(data.errors[0].message);
+              errors = data.errors[0].message;
+              setErrorMessage(true);
+            } else {
+              if (data.data.login.status === 200) {
+                localStorage.setItem("token", data.data.login.token);
+                window.location.href = "/home";
+              } else {
+                errors = "server Error";
+                setErrorMessage(true);
+              }
+            }
+          });
       }
 
       setText("enter password");
@@ -89,7 +129,8 @@ const LoginForm = () => {
       let body = {
         query: `{
           login(email:"${String(email)}",password:"${String(password)}") {
-              token
+              token 
+              status
           }
       }`,
         variables: {},
@@ -99,20 +140,44 @@ const LoginForm = () => {
           "Content-Type": "application/json",
         },
       };
-      try {
-        const resp = await axios.post(
-          "http://localhost:5000/api/v1",
-          body,
-          options
-        );
-        console.log(resp);
-        if (resp.status === 200) {
-          localStorage.setItem("token", resp.data.data.login.token);
-          window.location.href = "/home";
-        }
-      } catch (err) {
-        console.log(err);
-      }
+      // try {
+      //   const resp = await axios.post(
+      //     "http://localhost:5000/api/v1",
+      //     body,
+      //     options
+      //   );
+      //   console.log(resp);
+      //   if (resp.status === 200) {
+      //     localStorage.setItem("token", resp.data.data.login.token);
+      //     window.location.href = "/home";
+      //   }
+      // } catch (err) {
+      //   console.log(err);
+      // }
+
+      fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.errors && data.errors[0].status === 401) {
+            console.log(data.errors[0].message);
+            errors = data.errors[0].message;
+            setErrorMessage(true);
+          } else {
+            if (data.data.login.status === 200) {
+              localStorage.setItem("token", data.data.login.token);
+              window.location.href = "/home";
+            } else {
+              errors = "server Error";
+              setErrorMessage(true);
+            }
+          }
+        });
     }
 
     setText("enter password");
@@ -294,6 +359,22 @@ const LoginForm = () => {
       ) : (
         <SignUpForm />
       )}
+
+      <Stack spacing={2} sx={{ width: "100%" }}>
+        <Snackbar
+          open={ErrorMessage}
+          autoHideDuration={6000}
+          onClose={() => setErrorMessage(false)}
+        >
+          <Alert
+            onClose={() => setErrorMessage(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {errors}
+          </Alert>
+        </Snackbar>
+      </Stack>
     </>
     //   </div>
     // </div>
@@ -301,3 +382,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+//"http://localhost:5000/api/v1"

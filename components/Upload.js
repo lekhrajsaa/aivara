@@ -70,13 +70,13 @@ function StyledDropzone(props) {
 
         try {
           const res = await axios.post(
-            "http://localhost:5000/postReport",
+            `${process.env.NEXT_PUBLIC_SERVER_API}/postReport`,
             formData,
             {
               headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: `Bearer ${Token}`,
-                "x-api-key":`${process.env.NEXT_PUBLIC_XAPI}`,
+                "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
               },
             }
           );
@@ -86,9 +86,11 @@ function StyledDropzone(props) {
             console.log(res);
             let arr = [];
             res.data.result.forEach((item) => {
-              let obj = { key: item.key, location: item.Location };
-              arr.push(obj);
+              // let obj = { key: item.key, location: item.Location };
+              // arr.push(obj);
+              arr.push(item.Location);
             });
+
             console.log(arr);
             dispatch(setImages(arr));
             router.push("/detail");
@@ -102,75 +104,35 @@ function StyledDropzone(props) {
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
-  console.log(ImageData);
-  // const fileupload = async (e) => {
+
+  // const onSubmit = async () => {
+  //   // e.preventDefault();
+
+  //   const formData = new FormData();
+  //   files.forEach((file) => {
+  //     formData.append("uploadImages", file);
+  //   });
+
   //   try {
-  //     // console.log("hh");
-  //     // setFiless(e.target.files[0].name);
-  //     // // setFileName(e.target.files[0].name);
-  //     // await uploadimage();
-  //     const file = e.target.files[0];
-  //     console.log(file);
-  //     const formData = new FormData();
-  //     formData.append("file", file);
-  //     // formData.append("fileName", fileName);
-  //     console.log(formData);
   //     const res = await axios.post(
   //       "http://localhost:5000/postReport",
-  //       formData
+  //       formData,
+  //       {
+  //         headers: {
+  //           "Content-Type": "multipart/form-data",
+  //         },
+  //       }
   //     );
-
+  //     setFiles("");
   //     console.log(res);
   //   } catch (err) {
-  //     console.log(err);
+  //     if (err.response.status === 500) {
+  //       console.log(err);
+  //     } else {
+  //       console.log(err.response.data.msg);
+  //     }
   //   }
   // };
-  // console.log(fileName);
-  // const uploadimage = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("file", filess);
-  //     // formData.append("fileName", fileName);
-  //     console.log(formData);
-  //     const res = await axios.post(
-  //       "http://localhost:5000/postReport",
-  //       formData
-  //     );
-
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  const onSubmit = async () => {
-    // e.preventDefault();
-    console.log("Pamuuuuuuu");
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append("uploadImages", file);
-    });
-
-    try {
-      const res = await axios.post(
-        "http://localhost:5000/postReport",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      setFiles("");
-      console.log(res);
-    } catch (err) {
-      if (err.response.status === 500) {
-        console.log(err);
-      } else {
-        console.log(err.response.data.msg);
-      }
-    }
-  };
 
   // const onChanges = async (e) => {
   //   console.log("fff");

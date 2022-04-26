@@ -492,7 +492,6 @@
 
   z-index: 1;
   border-radius: 8px;
-
 }
 
 .dropdown_content a {
@@ -603,4 +602,7 @@
     padding-bottom: 2.5px;
   }
 
+}
+.dropdown_conten a {
+  cursor: pointer;
 }

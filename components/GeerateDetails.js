@@ -24,13 +24,14 @@ const GenerateDetails = () => {
   const SubmitReport = async (e) => {
     console.log(images);
     e.preventDefault();
+    console.log(images);
     if (!CompanyName || !natureOfWork || !generated)
       (messg = "Enter all fileds"), setErrorMessage(true);
     // photos: ["xyz.jpg","abc.png"],
     let body = {
       query: `mutation {
         postReport(reportInput:{
-          photos: ${images},
+          photos:${JSON.stringify(images)},
           companyName: "${String(CompanyName)}",
           natureOfWork: "${String(natureOfWork)}",
           generatedBy: "${String(generated)}"
@@ -49,7 +50,7 @@ const GenerateDetails = () => {
     };
     try {
       const resp = await axios.post(
-        "http://localhost:5000/api/v1",
+        `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
         body,
         options
       );
