@@ -22,6 +22,7 @@ const GenerateDetails = () => {
   const images = useSelector((state) => state.userdata.lab_images);
 
   const SubmitReport = async (e) => {
+    console.log(images);
     e.preventDefault();
     if (!CompanyName || !natureOfWork || !generated)
       (messg = "Enter all fileds"), setErrorMessage(true);

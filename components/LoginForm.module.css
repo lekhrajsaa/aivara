@@ -213,17 +213,24 @@
 @media screen and (min-width: 760px) and (max-width: 930px) {
   .bottomLine {
     width: 130% !important;
+    height:3% ;
+    padding-bottom: 2.5px;
   }
 }
 @media screen and (min-width: 260px) and (max-width: 430px) {
   .bottomLine {
     width: 110% !important;
+    padding-bottom: 2.5px;
+
   }
 }
 .strongpassword {
-  margin-top: -15px;
+  margin-top: 15px;
   margin-bottom: 2px;
+  
 }
+
+
 
 #placeholder {
   color: #dcd3e9;
@@ -582,4 +589,18 @@
 
 .Inputimg {
   visibility: hidden;
+}
+@media screen and (max-width: 578px) {
+  .strongpassword{
+    font-size: 10px;
+  }
+
+}
+@media screen and (min-width: 430px) and (max-width:750px) {
+  .bottomLine{
+    width: 100% !important;
+    height:6% ;
+    padding-bottom: 2.5px;
+  }
+
 }
