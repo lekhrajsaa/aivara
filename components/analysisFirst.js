@@ -6,6 +6,7 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useRouter } from "next/router";
 
 import {
   BsArrowLeft,
@@ -15,7 +16,7 @@ import {
 } from "react-icons/bs";
 import { ModelTraining } from "@mui/icons-material";
 const image =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ8tbWBPpebnEMYaL2RhjNq6EM-VIIf75FvQ&usqp=CAU";
+  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSleNg85PLgTXzYbZyiSuStVjNbdHmrp6NorQ&usqp=CAU";
 
 const style = {
   position: "absolute",
@@ -25,9 +26,56 @@ const style = {
   width: 1750,
   outerHeight: 2000,
   boxShadow: 24,
-
   p: 2,
 };
+const data = [
+  {
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg",
+    caption: "San Francisco",
+  },
+  {
+    image:
+      "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
+    caption: "Scotland",
+  },
+
+  {
+    image:
+      "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
+    caption: "Darjeeling",
+  },
+  {
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
+    caption: "San Francisco",
+  },
+  {
+    image:
+      "https://i.natgeofe.com/n/f7732389-a045-402c-bf39-cb4eda39e786/scotland_travel_4x3.jpg",
+    caption: "Scotland",
+  },
+  {
+    image:
+      "https://www.tusktravel.com/blog/wp-content/uploads/2020/07/Best-Time-to-Visit-Darjeeling-for-Honeymoon.jpg",
+    caption: "Darjeeling",
+  },
+  {
+    image:
+      "https://www.omm.com/~/media/images/site/locations/san_francisco_780x520px.ashx",
+    caption: "San Francisco",
+  },
+  {
+    image:
+      "https://images.ctfassets.net/bth3mlrehms2/6Ypj2Qd3m3jQk6ygmpsNAM/61d2f8cb9f939beed918971b9bc59bcd/Scotland.jpg?w=750&h=422&fl=progressive&q=50&fm=jpg",
+    caption: "Scotland",
+  },
+  {
+    image:
+      "https://www.oyorooms.com/travel-guide/wp-content/uploads/2019/02/summer-7.jpg",
+    caption: "Darjeeling",
+  },
+];
 
 const Analysisheader = () => {
   const [Genus, setGenus] = React.useState(["family A", "Family B"]);
@@ -36,6 +84,7 @@ const Analysisheader = () => {
   const [open, setOpen] = React.useState(false);
 
   const [miaClass, setMainClass] = useState(false);
+  const route = useRouter();
   // ===============Genus===================
   const genusKeyDown = (e) => {
     if (e.key !== "Enter") return;
@@ -89,7 +138,7 @@ const Analysisheader = () => {
               <h5>Taxa details of the classified image</h5>
             </div>
             <div className={classes.analysis_cross_icon}>
-              <AiOutlineClose />
+              <AiOutlineClose onClick={() => route.push("/home")} />
             </div>
           </div>
           <div className={classes.analysis_body}>
@@ -145,7 +194,10 @@ const Analysisheader = () => {
                     className="form-control inspecies"
                     id="Inputspecies"
                     onKeyDown={speciesKeyDown}
-                    style={{ marginTop: "10px" }}
+                    style={{
+                      marginTop: "10px",
+                      backgroundColor: "transparent",
+                    }}
                   />
                 </div>
 
@@ -158,32 +210,52 @@ const Analysisheader = () => {
                     className="form-control ingenus"
                     id="Inputdenus"
                     onKeyDown={genusKeyDown}
-                    style={{ marginTop: "10px" }}
+                    style={{
+                      marginTop: "10px",
+                      backgroundColor: "transparent",
+                    }}
                   />
                 </div>
               </form>
             </div>
-            <div className={classes.analysis_image}>
+            <div
+              className={open ? classes.Analysis_Image : classes.analysis_image}
+            >
               <img src={image} />
-              {/* <h6>
-              <AiOutlineDownload />
-              Download
-            </h6> */}
               <p>
                 <BsEye />
                 <span className={classes.view_image} onClick={handleOpen}>
                   View Image
                 </span>
               </p>
+              <h6>
+                <FileDownloadOutlinedIcon className={classes.download} />
+                Download
+              </h6>
             </div>
           </div>
+          {/* ========================= */}
+          <div>
+            <div className={classes.imagemain_tap}>
+              <div className={classes.imagetap}>
+                {data.map((a, i) => {
+                  return (
+                    <>
+                      <img src={a.image} className={classes.image_slice} />
+                    </>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          {/*  ======================================== */}
           <div className={classes.analysis_pagination}>
-            <h4 className={classes.prevalue}>
+            <h5 className={classes.previous}>
               <BsArrowLeft /> PREVIOUS
-            </h4>
-            <h4 className={classes.next}>
+            </h5>
+            <h5 className={classes.next}>
               NEXT <BsArrowRight />
-            </h4>
+            </h5>
           </div>
           {/* ===================Image Model===================== */}
           <div>

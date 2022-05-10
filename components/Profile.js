@@ -9,6 +9,10 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
+import Paper from "@material-ui/core/Paper";
+import SearchBar from "material-ui-search-bar";
+import { AiOutlineSearch } from "react-icons/ai";
+// import emptyimag from "../asset/updateuser";
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
@@ -16,6 +20,9 @@ const Profile = () => {
   const userdata = useSelector((state) => state.userdata.userdata);
   const router = useRouter();
   const dispatch = useDispatch();
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchBarTab, setsearchBarTab] = useState(true);
   // useEffect(() => {
   //    var name = user.name;
   //   name= name.split(" ")[0]
@@ -24,33 +31,36 @@ const Profile = () => {
   // }, [])
 
   const array = [
-    {
-      title: "Lab report name here",
-      date: "08/03/22;23:00",
-    },
-    {
-      title: "Lab report name here",
-      date: "08/03/22;23:00",
-    },
-    {
-      title: "Lab report name here",
-      date: "08/03/22;23:00",
-    },
-
-    {
-      title: "Lab report name here",
-      date: "08/03/22;23:00",
-    },
-
-    {
-      title: "Lab report name here",
-      date: "08/03/22;23:00",
-    },
-
-    {
-      title: "Lab report name here",
-      date: "08/03/22;23:00",
-    },
+    // {
+    //   title: "Shree Datta Pathology Lab",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "Chaudhari Diagnostic Center",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "A Square Pathology Services",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "Aashish Khattar Sonography Clinic",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "New Point Pathology Lab",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "Nucleus Pathology Laboratory",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
   ];
 
   const getUserData = async () => {
@@ -94,71 +104,123 @@ const Profile = () => {
     if (token) {
       getUserData();
     }
+    if (array.length === 0) {
+      setsearchBarTab(false);
+    }
   }, [token]);
+
+  // searching Reports
+  const searchItems = (searchValue) => {
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      const filteredData = array.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(filteredData);
+    } else {
+      setFilteredResults(array);
+    }
+  };
+  const filteredData = array.filter((item) => {
+    return Object.values(item)
+      .join("")
+      .toLowerCase()
+      .includes(searchInput.toLowerCase());
+  });
 
   console.log(userdata);
   return (
     <>
       <Container className={classes.name}>
-        <Row>
-          <Col md={11} xs={10}>
-            <div className={classes.hello}>Hello, {userdata.name}</div>
-            <div
-              style={{
-                color: "#C4C4C4",
-                fontFamily: "Sora",
-                fontSize: "80%",
-              }}
-            >
-              Last login {userdata.lastLoggedIn}
+        {searchBarTab && (
+          <div className={classes.main}>
+            <div className={`${classes.form_group} ${classes.has_search}`}>
+              <span className={classes.searchicon}>
+                <AiOutlineSearch />
+              </span>
+              <input
+                type="text"
+                className={classes.form_control}
+                placeHolder="Search"
+                onChange={(e) => searchItems(e.target.value)}
+              />
             </div>
-          </Col>
-
-          <Col md={1} xs={2}>
-            <div className={classes.dropdown}>
-              <button className={classes.dropbtn}>
-                {" "}
-                <img src="/user.svg"></img>
-              </button>
-              <div className={classes.dropdown_content}>
-                <a
-                  onClick={() => router.push("/viewProfile")}
-                  style={{ cursor: "pointer" }}
-                >
-                  View Profile
-                </a>
-                <a
-                  onClick={() => router.push("/editProfile")}
-                  style={{ cursor: "pointer" }}
-                >
-                  Edit Profile
-                </a>
-                <a href="#">Delete account</a>
-                <a href="#">Help & Support</a>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        <div className={classes.profileLine}></div>
+          </div>
+        )}
       </Container>
+
       <Container className={classes.report}>
-        <h6 className={classes.heading}>History of the analyzed reports</h6>
+        {searchBarTab && (
+          <Row className={classes.tableheader}>
+            <Col md={6} xs={6} className={classes.tableheader_text}>
+              <p>Reports</p>
+            </Col>
+            <Col md={4} xs={3} className={classes.proCol2}>
+              <p>Date/Time</p>
+            </Col>
+            <Col md={1} xs={2}>
+              <p>View</p>
+            </Col>
+            <Col md={1} xs={1}>
+              <p>Status</p>
+            </Col>
+          </Row>
+        )}
         <div className={classes.scrollRep}>
-          {array.map((a, i) => {
-            return (
-              <Row className={classes.rowe}>
-                <Col md={7} xs={5} className={classes.proCol}>
-                  {a.title}
-                </Col>
-                <Col md={4} xs={5} className={classes.proCol2}>
-                  {a.date}
-                </Col>
-                <Col md={1} xs={2}>
-                  <button className={classes.proCol3}>View</button>
-                </Col>
-              </Row>
-            );
-          })}
+          {searchInput.length > 1 ? (
+            filteredResults.length === 0 ? (
+              <Container className={classes.emptdata_img}>
+                <img src="https://cdn.iconscout.com/icon/free/png-256/data-not-found-1965034-1662569.png" />
+                <h4 className={classes.no_report}>No Reports Found</h4>
+              </Container>
+            ) : (
+              filteredResults.map((a, i) => {
+                return (
+                  <Row className={classes.rowe}>
+                    <Col md={6} xs={5} className={classes.proCol}>
+                      {a.title}
+                    </Col>
+                    <Col md={4} xs={3} className={classes.proCol2}>
+                      {a.date}
+                    </Col>
+                    <Col md={1} xs={2}>
+                      <button className={classes.proCol3}>View</button>
+                    </Col>
+                    <Col md={1} xs={2} className={classes.proCol4}>
+                      <p>{a.status}</p>
+                    </Col>
+                  </Row>
+                );
+              })
+            )
+          ) : array.length === 0 ? (
+            <Container className={classes.emptdata_img1}>
+              <img src="https://cdn.iconscout.com/icon/free/png-256/data-not-found-1965034-1662569.png" />
+              <h4 className={classes.no_report}>No Reports Found</h4>
+            </Container>
+          ) : (
+            array.map((a, i) => {
+              return (
+                <Row className={classes.rowe}>
+                  <Col md={6} xs={5} className={classes.proCol}>
+                    {a.title}
+                  </Col>
+                  <Col md={4} xs={3} className={classes.proCol2}>
+                    {a.date}
+                  </Col>
+                  <Col md={1} xs={2}>
+                    <button className={classes.proCol3}>View</button>
+                  </Col>
+                  <Col md={1} xs={2}>
+                    <p>{a.status}</p>
+                  </Col>
+                </Row>
+              );
+            })
+          )}
         </div>
       </Container>
       <Container className={classes.report2}>
@@ -167,15 +229,57 @@ const Profile = () => {
             className="fa-solid fa-arrow-up-from-bracket"
             style={{ color: "#395D89" }}
           ></i> */}
-          <a href="/gen" style={{ color: "#395D89", textDecoration: "none" }}>
-            {" "}
+          <button
+            className={classes.gen_button}
+            onClick={() => router.push("/gen")}
+          >
             <FileUploadOutlinedIcon />
             Generate report
-          </a>
+          </button>
         </div>
       </Container>
+      {/* =============================================================== */}
     </>
   );
 };
 
 export default Profile;
+
+{
+  /* <Container className={classes.report}>
+<Row className={classes.tableheader}>
+  <Col md={6} xs={6} className={classes.tableheader_text}>
+    <p>Report</p>
+  </Col>
+  <Col md={4} xs={3} className={classes.proCol2}>
+    <p>Date/Time</p>
+  </Col>
+  <Col md={1} xs={2}>
+    <p>View</p>
+  </Col>
+  <Col md={1} xs={1}>
+    <p>Status</p>
+  </Col>
+</Row>
+<div className={classes.scrollRep}>
+  {array.map((a, i) => {
+    return (
+      <Row className={classes.rowe}>
+        <Col md={5} xs={7} className={classes.proCol}>
+          {a.title}
+        </Col>
+        <Col md={5} xs={3} className={classes.proCol2}>
+          {a.date}
+        </Col>
+        <Col md={1} xs={1}>
+          <button className={classes.proCol3}>View</button>
+        </Col>
+        <Col md={1} xs={1}>
+          <button className={classes.proCol3}>{a.status}</button>
+        </Col>
+      </Row>
+    );
+  })}
+</div>
+</Container> */
+}

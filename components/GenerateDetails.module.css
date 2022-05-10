@@ -1,83 +1,121 @@
 .back a {
-    font-family: Sora;
-    color: #000000;
-    font-weight: bold;
-
+  font-family: Sora;
+  color: #000000;
+  font-weight: bold;
 }
 
 .back :hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .head {
-    font-family: 'Sora';
-    font-size: 18px;
-    font-weight: 400;
-    margin-left: 11%;
-    margin-top: 40px;
-    color: #395D89 !important;
+  font-family: "Sora";
+  font-size: 18px;
+  font-weight: 400;
+  /* margin-left: 11%; */
+
+  margin-top: 40px;
+  color: #395d89 !important;
 }
-.head2{
-  
-    font-size: 18px;
-    font-weight: 700;
- 
-  
-    color: #395D89 !important; 
+.head2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 4.5%;
+  color: #395d89 !important;
 }
 
 .detail {
-    font-family: 'Sora';
-    font-size: 16px;
-    color: #606060;
-  
+  font-family: "Sora";
+  font-size: 16px;
+  color: #606060;
+  margin-top: 20px;
 }
-
 
 .fill {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    width: 250px;
-    color: #313131;
-    border-bottom: 1px solid #313131;
-    font-size: 16px;
-    padding-bottom: 8px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 250px;
+  color: #313131;
+  border-bottom: 1px solid #313131;
+  font-size: 16px;
+  padding-bottom: 8px;
+  background-color: transparent;
 }
-.fill:focus{
-
-outline: none;
-
+.fill:focus {
+  outline: none;
 }
 
 .sub {
-    background-color: #B7D7F7;
-    font-family: "Sora";
-    font-size: 15px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    color: #000000;
-    font-weight: 500;
-    
+  background-color: #b7d7f7;
+  font-family: "Sora";
+  font-size: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: #000000;
+  font-weight: 500;
 }
-.cont{
-    width: 85%;
-    margin-top: 10% !important;
-    margin: 0px;
-    margin-left: 10%;
-    font-family: 'Sora';
-    
+.cont {
+  width: 85%;
+  margin-top: 10% !important;
+  margin: 0px;
+  margin-left: 10%;
+  font-family: "Sora";
 }
-.rowe{
-    margin-bottom: 3%;
-   
+.rowe {
+  margin-bottom: 3%;
 }
-.footer{
-    color: #8A8A8A;
-    
-    position: fixed;
+.footer {
+  color: #8a8a8a;
+
+  position: fixed;
   left: 0;
   bottom: 0;
   margin-left: 10%;
 }
+.select_tagopen {
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  width: 250px;
+  position: fixed;
+  /* z-index: 9999; */
+  background-color: white;
+}
+.select_tag {
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+.arrowleft {
+  margin-left: 2.7%;
+  font-size: 40px;
+  margin-top: 20px;
+  color: #000000;
+  cursor: pointer;
+}
+@media screen and (max-width: 786px) {
+  .arrowleft {
+    font-size: 30px;
+    font-weight: 100;
+  }
+  .head2 {
+    margin-left: 1%;
+  }
+}
+
+.searchicon {
+  position: absolute;
+  margin-left: 220px;
+  margin-top: 8px;
+  font-size: 25px;
+  display: flex;
+  justify-content: right;
+  cursor: pointer;
+}
+/* @media screen and (max-width: 1617) {
+  .searchicon {
+    left: 500px;
+  }
+} */

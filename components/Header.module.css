@@ -1,138 +1,130 @@
-
-  
 .header {
-    overflow: hidden;
-    margin-left: 15%;
-margin-top: 20%;
-margin-bottom: 60%;
-  }
-  .header_signup {
-    overflow: hidden;
-    background-color: #313131 !important;
-    padding: 20px 10px;
-    padding-left: 0;
-  }
-  .headerMobile{
-    overflow: hidden;
+  overflow: hidden;
+  margin-left: 15%;
+  margin-top: 20%;
+  margin-bottom: 60%;
+}
+.header_signup {
+  overflow: hidden;
+  background-color: #313131 !important;
+  padding: 20px 10px;
+  padding-left: 0;
+}
+.headerMobile {
+  overflow: hidden;
   margin-top: 5%;
 
-display: none;  
+  display: none;
 }
 @media screen and (max-width: 995px) {
   .headerMobile {
-   
     display: block;
-    
   }
-  
-  
 }
 
-.header a{
-    float: left;
-    color:  #818181;
-    
-    text-align: center;
-    padding: 12px;
-    text-decoration: underline;
-    font-size: 14px; 
-    line-height: 25px;
-    border-radius: 4px;
-    margin-left: 65%;
-    margin-top: 2%;
-    font-family: 'Sora', sans-serif;
-    font-weight: 600;
-  }
-  .headerMobile d {
-    float: left;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    margin-left: 10%;
-    margin-top: 3%;
-  }
-  
-  .header d {
-    float: left;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    margin-left: 10%;
-    margin-top: 3%;
-  }
+.header a {
+  float: left;
+  color: #818181;
+
+  text-align: center;
+  padding: 12px;
+  text-decoration: underline;
+  font-size: 14px;
+  line-height: 25px;
+  border-radius: 4px;
+  margin-left: 65%;
+  margin-top: 2%;
+  font-family: "Sora", sans-serif;
+  font-weight: 600;
+}
+.headerMobile d {
+  float: left;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  margin-left: 10%;
+  margin-top: 3%;
+}
+
+.header d {
+  float: left;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  margin-left: 10%;
+  margin-top: 3%;
+}
 .header a.active {
-    background-color: dodgerblue;
-    color: white;
-  }
-  
+  background-color: dodgerblue;
+  color: white;
+}
+
 .header-right {
-    float: right;
-   
-  }
-  
+  float: right;
+}
+
 @media screen and (max-width: 500px) {
-    .header a {
-      float: none;
-      display: block;
-      text-align: left;
-    }
-    
-    .header-right {
-      float: right;
-  
-    }
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .header-right {
+    float: right;
+  }
 }
 
 /* verify Email page */
 
-.verifyEmail_header{
- display: flex;
- flex-direction: row;
+.verifyEmail_header {
+  display: flex;
+  flex-direction: row;
 }
-.verifyEmail_header d{
- margin-top: 3%;
- margin-left: 10%;
+.verifyEmail_header d {
+  margin-top: 3%;
+  margin-left: 10%;
 }
-.verifyEmail_backButton{
+.verifyEmail_backButton {
   /* position: absolute;
   top: 7%;
   left: 78%;
   text-decoration: underline; */
-  color:  #818181;
-  
+  color: #818181;
+
   text-align: center;
   padding: 8px;
   text-decoration: underline;
-  font-size: 16px; 
+  font-size: 16px;
   line-height: 25px;
   border-radius: 4px;
   margin-left: 74%;
   margin-top: 2%;
-  font-family: 'Sora', sans-serif;
+  font-family: "Sora", sans-serif;
   font-weight: 600;
-  
 }
-.verifyEmail_headerMobile{
+.verifyEmail_headerMobile {
   visibility: hidden;
 }
 /* .verifyEmail_content{
   margin-top: 20%;
   margin-left: 5%;
 } */
-.verifyEmail_text{
-  color: #C4C4C4;
+.verifyEmail_text {
+  color: #c4c4c4;
   font-size: 150%;
-  font-family: 'Sora', sans-serif;
+  font-family: "Sora", sans-serif;
   margin-top: 18%;
   margin-left: 10%;
 }
-.verifyEmail_resend{
+.verifyEmail_resend {
   color: #818181;
   font-size: 87%;
-  font-family: 'Sora', sans-serif;
+  font-family: "Sora", sans-serif;
   font-weight: bold;
   text-decoration: underline;
   margin-left: 10%;
+  cursor: pointer;
 }
 
 /* @media  screen and (max-width:765) {
@@ -152,56 +144,54 @@ display: none;
    }
 } */
 
-@media  screen and (max-width:1000px) {
-  .verifyEmail_backButton{
+@media screen and (max-width: 1000px) {
+  .verifyEmail_backButton {
     float: left;
-    color:  #818181;
-    
+    color: #818181;
+
     text-align: center;
     padding: 10px;
     text-decoration: underline;
-    font-size: 16px; 
+    font-size: 16px;
     line-height: 25px;
     border-radius: 4px;
     margin-left: 65%;
     margin-top: 2%;
-    font-family: 'Sora', sans-serif;
+    font-family: "Sora", sans-serif;
     font-weight: 600;
+  }
 }
-}
-.verifyEmail_headerMobile a{
-margin-top: -10%;
+.verifyEmail_headerMobile a {
+  margin-top: -10%;
 }
 
-@media  screen and (max-width:996px) {
-  .verifyEmail_header{
- visibility: hidden;
+@media screen and (max-width: 996px) {
+  .verifyEmail_header {
+    visibility: hidden;
   }
-  .verifyEmail_headerMobile{
+  .verifyEmail_headerMobile {
     margin-top: -12%;
   }
-  .verifyEmail_headerMobile{
-   visibility: visible;
-   font-weight: 900;
-
+  .verifyEmail_headerMobile {
+    visibility: visible;
+    font-weight: 900;
   }
-  
+
   .verifyEmail_header {
     margin: 0%;
   }
-  .verifyEmail_text{
+  .verifyEmail_text {
     margin-top: 25%;
   }
-  .verifyEmail_text{
+  .verifyEmail_text {
     margin-top: 30%;
   }
-  .logo{
+  .logo {
     margin-top: -12%;
   }
-
 }
-@media screen and (max-width:1550px){
-  .verifyEmail_text{
+@media screen and (max-width: 1550px) {
+  .verifyEmail_text {
     margin-top: 25%;
   }
 }

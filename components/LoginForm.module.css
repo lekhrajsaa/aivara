@@ -213,7 +213,7 @@
 @media screen and (min-width: 760px) and (max-width: 930px) {
   .bottomLine {
     width: 130% !important;
-    height:3% ;
+    height: 3%;
     padding-bottom: 2.5px;
   }
 }
@@ -221,16 +221,12 @@
   .bottomLine {
     width: 110% !important;
     padding-bottom: 2.5px;
-
   }
 }
 .strongpassword {
   margin-top: 15px;
   margin-bottom: 2px;
-  
 }
-
-
 
 #placeholder {
   color: #dcd3e9;
@@ -347,7 +343,7 @@
   font-size: 14px;
 }
 .report2 {
-  text-align: right;
+  text-align: left;
   padding-right: 0%;
   margin-top: 5%;
   font-family: "Sora";
@@ -374,7 +370,7 @@
 }
 .scrollRep {
   overflow-y: scroll;
-  height: 250px;
+  height: 300px;
 }
 .scrollRep::-webkit-scrollbar {
   display: none;
@@ -424,8 +420,17 @@
 .time {
   color: #c4c4c4;
 }
+.proCol4 {
+  text-align: left;
+  font-family: "Sora";
+  font-weight: 400;
+  color: #395d89;
+  border: none;
+  text-decoration: none;
+  background: none;
+}
 .proCol3 {
-  text-align: right;
+  text-align: left;
   font-family: "Sora";
   font-weight: 400;
   color: #395d89;
@@ -519,6 +524,7 @@
   }
 }
 @media screen and (min-width: 250px) and (max-width: 560px) {
+  .tableheader,
   .rowe {
     width: 100% !important;
   }
@@ -590,19 +596,117 @@
   visibility: hidden;
 }
 @media screen and (max-width: 578px) {
-  .strongpassword{
+  .strongpassword {
     font-size: 10px;
   }
-
 }
-@media screen and (min-width: 430px) and (max-width:750px) {
-  .bottomLine{
+@media screen and (min-width: 430px) and (max-width: 750px) {
+  .bottomLine {
     width: 100% !important;
-    height:6% ;
+    height: 6%;
     padding-bottom: 2.5px;
   }
-
 }
 .dropdown_conten a {
   cursor: pointer;
+}
+/* ================================================== */
+@media screen and (max-width: 578px) {
+  .strongpassword {
+    font-size: 10px;
+  }
+}
+@media screen and (min-width: 430px) and (max-width: 750px) {
+  .bottomLine {
+    width: 100% !important;
+    height: 6%;
+    padding-bottom: 2.5px;
+  }
+}
+
+.tableheader {
+  margin-bottom: 25px;
+}
+.tableheader p {
+  font-weight: bold;
+  color: #395d89;
+}
+.tableheader_text {
+  justify-self: start;
+}
+/* search bar */
+.main {
+  width: 50%;
+  margin: 50px auto;
+}
+.main {
+  width: 50%;
+  /* margin: 20px auto; */
+  margin-left: 20px;
+}
+
+.form_control {
+  padding-left: 2.375rem;
+  outline: none;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  background-color: #f9f9f9;
+  color: #313131;
+  font-size: 20px;
+  height: 40px;
+  width: 520px;
+}
+
+.searchicon {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #313131;
+  font-size: 20px;
+}
+.gen_button {
+  outline: none;
+  padding: 15px;
+  border: none;
+  border-radius: 3px;
+  background-color: #b7d7f7;
+  font-weight: bolder;
+}
+
+.form_control ::-webkit-input-placeholder {
+  /* Edge */
+  font-weight: bolder;
+}
+
+.form_control :-ms-input-placeholder {
+  /* Internet Explorer */
+  font-weight: bolder;
+}
+
+.form_control ::placeholder {
+  font-weight: bolder;
+}
+.emptdata_img,
+.emptdata_img1 {
+  /* width: 50%;
+  margin: 50px auto; */
+  text-align: center;
+}
+
+.no_report {
+  font-family: "sora";
+}
+@media screen and (max-width: 786px) {
+  .main {
+    width: 50%;
+    margin: 10px;
+  }
+  .form_control {
+    width: 400px;
+  }
 }

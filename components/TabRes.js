@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import makeStyles  from "@material-ui/core/styles";
+import makeStyles from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -31,28 +31,28 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+  value: PropTypes.any.isRequired,
 };
 
 function a11yProps(index) {
   return {
     id: `scrollable-auto-tab-${index}`,
-    "aria-controls": `scrollable-auto-tabpanel-${index}`
+    "aria-controls": `scrollable-auto-tabpanel-${index}`,
   };
 }
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   tab1: {
     [theme.breakpoints.down("xs")]: {
       maxWidth: "100%",
-      width: "100%"
-    }
-  }
+      width: "100%",
+    },
+  },
 }));
 
 export default function ScrollableTabsButtonAuto() {
@@ -62,7 +62,7 @@ export default function ScrollableTabsButtonAuto() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-console.log(value)
+  console.log(value);
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -75,14 +75,12 @@ console.log(value)
           scrollButtons="auto"
           aria-label="scrollable auto tabs example"
         >
-       
           <Tab className="tab2" label="Item Two" {...a11yProps(1)} />
           <Tab className="tab3" label="Item Three" {...a11yProps(2)} />
           <Tab label="Item Four" {...a11yProps(3)} />
-         
         </Tabs>
       </AppBar>
-      
+
       <TabPanel value={value} index={0}>
         Item Two
       </TabPanel>
@@ -92,8 +90,6 @@ console.log(value)
       <TabPanel value={value} index={2}>
         Item Four
       </TabPanel>
-     
-     
     </div>
   );
 }

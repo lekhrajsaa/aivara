@@ -48,13 +48,13 @@ function StyledDropzone(props) {
   const router = useRouter();
   const [ImageData, setImagedata] = useState([]);
 
-  const config = {
-    bucketName: "aivara-images",
-    dirName: "logo-banner" /* optional */,
-    region: "ap-south-1",
-    accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-    secretAccessKey: "a3Hsl+3nR7uVR3T0onaukC45e2+Yi8oWqNeMRphf",
-  };
+  // const config = {
+  //   bucketName: "aivara-images",
+  //   dirName: "logo-banner" /* optional */,
+  //   region: "ap-south-1",
+  //   accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
+  //   secretAccessKey: "a3Hsl+3nR7uVR3T0onaukC45e2+Yi8oWqNeMRphf",
+  // };
 
   // let formData2 = new FormData();
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
@@ -67,37 +67,40 @@ function StyledDropzone(props) {
         acceptedFiles.forEach((file) => {
           formData.append("uploadImages", file);
         });
+        console.log(formData);
+        // dispatch(setImages(formData));
+        dispatch(setImages(acceptedFiles));
+        router.push("/detail");
+        // try {
+        //   const res = await axios.post(
+        //     `${process.env.NEXT_PUBLIC_SERVER_API}/postReport`,
+        //     formData,
+        //     {
+        //       headers: {
+        //         "Content-Type": "multipart/form-data",
+        //         Authorization: `Bearer ${Token}`,
+        //         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
+        //       },
+        //     }
+        //   );
+        //   setFiles("");
+        //   console.log(res.status);
+        //   if (res.status === 200) {
+        //     console.log(res);
+        //     let arr = [];
+        //     res.data.result.forEach((item) => {
+        //       // let obj = { key: item.key, location: item.Location };
+        //       // arr.push(obj);
+        //       arr.push(item.Location);
+        //     });
 
-        try {
-          const res = await axios.post(
-            `${process.env.NEXT_PUBLIC_SERVER_API}/postReport`,
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${Token}`,
-                "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
-              },
-            }
-          );
-          setFiles("");
-          console.log(res.status);
-          if (res.status === 200) {
-            console.log(res);
-            let arr = [];
-            res.data.result.forEach((item) => {
-              // let obj = { key: item.key, location: item.Location };
-              // arr.push(obj);
-              arr.push(item.Location);
-            });
-
-            console.log(arr);
-            dispatch(setImages(arr));
-            router.push("/detail");
-          }
-        } catch (err) {
-          console.log(err);
-        }
+        //     console.log(arr);
+        //     dispatch(setImages(arr));
+        //     router.push("/detail");
+        //   }
+        // } catch (err) {
+        //   console.log(err);
+        // }
       },
     });
   console.log(fileName);

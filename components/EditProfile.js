@@ -32,9 +32,6 @@ const EditProfile = () => {
   const userdata = useSelector((state) => state.userdata.userdata);
   const [errorHandle, setErrorHandle] = useState(false);
 
-
- 
-
   // logic for enabling and disabling the input field
 
   const [usernameDisabled, setUsernameDisabled] = useState(true);
@@ -46,8 +43,6 @@ const EditProfile = () => {
   function onEmailClickEditIcon() {
     setEmailDisabled(!emailDisabled);
   }
-
- 
 
   ////TRY
   const Token = localStorage.getItem("token");
@@ -66,7 +61,7 @@ const EditProfile = () => {
       query: `mutation {
         updateProfile(updateInput:{
             name: "${user.username}",
-            labName: "${user.labName}"
+            labName: "${user.labName}"s
         })
          {
             email
@@ -106,15 +101,13 @@ const EditProfile = () => {
   const checkMessage = () => {
     setCheck(!check);
   };
-  
 
-
-  const onSubmitPassword = async () => {
+  const onSubmitPassword = async (e) => {
+    e.preventDefault();
     if (userdata.password !== user.oldPassword) {
-    
       setErrorHandle(true);
     }
-    
+
     let body = {
       query: `mutation {
           updateProfile(updateInput:{
@@ -146,7 +139,7 @@ const EditProfile = () => {
         body,
         options
       );
-      
+
       console.log(resp.data.data.updateProfile);
       handleClose();
     } catch (err) {
@@ -164,9 +157,8 @@ const EditProfile = () => {
   }
   return (
     <>
-     
       <label className={classes.heading}>Your Profile</label>
-      
+
       <a onClick={() => router.push("/home")} className={classes.back}>
         back
       </a>
@@ -297,9 +289,12 @@ const EditProfile = () => {
                       onChange={userInput}
                       autoFocus
                     />
-                    
 
-                    {errorHandle && <p style={{ color: "red" }}>The Old Password is incorrect </p>}
+                    {errorHandle && (
+                      <p style={{ color: "red" }}>
+                        The Old Password is incorrect{" "}
+                      </p>
+                    )}
                   </Form.Group>
                 </Form>
               </Modal.Body>
@@ -312,13 +307,12 @@ const EditProfile = () => {
                     variant="primary"
                     onClick={() => {
                       onSubmitPassword();
-                
                     }}
                     className={classes.passwordBtn}
                   >
                     Save Password
                   </Button>
-                 ) : null} 
+                ) : null}
               </Modal.Footer>
             </Modal>
           </div>

@@ -74,22 +74,8 @@ const LoginForm = () => {
             "Content-Type": "application/json",
           },
         };
-        // try {
-        //   const resp = await axios.post(
-        //     "http://localhost:5000/api/v1",
-        //     body,
-        //     options
-        //   );
-        //   console.log(resp);
-        //   if (resp.status === 200) {
-        //     localStorage.setItem("token", resp.data.data.login.token);
-        //     window.location.href = "/home";
-        //   }
-        // } catch (err) {
-        //   console.log(err);
-        // }
 
-        fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+        await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -106,12 +92,16 @@ const LoginForm = () => {
             } else {
               if (data.data.login.status === 200) {
                 localStorage.setItem("token", data.data.login.token);
+                localStorage.setItem("isloggin", true);
                 window.location.href = "/home";
               } else {
                 errors = "server Error";
                 setErrorMessage(true);
               }
             }
+          })
+          .catch((rejected) => {
+            console.log(rejected);
           });
       }
 
@@ -140,22 +130,8 @@ const LoginForm = () => {
           "Content-Type": "application/json",
         },
       };
-      // try {
-      //   const resp = await axios.post(
-      //     "http://localhost:5000/api/v1",
-      //     body,
-      //     options
-      //   );
-      //   console.log(resp);
-      //   if (resp.status === 200) {
-      //     localStorage.setItem("token", resp.data.data.login.token);
-      //     window.location.href = "/home";
-      //   }
-      // } catch (err) {
-      //   console.log(err);
-      // }
 
-      fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+      await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -171,12 +147,16 @@ const LoginForm = () => {
           } else {
             if (data.data.login.status === 200) {
               localStorage.setItem("token", data.data.login.token);
+              localStorage.setItem("isloggin", true);
               window.location.href = "/home";
             } else {
               errors = "server Error";
               setErrorMessage(true);
             }
           }
+        })
+        .catch((rejected) => {
+          console.log(rejected);
         });
     }
 

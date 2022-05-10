@@ -43,25 +43,28 @@ function a11yProps(index) {
 }
 
 export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    console.log(value);
   };
+
   const tabStyle = {
-    default_tab:{
-        color: '#68C222',
-        width: '33.3%',
-        backgroundColor: '#FFFFFF',
-        fontSize: 15
+    default_tab: {
+      color: "#68C222",
+      width: "33.3%",
+      backgroundColor: "#FFFFFF",
+      fontSize: 15,
+      fontWeight: "bold",
     },
-    active_tab:{
-        color: '#395D89',
-        width: '33.3%',
-        backgroundColor: '#FFFFFF',
-        fontSize: 15
-    }
-};
+    active_tab: {
+      color: "#395D89",
+      width: "33.3%",
+      backgroundColor: "#FFFFFF",
+      fontSize: 15,
+    },
+  };
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -78,54 +81,46 @@ export default function BasicTabs() {
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
-            
-            TabIndicatorProps={{style: {background:'white'}}}
-           
+            TabIndicatorProps={tabStyle}
           >
             <Tab
               label="Generate"
-            
               style={{
-                
                 textTransform: "capitalize",
                 fontWeight: "800",
                 fontFamily: "Sora",
                 fontSize: "110%",
-                color: ' #395D89',
-                marginLeft:"4%"
+                color: " #395D89",
+                marginLeft: "4%",
               }}
             />
             <Tab
               label="In review"
-           
               style={{
-                textTransform:"initial",
+                textTransform: "initial",
                 fontWeight: "400",
                 fontFamily: "Sora",
                 fontSize: "110%",
-                color:'#8A8A8A',
-                marginLeft:"1%"
+                color: "#8A8A8A",
+                marginLeft: "1%",
               }}
             />
             <Tab
               label="Previous reports"
-            
               style={{
-                textTransform:"initial",
+                textTransform: "initial",
                 fontWeight: "400",
                 fontFamily: "Sora",
                 fontSize: "110%",
-                color:'#8A8A8A',
-                marginLeft:"1%"
-              
+                color: "#8A8A8A",
+                marginLeft: "1%",
               }}
             />
           </Tabs>
         </Box>
       </div>
-      <TabPanel value={value} index={0}>
+      <TabPanel value={value} index={0} style={tabStyle}>
         <StyledDropzone />
-      
       </TabPanel>
       <TabPanel value={value} index={1}></TabPanel>
       <TabPanel value={value} index={2}></TabPanel>

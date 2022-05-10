@@ -7,6 +7,8 @@ const HeaderApp = () => {
   const removeDetail = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
+    localStorage.removeItem("isloggin");
+    localStorage.removeItem("persist");
   };
   return (
     <div
