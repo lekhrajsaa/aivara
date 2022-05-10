@@ -9,8 +9,8 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-import Paper from "@material-ui/core/Paper";
-import SearchBar from "material-ui-search-bar";
+// import Paper from "@material-ui/core/Paper";
+// import SearchBar from "material-ui-search-bar";
 import { AiOutlineSearch } from "react-icons/ai";
 // import emptyimag from "../asset/updateuser";
 const Profile = () => {
@@ -31,36 +31,36 @@ const Profile = () => {
   // }, [])
 
   const array = [
-    // {
-    //   title: "Shree Datta Pathology Lab",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "Chaudhari Diagnostic Center",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "A Square Pathology Services",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "Aashish Khattar Sonography Clinic",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "New Point Pathology Lab",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "Nucleus Pathology Laboratory",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
+    {
+      title: "Shree Datta Pathology Lab",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "Chaudhari Diagnostic Center",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "A Square Pathology Services",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "Aashish Khattar Sonography Clinic",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "New Point Pathology Lab",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "Nucleus Pathology Laboratory",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
   ];
 
   const getUserData = async () => {
@@ -133,7 +133,7 @@ const Profile = () => {
 
   console.log(userdata);
   return (
-    <>
+    <div className={classes.homeBody}>
       <Container className={classes.name}>
         {searchBarTab && (
           <div className={classes.main}>
@@ -153,22 +153,21 @@ const Profile = () => {
       </Container>
 
       <Container className={classes.report}>
-        {searchBarTab && (
-          <Row className={classes.tableheader}>
-            <Col md={6} xs={6} className={classes.tableheader_text}>
-              <p>Reports</p>
-            </Col>
-            <Col md={4} xs={3} className={classes.proCol2}>
-              <p>Date/Time</p>
-            </Col>
-            <Col md={1} xs={2}>
-              <p>View</p>
-            </Col>
-            <Col md={1} xs={1}>
-              <p>Status</p>
-            </Col>
-          </Row>
-        )}
+        <Row className={classes.tableheader}>
+          <Col md={6} xs={6} className={classes.tableheader_text}>
+            <p>Reports</p>
+          </Col>
+          <Col md={4} xs={3} className={classes.proCol2}>
+            <p>Date/Time</p>
+          </Col>
+          <Col md={1} xs={2}>
+            <p>View</p>
+          </Col>
+          <Col md={1} xs={1}>
+            <p>Status</p>
+          </Col>
+        </Row>
+
         <div className={classes.scrollRep}>
           {searchInput.length > 1 ? (
             filteredResults.length === 0 ? (
@@ -238,8 +237,7 @@ const Profile = () => {
           </button>
         </div>
       </Container>
-      {/* =============================================================== */}
-    </>
+    </div>
   );
 };
 

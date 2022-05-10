@@ -3,6 +3,7 @@ import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { useState } from "react";
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -78,6 +79,7 @@ const data = [
 ];
 
 const Analysisheader = () => {
+  const router = useRouter();
   const [Genus, setGenus] = React.useState(["family A", "Family B"]);
   const [Species, setSpecies] = React.useState(["family A", "Family B"]);
 
@@ -119,6 +121,7 @@ const Analysisheader = () => {
   };
 
   const handleOpen = () => {
+
     if (open === true) {
       setMainClass(true);
       setOpen(false);

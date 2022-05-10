@@ -28,7 +28,7 @@ const HeaderApp = () => {
             class="gen navbar-brand"
             href="/"
             style={{
-              marginRight: "15%",
+              marginRight: "4%",
               fontFamily: "Sora",
               fontSize: "80%",
               color: "#B7D7F7",
@@ -38,7 +38,7 @@ const HeaderApp = () => {
             Sign out
             <a>
               {" "}
-              <img src="Settings.svg" style={{ marginLeft: "10%" }} />
+              <img src="Settings.svg" style={{ marginLeft: "4%" }} />
             </a>
           </a>
         </div>

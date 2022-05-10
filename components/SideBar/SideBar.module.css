@@ -1,0 +1,17 @@
+.fitInMiddle{
+    margin-top: 25vh;
+}
+.iconColor{
+    color: white;
+    height: 5%;
+    width: 15%;
+    margin-right: 10px;
+}
+.icon{
+    background-color: transparent;
+    width: 120%;
+    height: 100%;
+}
+.sidebar_text{
+    color: red;
+}

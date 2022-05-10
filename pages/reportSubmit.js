@@ -1,5 +1,6 @@
+import HeaderApp from "../components/HeaderApp"
+import ReportSubmit from "../components/ReportSubmit"
 import Header from "../components/HeaderConditional"
-import ViewProfile from "../components/ViewProfile"
 export default function home (){
 
     return(
@@ -11,10 +12,9 @@ export default function home (){
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script src="https://kit.fontawesome.com/4a4ddc9f6c.js" crossorigin="anonymous"></script>
-<Header headerWithSignout={true} />
-
+        <Header headerWithSignout={false} />
         <main>
-            <ViewProfile />
+            <ReportSubmit />
         </main>
         </>
     )

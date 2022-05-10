@@ -10,6 +10,9 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Visibility } from "@mui/icons-material";
+import {AiOutlineArrowLeft} from 'react-icons/ai';
+import {BsArrowLeft} from 'react-icons/bs';
+
 //saving data edited on variables sent by backend
 
 let masg;
@@ -45,8 +48,9 @@ const EditProfile = () => {
   }
 
   ////TRY
-  const Token = localStorage.getItem("token");
+  
   const onsubmit = async (e) => {
+    const Token = localStorage.getItem("token");
     setUsernameDisabled(true);
     setEmailDisabled(true);
     e.preventDefault();
@@ -102,8 +106,8 @@ const EditProfile = () => {
     setCheck(!check);
   };
 
-  const onSubmitPassword = async (e) => {
-    e.preventDefault();
+  const onSubmitPassword = async () => {
+    const Token = localStorage.getItem("token");
     if (userdata.password !== user.oldPassword) {
       setErrorHandle(true);
     }
@@ -157,11 +161,14 @@ const EditProfile = () => {
   }
   return (
     <>
+    <a onClick={() => router.push("/home")}>
+     <BsArrowLeft  className={classes.backArrow }/>
+     </a> 
       <label className={classes.heading}>Your Profile</label>
-
-      <a onClick={() => router.push("/home")} className={classes.back}>
+      
+      {/* <a onClick={() => router.push("/home")} className={classes.back}>
         back
-      </a>
+      </a> */}
 
       <div className={classes.details}>
         <form>
