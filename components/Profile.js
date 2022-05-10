@@ -98,7 +98,7 @@ const Profile = () => {
 
   console.log(userdata);
   return (
-    <>
+    <div className={classes.homeBody}>
       <Container className={classes.name}>
         <Row>
           <Col md={11} xs={10}>
@@ -114,7 +114,7 @@ const Profile = () => {
             </div>
           </Col>
 
-          <Col md={1} xs={2}>
+          {/* <Col md={1} xs={2}>
             <div className={classes.dropdown}>
               <button className={classes.dropbtn}>
                 {" "}
@@ -137,7 +137,7 @@ const Profile = () => {
                 <a href="#">Help & Support</a>
               </div>
             </div>
-          </Col>
+          </Col> */}
         </Row>
         <div className={classes.profileLine}></div>
       </Container>
@@ -174,7 +174,7 @@ const Profile = () => {
           </a>
         </div>
       </Container>
-    </>
+    </div>
   );
 };
 

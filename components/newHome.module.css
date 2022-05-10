@@ -1,0 +1,161 @@
+.allBody {
+  padding-left: 20%;
+}
+.name {
+  margin-top: 3%;
+}
+.hello {
+  color: #3699fb;
+  font-family: "Sora";
+  font-size: 160%;
+  font-weight: 300;
+}
+.profileLine {
+  border: 0.5px solid #c0bec0;
+  margin-top: 1%;
+  margin-right: 15vw;
+}
+.clientCount {
+  margin-top: 10%;
+  height: 50vh;
+  width: 40vw;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  border-radius: 20px;
+}
+.clientCount DropdownButton {
+  color: red;
+}
+.todayButton {
+  background-color: transparent;
+  color: #313131;
+  border: 0;
+  font-size: 200%;
+}
+.viewReport {
+  height: 60vh;
+  width: 24vw;
+  margin-top: 10%;
+  margin-left: 8%;
+  border-radius: 10px;
+  background-color: #B2CCFD;
+}
+.parent {
+  display: flex;
+}
+.viewRep{
+  margin-top: 35%;
+  text-align: center;
+  font-weight: 600;
+}
+.GenerateReport{
+  margin-top: 3%;
+  text-align: center;
+  font-weight: 600;
+
+}
+.chart{
+  height: 10vw;
+  width: 10vw;
+  border: #313131;
+}
+.threeparts{
+  display: flex;
+}
+.noOfClientsChart{
+  position: absolute;
+max-width: 180px;
+  height: 14vw;
+  margin-top: 3%;
+  margin-left: 7%;
+}
+.noOfReportsChart{
+position: absolute;
+max-width: 250px;
+height: 20vw;
+margin-top: 0%;
+margin-left: 4.0%;
+}
+.noOfClients{
+  margin-left: 16vw;
+  margin-top:15%;
+  border: solid;
+  height: 70px;
+  color: white;
+  background-color:#4EAFE5;
+  text-align: center;
+  border-radius: 20px;
+  font-weight: 400;
+  font-family: sora;
+padding-top: 10px;
+}
+.noOfReports{
+  margin-left: 16vw;
+  margin-top:5%;
+  border: solid;
+  height: 70px;
+  color: white;
+  background-color:#2438EE;
+  border-radius: 20px;
+  text-align: center;
+  width: 150px;
+  font-family: sora;
+  font-weight: 400;
+  padding-top: 10px;
+
+}
+/* @media only screen and (max-width: 1200px) {
+  .noOfReportsChar{
+    position: absolute;
+max-width: 250px;
+height: 20vw;
+margin-top: 0%;
+margin-left: 30%;
+  }
+} */
+.folder_image{
+  margin-top: 9vh;
+  margin-left: 8%;
+  height: 12vw;
+  
+ 
+}
+
+@media screen and (min-width: 1260px){
+  .noOfReportsChart{
+    position: absolute;
+    max-width: 250px;
+    height: 20vw;
+    margin-top: 0%;
+    margin-left: 4.5%;
+    }
+    .viewRep{
+      margin-top: 25%;
+      
+    }
+
+}
+@media screen and (min-width: 1500px){
+  .noOfReportsChart{
+    position: absolute;
+    max-width: 250px;
+    height: 20vw;
+    margin-top: 0%;
+    margin-left: 5%;
+    }
+    .viewRep{
+      margin-top: 20%;
+      
+    }
+
+}
+@media screen and (min-width: 1700px){
+  .noOfReportsChart{
+    position: absolute;
+    max-width: 250px;
+    height: 20vw;
+    margin-top: 0%;
+    margin-left: 5.3%;
+    }
+
+}

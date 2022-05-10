@@ -3,9 +3,11 @@ import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { useState } from "react";
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import { useRouter } from "next/router";
 
 import {
   BsArrowLeft,
@@ -30,6 +32,7 @@ const style = {
 };
 
 const Analysisheader = () => {
+  const router = useRouter();
   const [Genus, setGenus] = React.useState(["family A", "Family B"]);
   const [Species, setSpecies] = React.useState(["family A", "Family B"]);
 
@@ -70,6 +73,7 @@ const Analysisheader = () => {
   };
 
   const handleOpen = () => {
+
     if (open === true) {
       setMainClass(true);
       setOpen(false);
@@ -181,7 +185,8 @@ const Analysisheader = () => {
             <h4 className={classes.prevalue}>
               <BsArrowLeft /> PREVIOUS
             </h4>
-            <h4 className={classes.next}>
+            <h4 className={classes.next} onClick={() => router.push("/reportSubmit")}
+                  style={{ cursor: "pointer" }} >
               NEXT <BsArrowRight />
             </h4>
           </div>

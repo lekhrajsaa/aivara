@@ -1,4 +1,4 @@
-import HeaderApp from "../components/HeaderApp"
+import Header from "../components/HeaderConditional"
 import EditProfile from "../components/EditProfile"
 export default function home (){
 
@@ -13,8 +13,8 @@ export default function home (){
 <script src="https://kit.fontawesome.com/4a4ddc9f6c.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="style.css"></link>
 
-        <HeaderApp>
-         </HeaderApp>
+<Header headerWithSignout={false} />
+
         <main>
             <EditProfile />
         </main>

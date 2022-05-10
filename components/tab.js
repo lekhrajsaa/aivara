@@ -8,8 +8,9 @@ import 'react-responsive-tabs/styles.css';
 import StyledDropzone from './Upload';
 
 const atabs = [
-  { name: 'Generate', content: <StyledDropzone/>  },
-  { name: 'In review', biography: '...' },
+  { name: 'Generate', content: <StyledDropzone/> },
+  { name: 'In review'  },
+  // { name: 'In review', biography: '...' },
   { name: 'Previous reports', biography: '...' },
  
 ];
@@ -23,6 +24,5 @@ export default function getTabs() {
     key: index,
     tabClassName: classes.testTab,
     panelClassName: classes.test,
-   
   }));
 }

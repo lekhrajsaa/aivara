@@ -420,6 +420,7 @@
 
 .name {
   margin-top: 3%;
+  padding: auto;
 }
 .time {
   color: #c4c4c4;
@@ -531,7 +532,7 @@
 }
 @media screen and (min-width: 990px) and (max-width: 1100px) {
   .mobileH {
-    width: 110% !important;
+    width: 20% !important;
   }
 }
 @media screen and (min-width: 770px) and (max-width: 900px) {
@@ -605,4 +606,13 @@
 }
 .dropdown_conten a {
   cursor: pointer;
+}
+.Generate{
+  background-color: red;
+}
+
+.homeBody{
+  padding-left: 16%;
+  width: auto;
+  margin-right: 5%;
 }
