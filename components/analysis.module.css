@@ -441,23 +441,39 @@
   }
 } */
 .imagemain_tap {
-  width: 23%;
+  width: 45%;
+  display: flex;
+
+  text-align: center;
+}
+.imagemain_tap p {
+  margin-top: 13px;
+  font-size: 25px;
+  cursor: pointer;
 }
 .imagetap {
   display: flex;
-  width: 78px;
+  width: 34%;
   line-height: 70px;
   margin: 10px;
   text-align: center;
-  justify-content: space-evenly;
-  /* overflow-x: scroll; */
+  justify-content: start;
+  overflow-x: scroll;
+  text-align: center;
+  /* padding-left: 20px;
+  margin-left: 20px; */
 }
 .imagetap img {
-  height: 80px;
-  width: 100%;
-  margin-left: 20px;
+  height: 50px;
+  width: 90%;
+  margin: 0 6px 0 6px;
+  justify-items: center;
+
   border: #000000 solid 2px;
 }
 .image_slice:hover {
   border: #3699fb solid 5px;
+}
+.imagetap::-webkit-scrollbar {
+  visibility: hidden;
 }

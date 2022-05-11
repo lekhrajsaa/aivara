@@ -345,7 +345,7 @@
 .report2 {
   text-align: left;
   padding-right: 0%;
-  margin-top: 5%;
+  margin-top: 8%;
   font-family: "Sora";
 }
 @media screen and (max-height: 750px) {
@@ -370,7 +370,7 @@
 }
 .scrollRep {
   overflow-y: scroll;
-  height: 300px;
+  height: 350px;
 }
 .scrollRep::-webkit-scrollbar {
   display: none;
@@ -421,7 +421,7 @@
 .time {
   color: #c4c4c4;
 }
-.proCol4 {
+.proCol4 p {
   text-align: left;
   font-family: "Sora";
   font-weight: 400;
@@ -611,12 +611,95 @@
 .dropdown_conten a {
   cursor: pointer;
 }
-.Generate{
+.Generate {
   background-color: red;
 }
 
-.homeBody{
+.homeBody {
   padding-left: 16%;
   width: auto;
   margin-right: 5%;
+}
+
+/* ===========search bar and generate button */
+
+.search_main {
+  width: 50%;
+  margin: 50px auto;
+}
+.search_main {
+  width: 50%;
+
+  margin-left: 20px;
+}
+
+.form_control {
+  padding-left: 2.375rem;
+  outline: none;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  background-color: #f9f9f9;
+  color: #313131;
+  font-size: 20px;
+  height: 45px;
+  width: 525px;
+  border-radius: 5px;
+}
+
+.searchicon {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #313131;
+  font-size: 30px;
+  font-family: "sora";
+}
+.gen_button {
+  outline: none;
+  padding: 12px;
+  border: none;
+  border-radius: 3px;
+  background-color: #b7d7f7;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.emptdata_img,
+.emptdata_img1 {
+  margin-top: 0px;
+  padding-top: 0px;
+  text-align: center;
+}
+
+.no_report {
+  font-family: "sora";
+}
+@media screen and (max-width: 786px) {
+  .search_main {
+    width: 50%;
+    margin: 10px;
+  }
+  .form_control {
+    width: 400px;
+  }
+}
+
+.form_control::placeholder {
+  color: #313131;
+  font-size: 30px;
+  font-family: "sora";
+}
+
+.tableheader p {
+  color: #395d89;
+  font-weight: bold;
+}
+.dataempty_image {
+  padding-top: 0px;
+  height: 320px;
 }

@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
-
+import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import {
   BsArrowLeft,
   BsArrowRight,
@@ -121,7 +121,6 @@ const Analysisheader = () => {
   };
 
   const handleOpen = () => {
-
     if (open === true) {
       setMainClass(true);
       setOpen(false);
@@ -238,18 +237,22 @@ const Analysisheader = () => {
             </div>
           </div>
           {/* ========================= */}
-          <div>
-            <div className={classes.imagemain_tap}>
-              <div className={classes.imagetap}>
-                {data.map((a, i) => {
-                  return (
-                    <>
-                      <img src={a.image} className={classes.image_slice} />
-                    </>
-                  );
-                })}
-              </div>
+          <div className={classes.imagemain_tap}>
+            <p>
+              <BiChevronLeft />
+            </p>
+            <div className={classes.imagetap}>
+              {data.map((a, i) => {
+                return (
+                  <>
+                    <img src={a.image} className={classes.image_slice} />
+                  </>
+                );
+              })}
             </div>
+            <p>
+              <BiChevronRight />
+            </p>
           </div>
           {/*  ======================================== */}
           <div className={classes.analysis_pagination}>
@@ -262,16 +265,6 @@ const Analysisheader = () => {
           </div>
           {/* ===================Image Model===================== */}
           <div>
-            {/* <Modal style={{ border: "none" }} open={open} onClose={handleClose}>
-              <Box sx={style}>
-                <div className={classes.image_modal}>
-                  <img src={image} />
-                </div>
-              </Box>
-
-              
-            </Modal> */}
-
             {open && (
               <div className={classes.image_modal}>
                 <p

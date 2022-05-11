@@ -12,7 +12,7 @@ import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 // import Paper from "@material-ui/core/Paper";
 // import SearchBar from "material-ui-search-bar";
 import { AiOutlineSearch } from "react-icons/ai";
-// import emptyimag from "../asset/updateuser";
+import empty from "../asset/empty.png";
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
@@ -23,13 +23,13 @@ const Profile = () => {
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
-  // useEffect(() => {
-  //    var name = user.name;
-  //   name= name.split(" ")[0]
-  //  setName(name)
 
-  // }, [])
-
+  // for  toggle class
+  const [datalenghtIszreo, setdatalenghtIszreo] = useState(false);
+  const setclassname = datalenghtIszreo
+    ? `${classes.scrollRep} ${classes.datalenght_zero}`
+    : classes.datalenght_zero;
+  console.log(datalenghtIszreo);
   const array = [
     {
       title: "Shree Datta Pathology Lab",
@@ -106,6 +106,10 @@ const Profile = () => {
     }
     if (array.length === 0) {
       setsearchBarTab(false);
+      setdatalenghtIszreo(false);
+    } else {
+      setsearchBarTab(true);
+      setdatalenghtIszreo(true);
     }
   }, [token]);
 
@@ -136,7 +140,7 @@ const Profile = () => {
     <div className={classes.homeBody}>
       <Container className={classes.name}>
         {searchBarTab && (
-          <div className={classes.main}>
+          <div className={classes.search_main}>
             <div className={`${classes.form_group} ${classes.has_search}`}>
               <span className={classes.searchicon}>
                 <AiOutlineSearch />
@@ -153,26 +157,30 @@ const Profile = () => {
       </Container>
 
       <Container className={classes.report}>
-        <Row className={classes.tableheader}>
-          <Col md={6} xs={6} className={classes.tableheader_text}>
-            <p>Reports</p>
-          </Col>
-          <Col md={4} xs={3} className={classes.proCol2}>
-            <p>Date/Time</p>
-          </Col>
-          <Col md={1} xs={2}>
-            <p>View</p>
-          </Col>
-          <Col md={1} xs={1}>
-            <p>Status</p>
-          </Col>
-        </Row>
-
-        <div className={classes.scrollRep}>
+        {searchBarTab && (
+          <Row className={classes.tableheader}>
+            <Col md={6} xs={6} className={classes.tableheader_text}>
+              <p>Reports</p>
+            </Col>
+            <Col md={4} xs={3} className={classes.proCol2}>
+              <p>Date/Time</p>
+            </Col>
+            <Col md={1} xs={2}>
+              <p>View</p>
+            </Col>
+            <Col md={1} xs={1}>
+              <p>Status</p>
+            </Col>
+          </Row>
+        )}
+        <div className={setclassname}>
           {searchInput.length > 1 ? (
             filteredResults.length === 0 ? (
               <Container className={classes.emptdata_img}>
-                <img src="https://cdn.iconscout.com/icon/free/png-256/data-not-found-1965034-1662569.png" />
+                <img
+                  src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
+                  className={classes.dataempty_image}
+                />
                 <h4 className={classes.no_report}>No Reports Found</h4>
               </Container>
             ) : (
@@ -196,8 +204,14 @@ const Profile = () => {
               })
             )
           ) : array.length === 0 ? (
-            <Container className={classes.emptdata_img1}>
-              <img src="https://cdn.iconscout.com/icon/free/png-256/data-not-found-1965034-1662569.png" />
+            <Container
+              className={classes.emptdata_img1}
+              style={{ marginTop: "200px" }}
+            >
+              <img
+                src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
+                className={classes.dataempty_image}
+              />
               <h4 className={classes.no_report}>No Reports Found</h4>
             </Container>
           ) : (

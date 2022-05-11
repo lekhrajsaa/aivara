@@ -76,6 +76,7 @@ const SignUpForm = () => {
       return false;
     }
   };
+
   let textinfo = () => {
     <div>
       <h1>Strong password</h1>

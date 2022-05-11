@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { BsArrowLeft } from "react-icons/bs";
 import { Col, Container, Row } from "reactstrap";
 import classes from "./GenerateDetails.module.css";
@@ -18,25 +18,44 @@ import { padding } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import { BiChevronDown } from "react-icons/bi";
 import { useRouter } from "next/router";
+import FormLabel from "@mui/material/FormLabel";
+
+import FormControl from "@mui/material/FormControl";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 let messg;
 const sampledata = [
   { id: 1, sample: "River bed" },
-  { id: 2, sample: "Lake", id: 3, sample: "Reservolr" },
+  { id: 2, sample: "Reservolr " },
+  { id: 3, sample: " Lake land" },
   { id: 4, sample: "freshWater" },
   { id: 5, sample: "Spring water" },
   { id: 6, sample: "Underground water" },
   { id: 7, sample: "Ocean" },
   { id: 8, sample: "Agricultural" },
-  { id: "9", sample: "Industrial" },
+  { id: 9, sample: "Industrial" },
 ];
 
 const GenerateDetails = () => {
   const [clientName, setclientName] = useState();
   const [sampleType, setsampleType] = useState();
   const [generatedBy, setgenerated] = useState();
+  const [siteCode, setsiteCode] = useState();
+  const [latitude, setlatitude] = useState();
+  const [longitude, setlongitude] = useState();
+  // const [geoLocation, setgeoLocation] = useState({
+  //   latitude: "",
+  //   longitude: "",
+  // });
+
+  let name, value;
+  const geoInput = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    setgeoLocation({ ...geoLocation, [name]: value });
+  };
+  const [values, setValues] = React.useState();
   const [ErrorMessage, setErrorMessage] = useState(false);
   const [token, setToken] = useState();
   const [selectOpen, setselectOpen] = useState(false);
@@ -45,7 +64,7 @@ const GenerateDetails = () => {
   const SubmitReport = async (e) => {
     console.log(images);
     e.preventDefault();
-    console.log(images);
+    console.log(clientName, " ", sampleType, " ", generatedBy);
     if (!clientName || !sampleType || !generatedBy)
       (messg = "Enter all fileds"), setErrorMessage(true);
     // photos: ["xyz.jpg","abc.png"],
@@ -96,8 +115,11 @@ const GenerateDetails = () => {
       formData.append("clientName", clientName);
       formData.append("sampleType", sampleType);
       formData.append("generatedBy", generatedBy);
-
-      fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
+      formData.append("siteCode", siteCode);
+      formData.append("latitude", latitude);
+      formData.append("longitude", longitude);
+      //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
+      await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${String(token)}`,
@@ -129,15 +151,16 @@ const GenerateDetails = () => {
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
-
+  // dropdown for type of sample
   const [isModal, setIsModal] = useState(true);
-  const [value, setValue] = React.useState();
+
   const contentClassname = isModal
     ? `${classes.select_tag} ${classes.select_tagopen}`
     : classes.select_tagopen;
 
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setValues(event.target.value);
+    setsampleType(event.target.value);
   };
   const OpenClose = () => {
     if (isModal === true) {
@@ -153,7 +176,7 @@ const GenerateDetails = () => {
         {" "}
         <span className={classes.arrowleft}>
           {" "}
-          <BsArrowLeft onClick={() => route.push("/gen")} />
+          {/* <BsArrowLeft onClick={() => route.push("/gen")} /> */}
         </span>{" "}
         <span className={classes.head2}>Generate : </span> Add details
       </p>
@@ -167,7 +190,7 @@ const GenerateDetails = () => {
           color: "#000000",
         }}
       >
-        {/* <a href="/gen">back</a> */}
+        <a href="/gen">back</a>
       </div>
       <form>
         <Container fluid className={classes.cont}>
@@ -200,44 +223,47 @@ const GenerateDetails = () => {
               </span>
               <input
                 type="null"
+                name="sampleType"
                 className={classes.fill}
-                value={value}
+                value={values}
+                onChange={(e) => setsampleType(e.target.value)}
                 onClick={OpenClose}
                 style={{ cursor: "pointer" }}
               />
               <div className={contentClassname}>
-                {sampledata.map((val) => {
-                  return (
-                    <>
-                      <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        name="radio-buttons-group"
-                        color="default"
-                        value={value}
-                        onChange={handleChange}
-                        sx={{ fontSize: 2, marginLeft: 2, padding: 0 }}
-                      >
-                        <FormControlLabel
-                          label={val.sample}
-                          value={val.sample}
-                          control={
-                            <Radio
-                              color="default"
-                              name="typ1"
-                              sx={{
-                                "& .MuiSvgIcon-root": {
-                                  fontSize: 20,
-
-                                  padding: 0,
-                                },
-                              }}
-                            />
-                          }
-                        />
-                      </RadioGroup>
-                    </>
-                  );
-                })}
+                <FormControl>
+                  {sampledata.map((val) => {
+                    return (
+                      <>
+                        <RadioGroup
+                          aria-labelledby="demo-radio-buttons-group-label"
+                          name="radio-buttons-group"
+                          color="default"
+                          value={values}
+                          onChange={handleChange}
+                          sx={{ fontSize: 2, marginLeft: 2, padding: 0 }}
+                        >
+                          <FormControlLabel
+                            label={val.sample}
+                            value={val.sample}
+                            control={
+                              <Radio
+                                color="default"
+                                sx={{
+                                  "& .MuiSvgIcon-root": {
+                                    fontSize: 20,
+                                    display: "block",
+                                    padding: 0,
+                                  },
+                                }}
+                              />
+                            }
+                          />
+                        </RadioGroup>
+                      </>
+                    );
+                  })}
+                </FormControl>
               </div>
             </Col>
           </Row>
@@ -258,6 +284,58 @@ const GenerateDetails = () => {
               />
             </Col>
           </Row>
+          <Row className={classes.rowe}>
+            <Col md={3}>
+              <label for="name" className={classes.detail}>
+                Site Code
+              </label>
+            </Col>
+            <Col md={5}>
+              <input
+                type="text"
+                name="siteCode"
+                className={classes.fill}
+                value={siteCode}
+                onChange={(e) => setsiteCode(e.target.value)}
+              />
+            </Col>
+          </Row>
+          {/* =========================================== */}
+          <Row className={classes.rowe}>
+            <Col md={3}>
+              <label for="exampleCity" className={classes.detail}>
+                Geographical Location
+              </label>
+            </Col>
+
+            <Col md={4} className={classes.geographical_sapce}>
+              <label for="exampleState" className={classes.detail1}>
+                Latitude:
+              </label>
+              <input
+                id="exampleState"
+                name="latitude"
+                className={classes.fill1}
+                value={latitude}
+                onChange={(e) => setlatitude(e.target.value)}
+              />
+              <label
+                for="exampleZip"
+                className={`${classes.detail1} ${classes.detail12}`}
+              >
+                Longitude:
+              </label>
+              <input
+                id="exampleZip"
+                name="longitude"
+                value={longitude}
+                onChange={(e) => setlongitude(e.target.value)}
+                className={`${classes.fill1} ${classes.fill12}`}
+              />
+            </Col>
+          </Row>
+
+          {/* ============================================= */}
           <button className={classes.sub} onClick={SubmitReport}>
             SUBMIT
           </button>
@@ -326,3 +404,24 @@ export default GenerateDetails;
 //      }
 //    }
 //  });
+
+{
+  /* <div class="row">
+            <div class="col-sm-3">
+              <label for="exampleZip" className={classes.detail}>
+                Geographical Location
+              </label>
+            </div>
+            <div class="col-sm-4 " className={classes.geographical_filed}>
+              <label for="exampleZip" className={classes.detail1}>
+                Longitude:
+              </label>
+              <input id="exampleZip" name="zip" className={classes.fill1} />
+
+              <label for="exampleZip" className={classes.detail1}>
+                Longitude:
+              </label>
+              <input id="exampleZip" name="zip" className={classes.fill1} />
+            </div>
+          </div> */
+}
