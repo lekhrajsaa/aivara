@@ -20,7 +20,7 @@
 .head2 {
   font-size: 20px;
   font-weight: 700;
-  margin-left: 4.5%;
+  margin-left: 7.5%;
   color: #395d89 !important;
 }
 
@@ -28,22 +28,47 @@
   font-family: "Sora";
   font-size: 16px;
   color: #606060;
-  margin-top: 20px;
+
+  /* margin-top: 20px; */
+}
+.detail1 {
+  font-family: "Sora";
+  font-size: 16px;
+  color: #606060;
+  position: relative;
+  top: 13px;
+
+  /* margin-top: 20px; */
 }
 
 .fill {
   border-top: none;
   border-left: none;
   border-right: none;
-  width: 250px;
+  width: 350px;
+  color: #313131;
+  border-bottom: 1px solid #313131;
+  font-size: 16px;
+  padding-bottom: 7px;
+  background-color: transparent;
+}
+.fill1,
+.fill:focus {
+  outline: none;
+}
+.fill1 {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  width: 88px;
   color: #313131;
   border-bottom: 1px solid #313131;
   font-size: 16px;
   padding-bottom: 8px;
   background-color: transparent;
 }
-.fill:focus {
-  outline: none;
+.detail12 {
+  padding-left: 10px;
 }
 
 .sub {
@@ -58,7 +83,7 @@
 }
 .cont {
   width: 85%;
-  margin-top: 10% !important;
+  margin-top: 6% !important;
   margin: 0px;
   margin-left: 10%;
   font-family: "Sora";
@@ -78,9 +103,11 @@
   border: none;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  width: 250px;
+  width: 350px;
+  padding: 2px;
+
   position: fixed;
-  /* z-index: 9999; */
+  z-index: 9999;
   background-color: white;
 }
 .select_tag {
@@ -107,7 +134,7 @@
 
 .searchicon {
   position: absolute;
-  margin-left: 220px;
+  margin-left: 320px;
   margin-top: 8px;
   font-size: 25px;
   display: flex;
