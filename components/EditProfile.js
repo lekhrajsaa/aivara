@@ -12,9 +12,17 @@ import axios from "axios";
 import { Visibility } from "@mui/icons-material";
 import {AiOutlineArrowLeft} from 'react-icons/ai';
 import {BsArrowLeft} from 'react-icons/bs';
+import Stack from "@mui/material/Stack";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
+import validator from "validator";
+
 
 //saving data edited on variables sent by backend
-
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+var errors;
 let masg;
 const EditProfile = () => {
   const router = useRouter();
@@ -39,7 +47,8 @@ const EditProfile = () => {
 
   const [usernameDisabled, setUsernameDisabled] = useState(true);
   const [emailDisabled, setEmailDisabled] = useState(true);
-
+  const [success, setSuccess] = useState(false);
+  const [ErrorMessage, setErrorMessage] = useState(false);
   function onusernameClickEditIcon() {
     setUsernameDisabled(!usernameDisabled);
   }
@@ -106,12 +115,29 @@ const EditProfile = () => {
     setCheck(!check);
   };
 
+  const Passwordvalidate = (value) => {
+    if (
+      validator.isStrongPassword(value, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
   const onSubmitPassword = async () => {
     const Token = localStorage.getItem("token");
     if (userdata.password !== user.oldPassword) {
       setErrorHandle(true);
     }
+   
 
+    
     let body = {
       query: `mutation {
           updateProfile(updateInput:{
@@ -138,14 +164,30 @@ const EditProfile = () => {
       },
     };
     try {
+      if (Passwordvalidate(user.newPassword)){
       const resp = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
         body,
         options
       );
-
+      
       console.log(resp.data.data.updateProfile);
       handleClose();
+      }
+      else{
+        errors = (
+          <div>
+            <h6>Password must contains</h6>
+            <div className={classes.PasswordValid}>
+              <li>Minmum 8 Character</li>
+              <li>At least one Number</li>
+              <li>At least one Uppercase</li>
+              <li>At least one Special Charaters</li>
+            </div>
+          </div>
+        );
+        setErrorMessage(true);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -280,7 +322,7 @@ const EditProfile = () => {
                       placeholder=""
                       name="checkPassword"
                       onChange={userInput}
-                      autoFocus
+                      
                     />
                   </Form.Group>
                   <Form.Group
@@ -294,7 +336,7 @@ const EditProfile = () => {
                       placeholder=""
                       name="newPassword"
                       onChange={userInput}
-                      autoFocus
+                      
                     />
 
                     {errorHandle && (
@@ -330,6 +372,22 @@ const EditProfile = () => {
           ) : null}
         </form>
       </div>
+
+      <Stack spacing={2} sx={{ width: "100%" }}>
+        <Snackbar
+          open={ErrorMessage}
+          autoHideDuration={6000}
+          onClose={() => setErrorMessage(false)}
+        >
+          <Alert
+            onClose={() => setErrorMessage(false)}
+            severity="error"
+            sx={{ width: "100%" }}
+          >
+            {errors}
+          </Alert>
+        </Snackbar>
+      </Stack>
     </>
   );
 };

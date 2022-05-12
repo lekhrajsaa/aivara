@@ -93,7 +93,7 @@ const LoginForm = () => {
               if (data.data.login.status === 200) {
                 localStorage.setItem("token", data.data.login.token);
                 localStorage.setItem("isloggin", true);
-                window.location.href = "/home";
+                window.location.href = "/newHome";
               } else {
                 errors = "server Error";
                 setErrorMessage(true);

@@ -1,0 +1,35 @@
+
+.backArrow{
+width: 35px;
+height: 35px;
+margin: 5%;
+}
+
+
+.circle {
+    position: absolute;
+    top: 35%;
+    left: 43%;
+    margin-top: -50px;
+    margin-left: -50px;
+    
+
+  }
+  .txt{
+    position: absolute;
+    top: 70%;
+    left: 43%;
+    margin-top: -50px;
+    margin-left: -50px;
+    
+  }
+  .txt p{
+      color: #000000;
+      font-family: raleway;
+      font-weight: 700;
+      font-size: 130%;
+      text-align: center;
+      height: 1vw;
+     
+
+  }

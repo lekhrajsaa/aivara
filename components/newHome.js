@@ -26,8 +26,8 @@ const NewHome = () => {
         <Row>
           <Col md={11} xs={10}>
             <div className={classes.hello}>
-              Hello,
-              {/* {userdata.name} */} Abhishek
+              Hello,<span> </span>
+              { userdata.name} 
             </div>
             <div
               style={{
@@ -35,6 +35,7 @@ const NewHome = () => {
                 fontFamily: "Sora",
                 fontSize: "80%",
               }}
+              className={classes.lastLog}
             >
               Last login {userdata.lastLoggedIn}
             </div>

@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-=======
->>>>>>> 8b2429a644d0d106cffbac21e422853c71cc29fc
 import Footer from "../components/Footer";
 import HeaderApp from "../components/HeaderApp";
 import LoginForm from "../components/LoginForm";

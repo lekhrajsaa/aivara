@@ -28,10 +28,10 @@ box-shadow:
   font-family: sora;
   color: white !;
   font-size: 120%;
-  padding-top: 0.2%;
-  margin-top: auto;
   font-weight: 350;
   letter-spacing: 0.18em;
+  padding-bottom: 10px;
+
 }
 
 .dropdown-toggle::after {
@@ -53,8 +53,10 @@ box-shadow:
 }
 
 .dropdown {
+  
   position: relative;
   display: inline-block;
+  max-width: 75px;
 }
 
 .dropdown_content {
@@ -68,6 +70,7 @@ box-shadow:
   color: #606060;
   z-index: 1;
   border-radius: 10px;
+  margin-top: 11%;
   
 }
 
@@ -98,8 +101,18 @@ box-shadow:
   max-height: 60px;
 }
 .img{
-  height:60px;
-  width: 5vw;
-  min-width: 75px;
-  margin-top: 0;
+  /* height:30px;
+  width: 80px;
+  min-width: 30px; */
+  /* margin-top: 0; */
+  color: white;
+  background-color: #E0E0E0;
+  border-radius: 6mm;
+  margin-left: 170%;
+  border :none;
+  margin-bottom: 10px;
+  
+}
+.righBody{
+  display: none;
 }

@@ -3,8 +3,9 @@ import GenerateDetails from '../components/GeerateDetails'
 import HeaderApp from '../components/HeaderApp'
 import Header from "../components/HeaderConditional"
 
+
 const detail = () => {
-  const [token, setToken] = useState(false);
+  // const [token, setToken] = useState(false);
   // useEffect(() => {
   //   setToken(localStorage.getItem("isloggin"));
   // }, []);

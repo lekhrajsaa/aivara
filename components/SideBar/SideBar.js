@@ -23,16 +23,17 @@ import { RiHome2Line } from "react-icons/ri";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
 import { HiOutlineDocumentReport } from "react-icons/hi";
-import { AiOutlineRight, AiOutlineLeft } from "react-icons/ai";
+import { AiOutlineRight, AiOutlineLeft, AiOutlineExclamationCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
-
+import { BsFileText } from "react-icons/bs";
+import { CgLogOff } from "react-icons/cg";
 //import sidebar css from react-pro-sidebar module and our custom css
 import "react-pro-sidebar/dist/css/styles.css";
 import classes from "./SideBar.module.css";
 const Sidebar = (props) => {
   const router = useRouter();
   //create initial menuCollapse state using useState hook
-  const [menuCollapse, setMenuCollapse] = useState(true);
+  const [menuCollapse, setMenuCollapse] = useState(false);
 
   const [homeClick, setOnHomeClick] = useState();
   //create a custom function that will change menucollapse state from false to true and true to false
@@ -45,15 +46,15 @@ const Sidebar = (props) => {
     <>
       <div id="header">
         {/* collapsed props to change menu size using menucollapse state */}
-        <ProSidebar collapsed={menuCollapse} >
+        <ProSidebar collapsed={menuCollapse}>
           <SidebarHeader>
             <div className="logotext">
               {/* small and big change using menucollapse state */}
               {/* <p>{menuCollapse ? "Logo" : "Big Logo"}</p> */}
             </div>
-            <div className="closemenu" onClick={menuIconClick}>
+            <div className="closemenu" onClick={menuIconClick}  >
               {/* changing menu collapse icon on click */}
-              {menuCollapse ? <AiOutlineRight /> : <AiOutlineLeft />}
+              {menuCollapse ? <AiOutlineRight /> : <AiOutlineLeft  />}
             </div>
           </SidebarHeader>
           <SidebarContent>
@@ -62,19 +63,52 @@ const Sidebar = (props) => {
                 active={props.highlitehome}
                 icon={<RiHome2Line className={classes.icon} />}
               >
-                <a onClick={() => router.push("/newHome")} style={{color:"white"}}>Home</a>
+                <a
+                  onClick={() => router.push("/newHome")}
+                  style={{ color: "white" }}
+                  className={classes.txt}
+                >
+                  Home
+                </a>
               </MenuItem>
               <MenuItem
                 active={props.highlite}
-                icon={<HiOutlineDocumentReport className={classes.icon} />}
+                icon={<BsFileText className={classes.icon} />}
               >
-                <a onClick={() => router.push("/home")} style={{color:"white"}}>Lab Report</a>
-              </MenuItem>
-              <MenuItem icon={<RiPencilLine className={classes.icon} />}>
-                <a onClick={() => router.push("/editProfile")} style={{color:"white"}}> Author</a>
+                <a
+                  onClick={() => router.push("/home")}
+                  style={{ color: "white" }}
+                  className={classes.txt}
+                >
+                  Reports
+                </a>
               </MenuItem>
               <MenuItem icon={<BiCog className={classes.icon} />}>
-                <a onClick={() => router.push("/newHome")} style={{color:"white"}}>Settings</a>
+                <a
+                  onClick={() => router.push("/newHome")}
+                  style={{ color: "white" }}
+                  className={classes.txt}
+                >
+                  Settings
+                </a>
+              </MenuItem>
+              <MenuItem icon={<CgLogOff className={classes.icon} />}>
+                <a
+                  onClick={() => router.push("/editProfile")}
+                  style={{ color: "white" }}
+                  className={classes.txt}
+                >
+                  Log out
+                </a>
+              </MenuItem>
+              <MenuItem icon={<AiOutlineExclamationCircle className={classes.icon} />}>
+                <a
+                  onClick={() => router.push("/editProfile")}
+                  style={{ color: "white" }}
+                  className={classes.txt}
+                >
+                  Help
+                </a>
               </MenuItem>
             </Menu>
           </SidebarContent>
