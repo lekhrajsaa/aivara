@@ -147,7 +147,7 @@ const Analysisheader = () => {
             <div className={classes.analysis_body_tags}>
               <div>
                 <p>
-                  image: 1/20 <br />
+                  {/* image: 1/20 <br /> */}
                   Total diatom count: 30
                 </p>
               </div>

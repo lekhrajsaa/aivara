@@ -31,36 +31,36 @@ const Profile = () => {
     : classes.datalenght_zero;
   console.log(datalenghtIszreo);
   const array = [
-    {
-      title: "Shree Datta Pathology Lab",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "Chaudhari Diagnostic Center",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "A Square Pathology Services",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "Aashish Khattar Sonography Clinic",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "New Point Pathology Lab",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "Nucleus Pathology Laboratory",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
+    // {
+    //   title: "Shree Datta Pathology Lab",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "Chaudhari Diagnostic Center",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "A Square Pathology Services",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "Aashish Khattar Sonography Clinic",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "New Point Pathology Lab",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
+    // {
+    //   title: "Nucleus Pathology Laboratory",
+    //   date: "08/03/22;23:00",
+    //   status: "complete",
+    // },
   ];
 
   const getUserData = async () => {
