@@ -22,8 +22,13 @@ import {
 import { RiHome2Line } from "react-icons/ri";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
+import {CgChevronRight} from "react-icons/cg";
 import { HiOutlineDocumentReport } from "react-icons/hi";
-import { AiOutlineRight, AiOutlineLeft, AiOutlineExclamationCircle } from "react-icons/ai";
+import {
+  AiOutlineRight,
+  AiOutlineLeft,
+  AiOutlineExclamationCircle,
+} from "react-icons/ai";
 import { useRouter } from "next/router";
 import { BsFileText } from "react-icons/bs";
 import { CgLogOff } from "react-icons/cg";
@@ -41,6 +46,11 @@ const Sidebar = (props) => {
     //condition checking to change state from true to false and vice versa
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
+  const removeDetail = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("email");
+    window.location.href = "/";
+  };
 
   return (
     <>
@@ -52,9 +62,14 @@ const Sidebar = (props) => {
               {/* small and big change using menucollapse state */}
               {/* <p>{menuCollapse ? "Logo" : "Big Logo"}</p> */}
             </div>
-            <div className="closemenu" onClick={menuIconClick}  >
+            <div className="closemenu" onClick={menuIconClick}>
               {/* changing menu collapse icon on click */}
-              {menuCollapse ? <AiOutlineRight /> : <AiOutlineLeft  />}
+              
+                {menuCollapse ? 
+                <AiOutlineRight size={18} className={classes.closeIcon} /> 
+                // <CgChevronRight />
+                : <AiOutlineLeft size={18} className={classes.closeIcon}/>}
+                
             </div>
           </SidebarHeader>
           <SidebarContent>
@@ -94,14 +109,16 @@ const Sidebar = (props) => {
               </MenuItem>
               <MenuItem icon={<CgLogOff className={classes.icon} />}>
                 <a
-                  onClick={() => router.push("/editProfile")}
+                  onClick={removeDetail}
                   style={{ color: "white" }}
                   className={classes.txt}
                 >
                   Log out
                 </a>
               </MenuItem>
-              <MenuItem icon={<AiOutlineExclamationCircle className={classes.icon} />}>
+              <MenuItem
+                icon={<AiOutlineExclamationCircle className={classes.icon} />}
+              >
                 <a
                   onClick={() => router.push("/editProfile")}
                   style={{ color: "white" }}

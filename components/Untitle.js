@@ -22,14 +22,14 @@ const Untitle = () => {
           Name of the company : <p className={classes.subName}>Hazen</p>
         </div>
         <div className={classes.name}>
-          Technician: <p className={classes.subName}>Hazen</p>
+          Technician: <p className={`${classes.subName} ${classes.leftSubName}`}>Hazen</p>
         </div>
         <div className={classes.name}>
-          Timestamp:<p className={classes.subName}>29/10/2021 14:25 hrs </p>
+          Timestamp:<p className={`${classes.subName} ${classes.leftSubName}`}>29/10/2021 14:25 hrs </p>
         </div>
       </div>
 
-      <div className={classes.table}>
+      <div className={classes.table} >
         <Table bordered className={classes.tableBody}>
           <thead >
             <tr className={classes.tableHeading}>
@@ -58,6 +58,270 @@ const Untitle = () => {
               <td>40</td>
               <td>0.4</td>
             </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            <tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr><tr>
+              <td>WG</td>
+              <td>9.02 6.99</td>
+              <td>cymbella turgidula</td>
+              <td>100</td>
+              <td>40</td>
+              <td>0.4</td>
+            </tr>
+            
           </tbody>
         </Table>
       </div>

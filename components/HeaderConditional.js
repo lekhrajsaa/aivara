@@ -46,23 +46,23 @@ function WithSignout(props) {
             </a>
           </div>
           setProfile();
-          <Col md={1} xs={2}>
+          <Col md={1} xs={2} className={classes.fullDropdown}>
             <div className={classes.dropdown}>
               <button className={classes.dropbtn}>
                 {" "}
                 {/* <img className={classes.img} src="/user.svg"></img> */}
                 {/* <CgProfile className={classes.img} /> */}
-                <img src="./Profile_White.svg" className={classes.img}></img>
+                <img src="./profileIcon.png" className={classes.img}></img>
               </button>
               <div className={classes.dropdown_content}>
                 <a
                   onClick={() => router.push("/editProfile")}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer",color:"#000000", fontWeight:"500" }}
                 >
                   Manage accounts
                 </a>
-                <a onClick={removeDetail}>Sign out</a>
-                <a href="#">Help & Support</a>
+                <a onClick={removeDetail} style={{color:"#000000", fontWeight:"500"}}>Sign out</a>
+                <a href="#" style={{color:"#000000", fontWeight:"500"}}>Help & Support</a>
               </div>
             </div>
           </Col>

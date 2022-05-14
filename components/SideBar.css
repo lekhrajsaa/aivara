@@ -15,8 +15,11 @@
     line-height: 10px;
     border-radius: 50%;
     font-size: 30px;
-    top: 50px;
+    top: 80px;
     cursor: pointer;
+    min-height: 30px;
+    min-width: 30px;
+    
   }
   #header .pro-sidebar {
     width: 100%;

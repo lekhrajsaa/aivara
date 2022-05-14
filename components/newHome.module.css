@@ -35,7 +35,10 @@
   background-color: transparent;
   color: #313131;
   border: 0;
-  font-size: 200%;
+  font-size: 150%;
+  margin-left: 6%;
+  margin-top: 5%;
+  font-weight: 600;
 }
 .viewReport {
   height: 60vh;
@@ -44,7 +47,8 @@
   margin-top: 10%;
   margin-left: 8%;
   border-radius: 10px;
-  background-color: #B2CCFD;
+  background-color: #FFFFFF;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 .parent {
   display: flex;
@@ -55,10 +59,20 @@
   font-weight: 600;
 }
 .GenerateReport{
-  margin-top: 3%;
+  margin-top: 35%;
   text-align: center;
   font-weight: 600;
+  background-color: #B7D7F7;
+  color: #000000;
+  width: 150px;
+  margin-left:6vw;
+  border-radius: 12%;
+  /* padding-top: 0.5%; */
+  padding-bottom: 0.5%;
 
+}
+.GenerateReport img{
+  margin-left: 2%;
 }
 .chart{
   height: 10vw;
@@ -70,21 +84,23 @@
 }
 .noOfClientsChart{
   position: absolute;
-max-width: 180px;
+max-width: 150px;
   height: 14vw;
-  margin-top: 3%;
+  margin-top: 5%;
   margin-left: 7%;
 }
 .noOfReportsChart{
 position: absolute;
-max-width: 250px;
+max-width: 200px;
 height: 20vw;
-margin-top: 0%;
-margin-left: 4.0%;
+margin-top: 2%;
+margin-left: 5%;
 }
 .noOfClients{
-  margin-left: 16vw;
-  margin-top:15%;
+  margin-left:180%;
+  /* margin-right: -100%; */
+  /* margin-right: 10%; */
+  margin-top:50%;
   border: solid;
   height: 70px;
   color: white;
@@ -94,20 +110,28 @@ margin-left: 4.0%;
   font-weight: 400;
   font-family: sora;
 padding-top: 10px;
+width: 130%;
+font-size: 80%;
+line-height: 25px;
+
 }
 .noOfReports{
-  margin-left: 16vw;
-  margin-top:5%;
+  /* margin-left: 16vw; */
+  margin-left:180%;
+  /* margin-right: -100%; */
+  margin-top:15%;
   border: solid;
   height: 70px;
   color: white;
   background-color:#2438EE;
   border-radius: 20px;
   text-align: center;
-  width: 150px;
+  width: 130%;
   font-family: sora;
+  font-size: 80%;
   font-weight: 400;
   padding-top: 10px;
+  line-height: 25px;
 
 }
 /* @media only screen and (max-width: 1200px) {
@@ -120,20 +144,33 @@ margin-left: 30%;
   }
 } */
 .folder_image{
-  margin-top: 9vh;
-  margin-left: 8%;
-  height: 12vw;
+   margin-top: 12vh;
+  margin-left: 6.2vw;
+  /* height: 12vw;  */
   
  
 }
 
 @media screen and (min-width: 1260px){
+  .noOfClientsChart{
+    position: absolute;
+    margin-top: 4%;
+    margin-left: 7%;
+    max-width:150px ;
+  }
   .noOfReportsChart{
     position: absolute;
-    max-width: 250px;
-    height: 20vw;
-    margin-top: 0%;
-    margin-left: 4.5%;
+    max-width: 500px;
+      height: 15vw;
+      margin-top: 3.5%;
+      margin-left: -6.5%;
+    }
+
+    .noOfClients{
+      margin-left: 230%;
+    }
+    .noOfReports{
+      margin-left: 230%;
     }
     .viewRep{
       margin-top: 25%;
@@ -141,13 +178,35 @@ margin-left: 30%;
     }
 
 }
-@media screen and (min-width: 1500px){
+@media screen and (min-width: 1350px){
+  .noOfClientsChart{
+    position: absolute;
+    margin-top: 4%;
+    margin-left: 7%;
+    max-width:150px ;
+  }
   .noOfReportsChart{
     position: absolute;
-    max-width: 250px;
-    height: 20vw;
-    margin-top: 0%;
-    margin-left: 5%;
+    max-width: 300px;
+      height: 14vw;
+      margin-top: 4%;
+      margin-left: 2%;
+    }
+}
+
+@media screen and (min-width: 1500px){
+  .noOfClientsChart{
+    position: absolute;
+    margin-top: 4%;
+    margin-left: 7%;
+    max-width:150px ;
+  }
+  .noOfReportsChart{
+    position: absolute;
+    max-width: 300px;
+      height: 14vw;
+      margin-top: 4%;
+      margin-left: 2%;
     }
     .viewRep{
       margin-top: 20%;
@@ -164,4 +223,87 @@ margin-left: 30%;
     margin-left: 5.3%;
     }
 
+}
+.dropDownToday{
+  max-width: 100px !important;
+}
+
+.firstItem{
+ margin: 0;
+  padding: 0;
+  width: 50px;
+}
+
+.dropdown-toggle::after {
+  display: none !important;
+  content: none !important;
+}
+.my-dropdown-toggle:after {
+  display: none !important;
+}
+.dropdown {
+  
+  position: relative;
+  display: inline-block;
+  /* max-width: 75px; */
+  margin-left: 4%;
+  margin-top: 4%;
+}
+
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: #FFFFFF;
+  max-width: 110px;
+  width: 100%;
+  font-family: "Sora";
+  font-size: 50%;
+  color: #606060;
+  z-index: 1;
+  /* border-radius: 7%; */
+  margin-top: 5%;
+  margin-right: 300px;
+  border-bottom-left-radius: 7%;
+  border-bottom-right-radius: 7%;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+padding-bottom: 8%;
+}
+
+.dropdown_content a {
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  color: #000000;
+  
+  display: block;
+  background-color: #C4C4C4 rgba(0,0,0,0.1);
+  font-size: 110%;
+  font-weight: 500;
+  font-family: sora;
+  /* padding: 5px 5px; */
+  padding-left: 5%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+  padding-right: 2%;
+  font-weight: 400;
+
+}
+.dropdown_content a:hover {
+  background-color: #ddd;
+  color: 000000;
+}
+
+.dropdown:hover .dropdown_content {
+  display: block;
+}
+.dropbtn{
+  font-family: sora;
+  font-size: 150%;
+  color: #313131;
+  font-weight: 600;
+  width: 110%;
+  border: none;
+  background-color: transparent;
+}
+.todayIcon{
+  margin-left: 10%;
 }
