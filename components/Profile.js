@@ -7,6 +7,7 @@ import { Xapkey } from "../apikey";
 import { Link, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { BiChevronDown } from "react-icons/bi";
 import { useRouter } from "next/router";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 // import Paper from "@material-ui/core/Paper";
@@ -23,44 +24,45 @@ const Profile = () => {
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
-
+  const [tableheaderTab, settableheaderTab] = useState(true);
   // for  toggle class
   const [datalenghtIszreo, setdatalenghtIszreo] = useState(false);
+
   const setclassname = datalenghtIszreo
     ? `${classes.scrollRep} ${classes.datalenght_zero}`
     : classes.datalenght_zero;
   console.log(datalenghtIszreo);
   const array = [
-    // {
-    //   title: "Shree Datta Pathology Lab",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "Chaudhari Diagnostic Center",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "A Square Pathology Services",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "Aashish Khattar Sonography Clinic",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "New Point Pathology Lab",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
-    // {
-    //   title: "Nucleus Pathology Laboratory",
-    //   date: "08/03/22;23:00",
-    //   status: "complete",
-    // },
+    {
+      title: "Shree Datta Pathology Lab",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "Chaudhari Diagnostic Center",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "A Square Pathology Services",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "Aashish Khattar Sonography Clinic",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "New Point Pathology Lab",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
+    {
+      title: "Nucleus Pathology Laboratory",
+      date: "08/03/22;23:00",
+      status: "complete",
+    },
   ];
 
   const getUserData = async () => {
@@ -134,8 +136,8 @@ const Profile = () => {
       .toLowerCase()
       .includes(searchInput.toLowerCase());
   });
-
-  console.log(userdata);
+  const functstart = async () => {};
+  console.log(tableheaderTab);
   return (
     <div className={classes.homeBody}>
       <Container className={classes.name}>
@@ -160,16 +162,34 @@ const Profile = () => {
         {searchBarTab && (
           <Row className={classes.tableheader}>
             <Col md={6} xs={6} className={classes.tableheader_text}>
-              <p>Reports</p>
+              <p>
+                Reports{" "}
+                <span className={classes.alpha_sort_btn}>
+                  <BiChevronDown />
+                </span>
+              </p>
+              <div className={classes.alpha_sort_box}>
+                <li>Alphabetical Sorting</li>
+              </div>
             </Col>
             <Col md={4} xs={3} className={classes.proCol2}>
-              <p>Date/Time</p>
+              <p>
+                Date/Time{" "}
+                <span className={classes.date_sort_btn}>
+                  <BiChevronDown />
+                </span>
+              </p>
             </Col>
             <Col md={1} xs={2}>
-              <p>View</p>
+              <p>View </p>
             </Col>
             <Col md={1} xs={1}>
-              <p>Status</p>
+              <p>
+                Status{" "}
+                <span className={classes.status_sort_btn}>
+                  <BiChevronDown />
+                </span>
+              </p>
             </Col>
           </Row>
         )}
@@ -181,7 +201,7 @@ const Profile = () => {
                   src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
                   className={classes.dataempty_image}
                 />
-                <h4 className={classes.no_report}>No Reports Found</h4>
+                <h4 className={classes.no_report}>No Reports Found </h4>
               </Container>
             ) : (
               filteredResults.map((a, i) => {
@@ -210,8 +230,9 @@ const Profile = () => {
             >
               <img
                 src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
-                className={classes.dataempty_image}
+                className={classes.dataempty_image1}
               />
+
               <h4 className={classes.no_report}>No Reports Found</h4>
             </Container>
           ) : (

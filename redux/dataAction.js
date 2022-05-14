@@ -22,3 +22,9 @@ export const setImages = (res) => {
     payload: res,
   };
 };
+export const setmodelimage = (res) => {
+  return {
+    type: ActionTypes.MODELIMAGE,
+    payload: res,
+  };
+};
