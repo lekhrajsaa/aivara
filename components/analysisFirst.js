@@ -3,12 +3,13 @@ import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { useState } from "react";
-
+import CarouselFinal from "./carousel/carouselFinal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
+import { useSelector } from "react-redux";
 import {
   BsArrowLeft,
   BsArrowRight,
@@ -29,56 +30,9 @@ const style = {
   boxShadow: 24,
   p: 2,
 };
-const data = [
-  {
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg",
-    caption: "San Francisco",
-  },
-  {
-    image:
-      "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
-    caption: "Scotland",
-  },
-
-  {
-    image:
-      "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
-    caption: "Darjeeling",
-  },
-  {
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
-    caption: "San Francisco",
-  },
-  {
-    image:
-      "https://i.natgeofe.com/n/f7732389-a045-402c-bf39-cb4eda39e786/scotland_travel_4x3.jpg",
-    caption: "Scotland",
-  },
-  {
-    image:
-      "https://www.tusktravel.com/blog/wp-content/uploads/2020/07/Best-Time-to-Visit-Darjeeling-for-Honeymoon.jpg",
-    caption: "Darjeeling",
-  },
-  {
-    image:
-      "https://www.omm.com/~/media/images/site/locations/san_francisco_780x520px.ashx",
-    caption: "San Francisco",
-  },
-  {
-    image:
-      "https://images.ctfassets.net/bth3mlrehms2/6Ypj2Qd3m3jQk6ygmpsNAM/61d2f8cb9f939beed918971b9bc59bcd/Scotland.jpg?w=750&h=422&fl=progressive&q=50&fm=jpg",
-    caption: "Scotland",
-  },
-  {
-    image:
-      "https://www.oyorooms.com/travel-guide/wp-content/uploads/2019/02/summer-7.jpg",
-    caption: "Darjeeling",
-  },
-];
 
 const Analysisheader = () => {
+  const mimage = useSelector((state) => state.userdata.modelimge);
   const router = useRouter();
   const [Genus, setGenus] = React.useState(["family A", "Family B"]);
   const [Species, setSpecies] = React.useState(["family A", "Family B"]);
@@ -128,6 +82,15 @@ const Analysisheader = () => {
       setOpen(true);
     }
   };
+  const [childData, setChildData] = useState({
+    image: "unknown",
+  });
+  console.log(childData);
+  const passData = (data) => {
+    setChildData(data);
+  };
+  // const modelImage = localStorage.getItem("model");
+  // console.log("image : ", modelImage);
   return (
     <>
       <div
@@ -146,8 +109,8 @@ const Analysisheader = () => {
           <div className={classes.analysis_body}>
             <div className={classes.analysis_body_tags}>
               <div>
-                <p>
-                  image: 1/20 <br />
+                <p className={classes.analysis_body_firstext}>
+                  {/* image: 1/20 <br /> */}
                   Total diatom count: 30
                 </p>
               </div>
@@ -187,7 +150,7 @@ const Analysisheader = () => {
                 </div>
               </div>
               <form className={classes.analysis_form}>
-                <div className="form-group">
+                {/* <div className="form-group">
                   <label for="Inputspecies" style={{ fontWeight: "500" }}>
                     Add new Species
                   </label>
@@ -195,13 +158,16 @@ const Analysisheader = () => {
                     type="text"
                     className="form-control inspecies"
                     id="Inputspecies"
+                    placeholder="Enter"
                     onKeyDown={speciesKeyDown}
                     style={{
                       marginTop: "10px",
                       backgroundColor: "transparent",
+                      borderRadius: "0px",
+                      maxWidth: "700px",
                     }}
                   />
-                </div>
+                </div> */}
 
                 <div className="form-group" style={{ marginTop: "10px" }}>
                   <label for="Inputgenus" style={{ fontWeight: "500" }}>
@@ -211,10 +177,13 @@ const Analysisheader = () => {
                     type="text"
                     className="form-control ingenus"
                     id="Inputdenus"
+                    placeholder="Enter the genus"
                     onKeyDown={genusKeyDown}
                     style={{
                       marginTop: "10px",
                       backgroundColor: "transparent",
+                      borderRadius: "0px",
+                      maxWidth: "700px",
                     }}
                   />
                 </div>
@@ -223,32 +192,15 @@ const Analysisheader = () => {
             <div
               className={open ? classes.Analysis_Image : classes.analysis_image}
             >
-              <img src={image} />
+              <CarouselFinal passData={passData} />
 
-              <div className={classes.mybox}>
-                <span>
-                  <BiChevronLeft />
-                </span>
-                <div className={classes.imagetap}>
-                  {data.map((a, i) => {
-                    return (
-                      <>
-                        <img src={a.image} className={classes.image_slice} />
-                      </>
-                    );
-                  })}
-                </div>
-                <span>
-                  <BiChevronRight />
-                </span>
-              </div>
-              <p>
+              {/* <p>
                 <BsEye />
                 <span className={classes.view_image} onClick={handleOpen}>
                   View Image
                 </span>
-              </p>
-              <h5>Image:1/20</h5>
+              </p> */}
+
               {/* <h6>
                 <FileDownloadOutlinedIcon className={classes.download} />
                 Download
@@ -258,14 +210,14 @@ const Analysisheader = () => {
           {/* ========================= */}
 
           {/*  ======================================== */}
-          <div className={classes.analysis_pagination}>
+          {/* <div className={classes.analysis_pagination}>
             <h5 className={classes.previous}>
               <BsArrowLeft /> PREVIOUS
             </h5>
             <h5 className={classes.next}>
               NEXT <BsArrowRight />
             </h5>
-          </div>
+          </div> */}
           {/* ===================Image Model===================== */}
           <div>
             {open && (
@@ -276,7 +228,7 @@ const Analysisheader = () => {
                 >
                   Close
                 </p>
-                <img src={image} />
+                <img src={mimage} />
                 <p className={classes.image_modal_title}>
                   Lorem ipsum text, some info regarding the bacteria may come
                   here
@@ -296,10 +248,10 @@ const Analysisheader = () => {
 export default Analysisheader;
 
 {
-  /* <div className={classes.imagemain_tap}>
-<p>
+  /* <div className={classes.mybox}>
+<span>
   <BiChevronLeft />
-</p>
+</span>
 <div className={classes.imagetap}>
   {data.map((a, i) => {
     return (
@@ -309,8 +261,8 @@ export default Analysisheader;
     );
   })}
 </div>
-<p>
+<span>
   <BiChevronRight />
-</p> 
-</div>*/
+</span>
+</div> */
 }

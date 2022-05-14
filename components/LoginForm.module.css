@@ -703,3 +703,26 @@
   padding-top: 0px;
   height: 320px;
 }
+.dataempty_image1 {
+  padding-top: 10px;
+  margin-top: 25px;
+  height: 320px;
+}
+.alpha_sort_btn,
+.date_sort_btn,
+.status_sort_btn {
+  font-size: 20px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.alpha_sort_box {
+  position: relative;
+  top: 0;
+  z-index: 999;
+  width: 200px;
+  padding: 15px 15px;
+  border-radius: 4px;
+
+  border: 0.01px solid black;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

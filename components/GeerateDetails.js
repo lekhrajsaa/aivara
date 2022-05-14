@@ -67,43 +67,6 @@ const GenerateDetails = () => {
     console.log(clientName, " ", sampleType, " ", generatedBy);
     if (!clientName || !sampleType || !generatedBy)
       (messg = "Enter all fileds"), setErrorMessage(true);
-    // photos: ["xyz.jpg","abc.png"],
-    // let body = {
-    //   query: `mutation {
-    //     postReport(reportInput:{
-    //       photos:${JSON.stringify(images)},
-    //       clientName: "${String(clientName)}",
-    //       sampleType: "${String(sampleType)}",
-    //       generatedBy: "${String(generated)}"
-    //     }) {
-    //       message
-    //     }
-    //   }`,
-    //   variables: {},
-    // };
-    // let options = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: `Bearer ${String(Token)}`,
-    //     "x-api-key": Xapkey,
-    //   },
-    // };
-    // try {
-    //   const resp = await axios.post(
-    //     `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
-    //     body,
-    //     options
-    //   );
-    //   console.log(resp);
-    // } catch (err) {
-    //   console.log(err);
-    // }
-    // `${process.env.NEXT_PUBLIC_SERVER_API}/postReport`
-    // const body = {
-    //   clientName: String(clientName),
-    //   sampleType: String(sampleType),
-    //   generatedBy: String(generatedBy),
-    // };
 
     try {
       var formData = new FormData();
