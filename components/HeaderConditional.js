@@ -45,7 +45,7 @@ function WithSignout(props) {
               AIVARA
             </a>
           </div>
-          setProfile();
+          {/* setProfile(); */}
           <Col md={1} xs={2} className={classes.fullDropdown}>
             <div className={classes.dropdown}>
               <button className={classes.dropbtn}>
@@ -101,7 +101,7 @@ function WithoutPofile(props) {
               AIVARA
             </a>
           </div>
-          setProfile();
+          {/* setProfile(); */}
           <Col md={1} xs={2} className={profileIcon ? classes.righBody : null}>
             <div className={classes.dropdown}>
               <button className={classes.dropbtn}>
