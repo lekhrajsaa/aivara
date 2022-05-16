@@ -22,7 +22,7 @@ const Untitle = () => {
           Name of the company : <p className={classes.subName}>Hazen</p>
         </div>
         <div className={classes.name}>
-          Technician: <p className={`${classes.subName} ${classes.leftSubName}`}>Hazen</p>
+          Technician: <p className={`${classes.subName} `}>Hazen</p>
         </div>
         <div className={classes.name}>
           Timestamp:<p className={`${classes.subName} ${classes.leftSubName}`}>29/10/2021 14:25 hrs </p>
