@@ -496,3 +496,9 @@
   cursor: pointer;
   color: #606060;
 }
+
+@media screen and (max-width: 1156px) {
+  .analysis_image {
+    margin-right: 100px;
+  }
+}

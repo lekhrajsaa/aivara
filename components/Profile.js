@@ -14,11 +14,46 @@ import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 // import SearchBar from "material-ui-search-bar";
 import { AiOutlineSearch } from "react-icons/ai";
 import empty from "../asset/empty.png";
+
+const labdata = [
+  {
+    labname: "Shree Datta Pathology Lab",
+    date: "08/03/22;23:00",
+    status: "complete",
+  },
+  {
+    labname: "Chaudhari Diagnostic Center",
+    date: "08/03/22;23:00",
+    status: "incomplete",
+  },
+  {
+    labname: "A Square Pathology Services",
+    date: "08/03/22;23:00",
+    status: "complete",
+  },
+  {
+    labname: "Aashish Khattar Sonography Clinic",
+    date: "08/03/22;23:00",
+    status: "incomplete",
+  },
+  {
+    labname: "New Point Pathology Lab",
+    date: "08/03/22;23:00",
+    status: "inprogress",
+  },
+  {
+    labname: "Nucleus Pathology Laboratory",
+    date: "08/03/22;23:00",
+    status: "inprogress",
+  },
+];
+
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
   const [name, setName] = useState();
   const userdata = useSelector((state) => state.userdata.userdata);
+  const [array, setarray] = useState(labdata);
   const router = useRouter();
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
@@ -27,44 +62,34 @@ const Profile = () => {
   const [tableheaderTab, settableheaderTab] = useState(true);
   // for  toggle class
   const [datalenghtIszreo, setdatalenghtIszreo] = useState(false);
-
+  const [openAlpha, setopenAlpha] = useState(false);
+  const [openStatus, setopenStatus] = useState(false);
+  const [openday, setopenday] = useState(false);
   const setclassname = datalenghtIszreo
     ? `${classes.scrollRep} ${classes.datalenght_zero}`
     : classes.datalenght_zero;
   console.log(datalenghtIszreo);
-  const array = [
-    {
-      title: "Shree Datta Pathology Lab",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "Chaudhari Diagnostic Center",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "A Square Pathology Services",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "Aashish Khattar Sonography Clinic",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "New Point Pathology Lab",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-    {
-      title: "Nucleus Pathology Laboratory",
-      date: "08/03/22;23:00",
-      status: "complete",
-    },
-  ];
-
+  const sortbox = () => {
+    if (openAlpha) {
+      setopenAlpha(false);
+    } else {
+      setopenAlpha(true);
+    }
+  };
+  const statusCheck = () => {
+    if (openStatus) {
+      setopenStatus(false);
+    } else {
+      setopenStatus(true);
+    }
+  };
+  const daysfilter = () => {
+    if (openday) {
+      setopenday(false);
+    } else {
+      setopenday(true);
+    }
+  };
   const getUserData = async () => {
     let body = {
       query: `{
@@ -136,8 +161,39 @@ const Profile = () => {
       .toLowerCase()
       .includes(searchInput.toLowerCase());
   });
-  const functstart = async () => {};
-  console.log(tableheaderTab);
+
+  // Ascending order filter
+  const compare = (a, b) => {
+    const labA = a.labname.toUpperCase();
+    const labB = b.labname.toUpperCase();
+
+    let comparison = 0;
+    if (labA > labB) {
+      comparison = 1;
+    } else if (labA < labB) {
+      comparison = -1;
+    }
+    return comparison;
+  };
+  const ascendOrder = () => {
+    if (searchInput !== "") {
+      setFilteredResults(filteredResults.sort(compare));
+    } else {
+      setarray(labdata.sort(compare));
+    }
+    setopenAlpha(false);
+  };
+
+  // Status filter
+  const labstatus = (a) => {
+    if (searchInput !== "") {
+      setFilteredResults(labdata.filter((e, i, array) => e.status === a));
+    } else {
+      setarray(labdata.filter((e, i, array) => e.status === a));
+    }
+    setopenStatus(false);
+  };
+
   return (
     <div className={classes.homeBody}>
       <Container className={classes.name}>
@@ -154,6 +210,20 @@ const Profile = () => {
                 onChange={(e) => searchItems(e.target.value)}
               />
             </div>
+            <div className={classes.dayfilter}>
+              <h6 onClick={daysfilter}>
+                Today <BiChevronDown />
+              </h6>
+              <div className={openday ? classes.listday : classes.listday_hide}>
+                <li>Today</li>
+                <li>Yesterday</li>
+                <li>2 day ago</li>
+                <li>7 day ago</li>
+                <li>15 day ago</li>
+                <li>1 month ago</li>
+                <li>2 month ago</li>
+              </div>
+            </div>
           </div>
         )}
       </Container>
@@ -164,13 +234,21 @@ const Profile = () => {
             <Col md={6} xs={6} className={classes.tableheader_text}>
               <p>
                 Reports{" "}
-                <span className={classes.alpha_sort_btn}>
+                <span className={classes.alpha_sort_btn} onClick={sortbox}>
                   <BiChevronDown />
                 </span>
+                <div
+                  className={
+                    openAlpha
+                      ? classes.alpha_sort_box
+                      : classes.alpha_sort_box_hide
+                  }
+                >
+                  <li className={classes.alpha_sort_text} onClick={ascendOrder}>
+                    Alphabetical Sorting
+                  </li>
+                </div>
               </p>
-              <div className={classes.alpha_sort_box}>
-                <li>Alphabetical Sorting</li>
-              </div>
             </Col>
             <Col md={4} xs={3} className={classes.proCol2}>
               <p>
@@ -183,12 +261,23 @@ const Profile = () => {
             <Col md={1} xs={2}>
               <p>View </p>
             </Col>
-            <Col md={1} xs={1}>
+            <Col md={1} xs={1} className={classes.proCol5}>
               <p>
-                Status{" "}
-                <span className={classes.status_sort_btn}>
+                Status
+                <span className={classes.status_sort_btn} onClick={statusCheck}>
                   <BiChevronDown />
                 </span>
+                <div
+                  className={
+                    openStatus
+                      ? classes.status_sort_box
+                      : classes.status_sort_box_hide
+                  }
+                >
+                  <li onClick={() => labstatus("complete")}>Complete</li>
+                  <li onClick={() => labstatus("inprogress")}>Inprogress</li>
+                  <li onClick={() => labstatus("incomplete")}>InComplete</li>
+                </div>
               </p>
             </Col>
           </Row>
@@ -206,20 +295,22 @@ const Profile = () => {
             ) : (
               filteredResults.map((a, i) => {
                 return (
-                  <Row className={classes.rowe}>
-                    <Col md={6} xs={5} className={classes.proCol}>
-                      {a.title}
-                    </Col>
-                    <Col md={4} xs={3} className={classes.proCol2}>
-                      {a.date}
-                    </Col>
-                    <Col md={1} xs={2}>
-                      <button className={classes.proCol3}>View</button>
-                    </Col>
-                    <Col md={1} xs={2} className={classes.proCol4}>
-                      <p>{a.status}</p>
-                    </Col>
-                  </Row>
+                  <>
+                    <Row className={classes.rowe}>
+                      <Col md={6} xs={5} className={classes.proCol}>
+                        {a.labname}
+                      </Col>
+                      <Col md={4} xs={3} className={classes.proCol2}>
+                        {a.date}
+                      </Col>
+                      <Col md={1} xs={2}>
+                        <button className={classes.proCol3}>View</button>
+                      </Col>
+                      <Col md={1} xs={2} className={classes.proCol4}>
+                        <p>{a.status}</p>
+                      </Col>
+                    </Row>
+                  </>
                 );
               })
             )
@@ -238,20 +329,22 @@ const Profile = () => {
           ) : (
             array.map((a, i) => {
               return (
-                <Row className={classes.rowe}>
-                  <Col md={6} xs={5} className={classes.proCol}>
-                    {a.title}
-                  </Col>
-                  <Col md={4} xs={3} className={classes.proCol2}>
-                    {a.date}
-                  </Col>
-                  <Col md={1} xs={2}>
-                    <button className={classes.proCol3}>View</button>
-                  </Col>
-                  <Col md={1} xs={2}>
-                    <p>{a.status}</p>
-                  </Col>
-                </Row>
+                <>
+                  <Row className={classes.rowe}>
+                    <Col md={6} xs={5} className={classes.proCol}>
+                      {a.labname}
+                    </Col>
+                    <Col md={4} xs={3} className={classes.proCol2}>
+                      {a.date}
+                    </Col>
+                    <Col md={1} xs={2}>
+                      <button className={classes.proCol3}>View</button>
+                    </Col>
+                    <Col md={1} xs={2}>
+                      <p>{a.status}</p>
+                    </Col>
+                  </Row>
+                </>
               );
             })
           )}

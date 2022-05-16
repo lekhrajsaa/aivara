@@ -1,6 +1,8 @@
 import React from "react";
 import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
+import "react-alice-carousel/lib/alice-carousel.css";
+import AliceCarousel from "react-alice-carousel";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { useState } from "react";
 import CarouselFinal from "./carousel/carouselFinal";
@@ -10,6 +12,7 @@ import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import { images } from "./carousel/Images";
 import {
   BsArrowLeft,
   BsArrowRight,
@@ -38,7 +41,6 @@ const Analysisheader = () => {
   const [Species, setSpecies] = React.useState(["family A", "Family B"]);
 
   const [open, setOpen] = React.useState(false);
-
   const [miaClass, setMainClass] = useState(false);
   const route = useRouter();
   // ===============Genus===================
@@ -91,6 +93,27 @@ const Analysisheader = () => {
   };
   // const modelImage = localStorage.getItem("model");
   // console.log("image : ", modelImage);
+
+  // Carsousel
+  const [currentIndex, setcurrentIndex] = useState(1);
+  const [itemsInSlide, setitemsInSlide] = useState(2);
+  const [galleryItems, setgalleryItems] = useState(images);
+  const slideTo = (i) => {
+    setcurrentIndex(i);
+  };
+  const handleOnSlideChange = (event) => {
+    console.log("slide");
+    const { itemsInSlide, item } = event;
+
+    setcurrentIndex(item);
+    setitemsInSlide(item);
+  };
+  const renderNextButton = ({ isDisabled }) => {
+    return <BiChevronRight className="alice_carousel__next_btn" />;
+  };
+  const renderPrevButton = ({ isDisabled }) => {
+    return <BiChevronLeft className="alice_carousel__prev_btn" />;
+  };
   return (
     <>
       <div
@@ -194,6 +217,34 @@ const Analysisheader = () => {
             >
               <CarouselFinal passData={passData} />
 
+              {/* <div>
+                <img src={galleryItems[currentIndex]} />
+                <div className="carousel_itme">
+                  <AliceCarousel
+                    items={galleryItems}
+                    dotsDisabled={true}
+                    slideToIndex={currentIndex}
+                    responsive={{
+                      0: {
+                        items: 4,
+                      },
+                    }}
+                    className="carsousel_size"
+                    onInitialized={handleOnSlideChange}
+                    onSlideChanged={handleOnSlideChange}
+                    onResized={handleOnSlideChange}
+                    renderPrevButton={renderPrevButton}
+                    renderNextButton={renderNextButton}
+                  >
+                    {galleryItems.map((item, i) => (
+                      <span key={i} onClick={() => slideTo(i)}>
+                        <img className="imagestyle" src={item} />
+                      </span>
+                    ))}
+                  </AliceCarousel>
+                </div>
+              </div> */}
+
               {/* <p>
                 <BsEye />
                 <span className={classes.view_image} onClick={handleOpen}>
@@ -228,7 +279,7 @@ const Analysisheader = () => {
                 >
                   Close
                 </p>
-                <img src={mimage} />
+                <img src={galleryItems[currentIndex]} />
                 <p className={classes.image_modal_title}>
                   Lorem ipsum text, some info regarding the bacteria may come
                   here
