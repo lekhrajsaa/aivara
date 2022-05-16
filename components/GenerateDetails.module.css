@@ -61,6 +61,7 @@
   border-left: none;
   border-right: none;
   width: 88px;
+  /* width: 70px; */
   color: #313131;
   border-bottom: 1px solid #313131;
   font-size: 16px;
@@ -146,3 +147,20 @@
     left: 500px;
   }
 } */
+@media screen and (max-width: 1150px) and (max-height: 900px) {
+  .detail12 {
+    padding-left: 0px;
+  }
+  .fill1 {
+    width: 70px;
+  }
+  .fill {
+    width: 300px;
+  }
+  .searchicon {
+    margin-left: 280px;
+  }
+  .select_tagopen {
+    width: 300px;
+  }
+}
