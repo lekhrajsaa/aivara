@@ -1,21 +1,45 @@
-import HeaderApp from "../components/HeaderApp"
-import ReportSubmit from "../components/ReportSubmit"
-import Header from "../components/HeaderConditional"
-export default function home (){
+import React, { useEffect, useState } from "react";
 
-    return(
+import HeaderApp from "../components/HeaderApp";
+import ReportSubmit from "../components/ReportSubmit";
+import Header from "../components/HeaderConditional";
+import { useRouter } from "next/router";
+
+export default function home() {
+  const router = useRouter();
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setShow(false);
+      router.push("/");
+    }
+  });
+  return (
+    <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <script
+        src="https://kit.fontawesome.com/f80c821559.js"
+        crossorigin="anonymous"
+      ></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+      />
+      <script
+        src="https://kit.fontawesome.com/4a4ddc9f6c.js"
+        crossorigin="anonymous"
+      ></script>
+      {show && (
         <>
-    
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <script src="https://kit.fontawesome.com/f80c821559.js" crossorigin="anonymous"></script>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<script src="https://kit.fontawesome.com/4a4ddc9f6c.js" crossorigin="anonymous"></script>
-        <Header headerWithSignout={false} />
-        <main>
+          <Header headerWithSignout={false} />
+          <main>
             <ReportSubmit />
-        </main>
+          </main>
         </>
-    )
+      )}
+    </>
+  );
 }

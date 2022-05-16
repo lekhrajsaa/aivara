@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Analysisheader from "../components/analysisFirst";
+import { useRouter } from "next/router";
 
 const Analysis = () => {
-  const [token, setToken] = useState(false);
-  // useEffect(() => {
+  const router = useRouter();
+  const [show, setShow]= useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if(!token){
+      setShow(false);
+      router.push("/")
+    }
+  })  // useEffect(() => {
   //   setToken(localStorage.getItem("isloggin"));
   // }, []);
   // if (token === null) {
@@ -11,7 +19,10 @@ const Analysis = () => {
   // }
   return (
     <>
+    {show && <>
       <Analysisheader />
+      </>
+}
     </>
   );
 };

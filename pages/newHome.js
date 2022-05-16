@@ -1,7 +1,20 @@
+import React, { useEffect, useState } from "react";
+
 import Header from "../components/HeaderConditional";
 import Sidebar from "../components/SideBar/SideBar";
 import NewHome from "../components/newHome";
+import { useRouter } from "next/router";
+
 export default function newHom() {
+  const router = useRouter();
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setShow(false);
+      router.push("/");
+    }
+  });
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,11 +33,18 @@ export default function newHom() {
         crossorigin="anonymous"
       ></script>
       <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></link>
-      <Header headerWithSignout={true} />
-      <Sidebar highlitehome={true} />
-      <NewHome />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+      ></link>
+      {show && (
+        <>
+          <Header headerWithSignout={true} />
+          <Sidebar highlitehome={true} />
+          <NewHome />
+        </>
+      )}
     </>
   );
 }

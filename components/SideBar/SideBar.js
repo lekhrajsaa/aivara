@@ -66,7 +66,7 @@ const Sidebar = (props) => {
               {/* changing menu collapse icon on click */}
               
                 {menuCollapse ? 
-                <AiOutlineRight size={18} className={classes.closeIcon} /> 
+                <AiOutlineRight size={18} className={classes.closeIcon} style={{fontWeight:"800"}} /> 
                 // <CgChevronRight />
                 : <AiOutlineLeft size={18} className={classes.closeIcon}/>}
                 
