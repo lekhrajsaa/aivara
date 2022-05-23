@@ -19,7 +19,9 @@ import {
   BsEye,
   AiOutlineDownload,
 } from "react-icons/bs";
+import Test from "./test";
 import { ModelTraining } from "@mui/icons-material";
+// import ReactImageAnnotate from "react-image-annotate";
 const image =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSleNg85PLgTXzYbZyiSuStVjNbdHmrp6NorQ&usqp=CAU";
 
@@ -215,7 +217,7 @@ const Analysisheader = () => {
             <div
               className={open ? classes.Analysis_Image : classes.analysis_image}
             >
-              <CarouselFinal passData={passData} />
+              {/* <CarouselFinal passData={passData} /> */}
 
               {/* <div>
                 <img src={galleryItems[currentIndex]} />
@@ -245,17 +247,48 @@ const Analysisheader = () => {
                 </div>
               </div> */}
 
-              {/* <p>
+<div className={classes.carousel_main}>
+        <div className={classes.bigImage}>
+          <img src={galleryItems[currentIndex]} />
+        </div>
+        <div className="carousel_itme">
+          
+          <AliceCarousel
+            items={galleryItems}
+            dotsDisabled={true}
+            slideToIndex={currentIndex}
+            responsive={{
+              0: {
+                items: 4,
+              },
+            }}
+            className={classes.carsousel_size}
+            onInitialized={handleOnSlideChange}
+            onSlideChanged={handleOnSlideChange}
+            onResized={handleOnSlideChange}
+            renderPrevButton={renderPrevButton}
+            renderNextButton={renderNextButton}
+          >
+            {galleryItems.map((item, i) => (
+              <span key={i} onClick={() => slideTo(i)}>
+                <img className={classes.imagestyle} src={item} />
+              </span>
+            ))}
+          </AliceCarousel>
+        </div>
+      </div>
+
+              <p>
                 <BsEye />
                 <span className={classes.view_image} onClick={handleOpen}>
                   View Image
                 </span>
-              </p> */}
+              </p>
 
-              {/* <h6>
+              <h6>
                 <FileDownloadOutlinedIcon className={classes.download} />
                 Download
-              </h6> */}
+              </h6>
             </div>
           </div>
           {/* ========================= */}
@@ -279,7 +312,21 @@ const Analysisheader = () => {
                 >
                   Close
                 </p>
-                <img src={galleryItems[currentIndex]} />
+                {/* <ReactImageAnnotate
+    labelImages
+    regionClsList={["Alpha", "Beta", "Charlie", "Delta"]}
+    regionTagList={["tag1", "tag2", "tag3"]}
+    images={[
+      {
+        src: galleryItems[currentIndex],
+        name: "Image 1",
+        regions: []
+      }
+    ]}
+  /> */}
+          <Test imageurl={galleryItems[currentIndex]} />
+
+                {/* <img src={galleryItems[currentIndex]} /> */}
                 <p className={classes.image_modal_title}>
                   Lorem ipsum text, some info regarding the bacteria may come
                   here

@@ -41,7 +41,7 @@ const Untitle = () => {
               <th>Relative Abundance</th>
             </tr>
           </thead>
-          <tbody >
+          <tbody className={classes.tbody} >
             <tr>
               <td>EG</td>
               <td>10.888 8.999</td>

@@ -41,14 +41,14 @@
   font-weight: 600;
 }
 .viewReport {
-  height: 60vh;
-  max-height:500px;
+  /* height: 60vh; */
+  /* max-height:500px; */
   width: 24vw;
   margin-top: 10%;
-  margin-left: 8%;
+  margin-left: 4%;
   border-radius: 10px;
   background-color: #FFFFFF;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
 }
 .parent {
   display: flex;
@@ -59,16 +59,16 @@
   font-weight: 600;
 }
 .GenerateReport{
-  margin-top: 35%;
+  margin-top: 44vh;
   text-align: center;
   font-weight: 600;
   background-color: #B7D7F7;
   color: #000000;
-  width: 150px;
+  width: 70%;
   margin-left:6vw;
-  border-radius: 12%;
+ 
   /* padding-top: 0.5%; */
-  padding-bottom: 0.5%;
+  
 
 }
 .GenerateReport img{
@@ -181,7 +181,7 @@ margin-left: 30%;
 @media screen and (min-width: 1350px){
   .noOfClientsChart{
     position: absolute;
-    margin-top: 4%;
+    margin-top: 2%;
     margin-left: 7%;
     max-width:150px ;
   }
@@ -189,15 +189,18 @@ margin-left: 30%;
     position: absolute;
     max-width: 300px;
       height: 14vw;
-      margin-top: 4%;
+      margin-top: 2%;
       margin-left: 2%;
+    }
+    .GenerateReport{
+      margin-top: 44vh;
     }
 }
 
 @media screen and (min-width: 1500px){
   .noOfClientsChart{
     position: absolute;
-    margin-top: 4%;
+    margin-top: 2%;
     margin-left: 7%;
     max-width:150px ;
   }
@@ -205,7 +208,7 @@ margin-left: 30%;
     position: absolute;
     max-width: 300px;
       height: 14vw;
-      margin-top: 4%;
+      margin-top: 2%;
       margin-left: 2%;
     }
     .viewRep{

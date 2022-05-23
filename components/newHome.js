@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import classes from "./newHome.module.css";
 import {
+  Button,
   ButtonGroup,
   Dropdown,
   DropdownButton,
@@ -113,18 +114,19 @@ const NewHome = () => {
           </div>
         </div>
         <div className={`${classes.viewReport} ${classes.child} `}>
-          <img
+          {/* <img
             src="/fileImage.png"
             alt="folder"
             className={classes.folder_image}
-          />
+          /> */}
 
           {/* <a onClick={() => router.push("/home")} ><p className={classes.viewRep}>View Report</p></a> */}
           <a onClick={() => router.push("/gen")}>
-            <p className={classes.GenerateReport}>
+          <Button  className={classes.GenerateReport} >Generate Report <img src="./edit.png"></img></Button>
+            {/* <p className={classes.GenerateReport}>
               Generate Report <span> </span>
               <img src="./edit.png"></img>
-            </p>
+            </p> */}
           </a>
         </div>
       </div>

@@ -57,14 +57,15 @@
 .table {
   width: 86vw;
   height: 65vh;
-  border: solid 1px;
+  /* border: solid 1px; */
   margin-top: 5%;
   margin-left: 7%;
   margin-right: 7%;
-  border-radius: 5px;
-  background-color: #f3f3f3;
+  /* border-radius: 5px; */
+  background-color: #F9F9F9;
   overflow: scroll;
 }
+
 .signature {
   width: 22vw;
   height: 5vh;
@@ -104,10 +105,14 @@
   text-align: center;
 }
 .tableHeading {
-  background-color: rgba(196, 196, 196, 0.5) ;
+  /* background-color: rgba(196, 196, 196, 0.5) ; */
+  border: none;
+  border-style: none;
+  
 }
 .tableHeading th{
     color: #395D89;
+    border: none;
 }
 @media screen and (min-width: 1600px){
   .txtCenter {
@@ -137,3 +142,18 @@
 .leftSubName{
   margin-left: -10%;
 }
+.tbody tr{
+ border: none;
+ /* border-bottom: 1px dashed; */
+   /* border-style: dashed;  */
+   border-bottom: 0.1px dashed;
+
+}
+.tbody tr td{
+  /* border-style: none; */
+  border: none;
+  /* border-bottom: 1px black; */
+  /* border-style: dashed; */
+  /* border-bottom: 1px dashed; */
+  
+ }
