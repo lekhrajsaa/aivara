@@ -14,7 +14,7 @@ import { ResetTvRounded, TryRounded } from "@mui/icons-material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { padding } from "@mui/system";
+// import { padding } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import { BiChevronDown } from "react-icons/bi";
 import { useRouter } from "next/router";
@@ -44,10 +44,12 @@ const GenerateDetails = () => {
   const [siteCode, setsiteCode] = useState();
   const [latitude, setlatitude] = useState();
   const [longitude, setlongitude] = useState();
+  const [uploadPercentage, setUploadPercentage] = useState(0)
   // const [geoLocation, setgeoLocation] = useState({
   //   latitude: "",
   //   longitude: "",
   // });
+  console.log(uploadPercentage)
 
   let name, value;
   const geoInput = (e) => {
@@ -82,29 +84,69 @@ const GenerateDetails = () => {
       formData.append("latitude", latitude);
       formData.append("longitude", longitude);
       //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${String(token)}`,
-          "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-        },
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.errors && data.errors[0].status === 401) {
-            console.log(data.errors[0].message);
-            errors = data.errors[0].message;
-            setErrorMessage(true);
-          } else {
-            if (data.status === 200) {
-              console.log(data);
-            } else {
-              errors = "server Error";
-              setErrorMessage(true);
-            }
+      //REACT_APP_SERVER
+      //NEXT_PUBLIC_SERVER_API
+
+      try {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, formData, {
+          headers: {
+            Authorization: `Bearer ${String(token)}`,
+            "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+            origin: `${process.env.REACT_APP_CLIENT}`
+          },
+          onUploadProgress: (data) => {
+            let progresPercent = Math.floor((data.loaded / data.total) * 100);
+            // console.log(data.loaded, data.total, progresPercent);
+            setUploadPercentage(progresPercent); //set the state for upload progress bar
           }
-        });
+        })
+
+        const data = response.data;
+
+        if (data.errors && data.errors[0].status === 401) {
+          console.log(data.errors[0].message);
+          errors = data.errors[0].message;
+          setErrorMessage(true);
+        } else {
+          if (data.status === 200) {
+            console.log(data);
+          } else {
+            errors = "server Error";
+            setErrorMessage(true);
+          }
+        }
+
+      } catch (err) {
+        console.log(err)
+        errors = "server Error";
+        setErrorMessage(true);
+      }
+
+
+      // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
+      //   method: "POST",
+      //   headers: {
+      //     Authorization: `Bearer ${String(token)}`,
+      //     "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+      //     origin:`${process.env.REACT_APP_CLIENT}`
+      //   },
+      //   body: formData,
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     if (data.errors && data.errors[0].status === 401) {
+      //       console.log(data.errors[0].message);
+      //       errors = data.errors[0].message;
+      //       setErrorMessage(true);
+      //     } else {
+      //       if (data.status === 200) {
+      //         console.log(data);
+      //       } else {
+      //         errors = "server Error";
+      //         setErrorMessage(true);
+      //       }
+      //     }
+      //   });
     } catch (err) {
       console.log(err);
     }
