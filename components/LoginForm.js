@@ -131,7 +131,7 @@ const LoginForm = () => {
         },
       };
 
-      await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+      await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}api/v1`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

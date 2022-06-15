@@ -96,7 +96,7 @@ const EditProfile = () => {
     };
     try {
       const resp = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
+        `${process.env.NEXT_PUBLIC_SERVER_API}api/v1`,
         body,
         options
       );
@@ -166,7 +166,7 @@ const EditProfile = () => {
     try {
       if (Passwordvalidate(user.newPassword)){
       const resp = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`,
+        `${process.env.NEXT_PUBLIC_SERVER_API}api/v1`,
         body,
         options
       );

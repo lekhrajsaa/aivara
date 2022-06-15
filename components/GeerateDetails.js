@@ -88,7 +88,7 @@ const GenerateDetails = () => {
       //NEXT_PUBLIC_SERVER_API
 
       try {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, formData, {
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}postReport`, formData, {
           headers: {
             Authorization: `Bearer ${String(token)}`,
             "x-api-key": process.env.NEXT_PUBLIC_XAPI,
