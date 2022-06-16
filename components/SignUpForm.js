@@ -417,7 +417,7 @@ const SignUpForm = () => {
           //   console.log(err);
           // }
 
-          fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/api/v1`, {
+          fetch(`${process.env.NEXT_PUBLIC_SERVER_API}api/v1`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
