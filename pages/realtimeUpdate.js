@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react'
 import io from 'socket.io-client';
 
 function realtimeUpdate() {
-    const socket = io(`https://socket-server-test-ml.herokuapp.com`);
+    const socket = io(`https://socket-server-demo-i.herokuapp.com`);
 
     const [temp, setTemp] = useState(null)
 
     useEffect(() => {
-        socket.on('lambda', (data) => {
+        socket.on('report data', (data) => {
             console.log(data);
             setTemp(data)
         });
@@ -31,6 +31,9 @@ function realtimeUpdate() {
 
                 <div>token</div>
                 <div>{temp.token}</div>
+
+                <div>token</div>
+                <div>{temp.message}</div>
             </div>: null}
         </div>
         </div>
