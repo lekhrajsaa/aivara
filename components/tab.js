@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+// import { render } from 'react-dom';
 import Tabs from 'react-responsive-tabs';
 import classes from "./LoginForm.module.css";
 

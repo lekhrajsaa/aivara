@@ -4,7 +4,7 @@ import axios from "axios";
 import { Getting_user_data } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
-import { Link, Route } from "react-router-dom";
+// import { Link, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { BiChevronDown } from "react-icons/bi";
