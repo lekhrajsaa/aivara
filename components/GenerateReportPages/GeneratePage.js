@@ -3,7 +3,7 @@
 import Header from "../HeaderConditional";
 
 import StyledDropzone from "../Upload"
-import {Nav, Container } from "react-";
+import {Nav, Container } from "react-bootstrap";
 import classes from "./all.module.css";
 
 

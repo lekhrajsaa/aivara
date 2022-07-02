@@ -5,7 +5,7 @@ import classes from "./LoginForm.module.css";
 import { setImages } from "../redux/dataAction";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
-import S3FileUpload from "../node_modules/react-s3";
+// import S3FileUpload from "../node_modules/react-s3";
 import { Construction } from "@mui/icons-material";
 import axios from "axios";
 
