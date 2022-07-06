@@ -5,7 +5,7 @@ import store from "../store";
 import { persistGet } from "redux-persist/integration/react";
 import { persistor } from "../store";
 // import './SideBar.css';
-import "../components/Sidebar.css";
+import "../components/SideBar.css";
 function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
