@@ -20,7 +20,7 @@ import {
   AiOutlineDownload,
 } from "react-icons/bs";
 import Test from "./test";
-import { ModelTraining } from "@mui/icons-material";
+// import { ModelTraining } from "@mui/icons-material";
 // import ReactImageAnnotate from "react-image-annotate";
 const image =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSleNg85PLgTXzYbZyiSuStVjNbdHmrp6NorQ&usqp=CAU";

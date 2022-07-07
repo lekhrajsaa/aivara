@@ -1,6 +1,6 @@
 import Header from "../components/HeaderConditional";
 import Sidebar from "../components/SideBar/SideBar";
-import { BrowserRouter as Router } from "react-router-dom";
+// import { BrowserRouter as Router } from "react-router-dom";
 import EmailVerified from "../components/EmailVerified";
 function home() {
   return (
