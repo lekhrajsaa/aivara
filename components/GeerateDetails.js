@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import FormLabel from "@mui/material/FormLabel";
 
 import FormControl from "@mui/material/FormControl";
+import BackdropBuffer from "./backdrop_buffer/backdrop_buffer";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -354,9 +355,12 @@ const GenerateDetails = () => {
           </button>
         </Container>
       </form>
-      {pleaseWait ? <div style={{ textAlign: "center", color: "Highlight" }}>
+      {/* {pleaseWait ? <div style={{ textAlign: "center", color: "Highlight" }}>
         Report Analysis is in process please wait...
-      </div> : null}
+      </div> : null} */}
+
+      {pleaseWait && <BackdropBuffer bufferText="Report Analysis is in process please wait..." />}
+
       <Container className={classes.footer}>
         <p> copyright aivara | terms and coditions </p>
       </Container>

@@ -20,6 +20,7 @@ import {
   AiOutlineDownload,
 } from "react-icons/bs";
 import Test from "./test";
+import ImagePreview from "./Image_preview/imagePreview";
 // import { ModelTraining } from "@mui/icons-material";
 // import ReactImageAnnotate from "react-image-annotate";
 const image =
@@ -44,7 +45,7 @@ const Analysisheader = () => {
   const [Genus, setGenus] = React.useState(["family A", "Family B"]);
   const [Species, setSpecies] = React.useState(["family A", "Family B"]);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setPreviewImage] = React.useState(false);
   const [miaClass, setMainClass] = useState(false);
   const route = useRouter();
   // ===============Genus===================
@@ -83,9 +84,9 @@ const Analysisheader = () => {
   const handleOpen = () => {
     if (open === true) {
       setMainClass(true);
-      setOpen(false);
+      setPreviewImage(false);
     } else {
-      setOpen(true);
+      setPreviewImage(true);
     }
   };
   const [childData, setChildData] = useState({
@@ -310,6 +311,8 @@ const Analysisheader = () => {
               </h6>
             </div>
           </div>
+
+
           {/* ========================= */}
 
           {/*  ======================================== */}
@@ -321,41 +324,34 @@ const Analysisheader = () => {
               NEXT <BsArrowRight />
             </h5>
           </div> */}
+
+
           {/* ===================Image Model===================== */}
           <div>
-            {open && (
-              <div className={classes.image_modal}>
-                <p
-                  className={classes.image_modal_close}
-                  onClick={() => setOpen(false)}
-                >
-                  Close
-                </p>
-                {/* <ReactImageAnnotate
-    labelImages
-    regionClsList={["Alpha", "Beta", "Charlie", "Delta"]}
-    regionTagList={["tag1", "tag2", "tag3"]}
-    images={[
-      {
-        src: galleryItems[currentIndex],
-        name: "Image 1",
-        regions: []
-      }
-    ]}
-  /> */}
-                <Test imageurl={galleryItems[currentIndex]} />
+            {open && <ImagePreview galleryItems={galleryItems} currentIndex={currentIndex} setPreviewImage={setPreviewImage} />
+            // (
+            //   <div className={classes.image_modal}>
+            //     <p
+            //       className={classes.image_modal_close}
+            //       onClick={() => setPreviewImage(false)}
+            //     >
+            //       Close
+            //     </p>
+                
+            //     <Test imageurl={galleryItems[currentIndex]} />
 
-                {/* <img src={galleryItems[currentIndex]} /> */}
-                <p className={classes.image_modal_title}>
-                  Lorem ipsum text, some info regarding the bacteria may come
-                  here
-                </p>
-                <p className={classes.image_modal_download}>
-                  <FileDownloadOutlinedIcon />
-                  Download
-                </p>
-              </div>
-            )}
+            //     {/* <img src={galleryItems[currentIndex]} /> */}
+            //     <p className={classes.image_modal_title}>
+            //       Lorem ipsum text, some info regarding the bacteria may come
+            //       here
+            //     </p>
+            //     <p className={classes.image_modal_download}>
+            //       <FileDownloadOutlinedIcon />
+            //       Download
+            //     </p>
+            //   </div>
+            // )
+            }
           </div>
         </div>
       </div>
