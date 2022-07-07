@@ -37,6 +37,8 @@ const style = {
 };
 
 const Analysisheader = () => {
+  const DataFromAI = useSelector((state) => state.userdata.reportDataFrom_AI);
+
   const mimage = useSelector((state) => state.userdata.modelimge);
   const router = useRouter();
   const [Genus, setGenus] = React.useState(["family A", "Family B"]);
@@ -116,6 +118,12 @@ const Analysisheader = () => {
   const renderPrevButton = ({ isDisabled }) => {
     return <BiChevronLeft className="alice_carousel__prev_btn" />;
   };
+
+  //ai report data....
+  console.log(DataFromAI, "data from analysis");
+
+
+
   return (
     <>
       <div

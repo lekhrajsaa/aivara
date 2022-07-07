@@ -45,6 +45,10 @@ const GenerateDetails = () => {
   const [latitude, setlatitude] = useState();
   const [longitude, setlongitude] = useState();
   const [uploadPercentage, setUploadPercentage] = useState(0)
+
+  //wait flag
+  const [pleaseWait, setPleaseWait] = useState(false);
+
   // const [geoLocation, setgeoLocation] = useState({
   //   latitude: "",
   //   longitude: "",
@@ -87,6 +91,9 @@ const GenerateDetails = () => {
       //REACT_APP_SERVER
       //NEXT_PUBLIC_SERVER_API
 
+      //setting wait flag as true
+      setPleaseWait(true);
+
       try {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}postReport`, formData, {
           headers: {
@@ -120,6 +127,7 @@ const GenerateDetails = () => {
         console.log(err)
         errors = "server Error";
         setErrorMessage(true);
+        setPleaseWait(false);
       }
 
 
@@ -346,6 +354,9 @@ const GenerateDetails = () => {
           </button>
         </Container>
       </form>
+      {pleaseWait ? <div style={{ textAlign: "center", color: "Highlight" }}>
+        Report Analysis is in process please wait...
+      </div> : null}
       <Container className={classes.footer}>
         <p> copyright aivara | terms and coditions </p>
       </Container>

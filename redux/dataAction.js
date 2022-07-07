@@ -28,3 +28,10 @@ export const setmodelimage = (res) => {
     payload: res,
   };
 };
+
+export const setAiReportData = (data) => {
+  return {
+    type: ActionTypes.REPORT_DATA_FROM_AI,
+    payload: data,
+  };
+}
