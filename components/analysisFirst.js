@@ -123,8 +123,9 @@ const Analysisheader = () => {
   //ai report data....
   // console.log(DataFromAI, "data from analysis");
 
+
   useEffect(() => {
-    if(DataFromAI) {
+    if(DataFromAI.data) {
     
       const imagesFromAI = DataFromAI.data.map(item => item.imageUrl);
   
@@ -134,6 +135,53 @@ const Analysisheader = () => {
       }
     }
   }, [DataFromAI])
+
+  useEffect(() => {
+    if(DataFromAI.data) {
+      
+      // let text = JSON.stringify(DataFromAI.data[currentIndex].objects_count);
+      // let names = text.split(":")[0];
+
+      // let newName = names.slice(2, names.length-1)
+
+      // let firstName = newName.split(" ")[0];
+      // let secondName = newName.split(" ")[1];
+
+      // console.log(currentIndex,"test  ", text, " ", names, "length :", names.length, "new ", newName);
+      // console.log(firstName, secondName)     
+      // console.log(DataFromAI.data[0].objects_confidence);
+
+      let tempGenus = DataFromAI.data[0].objects_confidence.map(item => {
+        let text = JSON.stringify(item);
+        let names = text.split(":")[0];
+  
+        let newName = names.slice(2, names.length-1)
+  
+        let firstName = newName.split(" ")[0];
+
+        return firstName;
+      })
+
+      let tempSpecies = DataFromAI.data[0].objects_confidence.map(item => {
+        let text = JSON.stringify(item);
+        let names = text.split(":")[0];
+  
+        let newName = names.slice(2, names.length-1)
+  
+        let secondName = newName.split(" ")[1];
+
+        return secondName;
+      })
+
+      console.log(tempGenus);
+      console.log(tempSpecies);
+
+      setGenus(tempGenus);
+      setSpecies(tempSpecies);
+    }
+
+    // DataFromAI.data[currentIndex]
+  }, [currentIndex]);
   
 
   return (
