@@ -57,7 +57,7 @@ const detail = () => {
         .then(response => response.text())
         .then(result => {
           console.log(result)
-          dispatch(setAiReportData(result))
+          dispatch(setAiReportData(JSON.parse(result)))
           router.push("/analysis")
         })
         .catch(error => console.log('error', error));

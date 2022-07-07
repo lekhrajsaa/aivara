@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import "react-alice-carousel/lib/alice-carousel.css";
@@ -120,9 +120,20 @@ const Analysisheader = () => {
   };
 
   //ai report data....
-  console.log(DataFromAI, "data from analysis");
+  // console.log(DataFromAI, "data from analysis");
 
-
+  useEffect(() => {
+    if(DataFromAI) {
+    
+      const imagesFromAI = DataFromAI.data.map(item => item.imageUrl);
+  
+      console.log(imagesFromAI)
+      if(imagesFromAI.length > 0) {
+        setgalleryItems(imagesFromAI)
+      }
+    }
+  }, [DataFromAI])
+  
 
   return (
     <>
@@ -255,36 +266,36 @@ const Analysisheader = () => {
                 </div>
               </div> */}
 
-<div className={classes.carousel_main}>
-        <div className={classes.bigImage}>
-          <img src={galleryItems[currentIndex]} />
-        </div>
-        <div className="carousel_itme">
-          
-          <AliceCarousel
-            items={galleryItems}
-            dotsDisabled={true}
-            slideToIndex={currentIndex}
-            responsive={{
-              0: {
-                items: 4,
-              },
-            }}
-            className={classes.carsousel_size}
-            onInitialized={handleOnSlideChange}
-            onSlideChanged={handleOnSlideChange}
-            onResized={handleOnSlideChange}
-            renderPrevButton={renderPrevButton}
-            renderNextButton={renderNextButton}
-          >
-            {galleryItems.map((item, i) => (
-              <span key={i} onClick={() => slideTo(i)}>
-                <img className={classes.imagestyle} src={item} />
-              </span>
-            ))}
-          </AliceCarousel>
-        </div>
-      </div>
+              <div className={classes.carousel_main}>
+                <div className={classes.bigImage}>
+                  <img src={galleryItems[currentIndex]} />
+                </div>
+                <div className="carousel_itme">
+
+                  <AliceCarousel
+                    items={galleryItems}
+                    dotsDisabled={true}
+                    slideToIndex={currentIndex}
+                    responsive={{
+                      0: {
+                        items: 4,
+                      },
+                    }}
+                    className={classes.carsousel_size}
+                    onInitialized={handleOnSlideChange}
+                    onSlideChanged={handleOnSlideChange}
+                    onResized={handleOnSlideChange}
+                    renderPrevButton={renderPrevButton}
+                    renderNextButton={renderNextButton}
+                  >
+                    {galleryItems.map((item, i) => (
+                      <span key={i} onClick={() => slideTo(i)}>
+                        <img className={classes.imagestyle} src={item} />
+                      </span>
+                    ))}
+                  </AliceCarousel>
+                </div>
+              </div>
 
               <p>
                 <BsEye />
@@ -332,7 +343,7 @@ const Analysisheader = () => {
       }
     ]}
   /> */}
-          <Test imageurl={galleryItems[currentIndex]} />
+                <Test imageurl={galleryItems[currentIndex]} />
 
                 {/* <img src={galleryItems[currentIndex]} /> */}
                 <p className={classes.image_modal_title}>
