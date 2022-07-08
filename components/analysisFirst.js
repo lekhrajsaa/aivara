@@ -17,6 +17,7 @@ import {
   BsArrowLeft,
   BsArrowRight,
   BsEye,
+  BsArrowRightShort,
   AiOutlineDownload,
 } from "react-icons/bs";
 import Test from "./test";
@@ -55,6 +56,7 @@ const Analysisheader = () => {
     if (!value.trim()) return;
     setGenus([...Genus, value]);
     e.target.value = "";
+    e.preventDefault()
   };
   const genusremoveTag = (id) => {
     // setGenus(Genus.filter((el, i) => i == index));
@@ -82,12 +84,12 @@ const Analysisheader = () => {
   };
 
   const handleOpen = () => {
-    if (open === true) {
-      setMainClass(true);
-      setPreviewImage(false);
-    } else {
-      setPreviewImage(true);
-    }
+    // if (open === true) {
+    //   setMainClass(true);
+    //   setPreviewImage(false);
+    // } else {
+    //   setPreviewImage(true);
+    // }
   };
   const [childData, setChildData] = useState({
     image: "unknown",
@@ -121,13 +123,13 @@ const Analysisheader = () => {
   };
 
   //ai report data....
-  // console.log(DataFromAI, "data from analysis");
+console.log(DataFromAI);
 
 
   useEffect(() => {
-    if(DataFromAI.data) {
+    if(DataFromAI) {
     
-      const imagesFromAI = DataFromAI.data.map(item => item.imageUrl);
+      const imagesFromAI = DataFromAI.map(item => item.imageUrl);
   
       console.log(imagesFromAI)
       if(imagesFromAI.length > 0) {
@@ -137,7 +139,7 @@ const Analysisheader = () => {
   }, [DataFromAI])
 
   useEffect(() => {
-    if(DataFromAI.data) {
+    if(DataFromAI) {
       
       // let text = JSON.stringify(DataFromAI.data[currentIndex].objects_count);
       // let names = text.split(":")[0];
@@ -280,6 +282,21 @@ const Analysisheader = () => {
                     }}
                   />
                 </div>
+                <button type="submit"
+                  style={{
+                    position: "relative",
+                    marginTop: "100px",
+                    border: "none",
+                    background: "white",
+                    color: "black",
+                    fontSize: "18px",
+                    fontWeight: "bolder",
+                    float: "right",
+                    left: "250px",
+                  }}
+                >
+                  Submit <BsArrowRightShort />
+                </button>
               </form>
             </div>
             <div
@@ -320,7 +337,6 @@ const Analysisheader = () => {
                   <img src={galleryItems[currentIndex]} />
                 </div>
                 <div className="carousel_itme">
-
                   <AliceCarousel
                     items={galleryItems}
                     dotsDisabled={true}
@@ -353,13 +369,12 @@ const Analysisheader = () => {
                 </span>
               </p>
 
-              <h6>
+              {/* <h6>
                 <FileDownloadOutlinedIcon className={classes.download} />
                 Download
-              </h6>
+              </h6> */}
             </div>
           </div>
-
 
           {/* ========================= */}
 
@@ -373,32 +388,38 @@ const Analysisheader = () => {
             </h5>
           </div> */}
 
-
           {/* ===================Image Model===================== */}
           <div>
-            {open && <ImagePreview galleryItems={galleryItems} currentIndex={currentIndex} setPreviewImage={setPreviewImage} />
-            // (
-            //   <div className={classes.image_modal}>
-            //     <p
-            //       className={classes.image_modal_close}
-            //       onClick={() => setPreviewImage(false)}
-            //     >
-            //       Close
-            //     </p>
-                
-            //     <Test imageurl={galleryItems[currentIndex]} />
+            {
+              open && (
+                <ImagePreview
+                  galleryItems={galleryItems}
+                  currentIndex={currentIndex}
+                  setPreviewImage={setPreviewImage}
+                />
+              )
+              // (
+              //   <div className={classes.image_modal}>
+              //     <p
+              //       className={classes.image_modal_close}
+              //       onClick={() => setPreviewImage(false)}
+              //     >
+              //       Close
+              //     </p>
 
-            //     {/* <img src={galleryItems[currentIndex]} /> */}
-            //     <p className={classes.image_modal_title}>
-            //       Lorem ipsum text, some info regarding the bacteria may come
-            //       here
-            //     </p>
-            //     <p className={classes.image_modal_download}>
-            //       <FileDownloadOutlinedIcon />
-            //       Download
-            //     </p>
-            //   </div>
-            // )
+              //     <Test imageurl={galleryItems[currentIndex]} />
+
+              //     {/* <img src={galleryItems[currentIndex]} /> */}
+              //     <p className={classes.image_modal_title}>
+              //       Lorem ipsum text, some info regarding the bacteria may come
+              //       here
+              //     </p>
+              //     <p className={classes.image_modal_download}>
+              //       <FileDownloadOutlinedIcon />
+              //       Download
+              //     </p>
+              //   </div>
+              // )
             }
           </div>
         </div>
