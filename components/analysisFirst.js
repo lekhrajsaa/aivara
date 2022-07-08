@@ -252,9 +252,9 @@ const Analysisheader = () => {
                         {tag}
                         <button
                           className={classes.tag_delete}
-                          onClick={() => speciesremoveTag(index)}
+                          // onClick={() => speciesremoveTag(index)}
                         >
-                          <AiOutlineClose />
+                          {/* <AiOutlineClose /> */}
                         </button>
                       </span>
                     </div>
@@ -282,7 +282,7 @@ const Analysisheader = () => {
                 </div> */}
 
                 <div className="form-group" style={{ marginTop: "10px" }}>
-                  <label for="Inputgenus" style={{ fontWeight: "500" }}>
+                  <label htmlFor="Inputgenus" style={{ fontWeight: "500" }}>
                     Add new Genus
                   </label>
                   <input
@@ -300,7 +300,7 @@ const Analysisheader = () => {
                     }}
                   />
                 </div>
-                <button className={classes.genusSubmitBtn} type="submit"
+                <button 
                   style={{
                     position: "absolute",
                     right: "290px",
@@ -317,7 +317,7 @@ const Analysisheader = () => {
                     width: 'fit-content'
                   }}
                 >
-                  Submit <BsArrowRightShort />
+                  Submit<BsArrowRightShort />
                 </button>
               </form>
             </div>
