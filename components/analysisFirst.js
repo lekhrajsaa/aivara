@@ -38,8 +38,13 @@ const style = {
   p: 2,
 };
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+
 const Analysisheader = () => {
   const DataFromAI = useSelector((state) => state.userdata.reportDataFrom_AI);
+
+  const updatedReportData = DataFromAI;
+
 
   const mimage = useSelector((state) => state.userdata.modelimge);
   const router = useRouter();
@@ -49,23 +54,7 @@ const Analysisheader = () => {
   const [open, setPreviewImage] = React.useState(false);
   const [miaClass, setMainClass] = useState(false);
   const route = useRouter();
-  // ===============Genus===================
-  const genusKeyDown = (e) => {
-    if (e.key !== "Enter") return;
-    const value = e.target.value;
-    if (!value.trim()) return;
-    setGenus([...Genus, value]);
-    e.target.value = "";
-    e.preventDefault()
-  };
-  const genusremoveTag = (id) => {
-    // setGenus(Genus.filter((el, i) => i == index));
-    setGenus((prevalue) => {
-      return prevalue.filter((item, index) => {
-        return index !== id;
-      });
-    });
-  };
+
   //==================species===============
   const speciesKeyDown = (e) => {
     if (e.key !== "Enter") return;
@@ -122,7 +111,7 @@ const Analysisheader = () => {
       top: "20px",
       right: "-30px",
       fontSize: "30px"
-    }} className="alice_carousel__next_btn"  />;
+    }} className="alice_carousel__next_btn" />;
   };
   const renderPrevButton = ({ isDisabled }) => {
     return <BiChevronLeft style={{
@@ -132,7 +121,41 @@ const Analysisheader = () => {
       left: "-30px",
       fontSize: "30px"
     }}
-    className="alice_carousel__prev_btn" />;
+      className="alice_carousel__prev_btn" />;
+  };
+
+  // ===============Genus===================
+  const genusKeyDown = (e) => {
+    if (e.key !== "Enter") return;
+    const value = e.target.value;
+    if (!value.trim()) return;
+    setGenus([...Genus, value]);
+    e.target.value = "";
+    e.preventDefault()
+
+    //updating report data
+    updatedReportData.data[currentIndex].genus = [...Genus, value];
+
+    console.log(updatedReportData, " and ", DataFromAI)
+  };
+  const genusremoveTag = (id) => {
+    // setGenus(Genus.filter((el, i) => i == index));
+    setGenus((prevalue) => {
+      let temp = prevalue.filter((item, index) => {
+
+        return index !== id;
+      });
+
+      setGenus(temp)
+      //updating report data
+      updatedReportData.data[currentIndex].genus = temp;
+
+      console.log(updatedReportData, " and ", DataFromAI)
+
+      // console.log(temp)
+
+      return temp;
+    });
   };
 
   //ai report data....
@@ -199,8 +222,35 @@ const Analysisheader = () => {
     // DataFromAI.data[currentIndex]
   }, [currentIndex]);
 
-  function addGenusFormSubmitHanlder (e){
+  function addGenusFormSubmitHanlder(e) {
     e.preventDefault()
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    if (DataFromAI.data) {
+
+      const reportId = DataFromAI.data[0].reportId;
+
+      console.log(reportId)
+
+      var raw = JSON.stringify({
+        "reportId": reportId,
+        "data": updatedReportData.data
+      });
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch(`${SERVER_URL}updateReportData`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
   }
 
   return (
@@ -252,7 +302,7 @@ const Analysisheader = () => {
                         {tag}
                         <button
                           className={classes.tag_delete}
-                          // onClick={() => speciesremoveTag(index)}
+                        // onClick={() => speciesremoveTag(index)}
                         >
                           {/* <AiOutlineClose /> */}
                         </button>
@@ -300,7 +350,7 @@ const Analysisheader = () => {
                     }}
                   />
                 </div>
-                <button 
+                <button
                   style={{
                     position: "absolute",
                     right: "290px",
@@ -360,15 +410,16 @@ const Analysisheader = () => {
                 </div>
                 <div className="carousel_itme">
                   <AliceCarousel
-                    items={galleryItems.map((item, i) => {
-                      return <img key={i} className={classes.imagestyle} src={item} role="presentation" />
-                    })}
+                    // items={galleryItems.map((item, i) => {
+                    //   return <img key={i} className={classes.imagestyle} src={item} role="presentation" />
+                    // })}
                     slideToIndex={currentIndex}
                     responsive={{
                       0: {
                         items: 4,
                       },
                     }}
+                    infinite={true}
                     disableDotsControls={true}
                     renderPrevButton={renderPrevButton}
                     renderNextButton={renderNextButton}
@@ -378,14 +429,14 @@ const Analysisheader = () => {
                     onResized={handleOnSlideChange}
 
                   >
-                    {/* {galleryItems.map((item, i) => (
+                    {galleryItems.map((item, i) => (
                       <span key={i} onClick={() => slideTo(i)}>
                         <img className={classes.imagestyle} src={item} />
                       </span>
-                    ))} */}
+                    ))}
 
                   </AliceCarousel>
-                  <span style={{fontFamily: 'Sora', fontSize: '18px', fontWeight: '400'}}>Image: {(currentIndex+1) + ' / ' + (galleryItems.length)}</span>
+                  <span style={{ fontFamily: 'Sora', fontSize: '18px', fontWeight: '400' }}>Image: {(currentIndex + 1) + ' / ' + (galleryItems.length)}</span>
                 </div>
               </div>
 
