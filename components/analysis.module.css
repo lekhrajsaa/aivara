@@ -1,7 +1,7 @@
 .analysis_main {
   margin-left: 190px;
-  margin-top: 95px;
-  margin-right: 50px;
+  margin-right: 190px;
+  margin-top: 50px;
   /* background-color: red; */
 }
 .analysis_mai_div {
@@ -46,6 +46,7 @@
   font-weight: 100;
   font-size: 25px;
   cursor: pointer;
+  margin-right: -60px;
 }
 .analysis_body {
   /* margin-top: 200px; */
@@ -57,13 +58,13 @@
 }
 .analysis_body_tags {
   width: 60%;
-  margin-top: 40px;
+  /* margin-top: 40px; */
 }
 
 .analysis_image {
   /* margin-top: 50px; */
-  margin-top: 35px;
-  margin-right: 340px;
+  margin-top: 0px;
+  margin-right: 0px;
   position: relative;
   /* width: 250px; */
   width: 350px;
@@ -98,10 +99,10 @@
   left: 50%;
   transform: translate(-50%, -50%);
   /* bottom:200px; */
-  color: #2c4564;
+  color: #0B0A0A;
 }
 .analysis_tags {
-  margin-top: 25px;
+  /* margin-top: 25px; */
 }
 .analysis_tags p {
   font-weight: 500;
@@ -214,6 +215,12 @@
 .Analysis_Image {
   visibility: hidden;
 }
+
+/* .genusSubmitBtn{
+  position: relative;
+  right: 5px;
+  top: 20px;
+} */
 
 @media screen and (min-width: 997px) and (max-width: 2100px) {
   .analysis_image p {
@@ -536,13 +543,6 @@
   width: 275px;
   margin: 10px;
   /* margin-top: 40px; */
-}
-
-.alice_carousel__next_btn,
-.alice_carousel__prev_btn {
-  /* font-size: 20px; */
-  /* font-weight: 900; */
-  max-width: 20px;
 }
 
 .carsousel_size {

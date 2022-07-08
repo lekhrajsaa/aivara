@@ -84,12 +84,12 @@ const Analysisheader = () => {
   };
 
   const handleOpen = () => {
-    // if (open === true) {
-    //   setMainClass(true);
-    //   setPreviewImage(false);
-    // } else {
-    //   setPreviewImage(true);
-    // }
+    if (open === true) {
+      setMainClass(true);
+      setPreviewImage(false);
+    } else {
+      setPreviewImage(true);
+    }
   };
   const [childData, setChildData] = useState({
     image: "unknown",
@@ -116,31 +116,45 @@ const Analysisheader = () => {
     setitemsInSlide(item);
   };
   const renderNextButton = ({ isDisabled }) => {
-    return <BiChevronRight className="alice_carousel__next_btn" />;
+    return <BiChevronRight style={{
+      width: 'fit-content',
+      position: "absolute",
+      top: "20px",
+      right: "-30px",
+      fontSize: "30px"
+    }} className="alice_carousel__next_btn"  />;
   };
   const renderPrevButton = ({ isDisabled }) => {
-    return <BiChevronLeft className="alice_carousel__prev_btn" />;
+    return <BiChevronLeft style={{
+      width: 'fit-content',
+      position: "absolute",
+      top: "20px",
+      left: "-30px",
+      fontSize: "30px"
+    }}
+    className="alice_carousel__prev_btn" />;
   };
 
   //ai report data....
-console.log(DataFromAI);
+  console.log(DataFromAI);
 
 
   useEffect(() => {
-    if(DataFromAI) {
-    
-      const imagesFromAI = DataFromAI.map(item => item.imageUrl);
-  
+    if (DataFromAI.data) {
+      console.log(DataFromAI)
+
+      const imagesFromAI = DataFromAI.data.map(item => item.imageUrl);
+
       console.log(imagesFromAI)
-      if(imagesFromAI.length > 0) {
+      if (imagesFromAI.length > 0) {
         setgalleryItems(imagesFromAI)
       }
     }
   }, [DataFromAI])
 
   useEffect(() => {
-    if(DataFromAI) {
-      
+    if (DataFromAI) {
+
       // let text = JSON.stringify(DataFromAI.data[currentIndex].objects_count);
       // let names = text.split(":")[0];
 
@@ -156,9 +170,9 @@ console.log(DataFromAI);
       let tempGenus = DataFromAI.data[0].objects_confidence.map(item => {
         let text = JSON.stringify(item);
         let names = text.split(":")[0];
-  
-        let newName = names.slice(2, names.length-1)
-  
+
+        let newName = names.slice(2, names.length - 1)
+
         let firstName = newName.split(" ")[0];
 
         return firstName;
@@ -167,9 +181,9 @@ console.log(DataFromAI);
       let tempSpecies = DataFromAI.data[0].objects_confidence.map(item => {
         let text = JSON.stringify(item);
         let names = text.split(":")[0];
-  
-        let newName = names.slice(2, names.length-1)
-  
+
+        let newName = names.slice(2, names.length - 1)
+
         let secondName = newName.split(" ")[1];
 
         return secondName;
@@ -184,7 +198,10 @@ console.log(DataFromAI);
 
     // DataFromAI.data[currentIndex]
   }, [currentIndex]);
-  
+
+  function addGenusFormSubmitHanlder (e){
+    e.preventDefault()
+  }
 
   return (
     <>
@@ -244,7 +261,7 @@ console.log(DataFromAI);
                   ))}
                 </div>
               </div>
-              <form className={classes.analysis_form}>
+              <form onSubmit={addGenusFormSubmitHanlder} className={classes.analysis_form}>
                 {/* <div className="form-group">
                   <label for="Inputspecies" style={{ fontWeight: "500" }}>
                     Add new Species
@@ -279,20 +296,25 @@ console.log(DataFromAI);
                       backgroundColor: "transparent",
                       borderRadius: "0px",
                       maxWidth: "700px",
+                      width: '90%',
                     }}
                   />
                 </div>
-                <button type="submit"
+                <button className={classes.genusSubmitBtn} type="submit"
                   style={{
-                    position: "relative",
+                    position: "absolute",
+                    right: "290px",
+                    // bottom: "50px",
+                    top: '540px',
                     marginTop: "100px",
                     border: "none",
                     background: "white",
                     color: "black",
                     fontSize: "18px",
                     fontWeight: "bolder",
-                    float: "right",
-                    left: "250px",
+                    // float: "right",
+                    // left: "250px",
+                    width: 'fit-content'
                   }}
                 >
                   Submit <BsArrowRightShort />
@@ -338,27 +360,32 @@ console.log(DataFromAI);
                 </div>
                 <div className="carousel_itme">
                   <AliceCarousel
-                    items={galleryItems}
-                    dotsDisabled={true}
+                    items={galleryItems.map((item, i) => {
+                      return <img key={i} className={classes.imagestyle} src={item} role="presentation" />
+                    })}
                     slideToIndex={currentIndex}
                     responsive={{
                       0: {
                         items: 4,
                       },
                     }}
+                    disableDotsControls={true}
+                    renderPrevButton={renderPrevButton}
+                    renderNextButton={renderNextButton}
                     className={classes.carsousel_size}
                     onInitialized={handleOnSlideChange}
                     onSlideChanged={handleOnSlideChange}
                     onResized={handleOnSlideChange}
-                    renderPrevButton={renderPrevButton}
-                    renderNextButton={renderNextButton}
+
                   >
-                    {galleryItems.map((item, i) => (
+                    {/* {galleryItems.map((item, i) => (
                       <span key={i} onClick={() => slideTo(i)}>
                         <img className={classes.imagestyle} src={item} />
                       </span>
-                    ))}
+                    ))} */}
+
                   </AliceCarousel>
+                  <span style={{fontFamily: 'Sora', fontSize: '18px', fontWeight: '400'}}>Image: {(currentIndex+1) + ' / ' + (galleryItems.length)}</span>
                 </div>
               </div>
 
@@ -398,28 +425,6 @@ console.log(DataFromAI);
                   setPreviewImage={setPreviewImage}
                 />
               )
-              // (
-              //   <div className={classes.image_modal}>
-              //     <p
-              //       className={classes.image_modal_close}
-              //       onClick={() => setPreviewImage(false)}
-              //     >
-              //       Close
-              //     </p>
-
-              //     <Test imageurl={galleryItems[currentIndex]} />
-
-              //     {/* <img src={galleryItems[currentIndex]} /> */}
-              //     <p className={classes.image_modal_title}>
-              //       Lorem ipsum text, some info regarding the bacteria may come
-              //       here
-              //     </p>
-              //     <p className={classes.image_modal_download}>
-              //       <FileDownloadOutlinedIcon />
-              //       Download
-              //     </p>
-              //   </div>
-              // )
             }
           </div>
         </div>
@@ -428,23 +433,3 @@ console.log(DataFromAI);
   );
 };
 export default Analysisheader;
-
-{
-  /* <div className={classes.mybox}>
-<span>
-  <BiChevronLeft />
-</span>
-<div className={classes.imagetap}>
-  {data.map((a, i) => {
-    return (
-      <>
-        <img src={a.image} className={classes.image_slice} />
-      </>
-    );
-  })}
-</div>
-<span>
-  <BiChevronRight />
-</span>
-</div> */
-}
