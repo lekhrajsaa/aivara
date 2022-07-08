@@ -360,9 +360,9 @@ const Analysisheader = () => {
                 </div>
                 <div className="carousel_itme">
                   <AliceCarousel
-                    items={galleryItems.map((item, i) => {
-                      return <img key={i} className={classes.imagestyle} src={item} role="presentation" />
-                    })}
+                    // items={galleryItems.map((item, i) => {
+                    //   return <img key={i} className={classes.imagestyle} src={item} role="presentation" />
+                    // })}
                     slideToIndex={currentIndex}
                     responsive={{
                       0: {
@@ -378,11 +378,11 @@ const Analysisheader = () => {
                     onResized={handleOnSlideChange}
 
                   >
-                    {/* {galleryItems.map((item, i) => (
+                    {galleryItems.map((item, i) => (
                       <span key={i} onClick={() => slideTo(i)}>
                         <img className={classes.imagestyle} src={item} />
                       </span>
-                    ))} */}
+                    ))}
 
                   </AliceCarousel>
                   <span style={{fontFamily: 'Sora', fontSize: '18px', fontWeight: '400'}}>Image: {(currentIndex+1) + ' / ' + (galleryItems.length)}</span>
