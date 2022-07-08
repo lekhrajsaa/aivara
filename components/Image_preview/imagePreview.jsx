@@ -4,6 +4,8 @@ import Test from '../test';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 
 const ImagePreview = ({ galleryItems, currentIndex, setPreviewImage }) => {
+
+    console.log(galleryItems[currentIndex])
     return (
         <div className={classes.backdrop}>
 
@@ -22,10 +24,12 @@ const ImagePreview = ({ galleryItems, currentIndex, setPreviewImage }) => {
 
                 {/* <img src={galleryItems[currentIndex]} /> */}
 
-                <p className={classes.image_modal_download}>
-                    <FileDownloadOutlinedIcon />
-                    Download
-                </p>
+                <a class="button" href={galleryItems[currentIndex]} download>
+                    <p className={classes.image_modal_download}>
+                        <FileDownloadOutlinedIcon />
+                        Download
+                    </p>
+                </a>
             </div>
         </div>
     );

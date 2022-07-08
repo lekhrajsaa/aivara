@@ -59,7 +59,7 @@ function StyledDropzone(props) {
   // let formData2 = new FormData();
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
-      accept: "image/jpeg,image/png",
+      accept: "image/jpeg,image/png,image/tif,image/tiff",
       onDrop: async (acceptedFiles) => {
         setFileName(acceptedFiles);
         console.log(acceptedFiles);
