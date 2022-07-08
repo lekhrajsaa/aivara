@@ -141,7 +141,7 @@ const Analysisheader = () => {
 
   useEffect(() => {
     if (DataFromAI.data) {
-      console.log(DataFromAI)
+      // console.log(DataFromAI)
 
       const imagesFromAI = DataFromAI.data.map(item => item.imageUrl);
 
