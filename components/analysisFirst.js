@@ -84,12 +84,12 @@ const Analysisheader = () => {
   };
 
   const handleOpen = () => {
-    // if (open === true) {
-    //   setMainClass(true);
-    //   setPreviewImage(false);
-    // } else {
-    //   setPreviewImage(true);
-    // }
+    if (open === true) {
+      setMainClass(true);
+      setPreviewImage(false);
+    } else {
+      setPreviewImage(true);
+    }
   };
   const [childData, setChildData] = useState({
     image: "unknown",
@@ -235,9 +235,9 @@ console.log(DataFromAI);
                         {tag}
                         <button
                           className={classes.tag_delete}
-                          onClick={() => speciesremoveTag(index)}
+                          // onClick={() => speciesremoveTag(index)}
                         >
-                          <AiOutlineClose />
+                          {/* <AiOutlineClose /> */}
                         </button>
                       </span>
                     </div>
@@ -265,7 +265,7 @@ console.log(DataFromAI);
                 </div> */}
 
                 <div className="form-group" style={{ marginTop: "10px" }}>
-                  <label for="Inputgenus" style={{ fontWeight: "500" }}>
+                  <label htmlFor="Inputgenus" style={{ fontWeight: "500" }}>
                     Add new Genus
                   </label>
                   <input
@@ -282,7 +282,7 @@ console.log(DataFromAI);
                     }}
                   />
                 </div>
-                <button type="submit"
+                <button 
                   style={{
                     position: "relative",
                     marginTop: "100px",
@@ -295,7 +295,7 @@ console.log(DataFromAI);
                     left: "250px",
                   }}
                 >
-                  Submit <BsArrowRightShort />
+                  Submit<BsArrowRightShort />
                 </button>
               </form>
             </div>
