@@ -419,6 +419,7 @@ const Analysisheader = () => {
                         items: 4,
                       },
                     }}
+                    infinite={true}
                     disableDotsControls={true}
                     renderPrevButton={renderPrevButton}
                     renderNextButton={renderNextButton}
