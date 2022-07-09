@@ -56,7 +56,7 @@
 }
 .table {
   width: 86vw;
-  height: 65vh;
+  min-height: 45vh;
   /* border: solid 1px; */
   margin-top: 5%;
   margin-left: 7%;

@@ -22,6 +22,8 @@ const Untitle = () => {
   const [tableData, settableData] = useState([])
   const [imagePreview, setImagePreview] = useState('');
   const [imageFile, setImageFile] = useState('');
+  const [keepInput, setKeepInput] = useState(true);
+
   const router = useRouter();
 
   function closeBtnHanlder() {
@@ -137,9 +139,9 @@ const Untitle = () => {
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
     documentTitle: 'emp-data',
-    //  onAfterPrint:()=>alert('print success') 
+    content: () => componentRef.current,
+    onAfterPrint: ()=> setKeepInput(true)
   });
 
   return (
@@ -152,7 +154,7 @@ const Untitle = () => {
           <div className={classes.untitle}>
             Untitled <MdOutlineModeEdit className={classes.editIcon} />
           </div>
-          <div className={classes.download} onClick={handlePrint}>
+          <div className={classes.download} onClick={() => {setKeepInput(false); handlePrint()}}>
             Download
           </div>
           <div className={classes.email} onClick={() => emailHandler()}>
@@ -206,8 +208,8 @@ const Untitle = () => {
                 {!imagePreview && <BsUpload className={classes.uploadIcon} />}
                 {!imagePreview && "Your Signature "}
               </label>
-              <input onChange={fileInputChangeHandler} type="file" accept="image/jgp, image/jpeg"
-                id="uploadSignatureInput" style={{ display: 'none' }} />
+              {keepInput && <input onChange={fileInputChangeHandler} type="file" accept="image/jgp, image/jpeg"
+                id="uploadSignatureInput" style={{ display: 'none' }} />}
             </p>
           </div>
           <div className={classes.footerTxt}>generated using technique</div>
