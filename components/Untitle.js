@@ -158,7 +158,7 @@ const Untitle = () => {
           <div className={classes.email} onClick={() => emailHandler()}>
             Email
           </div>
-          <div className={classes.closeIcon}>
+          <div onClick={closeBtnHanlder} className={classes.closeIcon}>
             <AiOutlineClose />
           </div>
         </div>
@@ -210,8 +210,9 @@ const Untitle = () => {
                 id="uploadSignatureInput" style={{ display: 'none' }} />
             </p>
           </div>
-          <div className={classes.last}>Designation of who signed, date</div>
+          <div className={classes.footerTxt}>generated using technique</div>
         </div>
+        <div className={classes.last}>Designation of who signed, date</div>
       </div>
     </>
   );
