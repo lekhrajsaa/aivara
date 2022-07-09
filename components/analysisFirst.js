@@ -188,7 +188,7 @@ const Analysisheader = () => {
   }, [DataFromAI])
 
   useEffect(() => {
-    if (DataFromAI) {
+    if (DataFromAI && DataFromAI.data) {
 
       // let text = JSON.stringify(DataFromAI.data[currentIndex].objects_count);
       // let names = text.split(":")[0];
