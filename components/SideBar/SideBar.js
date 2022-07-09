@@ -100,7 +100,7 @@ const Sidebar = (props) => {
               </MenuItem>
               <MenuItem icon={<BiCog className={classes.icon} />}>
                 <a
-                  onClick={() => router.push("/editProfile")}
+                  // onClick={() => router.push("/newHome")}
                   style={{ color: "white" }}
                   className={classes.txt}
                 >
@@ -120,7 +120,7 @@ const Sidebar = (props) => {
                 icon={<AiOutlineExclamationCircle className={classes.icon} />}
               >
                 <a
-                  onClick={() => router.push("/viewProfile")}
+                  // onClick={() => router.push("/editProfile")}
                   style={{ color: "white" }}
                   className={classes.txt}
                 >

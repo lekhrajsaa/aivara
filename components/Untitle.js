@@ -25,19 +25,31 @@ const Untitle = () => {
       const { siteCode, geoLocation, report } = reportTableData;
 
       const latitude = geoLocation.latitude;
-      const longitude = geoLocation.latitude;
+      const longitude = geoLocation.longitude;
 
       if (report) {
         const reportList = report.map(item => {
 
           let Taxa_Details = "-";
-          let Count_of_Images = "-";
-          let Count_of_taxa = "-";
+          let Count_of_Images = 0;
+          let Count_of_taxa = 0;
           let Relative_Abundance = "-";
           let GeoLocation = latitude + " " + longitude;
 
           if (item.objects_confidence.length > 0) {
             Taxa_Details = Object.keys(item.objects_confidence[0])[0];
+
+            let temp = report.map(rep => {
+              // console.log(rep, "test")
+
+              if(rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
+                Count_of_Images++; //increasing by 1 when the texa is matched
+                Count_of_taxa = Count_of_taxa + rep.objects_count; //summing the object count when the texa is matched 
+                return true;
+              }
+            });
+
+            console.log(temp, "oooop")
           }
 
           return (
