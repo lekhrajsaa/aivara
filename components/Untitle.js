@@ -175,9 +175,9 @@ const Untitle = () => {
           <div className={classes.download} onClick={() => { setKeepInput(false); handlePrint() }}>
             Download
           </div>
-          <div className={classes.email} onClick={() => emailHandler()}>
+          {/* <div className={classes.email} onClick={() => emailHandler()}>
             Email
-          </div>
+          </div> */}
           <div onClick={closeBtnHanlder} className={classes.closeIcon}>
             <AiOutlineClose />
           </div>
