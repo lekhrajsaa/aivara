@@ -375,8 +375,8 @@ const Profile = () => {
                   }
                 >
                   <li onClick={() => labstatus("complete")}>Complete</li>
-                  <li onClick={() => labstatus("inprogress")}>Inprogress</li>
-                  <li onClick={() => labstatus("incomplete")}>InComplete</li>
+                  <li onClick={() => labstatus("inpreview")}>inreview</li>
+                  {/* <li onClick={() => labstatus("incomplete")}>InComplete</li> */}
                 </div>
               </p>
             </Col>

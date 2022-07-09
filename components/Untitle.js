@@ -1,3 +1,5 @@
+import React, { useRef } from "react";
+import { useReactToPrint } from 'react-to-print'
 import { MdOutlineModeEdit } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsUpload } from "react-icons/bs";
@@ -7,18 +9,22 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
+import Header from "../components/HeaderConditional";
+
+
+
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 const Untitle = () => {
   const reportTableData = useSelector((state) => state.userdata.reportTableData);
-
+  const [show, setShow] = useState(true);
   const [tableData, settableData] = useState([])
   const [imagePreview, setImagePreview] = useState('');
   const [imageFile, setImageFile] = useState('');
   const router = useRouter();
 
-  function closeBtnHanlder(){
+  function closeBtnHanlder() {
     router.push('/home')
   }
 
@@ -46,7 +52,7 @@ const Untitle = () => {
             let temp = report.map(rep => {
               // console.log(rep, "test")
 
-              if(rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
+              if (rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
                 Count_of_Images++; //increasing by 1 when the texa is matched
                 Count_of_taxa = Count_of_taxa + rep.objects_count; //summing the object count when the texa is matched 
                 return true;
@@ -119,78 +125,94 @@ const Untitle = () => {
     const imgFile = e.target.files[0];
 
     if (imgFile) {
-        setImageFile(imgFile)
-        const reader = new FileReader();
-        reader.readAsDataURL(imgFile)
-        reader.onload = e => { setImagePreview(e.target.result) }
-        reader.onerror = err => setImagePreview('')
+      setImageFile(imgFile)
+      const reader = new FileReader();
+      reader.readAsDataURL(imgFile)
+      reader.onload = e => { setImagePreview(e.target.result) }
+      reader.onerror = err => setImagePreview('')
     } else {
-        setImagePreview('')
+      setImagePreview('')
     }
-}
+  }
 
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: 'emp-data',
+    //  onAfterPrint:()=>alert('print success') 
+  });
 
   return (
     <>
-      <div className={classes.container}>
-        <div className={classes.untitle}>
-          Untitled <MdOutlineModeEdit className={classes.editIcon} />
+      <div ref={componentRef} style={{ width: "100%", height: "100vh" }}>
+        {show && (
+          <Header icon={true} />
+        )}
+        <div className={classes.container}>
+          <div className={classes.untitle}>
+            Untitled <MdOutlineModeEdit className={classes.editIcon} />
+          </div>
+          <div className={classes.download} onClick={handlePrint}>
+            Download
+          </div>
+          <div className={classes.email} onClick={() => emailHandler()}>
+            Email
+          </div>
+          <div className={classes.closeIcon}>
+            <AiOutlineClose />
+          </div>
         </div>
-        <div className={classes.download}>Download</div>
-        <div
-          className={classes.email}
-          onClick={() => emailHandler()}
-        >
-          Email
+        <div className={classes.nameContainer}>
+          <div className={classes.name}>
+            Name of the company :{" "}
+            <p className={classes.subName}>{reportTableData.clientName}</p>
+          </div>
+          <div className={classes.name}>
+            Technician:{" "}
+            <p className={`${classes.subName} `}>
+              {reportTableData.generatedBy}
+            </p>
+          </div>
+          <div className={classes.name}>
+            Timestamp:
+            <p className={`${classes.subName} ${classes.leftSubName}`}>
+              {dateConstractor(reportTableData.customTimeStamp)}
+            </p>
+          </div>
         </div>
-        <div onClick={closeBtnHanlder} className={classes.closeIcon}>
-          <AiOutlineClose />
-        </div>
-      </div>
-      <div className={classes.nameContainer}>
-        <div className={classes.name}>
-          Name of the company : <p className={classes.subName}>{reportTableData.clientName}</p>
-        </div>
-        <div className={classes.name}>
-          Technician: <p className={`${classes.subName} `}>{reportTableData.generatedBy}</p>
-        </div>
-        <div className={classes.name}>
-          Timestamp:<p className={`${classes.subName} ${classes.leftSubName}`}>{dateConstractor(reportTableData.customTimeStamp)}</p>
-        </div>
-      </div>
 
-      <div className={classes.table} >
-        <Table bordered className={classes.tableBody}>
-          <thead >
-            <tr className={classes.tableHeading}>
-              <th>Site Code</th>
-              <th>Geographical Location</th>
-              <th>Taxa Details</th>
-              <th>Count of Images</th>
-              <th>Count of taxa</th>
-              <th>Relative Abundance</th>
-            </tr>
-          </thead>
-          <tbody className={classes.tbody} >
-            {tableData}
-          </tbody>
-        </Table>
-      </div>
-      <div className={classes.footer}>
-        <div className={classes.signature}>
-          <p className={classes.txtCenter}>
-            <label htmlFor="uploadSignatureInput">
-              {imagePreview && <img style={{height: '100px', width: 'auto'}} src={imagePreview} />}
-              {!imagePreview && <BsUpload className={classes.uploadIcon} />}
-              {!imagePreview && "Your Signature "}
-            </label>
-            <input onChange={fileInputChangeHandler} type="file" accept="image/jgp, image/jpeg" 
-            id="uploadSignatureInput" style={{display: 'none'}} />
-          </p>
+        <div className={classes.table} >
+          <Table bordered className={classes.tableBody}>
+            <thead >
+              <tr className={classes.tableHeading}>
+                <th>Site Code</th>
+                <th>Geographical Location</th>
+                <th>Taxa Details</th>
+                <th>Count of Images</th>
+                <th>Count of taxa</th>
+                <th>Relative Abundance</th>
+              </tr>
+            </thead>
+            <tbody className={classes.tbody} >
+              {tableData}
+            </tbody>
+          </Table>
         </div>
-        <div className={classes.footerTxt}>generated using technique</div>
+        <div className={classes.footer}>
+          <div className={classes.signature}>
+            <p className={classes.txtCenter}>
+              <label htmlFor="uploadSignatureInput">
+                {imagePreview && <img style={{ height: '100px', width: 'auto' }} src={imagePreview} />}
+                {!imagePreview && <BsUpload className={classes.uploadIcon} />}
+                {!imagePreview && "Your Signature "}
+              </label>
+              <input onChange={fileInputChangeHandler} type="file" accept="image/jgp, image/jpeg"
+                id="uploadSignatureInput" style={{ display: 'none' }} />
+            </p>
+          </div>
+          <div className={classes.last}>Designation of who signed, date</div>
+        </div>
       </div>
-      <div className={classes.last}>Designation of who signed, date</div>
     </>
   );
 };
