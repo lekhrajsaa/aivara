@@ -7,6 +7,7 @@ import classes from "./Untitle.module.css";
 import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import Header from "../components/HeaderConditional";
 
@@ -19,6 +20,11 @@ const Untitle = () => {
   const reportTableData = useSelector((state) => state.userdata.reportTableData);
 const [show, setShow] = useState(true);
   const [tableData, settableData] = useState([])
+  const router = useRouter();
+
+  function closeBtnHanlder(){
+    router.push('/home')
+  }
 
   useEffect(() => {
     if (reportTableData && reportTableData.reportId) {
