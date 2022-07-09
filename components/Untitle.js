@@ -14,6 +14,8 @@ const Untitle = () => {
   const reportTableData = useSelector((state) => state.userdata.reportTableData);
 
   const [tableData, settableData] = useState([])
+  const [imagePreview, setImagePreview] = useState('');
+  const [imageFile, setImageFile] = useState('');
   const router = useRouter();
 
   function closeBtnHanlder(){
@@ -111,6 +113,23 @@ const Untitle = () => {
     }
   }
 
+
+  function fileInputChangeHandler(e) {
+
+    const imgFile = e.target.files[0];
+
+    if (imgFile) {
+        setImageFile(imgFile)
+        const reader = new FileReader();
+        reader.readAsDataURL(imgFile)
+        reader.onload = e => { setImagePreview(e.target.result) }
+        reader.onerror = err => setImagePreview('')
+    } else {
+        setImagePreview('')
+    }
+}
+
+
   return (
     <>
       <div className={classes.container}>
@@ -161,9 +180,12 @@ const Untitle = () => {
         <div className={classes.signature}>
           <p className={classes.txtCenter}>
             <label htmlFor="uploadSignatureInput">
-              <BsUpload className={classes.uploadIcon} /> Your Signature{" "}
+              {imagePreview && <img style={{height: '100px', width: 'auto'}} src={imagePreview} />}
+              {!imagePreview && <BsUpload className={classes.uploadIcon} />}
+              {!imagePreview && "Your Signature "}
             </label>
-            <input type="file" accept="image/jgp, image/jpeg" id="uploadSignatureInput" style={{display: 'none'}} />
+            <input onChange={fileInputChangeHandler} type="file" accept="image/jgp, image/jpeg" 
+            id="uploadSignatureInput" style={{display: 'none'}} />
           </p>
         </div>
         <div className={classes.footerTxt}>generated using technique</div>
