@@ -8,6 +8,8 @@ import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import Header from "../components/HeaderConditional";
+
 
 
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
@@ -15,7 +17,7 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 const Untitle = () => {
   const reportTableData = useSelector((state) => state.userdata.reportTableData);
-
+const [show, setShow] = useState(true);
   const [tableData, settableData] = useState([])
 
   useEffect(() => {
@@ -114,17 +116,26 @@ const Untitle = () => {
   const handlePrint=useReactToPrint({
     content:()=>componentRef.current,
     documentTitle:'emp-data',
-    // onAfterPrint:()=>alert('print success') 
+    //  onAfterPrint:()=>alert('print success') 
   });
 
   return (
     <>
-      <div ref={componentRef} style={{ width: "100%" }}>
+      <div ref={componentRef} style={{ width: "100%", height: "100vh" }}>
+        {show && (
+          <>
+            <Header icon={true} />
+
+          
+          </>
+        )}
         <div className={classes.container}>
           <div className={classes.untitle}>
             Untitled <MdOutlineModeEdit className={classes.editIcon} />
           </div>
-          <div className={classes.download} onClick={handlePrint}>Download</div>
+          <div className={classes.download} onClick={handlePrint}>
+            Download
+          </div>
           <div className={classes.email} onClick={() => emailHandler()}>
             Email
           </div>

@@ -33,7 +33,7 @@ export default function home() {
       ></script>
       {show && (
         <>
-          <Header icon={true} />
+          {/* <Header icon={true} /> */}
 
           <main>
             <Untitle />
