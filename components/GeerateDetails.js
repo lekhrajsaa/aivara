@@ -70,13 +70,13 @@ const GenerateDetails = () => {
   const route = useRouter();
   const SubmitReport = async (e) => {
     console.log(images);
-    // e.preventDefault();
+    e.preventDefault();
     console.log(clientName, " ", sampleType, " ", generatedBy);
-    if (!clientName && !sampleType && !generatedBy&& !siteCode && !longitude && !latitude)
-    // return;
-    console.log("hello");
+    if (!clientName && !sampleType && !generatedBy && !siteCode && !longitude && !latitude)
+      // return;
+      console.log("hello");
     //   (messg = "Enter all fileds"), setErrorMessage(true);
-console.log(clientName, " ", sampleType, " ", generatedBy);
+    console.log(clientName, " ", sampleType, " ", generatedBy);
     try {
       var formData = new FormData();
 
