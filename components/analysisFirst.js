@@ -177,7 +177,7 @@ const Analysisheader = () => {
   }, [DataFromAI])
 
   useEffect(() => {
-    if (DataFromAI) {
+    if (DataFromAI && DataFromAI.data) {
 
       // let text = JSON.stringify(DataFromAI.data[currentIndex].objects_count);
       // let names = text.split(":")[0];
@@ -191,7 +191,7 @@ const Analysisheader = () => {
       // console.log(firstName, secondName)     
       // console.log(DataFromAI.data[0].objects_confidence);
 
-      if (updatedReportData.data[currentIndex].genus && updatedReportData.data[currentIndex].genus.length > 0) {
+      if (updatedReportData && updatedReportData.data && updatedReportData.data[currentIndex].genus && updatedReportData.data[currentIndex].genus.length > 0) {
 
         console.log(updatedReportData.data[currentIndex].genus)
         setGenus(updatedReportData.data[currentIndex].genus)        

@@ -13,6 +13,8 @@ const Untitle = () => {
   const reportTableData = useSelector((state) => state.userdata.reportTableData);
 
   const [tableData, settableData] = useState([])
+  const [pageTitle, setPageTitle] = useState('Untitled')
+  const [isEditEnable, setIsEditEnable] = useState(false)
 
   useEffect(() => {
     if (reportTableData && reportTableData.reportId) {
@@ -38,7 +40,7 @@ const Untitle = () => {
             let temp = report.map(rep => {
               // console.log(rep, "test")
 
-              if(rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
+              if (rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
                 Count_of_Images++; //increasing by 1 when the texa is matched
                 Count_of_taxa = Count_of_taxa + rep.objects_count; //summing the object count when the texa is matched 
                 return true;
@@ -99,17 +101,34 @@ const Untitle = () => {
   }
 
   // making dates short
-  const dateConstractor = (data) => {
+  const dateConstractorDate = (data) => {
     if (data) {
-      return JSON.stringify(data).slice(1, 25)
+     let d = JSON.stringify(data).slice(1, 16);
+
+     return d
+    }
+  }
+
+  const dateConstractorTime = (data) => {
+    if (data) {
+     let t = JSON.stringify(data).slice(16, 25);
+
+     return t
     }
   }
 
   return (
     <>
       <div className={classes.container}>
-        <div className={classes.untitle}>
-          Untitled <MdOutlineModeEdit className={classes.editIcon} />
+        <div className={classes.untitle}>          
+          <input
+            type="text"
+            value={pageTitle}
+            onChange={(e) => setPageTitle(e.target.value)}
+            disabled={!isEditEnable}
+            style={{border:"none", padding:"0px", width:`${pageTitle.length*12 + 10}px`, color: "#313131", fontFamily: "sora", fontWeight:"700", background:"transparent"}}
+          />
+          <MdOutlineModeEdit onClick={()=>setIsEditEnable(true)} className={classes.editIcon} />
         </div>
         <div className={classes.download}>Download</div>
         <div
@@ -130,7 +149,7 @@ const Untitle = () => {
           Technician: <p className={`${classes.subName} `}>{reportTableData.generatedBy}</p>
         </div>
         <div className={classes.name}>
-          Timestamp:<p className={`${classes.subName} ${classes.leftSubName}`}>{dateConstractor(reportTableData.customTimeStamp)}</p>
+          Timestamp:<p className={`${classes.subName} ${classes.leftSubName}`}>{dateConstractorDate(reportTableData.customTimeStamp)}&nbsp;&nbsp;&nbsp;&nbsp;{dateConstractorTime(reportTableData.customTimeStamp)}</p>
         </div>
       </div>
 
