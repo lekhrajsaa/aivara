@@ -16,8 +16,9 @@ import { AiOutlineSearch } from "react-icons/ai";
 import empty from "../asset/empty.png";
 
 import Router from "next/router";
-// const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
-const SERVER_URL = "http://localhost:5000/";
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
+// const SERVER_URL = "http://localhost:5000/";
 
 const labdata = [
   {
@@ -133,7 +134,7 @@ const Profile = () => {
   // geting all report data from database
   const fetchAllReportData = async () => {
     var myHeaders = new Headers();
-    myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
+    myHeaders.append("x-api-key", XAPIKEY);
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     var requestOptions = {
@@ -236,7 +237,7 @@ const Profile = () => {
   const fetchOneReport = (reportId) => {
     console.log(reportId)
     var myHeaders = new Headers();
-    myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
+    myHeaders.append("x-api-key", XAPIKEY);
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     var requestOptions = {

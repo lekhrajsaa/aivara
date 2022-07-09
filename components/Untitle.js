@@ -6,6 +6,9 @@ import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+
 const Untitle = () => {
   const reportTableData = useSelector((state) => state.userdata.reportTableData);
 
@@ -53,6 +56,36 @@ const Untitle = () => {
     }
   }, [])
 
+  //emailHandler
+  const emailHandler = () => {
+    const token = localStorage.getItem("token");
+    // downloadTableViaEmail
+
+
+    if (token) {
+      var myHeaders = new Headers();
+      myHeaders.append("x-api-key", XAPIKEY);
+      myHeaders.append("Authorization", `Bearer ${token}`);
+      myHeaders.append("Content-Type", "application/json");
+
+      var raw = JSON.stringify({
+        "test": "test"
+      });
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+      };
+
+      fetch(`${SERVER_URL}downloadTableViaEmail`, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    }
+  }
+
   // making dates short
   const dateConstractor = (data) => {
     if (data) {
@@ -67,7 +100,12 @@ const Untitle = () => {
           Untitled <MdOutlineModeEdit className={classes.editIcon} />
         </div>
         <div className={classes.download}>Download</div>
-        <div className={classes.email}>Email</div>
+        <div
+          className={classes.email}
+          onClick={() => emailHandler()}
+        >
+          Email
+        </div>
         <div className={classes.closeIcon}>
           <AiOutlineClose />
         </div>
