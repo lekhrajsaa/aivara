@@ -540,7 +540,8 @@
   margin-left: 25%;
 }
 .carousel_itme {
-  width: 275px;
+  /* width: 275px; */
+  width: fit-content !important;
   margin: 10px;
   /* margin-top: 40px; */
 }

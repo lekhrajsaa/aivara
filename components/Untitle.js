@@ -5,6 +5,7 @@ import classes from "./Untitle.module.css";
 import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
@@ -13,6 +14,11 @@ const Untitle = () => {
   const reportTableData = useSelector((state) => state.userdata.reportTableData);
 
   const [tableData, settableData] = useState([])
+  const router = useRouter();
+
+  function closeBtnHanlder(){
+    router.push('/home')
+  }
 
   useEffect(() => {
     if (reportTableData && reportTableData.reportId) {
@@ -106,7 +112,7 @@ const Untitle = () => {
         >
           Email
         </div>
-        <div className={classes.closeIcon}>
+        <div onClick={closeBtnHanlder} className={classes.closeIcon}>
           <AiOutlineClose />
         </div>
       </div>
@@ -142,7 +148,10 @@ const Untitle = () => {
       <div className={classes.footer}>
         <div className={classes.signature}>
           <p className={classes.txtCenter}>
-            <BsUpload className={classes.uploadIcon} /> Your Signature{" "}
+            <label htmlFor="uploadSignatureInput">
+              <BsUpload className={classes.uploadIcon} /> Your Signature{" "}
+            </label>
+            <input type="file" accept="image/jgp, image/jpeg" id="uploadSignatureInput" style={{display: 'none'}} />
           </p>
         </div>
         <div className={classes.footerTxt}>generated using technique</div>
