@@ -35,3 +35,10 @@ export const setAiReportData = (data) => {
     payload: data,
   };
 }
+
+export const setReportTableData = (data) => {
+  return {
+    type: ActionTypes.REPORT_TABLE_DATA,
+    payload: data,
+  };
+}

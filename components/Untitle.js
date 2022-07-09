@@ -3,8 +3,61 @@ import { AiOutlineClose } from "react-icons/ai";
 import { BsUpload } from "react-icons/bs";
 import classes from "./Untitle.module.css";
 import { Table } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const Untitle = () => {
+  const reportTableData = useSelector((state) => state.userdata.reportTableData);
+
+  const [tableData, settableData] = useState([])
+
+  useEffect(() => {
+    if (reportTableData && reportTableData.reportId) {
+      console.log(reportTableData);
+
+      const { siteCode, geoLocation, report } = reportTableData;
+
+      const latitude = geoLocation.latitude;
+      const longitude = geoLocation.latitude;
+
+      const reportList = report.map(item => {
+
+        let Taxa_Details = "-";
+        let Count_of_Images = "-";
+        let Count_of_taxa = "-";
+        let Relative_Abundance = "-";
+        let GeoLocation = latitude + " " + longitude;
+
+        if (item.objects_confidence.length > 0) {
+          Taxa_Details = Object.keys(item.objects_confidence[0])[0];
+        }
+
+        return (
+          <tr>
+            <td>{siteCode}</td>
+            <td>{GeoLocation}</td>
+            <td>{Taxa_Details}</td>
+            <td>{Count_of_Images}</td>
+            <td>{Count_of_taxa}</td>
+            <td>{Relative_Abundance}</td>
+          </tr>
+        )
+      })
+
+      settableData(reportList)
+
+      console.log(reportList)
+
+    }
+  }, [])
+
+  // making dates short
+  const dateConstractor = (data) => {
+    if (data) {
+      return JSON.stringify(data).slice(1, 25)
+    }
+  }
+
   return (
     <>
       <div className={classes.container}>
@@ -19,13 +72,13 @@ const Untitle = () => {
       </div>
       <div className={classes.nameContainer}>
         <div className={classes.name}>
-          Name of the company : <p className={classes.subName}>Hazen</p>
+          Name of the company : <p className={classes.subName}>{reportTableData.clientName}</p>
         </div>
         <div className={classes.name}>
-          Technician: <p className={`${classes.subName} `}>Hazen</p>
+          Technician: <p className={`${classes.subName} `}>{reportTableData.generatedBy}</p>
         </div>
         <div className={classes.name}>
-          Timestamp:<p className={`${classes.subName} ${classes.leftSubName}`}>29/10/2021 14:25 hrs </p>
+          Timestamp:<p className={`${classes.subName} ${classes.leftSubName}`}>{dateConstractor(reportTableData.customTimeStamp)}</p>
         </div>
       </div>
 
@@ -42,286 +95,7 @@ const Untitle = () => {
             </tr>
           </thead>
           <tbody className={classes.tbody} >
-            <tr>
-              <td>EG</td>
-              <td>10.888 8.999</td>
-              <td>aulacoseira granulata</td>
-              <td>100</td>
-              <td>60</td>
-              <td>0.6</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            <tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr><tr>
-              <td>WG</td>
-              <td>9.02 6.99</td>
-              <td>cymbella turgidula</td>
-              <td>100</td>
-              <td>40</td>
-              <td>0.4</td>
-            </tr>
-            
+            {tableData}
           </tbody>
         </Table>
       </div>

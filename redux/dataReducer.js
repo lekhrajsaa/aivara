@@ -5,6 +5,7 @@ const aivaraStatus = {
   lab_images: [],
   modelimge: {},
   reportDataFrom_AI: {},
+  reportTableData: {},
 };
 
 export const user = (state = aivaraStatus, action) => {
@@ -18,6 +19,8 @@ export const user = (state = aivaraStatus, action) => {
       return { ...state, modelimge: action.payload };
     case ActionTypes.REPORT_DATA_FROM_AI:
       return { ...state, reportDataFrom_AI: action.payload };
+    case ActionTypes.REPORT_TABLE_DATA:
+      return { ...state, reportTableData: action.payload };
     default:
       return state;
   }

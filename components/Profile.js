@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "reactstrap";
 import classes from "./LoginForm.module.css";
 import axios from "axios";
-import { Getting_user_data } from "../redux/dataAction";
+import { Getting_user_data, setReportTableData } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
 // import { Link, Route } from "react-router-dom";
@@ -14,6 +14,10 @@ import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 // import SearchBar from "material-ui-search-bar";
 import { AiOutlineSearch } from "react-icons/ai";
 import empty from "../asset/empty.png";
+
+import Router from "next/router";
+// const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+const SERVER_URL = "http://localhost:5000/";
 
 const labdata = [
   {
@@ -126,10 +130,36 @@ const Profile = () => {
     }
   };
 
+  // geting all report data from database
+  const fetchAllReportData = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${SERVER_URL}getAllReport`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result && result.data && result.data.Items) {
+          console.log(result.data.Items);
+          setarray(result.data.Items)
+        }
+
+      })
+      .catch(error => console.log('error', error));
+  };
+
+  //
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     if (token) {
       getUserData();
+      fetchAllReportData();
     }
     if (array.length === 0) {
       setsearchBarTab(false);
@@ -139,6 +169,7 @@ const Profile = () => {
       setdatalenghtIszreo(true);
     }
   }, [token]);
+
 
   // searching Reports
   const searchItems = (searchValue) => {
@@ -193,6 +224,41 @@ const Profile = () => {
     }
     setopenStatus(false);
   };
+
+  // making dates short
+  const dateConstractor = (data) => {
+    if(data){
+      return JSON.stringify(data).slice(1, 25)
+    }
+  }
+
+  //fetchOneReport
+  const fetchOneReport = (reportId) => {
+    console.log(reportId)
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${SERVER_URL}getOneReport/${reportId}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result && result.data && result.data.Item) {
+          console.log(result.data.Item);
+          dispatch(setReportTableData(result.data.Item))
+          Router.push('/untitle')
+        }        
+      })
+      .catch(error => console.log('error', error));
+  }
+
+
+
 
   return (
     <div className={classes.homeBody}>
@@ -301,7 +367,7 @@ const Profile = () => {
                         {a.labname}
                       </Col>
                       <Col md={4} xs={3} className={classes.proCol2}>
-                        {a.date}
+                        {JSON.stringify(a.date).slice(1, 24)}
                       </Col>
                       <Col md={1} xs={2}>
                         <button className={classes.proCol3}>View</button>
@@ -332,16 +398,21 @@ const Profile = () => {
                 <>
                   <Row className={classes.rowe}>
                     <Col md={6} xs={5} className={classes.proCol}>
-                      {a.labname}
+                      {a.clientName}
                     </Col>
                     <Col md={4} xs={3} className={classes.proCol2}>
-                      {a.date}
+                      {dateConstractor(a.customTimeStamp)}
                     </Col>
                     <Col md={1} xs={2}>
-                      <button className={classes.proCol3}>View</button>
+                      <button
+                        className={classes.proCol3}
+                        onClick={() => fetchOneReport(a.reportId)}
+                      >
+                        View
+                      </button>
                     </Col>
                     <Col md={1} xs={2}>
-                      <p>{a.status}</p>
+                      <p>{a.reportStatus}</p>
                     </Col>
                   </Row>
                 </>
