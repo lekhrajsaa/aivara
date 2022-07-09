@@ -20,33 +20,35 @@ const Untitle = () => {
       const latitude = geoLocation.latitude;
       const longitude = geoLocation.latitude;
 
-      const reportList = report.map(item => {
+      if (report) {
+        const reportList = report.map(item => {
 
-        let Taxa_Details = "-";
-        let Count_of_Images = "-";
-        let Count_of_taxa = "-";
-        let Relative_Abundance = "-";
-        let GeoLocation = latitude + " " + longitude;
+          let Taxa_Details = "-";
+          let Count_of_Images = "-";
+          let Count_of_taxa = "-";
+          let Relative_Abundance = "-";
+          let GeoLocation = latitude + " " + longitude;
 
-        if (item.objects_confidence.length > 0) {
-          Taxa_Details = Object.keys(item.objects_confidence[0])[0];
-        }
+          if (item.objects_confidence.length > 0) {
+            Taxa_Details = Object.keys(item.objects_confidence[0])[0];
+          }
 
-        return (
-          <tr>
-            <td>{siteCode}</td>
-            <td>{GeoLocation}</td>
-            <td>{Taxa_Details}</td>
-            <td>{Count_of_Images}</td>
-            <td>{Count_of_taxa}</td>
-            <td>{Relative_Abundance}</td>
-          </tr>
-        )
-      })
+          return (
+            <tr>
+              <td>{siteCode}</td>
+              <td>{GeoLocation}</td>
+              <td>{Taxa_Details}</td>
+              <td>{Count_of_Images}</td>
+              <td>{Count_of_taxa}</td>
+              <td>{Relative_Abundance}</td>
+            </tr>
+          )
+        })
 
-      settableData(reportList)
+        settableData(reportList)
 
-      console.log(reportList)
+        console.log(reportList)
+      }
 
     }
   }, [])
