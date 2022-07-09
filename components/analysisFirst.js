@@ -20,6 +20,15 @@ import {
   BsArrowRightShort,
   AiOutlineDownload,
 } from "react-icons/bs";
+import {
+  Dialog,
+  DialogTitle,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogContentText
+} from '@mui/material';
+
 import Test from "./test";
 import ImagePreview from "./Image_preview/imagePreview";
 // import { ModelTraining } from "@mui/icons-material";
@@ -95,6 +104,8 @@ const Analysisheader = () => {
   const [currentIndex, setcurrentIndex] = useState(1);
   const [itemsInSlide, setitemsInSlide] = useState(2);
   const [galleryItems, setgalleryItems] = useState(images);
+  const [openSubmitReportDilogBox, setOpenSubmitReportDilogBox] = useState(false);
+
   const slideTo = (i) => {
     setcurrentIndex(i);
   };
@@ -236,12 +247,12 @@ const Analysisheader = () => {
   }, [currentIndex]);
 
   function addGenusFormSubmitHanlder(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    if (DataFromAI.data) {
+    if (DataFromAI.data && updatedReportData.data) {
 
       const reportId = DataFromAI.data[0].reportId;
 
@@ -261,11 +272,12 @@ const Analysisheader = () => {
 
       fetch(`${SERVER_URL}updateReportData`, requestOptions)
         .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+        .then(result => {console.log(result); router.push('/reports')})
+        .catch(error => {console.log('error', error); alert('something went wrong')});
     }
   }
 
+  
   return (
     <>
       <div
@@ -324,7 +336,7 @@ const Analysisheader = () => {
                   ))}
                 </div>
               </div>
-              <form onSubmit={addGenusFormSubmitHanlder} className={classes.analysis_form}>
+              <form onSubmit={(e) => e.preventDefault()} className={classes.analysis_form}>
                 {/* <div className="form-group">
                   <label for="Inputspecies" style={{ fontWeight: "500" }}>
                     Add new Species
@@ -379,6 +391,8 @@ const Analysisheader = () => {
                     // left: "250px",
                     width: 'fit-content'
                   }}
+
+                  onClick={() => setOpenSubmitReportDilogBox(true)}
                 >
                   Submit<BsArrowRightShort />
                 </button>
@@ -493,6 +507,27 @@ const Analysisheader = () => {
           </div>
         </div>
       </div>
+
+
+      <Dialog
+        open={openSubmitReportDilogBox}
+        // onClose={() => setOpen(false)}
+        aria-labelledby='dilog-title'
+        aria-aria-describedby='dilog-description'
+        sx={{ p: 2 }}
+
+      >
+        <DialogTitle id="dilog-title">Please click on submit button to complete your report</DialogTitle>
+        {/* <DialogContent >
+          <DialogContentText>
+            Please click on complete now button to complete your report details
+          </DialogContentText>
+        </DialogContent> */}
+        <DialogActions sx={{ mx: 1, mb: 1 }}>
+          <Button onClick={() => setOpenSubmitReportDilogBox(false)}>cancel</Button>
+          <Button variant="contained" onClick={addGenusFormSubmitHanlder}>Submit Report</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

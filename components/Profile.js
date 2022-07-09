@@ -14,6 +14,14 @@ import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 // import SearchBar from "material-ui-search-bar";
 import { AiOutlineSearch } from "react-icons/ai";
 import empty from "../asset/empty.png";
+import {
+  Dialog,
+  DialogTitle,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogContentText
+} from '@mui/material';
 
 import Router from "next/router";
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
@@ -71,6 +79,11 @@ const Profile = () => {
   const [openAlpha, setopenAlpha] = useState(false);
   const [openStatus, setopenStatus] = useState(false);
   const [openday, setopenday] = useState(false);
+  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] = useState(false);
+  const [openCompleteStatusDilogBox, setOpenCompleteStatusDilogBox] = useState(false);
+  const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] = useState(false);
+
+
   const setclassname = datalenghtIszreo
     ? `${classes.scrollRep} ${classes.datalenght_zero}`
     : classes.datalenght_zero;
@@ -232,6 +245,20 @@ const Profile = () => {
     setopenStatus(false);
   };
 
+  function reportStatusClickHanlder(stat) {
+    if (stat === "incomplete") {
+      setOpenIncompleteStatusDilogBox(true);
+    }else if(stat.toLowerCase() === "complete"){
+      setOpenCompleteStatusDilogBox(true)
+    }else if(stat.toLowerCase() === "in review"){
+      setOpenInReviewStatusDilogBox(true);
+    }
+  }
+
+  function completeNowClickHanlder(e){
+    router.push('/analysis')
+  }
+
   // making dates short
   const dateConstractor = (data) => {
     if(data){
@@ -380,7 +407,7 @@ const Profile = () => {
                         <button className={classes.proCol3}>View</button>
                       </Col>
                       <Col md={1} xs={2} className={classes.proCol4}>
-                        <p>{a.status}</p>
+                        <p >filtred {a.status} </p>
                       </Col>
                     </Row>
                   </>
@@ -419,7 +446,11 @@ const Profile = () => {
                       </button>
                     </Col>
                     <Col md={1} xs={2}>
-                      <p>{a.reportStatus}</p>
+                      <p style={{cursor: 'pointer'}} 
+                      onClick={e => { reportStatusClickHanlder(a.reportStatus)}}
+                      onMouseOver={e => e.target.style.color = '#395d89'}
+                      onMouseOut={e => e.target.style.color = '#212529'}
+                      >{a.reportStatus}</p>
                     </Col>
                   </Row>
                 </>
@@ -443,47 +474,72 @@ const Profile = () => {
           </button>
         </div>
       </Container>
+
+
+      <Dialog
+        open={openIncompleteStatusDilogBox}
+        // onClose={() => setOpen(false)}
+        aria-labelledby='dilog-title'
+        aria-aria-describedby='dilog-description'
+        sx={{ p: 2 }}
+
+      >
+        <DialogTitle id="dilog-title">Please complete your report details</DialogTitle>
+        <DialogContent >
+          <DialogContentText>
+            Please click on complete now button to complete your report details
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ mx: 1, mb: 1 }}>
+          <Button onClick={() => setOpenIncompleteStatusDilogBox(false)}>Complete Later</Button>
+          <Button variant="contained" onClick={completeNowClickHanlder}>Complete Now</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Report Status Complete */}
+      <Dialog
+        open={openCompleteStatusDilogBox}
+        // onClose={() => setOpen(false)}
+        aria-labelledby='dilog-title'
+        aria-aria-describedby='dilog-description'
+        sx={{ p: 2 }}
+
+      >
+        <DialogTitle id="dilog-title">Report Status</DialogTitle>
+        <DialogContent >
+          <DialogContentText>
+            Your Report is Complete!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ mx: 1, mb: 1 }}>
+          <Button variant="contained" onClick={() => setOpenCompleteStatusDilogBox(false)}>Okay</Button>
+        </DialogActions>
+      </Dialog>
+
+
+      {/* Report Status Complete */}
+      <Dialog
+        open={openInReviewStatusDilogBox}
+        // onClose={() => setOpen(false)}
+        aria-labelledby='dilog-title'
+        aria-aria-describedby='dilog-description'
+        sx={{ p: 2 }}
+
+      >
+        <DialogTitle id="dilog-title">Report Status</DialogTitle>
+        <DialogContent >
+          <DialogContentText>
+            Your Report is in review
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ mx: 1, mb: 1 }}>
+          <Button variant="contained" onClick={() => setOpenInReviewStatusDilogBox(false)}>Okay</Button>
+        </DialogActions>
+      </Dialog>
+
     </div>
   );
 };
 
 export default Profile;
 
-{
-  /* <Container className={classes.report}>
-<Row className={classes.tableheader}>
-  <Col md={6} xs={6} className={classes.tableheader_text}>
-    <p>Report</p>
-  </Col>
-  <Col md={4} xs={3} className={classes.proCol2}>
-    <p>Date/Time</p>
-  </Col>
-  <Col md={1} xs={2}>
-    <p>View</p>
-  </Col>
-  <Col md={1} xs={1}>
-    <p>Status</p>
-  </Col>
-</Row>
-<div className={classes.scrollRep}>
-  {array.map((a, i) => {
-    return (
-      <Row className={classes.rowe}>
-        <Col md={5} xs={7} className={classes.proCol}>
-          {a.title}
-        </Col>
-        <Col md={5} xs={3} className={classes.proCol2}>
-          {a.date}
-        </Col>
-        <Col md={1} xs={1}>
-          <button className={classes.proCol3}>View</button>
-        </Col>
-        <Col md={1} xs={1}>
-          <button className={classes.proCol3}>{a.status}</button>
-        </Col>
-      </Row>
-    );
-  })}
-</div>
-</Container> */
-}

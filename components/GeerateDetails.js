@@ -445,7 +445,6 @@ export default GenerateDetails;
                 Longitude:
               </label>
               <input id="exampleZip" name="zip" className={classes.fill1} />
-
               <label for="exampleZip" className={classes.detail1}>
                 Longitude:
               </label>
