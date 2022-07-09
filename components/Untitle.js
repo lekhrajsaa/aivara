@@ -145,9 +145,7 @@ const Untitle = () => {
   return (
     <>
       <div ref={componentRef} style={{ width: "100%", height: "100vh" }}>
-        {show && (
-          <Header icon={true} />
-        )}
+        {show && <Header icon={true} />}
         <div className={classes.container}>
           <div className={classes.untitle}>
             Untitled <MdOutlineModeEdit className={classes.editIcon} />
@@ -181,9 +179,9 @@ const Untitle = () => {
           </div>
         </div>
 
-        <div className={classes.table} >
+        <div className={classes.table}>
           <Table bordered className={classes.tableBody}>
-            <thead >
+            <thead>
               <tr className={classes.tableHeading}>
                 <th>Site Code</th>
                 <th>Geographical Location</th>
@@ -193,25 +191,34 @@ const Untitle = () => {
                 <th>Relative Abundance</th>
               </tr>
             </thead>
-            <tbody className={classes.tbody} >
-              {tableData}
-            </tbody>
+            <tbody className={classes.tbody}>{tableData}</tbody>
           </Table>
         </div>
         <div className={classes.footer}>
           <div className={classes.signature}>
             <p className={classes.txtCenter}>
               <label htmlFor="uploadSignatureInput">
-                {imagePreview && <img style={{ height: '100px', width: 'auto' }} src={imagePreview} />}
+                {imagePreview && (
+                  <img
+                    style={{ height: "100px", width: "auto" }}
+                    src={imagePreview}
+                  />
+                )}
                 {!imagePreview && <BsUpload className={classes.uploadIcon} />}
                 {!imagePreview && "Your Signature "}
               </label>
-              <input onChange={fileInputChangeHandler} type="file" accept="image/jgp, image/jpeg"
-                id="uploadSignatureInput" style={{ display: 'none' }} />
+              <input
+                onChange={fileInputChangeHandler}
+                type="file"
+                accept="image/jgp, image/jpeg"
+                id="uploadSignatureInput"
+                style={{ display: "none" }}
+              />
             </p>
           </div>
-          <div className={classes.last}>Designation of who signed, date</div>
+          <div className={classes.footerTxt}>generated using technique</div>
         </div>
+        <div className={classes.last}>Designation of who signed, date</div>
       </div>
     </>
   );
