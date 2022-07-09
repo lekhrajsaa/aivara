@@ -68,7 +68,7 @@
 
 .signature {
   width: 22vw;
-  height: 5vh;
+  height: 8vh;
   border: solid 1px;
   margin-top: 2%;
   margin-left: 7%;
@@ -84,13 +84,17 @@
 .txtCenter {
   color: #313131;
   font-weight: 400;
-  font-size: 90%;
+  /* font-size: 90%; */
+  font-size: 1rem;
+  margin-top: 10px;
+  text-align: center;
+  padding:10px auto;
 }
 .uploadIcon {
   height: 10%;
   width: 10%;
-  margin-right: 5%;
-  margin-left: 10%;
+  /* margin-right: 5%;
+  margin-left: 10%; */
 }
 .last {
   margin-left: 7%;
