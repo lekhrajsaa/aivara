@@ -21,7 +21,7 @@ const Untitle = () => {
       const { siteCode, geoLocation, report } = reportTableData;
 
       const latitude = geoLocation.latitude;
-      const longitude = geoLocation.latitude;
+      const longitude = geoLocation.longitude;
 
       if (report) {
         const reportList = report.map(item => {
