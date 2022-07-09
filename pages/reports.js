@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
-
 import Header from "../components/HeaderConditional";
+import Profile from "../components/Profile";
 import Sidebar from "../components/SideBar/SideBar";
-import NewHome from "../components/newHome";
+import classes from "../components/LoginForm.module.css";
+import { AiOutlineSearch } from "react-icons/ai";
+import { Col, Container, Row } from "reactstrap";
 import { useRouter } from "next/router";
 
-export default function newHom() {
+export default function home() {
   const router = useRouter();
-  const [show, setShow] = useState(true);
+  const [show, setShow]= useState(true);
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (!token) {
+    if(!token){
       setShow(false);
-      router.push("/");
+      router.push("/")
     }
-  });
+  })
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,19 +34,14 @@ export default function newHom() {
         src="https://kit.fontawesome.com/4a4ddc9f6c.js"
         crossorigin="anonymous"
       ></script>
-      <link rel="preconnect" href="https://fonts.googleapis.com"></link>
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet"
-      ></link>
-      {show && (
-        <>
-          <Header headerWithSignout={true} />
-          <Sidebar highlitehome={true} />
-          <NewHome />
-        </>
-      )}
+      {/* =======================Header================================= */}
+      {show && <>
+      <Header headerWithSignout={true} />
+      <Sidebar highlite={true} />
+
+      <Profile />
+      </>
+}
     </>
   );
 }
