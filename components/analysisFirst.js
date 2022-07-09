@@ -59,6 +59,7 @@ const Analysisheader = () => {
   const router = useRouter();
   const [Genus, setGenus] = React.useState(["family A", "Family B"]);
   const [Species, setSpecies] = React.useState(["family A", "Family B"]);
+  const [objectCount, setObjectCount] = useState(0)
 
   const [open, setPreviewImage] = React.useState(false);
   const [miaClass, setMainClass] = useState(false);
@@ -175,7 +176,7 @@ const Analysisheader = () => {
 
   useEffect(() => {
     if (DataFromAI.data) {
-      console.log(DataFromAI)
+      // console.log(DataFromAI)
 
       const imagesFromAI = DataFromAI.data.map(item => item.imageUrl);
 
@@ -201,18 +202,29 @@ const Analysisheader = () => {
       // console.log(firstName, secondName)     
       // console.log(DataFromAI.data[0].objects_confidence);
 
-      let tempGenus = DataFromAI.data[0].objects_confidence.map(item => {
-        let text = JSON.stringify(item);
-        let names = text.split(":")[0];
+      if (updatedReportData.data[currentIndex].genus && updatedReportData.data[currentIndex].genus.length > 0) {
 
-        let newName = names.slice(2, names.length - 1)
+        console.log(updatedReportData.data[currentIndex].genus)
+        setGenus(updatedReportData.data[currentIndex].genus)        
+      } else {
 
-        let firstName = newName.split(" ")[0];
+        let tempGenus = DataFromAI.data[currentIndex].objects_confidence.map(item => {
+          let text = JSON.stringify(item);
+          let names = text.split(":")[0];
 
-        return firstName;
-      })
+          let newName = names.slice(2, names.length - 1)
 
-      let tempSpecies = DataFromAI.data[0].objects_confidence.map(item => {
+          let firstName = newName.split(" ")[0];
+
+          return firstName;
+        })
+        console.log(tempGenus);
+        setGenus(tempGenus);
+      }
+
+
+
+      let tempSpecies = DataFromAI.data[currentIndex].objects_confidence.map(item => {
         let text = JSON.stringify(item);
         let names = text.split(":")[0];
 
@@ -223,11 +235,12 @@ const Analysisheader = () => {
         return secondName;
       })
 
-      console.log(tempGenus);
+      
       console.log(tempSpecies);
 
-      setGenus(tempGenus);
+
       setSpecies(tempSpecies);
+      setObjectCount(DataFromAI.data[currentIndex].objects_count)
     }
 
     // DataFromAI.data[currentIndex]
@@ -285,7 +298,7 @@ const Analysisheader = () => {
               <div>
                 <p className={classes.analysis_body_firstext}>
                   {/* image: 1/20 <br /> */}
-                  Total diatom count: 30
+                  Total diatom count: {objectCount}
                 </p>
               </div>
               <div className={classes.analysis_tags}>

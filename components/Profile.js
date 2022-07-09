@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "reactstrap";
 import classes from "./LoginForm.module.css";
 import axios from "axios";
-import { Getting_user_data } from "../redux/dataAction";
+import { Getting_user_data, setReportTableData } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
 // import { Link, Route } from "react-router-dom";
@@ -22,6 +22,11 @@ import {
   DialogContent,
   DialogContentText
 } from '@mui/material';
+
+import Router from "next/router";
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
+// const SERVER_URL = "http://localhost:5000/";
 
 const labdata = [
   {
@@ -59,6 +64,7 @@ const labdata = [
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
+  const[timePeriod,SettimePeriod]=useState("Today");
   const [name, setName] = useState();
   const userdata = useSelector((state) => state.userdata.userdata);
   const [array, setarray] = useState(labdata);
@@ -75,6 +81,7 @@ const Profile = () => {
   const [openday, setopenday] = useState(false);
   const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] = useState(false);
   const [openCompleteStatusDilogBox, setOpenCompleteStatusDilogBox] = useState(false);
+  const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] = useState(false);
 
 
   const setclassname = datalenghtIszreo
@@ -102,6 +109,11 @@ const Profile = () => {
       setopenday(true);
     }
   };
+  const selectdayHandler=(e)=>{
+    setopenday(false);
+    console.log()
+     SettimePeriod(e.target.innerHTML);
+  }
   const getUserData = async () => {
     let body = {
       query: `{
@@ -138,10 +150,36 @@ const Profile = () => {
     }
   };
 
+  // geting all report data from database
+  const fetchAllReportData = async () => {
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", XAPIKEY);
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${SERVER_URL}getAllReport`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result && result.data && result.data.Items) {
+          console.log(result.data.Items);
+          setarray(result.data.Items)
+        }
+
+      })
+      .catch(error => console.log('error', error));
+  };
+
+  //
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     if (token) {
       getUserData();
+      fetchAllReportData();
     }
     if (array.length === 0) {
       setsearchBarTab(false);
@@ -151,6 +189,7 @@ const Profile = () => {
       setdatalenghtIszreo(true);
     }
   }, [token]);
+
 
   // searching Reports
   const searchItems = (searchValue) => {
@@ -209,14 +248,51 @@ const Profile = () => {
   function reportStatusClickHanlder(stat) {
     if (stat === "incomplete") {
       setOpenIncompleteStatusDilogBox(true);
-    }else if(stat === "complete"){
+    }else if(stat.toLowerCase() === "complete"){
       setOpenCompleteStatusDilogBox(true)
+    }else if(stat.toLowerCase() === "in review"){
+      setOpenInReviewStatusDilogBox(true);
     }
   }
 
   function completeNowClickHanlder(e){
     router.push('/analysis')
   }
+
+  // making dates short
+  const dateConstractor = (data) => {
+    if(data){
+      return JSON.stringify(data).slice(1, 25)
+    }
+  }
+
+  //fetchOneReport
+  const fetchOneReport = (reportId) => {
+    console.log(reportId)
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", XAPIKEY);
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${SERVER_URL}getOneReport/${reportId}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result && result.data && result.data.Item) {
+          console.log(result.data.Item);
+          dispatch(setReportTableData(result.data.Item))
+          Router.push('/untitle')
+        }        
+      })
+      .catch(error => console.log('error', error));
+  }
+
+
+
 
   return (
     <div className={classes.homeBody}>
@@ -236,16 +312,16 @@ const Profile = () => {
             </div>
             <div className={classes.dayfilter}>
               <h6 onClick={daysfilter}>
-                Today <BiChevronDown />
+               {timePeriod} <BiChevronDown />
               </h6>
               <div className={openday ? classes.listday : classes.listday_hide}>
-                <li>Today</li>
-                <li>Yesterday</li>
-                <li>2 day ago</li>
-                <li>7 day ago</li>
-                <li>15 day ago</li>
-                <li>1 month ago</li>
-                <li>2 month ago</li>
+                <li onClick={selectdayHandler}>Today</li>
+                <li onClick={selectdayHandler}>Yesterday</li>
+                <li onClick={selectdayHandler}>2 day ago</li>
+                <li onClick={selectdayHandler}>7 day ago</li>
+                <li onClick={selectdayHandler}>15 day ago</li>
+                <li onClick={selectdayHandler}>1 month ago</li>
+                <li onClick={selectdayHandler}>2 month ago</li>
               </div>
             </div>
           </div>
@@ -325,7 +401,7 @@ const Profile = () => {
                         {a.labname}
                       </Col>
                       <Col md={4} xs={3} className={classes.proCol2}>
-                        {a.date}
+                        {JSON.stringify(a.date).slice(1, 24)}
                       </Col>
                       <Col md={1} xs={2}>
                         <button className={classes.proCol3}>View</button>
@@ -356,20 +432,25 @@ const Profile = () => {
                 <>
                   <Row className={classes.rowe}>
                     <Col md={6} xs={5} className={classes.proCol}>
-                      {a.labname}
+                      {a.clientName}
                     </Col>
                     <Col md={4} xs={3} className={classes.proCol2}>
-                      {a.date}
+                      {dateConstractor(a.customTimeStamp)}
                     </Col>
                     <Col md={1} xs={2}>
-                      <button className={classes.proCol3}>View</button>
+                      <button
+                        className={classes.proCol3}
+                        onClick={() => fetchOneReport(a.reportId)}
+                      >
+                        View
+                      </button>
                     </Col>
                     <Col md={1} xs={2}>
                       <p style={{cursor: 'pointer'}} 
-                      onClick={e => { reportStatusClickHanlder(a.status)}}
+                      onClick={e => { reportStatusClickHanlder(a.reportStatus)}}
                       onMouseOver={e => e.target.style.color = '#395d89'}
                       onMouseOut={e => e.target.style.color = '#212529'}
-                      >{a.status}</p>
+                      >{a.reportStatus}</p>
                     </Col>
                   </Row>
                 </>
@@ -432,6 +513,27 @@ const Profile = () => {
         </DialogContent>
         <DialogActions sx={{ mx: 1, mb: 1 }}>
           <Button variant="contained" onClick={() => setOpenCompleteStatusDilogBox(false)}>Okay</Button>
+        </DialogActions>
+      </Dialog>
+
+
+      {/* Report Status Complete */}
+      <Dialog
+        open={openInReviewStatusDilogBox}
+        // onClose={() => setOpen(false)}
+        aria-labelledby='dilog-title'
+        aria-aria-describedby='dilog-description'
+        sx={{ p: 2 }}
+
+      >
+        <DialogTitle id="dilog-title">Report Status</DialogTitle>
+        <DialogContent >
+          <DialogContentText>
+            Your Report is in review
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ mx: 1, mb: 1 }}>
+          <Button variant="contained" onClick={() => setOpenInReviewStatusDilogBox(false)}>Okay</Button>
         </DialogActions>
       </Dialog>
 

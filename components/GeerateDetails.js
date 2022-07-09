@@ -4,7 +4,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import { Col, Container, Row } from "reactstrap";
 import classes from "./GenerateDetails.module.css";
 import Stack from "@mui/material/Stack";
-// import Button from "@mui/material/Button";
+import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useSelector } from "react-redux";
@@ -22,20 +22,9 @@ import FormLabel from "@mui/material/FormLabel";
 
 import FormControl from "@mui/material/FormControl";
 import BackdropBuffer from "./backdrop_buffer/backdrop_buffer";
-import {
-  Dialog,
-  DialogTitle,
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogContentText
-} from '@mui/material';
-
-
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
-
 let messg;
 const sampledata = [
   { id: 1, sample: "River bed" },
@@ -59,7 +48,6 @@ const GenerateDetails = () => {
   const [uploadPercentage, setUploadPercentage] = useState(0)
 
   //wait flag
-  // const [openDilogBox, setOpenDilogBox] = useState(false);
   const [pleaseWait, setPleaseWait] = useState(false);
 
   // const [geoLocation, setgeoLocation] = useState({
@@ -80,108 +68,101 @@ const GenerateDetails = () => {
   const [selectOpen, setselectOpen] = useState(false);
   const images = useSelector((state) => state.userdata.lab_images);
   const route = useRouter();
-
   const SubmitReport = async (e) => {
     console.log(images);
     e.preventDefault();
-
-
     console.log(clientName, " ", sampleType, " ", generatedBy);
-    // if (!openDilogBox && pleaseWait) {
+    if (!clientName && !sampleType && !generatedBy && !siteCode && !longitude && !latitude)
+      // return;
+      console.log("hello");
+    //   (messg = "Enter all fileds"), setErrorMessage(true);
+    console.log(clientName, " ", sampleType, " ", generatedBy);
+    try {
+      var formData = new FormData();
 
-      if (!clientName || !sampleType || !generatedBy)
-        (messg = "Enter all fileds"), setErrorMessage(true);
+      images.map((file, index) => {
+        formData.append("uploadImages", file);
+      });
+      console.log(formData);
+      formData.append("clientName", clientName);
+      formData.append("sampleType", sampleType);
+      formData.append("generatedBy", generatedBy);
+      formData.append("siteCode", siteCode);
+      formData.append("latitude", latitude);
+      formData.append("longitude", longitude);
+      //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
+      //REACT_APP_SERVER
+      //NEXT_PUBLIC_SERVER_API
+
+      //setting wait flag as true
+      setPleaseWait(true);
 
       try {
-        var formData = new FormData();
-
-        images.map((file, index) => {
-          formData.append("uploadImages", file);
-        });
-        console.log(formData);
-        formData.append("clientName", clientName);
-        formData.append("sampleType", sampleType);
-        formData.append("generatedBy", generatedBy);
-        formData.append("siteCode", siteCode);
-        formData.append("latitude", latitude);
-        formData.append("longitude", longitude);
-        //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
-        //REACT_APP_SERVER
-        //NEXT_PUBLIC_SERVER_API
-
-        //setting wait flag as true
-        // setPleaseWait(true);
-
-        try {
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}postReport`, formData, {
-            headers: {
-              Authorization: `Bearer ${String(token)}`,
-              "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-              origin: `${process.env.REACT_APP_CLIENT}`
-            },
-            onUploadProgress: (data) => {
-              let progresPercent = Math.floor((data.loaded / data.total) * 100);
-              // console.log(data.loaded, data.total, progresPercent);
-              setUploadPercentage(progresPercent); //set the state for upload progress bar
-            }
-          })
-
-          const data = response.data;
-
-          if (data.errors && data.errors[0].status === 401) {
-            console.log(data.errors[0].message);
-            errors = data.errors[0].message;
-            setErrorMessage(true);
-          } else {
-            if (data.status === 200) {
-              console.log(data);
-            } else {
-              errors = "server Error";
-              setErrorMessage(true);
-            }
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}postReport`, formData, {
+          headers: {
+            Authorization: `Bearer ${String(token)}`,
+            "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+            origin: `${process.env.REACT_APP_CLIENT}`
+          },
+          onUploadProgress: (data) => {
+            let progresPercent = Math.floor((data.loaded / data.total) * 100);
+            // console.log(data.loaded, data.total, progresPercent);
+            setUploadPercentage(progresPercent); //set the state for upload progress bar
           }
+        })
 
-        } catch (err) {
-          console.log(err)
-          errors = "server Error";
+        const data = response.data;
+
+        if (data.errors && data.errors[0].status === 401) {
+          console.log(data.errors[0].message);
+          errors = data.errors[0].message;
           setErrorMessage(true);
-          setOpenDilogBox(false);
-          // setPleaseWait(false);
+        } else {
+          if (data.status === 200) {
+            console.log(data);
+          } else {
+            errors = "server Error";
+            setErrorMessage(true);
+          }
         }
 
-
-        // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
-        //   method: "POST",
-        //   headers: {
-        //     Authorization: `Bearer ${String(token)}`,
-        //     "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-        //     origin:`${process.env.REACT_APP_CLIENT}`
-        //   },
-        //   body: formData,
-        // })
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     if (data.errors && data.errors[0].status === 401) {
-        //       console.log(data.errors[0].message);
-        //       errors = data.errors[0].message;
-        //       setErrorMessage(true);
-        //     } else {
-        //       if (data.status === 200) {
-        //         console.log(data);
-        //       } else {
-        //         errors = "server Error";
-        //         setErrorMessage(true);
-        //       }
-        //     }
-        //   });
       } catch (err) {
-        console.log(err);
+        console.log(err)
+        errors = "server Error";
+        setErrorMessage(true);
+        setPleaseWait(false);
       }
-    // }else{
-    //   setOpenDilogBox(true);
-    // }
-    console.log(images);
-  }
+
+
+      // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
+      //   method: "POST",
+      //   headers: {
+      //     Authorization: `Bearer ${String(token)}`,
+      //     "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+      //     origin:`${process.env.REACT_APP_CLIENT}`
+      //   },
+      //   body: formData,
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     if (data.errors && data.errors[0].status === 401) {
+      //       console.log(data.errors[0].message);
+      //       errors = data.errors[0].message;
+      //       setErrorMessage(true);
+      //     } else {
+      //       if (data.status === 200) {
+      //         console.log(data);
+      //       } else {
+      //         errors = "server Error";
+      //         setErrorMessage(true);
+      //       }
+      //     }
+      //   });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log(images);
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
@@ -241,6 +222,7 @@ const GenerateDetails = () => {
                 name="clientName"
                 className={classes.fill}
                 value={clientName}
+                required
                 onChange={(e) => setclientName(e.target.value)}
               />
             </Col>
@@ -261,6 +243,7 @@ const GenerateDetails = () => {
                 name="sampleType"
                 className={classes.fill}
                 value={values}
+                required
                 onChange={(e) => setsampleType(e.target.value)}
                 onClick={OpenClose}
                 style={{ cursor: "pointer" }}
@@ -313,6 +296,7 @@ const GenerateDetails = () => {
               <input
                 type="text"
                 name="generatedBy"
+                required
                 value={generatedBy}
                 onChange={(e) => setgenerated(e.target.value)}
                 className={classes.fill}
@@ -329,6 +313,7 @@ const GenerateDetails = () => {
               <input
                 type="text"
                 name="siteCode"
+                required
                 className={classes.fill}
                 value={siteCode}
                 onChange={(e) => setsiteCode(e.target.value)}
@@ -352,6 +337,7 @@ const GenerateDetails = () => {
                 name="latitude"
                 className={classes.fill1}
                 value={latitude}
+                required
                 onChange={(e) => setlatitude(e.target.value)}
               />
               <label
@@ -363,6 +349,7 @@ const GenerateDetails = () => {
               <input
                 id="exampleZip"
                 name="longitude"
+                required
                 value={longitude}
                 onChange={(e) => setlongitude(e.target.value)}
                 className={`${classes.fill1} ${classes.fill12}`}
@@ -400,34 +387,6 @@ const GenerateDetails = () => {
           </Alert>
         </Snackbar>
       </Stack>
-
-
-      {/* <Dialog
-        open={openDilogBox}
-        // onClose={() => setOpen(false)}
-        aria-labelledby='dilog-title'
-        aria-aria-describedby='dilog-description'
-        sx={{ p: 2 }}
-
-      >
-        <DialogTitle id="dilog-title">Report Status</DialogTitle>
-        <DialogContent >
-          <DialogContentText>
-            Are you sure you want to submit this form?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button variant="text" onClick={e => setOpenDilogBox(false)} >cancel</Button>
-          <Button variant="contained" onClick={(e) => {
-            setOpenDilogBox(false);
-            setPleaseWait(true);
-            
-            setTimeout(() => {
-              SubmitReport(e)
-            }, 1000);
-          }}>Okay</Button>
-        </DialogActions>
-      </Dialog> */}
     </>
   );
 };
@@ -486,7 +445,6 @@ export default GenerateDetails;
                 Longitude:
               </label>
               <input id="exampleZip" name="zip" className={classes.fill1} />
-
               <label for="exampleZip" className={classes.detail1}>
                 Longitude:
               </label>
