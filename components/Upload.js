@@ -266,7 +266,7 @@ function StyledDropzone(props) {
     </div>
   );
 }
-<StyledDropzone />;
+{/* <StyledDropzone />; */}
 export default StyledDropzone;
 // Object.createObjectURL(file, { preview: file })
 // if (filess.length != 0) {
