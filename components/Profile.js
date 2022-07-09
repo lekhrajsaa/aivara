@@ -51,6 +51,7 @@ const labdata = [
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
+  const[timePeriod,SettimePeriod]=useState("Today");
   const [name, setName] = useState();
   const userdata = useSelector((state) => state.userdata.userdata);
   const [array, setarray] = useState(labdata);
@@ -90,6 +91,11 @@ const Profile = () => {
       setopenday(true);
     }
   };
+  const selectdayHandler=(e)=>{
+    setopenday(false);
+    console.log()
+     SettimePeriod(e.target.innerHTML);
+  }
   const getUserData = async () => {
     let body = {
       query: `{
@@ -212,16 +218,16 @@ const Profile = () => {
             </div>
             <div className={classes.dayfilter}>
               <h6 onClick={daysfilter}>
-                Today <BiChevronDown />
+               {timePeriod} <BiChevronDown />
               </h6>
               <div className={openday ? classes.listday : classes.listday_hide}>
-                <li>Today</li>
-                <li>Yesterday</li>
-                <li>2 day ago</li>
-                <li>7 day ago</li>
-                <li>15 day ago</li>
-                <li>1 month ago</li>
-                <li>2 month ago</li>
+                <li onClick={selectdayHandler}>Today</li>
+                <li onClick={selectdayHandler}>Yesterday</li>
+                <li onClick={selectdayHandler}>2 day ago</li>
+                <li onClick={selectdayHandler}>7 day ago</li>
+                <li onClick={selectdayHandler}>15 day ago</li>
+                <li onClick={selectdayHandler}>1 month ago</li>
+                <li onClick={selectdayHandler}>2 month ago</li>
               </div>
             </div>
           </div>

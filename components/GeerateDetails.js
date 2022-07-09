@@ -70,11 +70,13 @@ const GenerateDetails = () => {
   const route = useRouter();
   const SubmitReport = async (e) => {
     console.log(images);
-    e.preventDefault();
+    // e.preventDefault();
     console.log(clientName, " ", sampleType, " ", generatedBy);
-    if (!clientName || !sampleType || !generatedBy)
-      (messg = "Enter all fileds"), setErrorMessage(true);
-
+    if (!clientName && !sampleType && !generatedBy&& !siteCode && !longitude && !latitude)
+    // return;
+    console.log("hello");
+    //   (messg = "Enter all fileds"), setErrorMessage(true);
+console.log(clientName, " ", sampleType, " ", generatedBy);
     try {
       var formData = new FormData();
 
@@ -220,6 +222,7 @@ const GenerateDetails = () => {
                 name="clientName"
                 className={classes.fill}
                 value={clientName}
+                required
                 onChange={(e) => setclientName(e.target.value)}
               />
             </Col>
@@ -240,6 +243,7 @@ const GenerateDetails = () => {
                 name="sampleType"
                 className={classes.fill}
                 value={values}
+                required
                 onChange={(e) => setsampleType(e.target.value)}
                 onClick={OpenClose}
                 style={{ cursor: "pointer" }}
@@ -292,6 +296,7 @@ const GenerateDetails = () => {
               <input
                 type="text"
                 name="generatedBy"
+                required
                 value={generatedBy}
                 onChange={(e) => setgenerated(e.target.value)}
                 className={classes.fill}
@@ -308,6 +313,7 @@ const GenerateDetails = () => {
               <input
                 type="text"
                 name="siteCode"
+                required
                 className={classes.fill}
                 value={siteCode}
                 onChange={(e) => setsiteCode(e.target.value)}
@@ -331,6 +337,7 @@ const GenerateDetails = () => {
                 name="latitude"
                 className={classes.fill1}
                 value={latitude}
+                required
                 onChange={(e) => setlatitude(e.target.value)}
               />
               <label
@@ -342,6 +349,7 @@ const GenerateDetails = () => {
               <input
                 id="exampleZip"
                 name="longitude"
+                required
                 value={longitude}
                 onChange={(e) => setlongitude(e.target.value)}
                 className={`${classes.fill1} ${classes.fill12}`}

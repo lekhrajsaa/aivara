@@ -79,7 +79,7 @@ const Sidebar = (props) => {
                 icon={<RiHome2Line className={classes.icon} />}
               >
                 <a
-                  onClick={() => router.push("/newHome")}
+                  onClick={() => router.push("/home")}
                   style={{ color: "white" }}
                   className={classes.txt}
                 >
@@ -91,7 +91,7 @@ const Sidebar = (props) => {
                 icon={<BsFileText className={classes.icon} />}
               >
                 <a
-                  onClick={() => router.push("/home")}
+                  onClick={() => router.push("/reports")}
                   style={{ color: "white" }}
                   className={classes.txt}
                 >
@@ -100,7 +100,7 @@ const Sidebar = (props) => {
               </MenuItem>
               <MenuItem icon={<BiCog className={classes.icon} />}>
                 <a
-                  onClick={() => router.push("/newHome")}
+                  onClick={() => router.push("/editProfile")}
                   style={{ color: "white" }}
                   className={classes.txt}
                 >
@@ -120,7 +120,7 @@ const Sidebar = (props) => {
                 icon={<AiOutlineExclamationCircle className={classes.icon} />}
               >
                 <a
-                  onClick={() => router.push("/editProfile")}
+                  onClick={() => router.push("/viewProfile")}
                   style={{ color: "white" }}
                   className={classes.txt}
                 >
