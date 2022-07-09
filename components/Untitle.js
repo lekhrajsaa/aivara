@@ -24,6 +24,11 @@ const Untitle = () => {
   const [imageFile, setImageFile] = useState('');
   const [keepInput, setKeepInput] = useState(true);
 
+  const [pageTitle, setPageTitle] = useState('Untitled')
+  const [isEditEnable, setIsEditEnable] = useState(false);
+
+  const titleInput = useRef();
+
   const router = useRouter();
 
   function closeBtnHanlder() {
@@ -141,7 +146,7 @@ const Untitle = () => {
   const handlePrint = useReactToPrint({
     documentTitle: 'emp-data',
     content: () => componentRef.current,
-    onAfterPrint: ()=> setKeepInput(true)
+    onAfterPrint: () => setKeepInput(true)
   });
 
   return (
@@ -150,9 +155,24 @@ const Untitle = () => {
         {show && <Header icon={true} />}
         <div className={classes.container}>
           <div className={classes.untitle}>
-            Untitled <MdOutlineModeEdit className={classes.editIcon} />
+            <input
+              type="text"
+              value={pageTitle}
+              onChange={(e) => setPageTitle(e.target.value)}
+              onBlur={() => setIsEditEnable(false)}
+              disabled={!isEditEnable}
+              ref={titleInput}
+              style={{ padding: "5px 10px", border: "none", padding: "0px", width: `${pageTitle.length * 12 + 10}px`, color: "#313131", fontFamily: "sora", fontWeight: "700", background: "transparent" }}
+            />
+            <MdOutlineModeEdit onClick={()=>{
+              setIsEditEnable(true); 
+              setTimeout(()=> {
+                titleInput.current.focus(); 
+                titleInput.current.select()
+              }, 100)
+            }} className={classes.editIcon} />
           </div>
-          <div className={classes.download} onClick={() => {setKeepInput(false); handlePrint()}}>
+          <div className={classes.download} onClick={() => { setKeepInput(false); handlePrint() }}>
             Download
           </div>
           <div className={classes.email} onClick={() => emailHandler()}>
