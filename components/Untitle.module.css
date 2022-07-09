@@ -68,7 +68,7 @@
 
 .signature {
   width: 22vw;
-  height: 8vh;
+  /* height: 8vh; */
   border: solid 1px;
   margin-top: 2%;
   margin-left: 7%;

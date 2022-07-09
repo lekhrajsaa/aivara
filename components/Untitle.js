@@ -1,5 +1,5 @@
-import React,{useRef} from "react";
-import {useReactToPrint} from 'react-to-print'
+import React, { useRef } from "react";
+import { useReactToPrint } from 'react-to-print'
 import { MdOutlineModeEdit } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { BsUpload } from "react-icons/bs";
@@ -18,11 +18,13 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 const Untitle = () => {
   const reportTableData = useSelector((state) => state.userdata.reportTableData);
-const [show, setShow] = useState(true);
+  const [show, setShow] = useState(true);
   const [tableData, settableData] = useState([])
+  const [imagePreview, setImagePreview] = useState('');
+  const [imageFile, setImageFile] = useState('');
   const router = useRouter();
 
-  function closeBtnHanlder(){
+  function closeBtnHanlder() {
     router.push('/home')
   }
 
@@ -50,7 +52,7 @@ const [show, setShow] = useState(true);
             let temp = report.map(rep => {
               // console.log(rep, "test")
 
-              if(rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
+              if (rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
                 Count_of_Images++; //increasing by 1 when the texa is matched
                 Count_of_taxa = Count_of_taxa + rep.objects_count; //summing the object count when the texa is matched 
                 return true;
@@ -118,10 +120,25 @@ const [show, setShow] = useState(true);
   }
 
 
-  const componentRef=useRef();
-  const handlePrint=useReactToPrint({
-    content:()=>componentRef.current,
-    documentTitle:'emp-data',
+  function fileInputChangeHandler(e) {
+
+    const imgFile = e.target.files[0];
+
+    if (imgFile) {
+      setImageFile(imgFile)
+      const reader = new FileReader();
+      reader.readAsDataURL(imgFile)
+      reader.onload = e => { setImagePreview(e.target.result) }
+      reader.onerror = err => setImagePreview('')
+    } else {
+      setImagePreview('')
+    }
+  }
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: 'emp-data',
     //  onAfterPrint:()=>alert('print success') 
   });
 
@@ -129,11 +146,7 @@ const [show, setShow] = useState(true);
     <>
       <div ref={componentRef} style={{ width: "100%", height: "100vh" }}>
         {show && (
-          <>
-            <Header icon={true} />
-
-          
-          </>
+          <Header icon={true} />
         )}
         <div className={classes.container}>
           <div className={classes.untitle}>
@@ -168,9 +181,9 @@ const [show, setShow] = useState(true);
           </div>
         </div>
 
-        <div className={classes.table}>
+        <div className={classes.table} >
           <Table bordered className={classes.tableBody}>
-            <thead>
+            <thead >
               <tr className={classes.tableHeading}>
                 <th>Site Code</th>
                 <th>Geographical Location</th>
@@ -180,18 +193,25 @@ const [show, setShow] = useState(true);
                 <th>Relative Abundance</th>
               </tr>
             </thead>
-            <tbody className={classes.tbody}>{tableData}</tbody>
+            <tbody className={classes.tbody} >
+              {tableData}
+            </tbody>
           </Table>
         </div>
         <div className={classes.footer}>
           <div className={classes.signature}>
             <p className={classes.txtCenter}>
-              <BsUpload className={classes.uploadIcon} /> Your Signature{" "}
+              <label htmlFor="uploadSignatureInput">
+                {imagePreview && <img style={{ height: '100px', width: 'auto' }} src={imagePreview} />}
+                {!imagePreview && <BsUpload className={classes.uploadIcon} />}
+                {!imagePreview && "Your Signature "}
+              </label>
+              <input onChange={fileInputChangeHandler} type="file" accept="image/jgp, image/jpeg"
+                id="uploadSignatureInput" style={{ display: 'none' }} />
             </p>
           </div>
-          <div className={classes.footerTxt}>generated using technique</div>
+          <div className={classes.last}>Designation of who signed, date</div>
         </div>
-        <div className={classes.last}>Designation of who signed, date</div>
       </div>
     </>
   );
