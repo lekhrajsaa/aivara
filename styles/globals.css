@@ -16,3 +16,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.alice-carousel__stage-item{
+  width: fit-content;
+}

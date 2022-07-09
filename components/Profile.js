@@ -440,16 +440,17 @@ const Profile = () => {
                     <Col md={1} xs={2}>
                       <button
                         className={classes.proCol3}
-                        onClick={() => fetchOneReport(a.reportId)}
+                        onClick={() => {if(a.reportStatus.toLowerCase() === 'complete') {fetchOneReport(a.reportId)}else{console.log('Yo', a.reportStatus); setOpenIncompleteStatusDilogBox(a.reportStatus)}}}
                       >
                         View
                       </button>
                     </Col>
                     <Col md={1} xs={2}>
-                      <p style={{cursor: 'pointer'}} 
-                      onClick={e => { reportStatusClickHanlder(a.reportStatus)}}
-                      onMouseOver={e => e.target.style.color = '#395d89'}
-                      onMouseOut={e => e.target.style.color = '#212529'}
+                      <p 
+                      // style={{cursor: 'pointer'}} 
+                      // onClick={e => { reportStatusClickHanlder(a.reportStatus)}}
+                      // onMouseOver={e => e.target.style.color = '#395d89'}
+                      // onMouseOut={e => e.target.style.color = '#212529'}
                       >{a.reportStatus}</p>
                     </Col>
                   </Row>

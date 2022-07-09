@@ -72,95 +72,102 @@ const GenerateDetails = () => {
     console.log(images);
     e.preventDefault();
     console.log(clientName, " ", sampleType, " ", generatedBy);
-    if (!clientName && !sampleType && !generatedBy && !siteCode && !longitude && !latitude)
-      // return;
-      console.log("hello");
-    //   (messg = "Enter all fileds"), setErrorMessage(true);
+    // if (!clientName && !sampleType && !generatedBy && !siteCode && !longitude && !latitude)
+    // (messg = "Enter all fileds"), setErrorMessage(true);
+    // return;
+    console.log("hello");
     console.log(clientName, " ", sampleType, " ", generatedBy);
-    try {
-      var formData = new FormData();
 
-      images.map((file, index) => {
-        formData.append("uploadImages", file);
-      });
-      console.log(formData);
-      formData.append("clientName", clientName);
-      formData.append("sampleType", sampleType);
-      formData.append("generatedBy", generatedBy);
-      formData.append("siteCode", siteCode);
-      formData.append("latitude", latitude);
-      formData.append("longitude", longitude);
-      //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
-      //REACT_APP_SERVER
-      //NEXT_PUBLIC_SERVER_API
 
-      //setting wait flag as true
-      setPleaseWait(true);
-
+    if (clientName && sampleType && generatedBy && siteCode && longitude && latitude) {
       try {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}postReport`, formData, {
-          headers: {
-            Authorization: `Bearer ${String(token)}`,
-            "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-            origin: `${process.env.REACT_APP_CLIENT}`
-          },
-          onUploadProgress: (data) => {
-            let progresPercent = Math.floor((data.loaded / data.total) * 100);
-            // console.log(data.loaded, data.total, progresPercent);
-            setUploadPercentage(progresPercent); //set the state for upload progress bar
-          }
-        })
+        var formData = new FormData();
 
-        const data = response.data;
+        images.map((file, index) => {
+          formData.append("uploadImages", file);
+        });
+        console.log(formData);
+        formData.append("clientName", clientName);
+        formData.append("sampleType", sampleType);
+        formData.append("generatedBy", generatedBy);
+        formData.append("siteCode", siteCode);
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
+        //REACT_APP_SERVER
+        //NEXT_PUBLIC_SERVER_API
 
-        if (data.errors && data.errors[0].status === 401) {
-          console.log(data.errors[0].message);
-          errors = data.errors[0].message;
-          setErrorMessage(true);
-        } else {
-          if (data.status === 200) {
-            console.log(data);
-          } else {
-            errors = "server Error";
+        //setting wait flag as true
+        setPleaseWait(true);
+
+        try {
+          const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}postReport`, formData, {
+            headers: {
+              Authorization: `Bearer ${String(token)}`,
+              "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+              origin: `${process.env.REACT_APP_CLIENT}`
+            },
+            onUploadProgress: (data) => {
+              let progresPercent = Math.floor((data.loaded / data.total) * 100);
+              // console.log(data.loaded, data.total, progresPercent);
+              setUploadPercentage(progresPercent); //set the state for upload progress bar
+            }
+          })
+
+          const data = response.data;
+
+          if (data.errors && data.errors[0].status === 401) {
+            console.log(data.errors[0].message);
+            errors = data.errors[0].message;
             setErrorMessage(true);
+          } else {
+            if (data.status === 200) {
+              console.log(data);
+            } else {
+              errors = "server Error";
+              setErrorMessage(true);
+            }
           }
+
+        } catch (err) {
+          console.log(err)
+          errors = "server Error";
+          setErrorMessage(true);
+          setPleaseWait(false);
         }
 
+
+        // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
+        //   method: "POST",
+        //   headers: {
+        //     Authorization: `Bearer ${String(token)}`,
+        //     "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+        //     origin:`${process.env.REACT_APP_CLIENT}`
+        //   },
+        //   body: formData,
+        // })
+        //   .then((response) => response.json())
+        //   .then((data) => {
+        //     if (data.errors && data.errors[0].status === 401) {
+        //       console.log(data.errors[0].message);
+        //       errors = data.errors[0].message;
+        //       setErrorMessage(true);
+        //     } else {
+        //       if (data.status === 200) {
+        //         console.log(data);
+        //       } else {
+        //         errors = "server Error";
+        //         setErrorMessage(true);
+        //       }
+        //     }
+        //   });
       } catch (err) {
-        console.log(err)
-        errors = "server Error";
-        setErrorMessage(true);
-        setPleaseWait(false);
+        console.log(err);
       }
-
-
-      // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
-      //   method: "POST",
-      //   headers: {
-      //     Authorization: `Bearer ${String(token)}`,
-      //     "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-      //     origin:`${process.env.REACT_APP_CLIENT}`
-      //   },
-      //   body: formData,
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     if (data.errors && data.errors[0].status === 401) {
-      //       console.log(data.errors[0].message);
-      //       errors = data.errors[0].message;
-      //       setErrorMessage(true);
-      //     } else {
-      //       if (data.status === 200) {
-      //         console.log(data);
-      //       } else {
-      //         errors = "server Error";
-      //         setErrorMessage(true);
-      //       }
-      //     }
-      //   });
-    } catch (err) {
-      console.log(err);
+    }else{
+      
     }
+
   };
   console.log(images);
 
