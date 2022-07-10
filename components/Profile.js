@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "reactstrap";
 import classes from "./LoginForm.module.css";
 import axios from "axios";
-import { Getting_user_data, setReportTableData } from "../redux/dataAction";
+import { Getting_user_data, setAiReportData, setReportTableData } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
 // import { Link, Route } from "react-router-dom";
@@ -64,7 +64,7 @@ const labdata = [
 const Profile = () => {
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
-  const[timePeriod,SettimePeriod]=useState("Today");
+  const [timePeriod, SettimePeriod] = useState("Today");
   const [name, setName] = useState();
   const userdata = useSelector((state) => state.userdata.userdata);
   const [array, setarray] = useState(labdata);
@@ -82,6 +82,7 @@ const Profile = () => {
   const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] = useState(false);
   const [openCompleteStatusDilogBox, setOpenCompleteStatusDilogBox] = useState(false);
   const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] = useState(false);
+  const [incompleteReportId, setIncompleteReportId] = useState('');
 
 
   const setclassname = datalenghtIszreo
@@ -109,10 +110,10 @@ const Profile = () => {
       setopenday(true);
     }
   };
-  const selectdayHandler=(e)=>{
+  const selectdayHandler = (e) => {
     setopenday(false);
     console.log()
-     SettimePeriod(e.target.innerHTML);
+    SettimePeriod(e.target.innerHTML);
   }
   const getUserData = async () => {
     let body = {
@@ -248,20 +249,44 @@ const Profile = () => {
   function reportStatusClickHanlder(stat) {
     if (stat === "incomplete") {
       setOpenIncompleteStatusDilogBox(true);
-    }else if(stat.toLowerCase() === "complete"){
+    } else if (stat.toLowerCase() === "complete") {
       setOpenCompleteStatusDilogBox(true)
-    }else if(stat.toLowerCase() === "in review"){
+    } else if (stat.toLowerCase() === "in review") {
       setOpenInReviewStatusDilogBox(true);
     }
   }
 
-  function completeNowClickHanlder(e){
-    router.push('/analysis')
+  function completeNowClickHanlder(e) {
+    const token = localStorage.getItem("token");
+    const reportId = incompleteReportId;
+
+    if (reportId && token) {
+
+      var myHeaders = new Headers();
+      myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
+      myHeaders.append("Authorization", `Bearer ${token}`);
+
+      var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+      };
+
+      fetch(`${SERVER_URL}userReportData/${reportId}`, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          console.log(result)
+          dispatch(setAiReportData(JSON.parse(result)))
+          router.push("/analysis")
+        })
+        .catch(error => console.log('error', error));
+    }
   }
+
 
   // making dates short
   const dateConstractor = (data) => {
-    if(data){
+    if (data) {
       return JSON.stringify(data).slice(1, 25)
     }
   }
@@ -286,7 +311,7 @@ const Profile = () => {
           console.log(result.data.Item);
           dispatch(setReportTableData(result.data.Item))
           Router.push('/untitle')
-        }        
+        }
       })
       .catch(error => console.log('error', error));
   }
@@ -312,7 +337,7 @@ const Profile = () => {
             </div>
             <div className={classes.dayfilter}>
               <h6 onClick={daysfilter}>
-               {timePeriod} <BiChevronDown />
+                {timePeriod} <BiChevronDown />
               </h6>
               <div className={openday ? classes.listday : classes.listday_hide}>
                 <li onClick={selectdayHandler}>Today</li>
@@ -440,13 +465,13 @@ const Profile = () => {
                     <Col md={1} xs={2}>
                       <button
                         className={classes.proCol3}
-                        onClick={() => {if(a.reportStatus.toLowerCase() === 'complete') {fetchOneReport(a.reportId)}else{console.log('Yo', a.reportStatus); setOpenIncompleteStatusDilogBox(a.reportStatus)}}}
+                        onClick={() => { if (a.reportStatus.toLowerCase() === 'complete') { fetchOneReport(a.reportId) } else { console.log('Yo', a.reportStatus); setOpenIncompleteStatusDilogBox(a.reportStatus); setIncompleteReportId(a.reportId) } }}
                       >
                         View
                       </button>
                     </Col>
                     <Col md={1} xs={2}>
-                      <p 
+                      <p
                       // style={{cursor: 'pointer'}} 
                       // onClick={e => { reportStatusClickHanlder(a.reportStatus)}}
                       // onMouseOver={e => e.target.style.color = '#395d89'}
