@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { images } from "./carousel/Images";
 import {
   BsArrowLeft,
@@ -31,6 +31,7 @@ import {
 
 import Test from "./test";
 import ImagePreview from "./Image_preview/imagePreview";
+import { setAiReportData } from "../redux/dataAction";
 // import { ModelTraining } from "@mui/icons-material";
 // import ReactImageAnnotate from "react-image-annotate";
 const image =
@@ -51,6 +52,7 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 const Analysisheader = () => {
   const DataFromAI = useSelector((state) => state.userdata.reportDataFrom_AI);
+  const dispatch = useDispatch();
 
   const updatedReportData = DataFromAI;
 
@@ -272,7 +274,7 @@ const Analysisheader = () => {
 
       fetch(`${SERVER_URL}updateReportData`, requestOptions)
         .then(response => response.text())
-        .then(result => {console.log(result); router.push('/reports')})
+        .then(result => {console.log(result); router.push('/reports'); dispatch(setAiReportData({}))})
         .catch(error => {console.log('error', error); alert('something went wrong')});
     }
   }
@@ -290,7 +292,7 @@ const Analysisheader = () => {
               <h5>Taxa details of the classified image</h5>
             </div>
             <div className={classes.analysis_cross_icon}>
-              <AiOutlineClose onClick={() => route.push("/home")} />
+              <AiOutlineClose onClick={() => { route.push("/home"); dispatch(setAiReportData({}))}} />
             </div>
           </div>
           <div className={classes.analysis_body}>
