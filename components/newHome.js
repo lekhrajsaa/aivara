@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "reactstrap";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
@@ -15,11 +15,69 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FiChevronDown } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
 
+const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+
 const NewHome = () => {
   const userdata = useSelector((state) => state.userdata.userdata);
-  const percentage = 56;
-  const per = 66;
   const router = useRouter();
+  
+  const per = 66;
+  const percentage = 56;
+  const [clientNumber, setClientNumber] = useState(100)
+  const [reportNumber, setReportNumber] = useState(100)
+
+  // geting all report data from database
+  const fetchAllReportData = async (token) => {
+    var myHeaders = new Headers();
+    myHeaders.append("x-api-key", XAPIKEY);
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch(`${SERVER_URL}getAllReport`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if (result && result.data && result.data.Items) {
+          console.log(result.data.Items);
+
+          //set report no
+          const reportNo = result.data.Items.length;
+          setReportNumber(reportNo)
+
+          //set client no
+          let clientNo = 0;
+          if (reportNo > 0) {
+            let clients = result.data.Items.map(item => item.clientName);
+            clientNo = [...new Set(clients)].length
+          }
+
+          setClientNumber(clientNo);
+        }
+
+      })
+      .catch(error => {
+        console.log('error', error);
+        setClientNumber(0);
+        setReportNumber(0);
+      });
+  };
+
+  //
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      fetchAllReportData(token);
+    }
+  }, [])
+
+
+
 
   return (
     <div className={classes.allBody}>
@@ -74,19 +132,19 @@ const NewHome = () => {
               <img src="./downArraw.png" className={classes.todayIcon}></img>
             </button>
             <div className={classes.dropdown_content}>
-              <a style={{color:"#000000", fontFamily:"Inter", fontWeight:"400", backgroundColor:"#ddd"}} defaultChecked>Today</a>
-              <a style={{color:"#000000", fontFamily:"Inter", fontWeight:"400"}}>Yesterday</a>
-              <a style={{color:"#000000", fontFamily:"Inter", fontWeight:"400"}}>2 days ago</a>
-              <a style={{color:"#000000", fontFamily:"Inter", fontWeight:"400"}}>7 days ago</a>
-              <a style={{color:"#000000", fontFamily:"Inter", fontWeight:"400"}}>15 days ago</a>
-              
+              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400", backgroundColor: "#ddd" }} defaultChecked>Today</a>
+              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400" }}>Yesterday</a>
+              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400" }}>2 days ago</a>
+              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400" }}>7 days ago</a>
+              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400" }}>15 days ago</a>
+
             </div>
           </div>
 
           <div className={classes.threeparts}>
             <div className={classes.chart}>
               <CircularProgressbar
-                value={percentage}
+                value={clientNumber}
                 styles={buildStyles({
                   pathColor: "#4EAFE5",
                   trailColor: "transparent",
@@ -95,7 +153,7 @@ const NewHome = () => {
                 className={classes.noOfClientsChart}
               />
               <CircularProgressbar
-                value={per}
+                value={reportNumber}
                 styles={buildStyles({
                   pathColor: "#2438EE",
                   trailColor: "transparent",
@@ -105,10 +163,10 @@ const NewHome = () => {
             </div>
             <div>
               <div className={classes.noOfClients}>
-                No. of clients<br></br> 0
+                No. of clients<br></br> {clientNumber}
               </div>
               <div className={classes.noOfReports}>
-                No. of reports<br></br> 0
+                No. of reports<br></br> {reportNumber}
               </div>
             </div>
           </div>
@@ -122,7 +180,7 @@ const NewHome = () => {
 
           {/* <a onClick={() => router.push("/home")} ><p className={classes.viewRep}>View Report</p></a> */}
           <a onClick={() => router.push("/gen")}>
-          <Button  className={classes.GenerateReport} >Generate Report <img src="./edit.png"></img></Button>
+            <Button className={classes.GenerateReport} >Generate Report <img src="./edit.png"></img></Button>
             {/* <p className={classes.GenerateReport}>
               Generate Report <span> </span>
               <img src="./edit.png"></img>
