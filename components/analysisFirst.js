@@ -101,7 +101,7 @@ const Analysisheader = () => {
   // console.log("image : ", modelImage);
 
   // Carsousel
-  const [currentIndex, setcurrentIndex] = useState(1);
+  const [currentIndex, setcurrentIndex] = useState(0);
   const [itemsInSlide, setitemsInSlide] = useState(2);
   const [galleryItems, setgalleryItems] = useState(images);
   const [openSubmitReportDilogBox, setOpenSubmitReportDilogBox] = useState(false);
