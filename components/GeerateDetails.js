@@ -45,7 +45,7 @@ const GenerateDetails = () => {
   const [siteCode, setsiteCode] = useState();
   const [latitude, setlatitude] = useState();
   const [longitude, setlongitude] = useState();
-  const [uploadPercentage, setUploadPercentage] = useState(0)
+  const [uploadPercentage, setUploadPercentage] = useState(0);
 
   //wait flag
   const [pleaseWait, setPleaseWait] = useState(false);
@@ -54,7 +54,7 @@ const GenerateDetails = () => {
   //   latitude: "",
   //   longitude: "",
   // });
-  console.log(uploadPercentage)
+  console.log(uploadPercentage);
 
   let name, value;
   const geoInput = (e) => {
@@ -78,8 +78,14 @@ const GenerateDetails = () => {
     console.log("hello");
     console.log(clientName, " ", sampleType, " ", generatedBy);
 
-
-    if (clientName && sampleType && generatedBy && siteCode && longitude && latitude) {
+    if (
+      clientName &&
+      sampleType &&
+      generatedBy &&
+      siteCode &&
+      longitude &&
+      latitude
+    ) {
       try {
         var formData = new FormData();
 
@@ -101,18 +107,24 @@ const GenerateDetails = () => {
         setPleaseWait(true);
 
         try {
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}postReport`, formData, {
-            headers: {
-              Authorization: `Bearer ${String(token)}`,
-              "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-              origin: `${process.env.REACT_APP_CLIENT}`
-            },
-            onUploadProgress: (data) => {
-              let progresPercent = Math.floor((data.loaded / data.total) * 100);
-              // console.log(data.loaded, data.total, progresPercent);
-              setUploadPercentage(progresPercent); //set the state for upload progress bar
+          const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_SERVER_API}postReport`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${String(token)}`,
+                "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+                origin: `${process.env.REACT_APP_CLIENT}`,
+              },
+              onUploadProgress: (data) => {
+                let progresPercent = Math.floor(
+                  (data.loaded / data.total) * 100
+                );
+                // console.log(data.loaded, data.total, progresPercent);
+                setUploadPercentage(progresPercent); //set the state for upload progress bar
+              },
             }
-          })
+          );
 
           const data = response.data;
 
@@ -128,14 +140,12 @@ const GenerateDetails = () => {
               setErrorMessage(true);
             }
           }
-
         } catch (err) {
-          console.log(err)
+          console.log(err);
           errors = "server Error";
           setErrorMessage(true);
           setPleaseWait(false);
         }
-
 
         // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
         //   method: "POST",
@@ -164,10 +174,8 @@ const GenerateDetails = () => {
       } catch (err) {
         console.log(err);
       }
-    }else{
-      
+    } else {
     }
-
   };
   console.log(images);
 
@@ -374,7 +382,9 @@ const GenerateDetails = () => {
         Report Analysis is in process please wait...
       </div> : null} */}
 
-      {pleaseWait && <BackdropBuffer bufferText="Report Analysis is in process please wait..." />}
+      {pleaseWait && (
+        <BackdropBuffer bufferText="Report Analysis is in process please wait..." />
+      )}
 
       <Container className={classes.footer}>
         <p> copyright aivara | terms and coditions </p>
