@@ -25,22 +25,15 @@ const NewHome = () => {
   
   const per = 66;
   const percentage = 56;
-<<<<<<< HEAD
-  const [clientNumber, setClientNumber] = useState(100)
-  const [reportNumber, setReportNumber] = useState(100)
-const[timePeriod,SettimePeriod]=useState("Today")
-const[opendropBox,setopenDropBox]=useState(true)
-
-   const selectdayHandler = (e) => {
-     setopenDropBox(false);
-     console.log();
-     SettimePeriod(e.target.innerHTML);
-   };
-=======
+  const [timePeriod,SettimePeriod]=useState("Today")
+  const [openState,setopenState]=useState(false)
   const [clientNumber, setClientNumber] = useState(0)
   const [reportNumber, setReportNumber] = useState(0)
->>>>>>> 2d3fa7f0c050d28578f8c46ef3b71f7f45d695f0
 
+  const selectdayHandler=(e)=>{
+   SettimePeriod(e.target.innerHTML)
+  
+  }
   // geting all report data from database
   const fetchAllReportData = async (token) => {
     var myHeaders = new Headers();

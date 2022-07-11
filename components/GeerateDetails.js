@@ -39,16 +39,6 @@ const sampledata = [
 ];
 
 const GenerateDetails = () => {
-<<<<<<< HEAD
-  const [clientName, setclientName] = useState();
-  const [sampleType, setsampleType] = useState();
-  const [generatedBy, setgenerated] = useState();
-  const [siteCode, setsiteCode] = useState();
-  const [latitude, setlatitude] = useState();
-  const [longitude, setlongitude] = useState();
-  const [uploadPercentage, setUploadPercentage] = useState(0);
-
-=======
   let sampleError = "";
   const initialValue = {
     clientName: "",
@@ -69,7 +59,6 @@ const GenerateDetails = () => {
   const [showMenu, setshowMenu] = useState(false);
   const [formError, setformError] = useState({});
   const [isSubmit, setisSubmit] = useState(false);
->>>>>>> d18970e5c3b8c63127a89d2f33007be833826809
   //wait flag
   const [pleaseWait, setPleaseWait] = useState(false);
 
@@ -114,12 +103,9 @@ const GenerateDetails = () => {
     e.preventDefault();
     setIsError(validate2(sampleType));
 
-<<<<<<< HEAD
-=======
     setformError(validate(report));
     const { clientName, generatedBy, siteCode, longitude, latitude } = report;
 
->>>>>>> d18970e5c3b8c63127a89d2f33007be833826809
     if (
       clientName &&
       sampleType &&
@@ -217,8 +203,6 @@ const GenerateDetails = () => {
         console.log(err);
       }
     } else {
-<<<<<<< HEAD
-=======
     }
   };
   const validate = (values) => {
@@ -248,7 +232,6 @@ const GenerateDetails = () => {
       return true;
     } else {
       return false;
->>>>>>> d18970e5c3b8c63127a89d2f33007be833826809
     }
   };
 
