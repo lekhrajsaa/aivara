@@ -39,42 +39,27 @@ const labdata = [
     date: "08/03/22;23:00",
     status: "incomplete",
   },
-  {
-    labname: "A Square Pathology Services",
-    date: "08/03/22;23:00",
-    status: "complete",
-  },
-  {
-    labname: "Aashish Khattar Sonography Clinic",
-    date: "08/03/22;23:00",
-    status: "incomplete",
-  },
-  {
-    labname: "New Point Pathology Lab",
-    date: "08/03/22;23:00",
-    status: "inprogress",
-  },
-  {
-    labname: "Nucleus Pathology Laboratory",
-    date: "08/03/22;23:00",
-    status: "inprogress",
-  },
+ 
 ];
 
 const Profile = () => {
+ 
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
   const [timePeriod, SettimePeriod] = useState("Today");
   const [name, setName] = useState();
   const userdata = useSelector((state) => state.userdata.userdata);
+  // console.log("this is useradata")
+  // console.log(userdata)
   const [array, setarray] = useState(labdata);
+ 
   const router = useRouter();
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
   const [tableheaderTab, settableheaderTab] = useState(true);
-  // for  toggle className
+  // for  toggle class
   const [datalenghtIszreo, setdatalenghtIszreo] = useState(false);
   const [openAlpha, setopenAlpha] = useState(false);
   const [openStatus, setopenStatus] = useState(false);
@@ -143,9 +128,9 @@ const Profile = () => {
         body,
         options
       );
-      console.log(resp);
+     console.log(resp);
       await setuser(resp.data.data.getUser);
-      dispatch(Getting_user_data(resp.data.data.getUser));
+       dispatch(Getting_user_data(resp.data.data.getUser));
     } catch (err) {
       console.log(err);
     }
@@ -163,11 +148,14 @@ const Profile = () => {
       redirect: 'follow'
     };
 
+
+    
+
     fetch(`${SERVER_URL}getAllReport`, requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result && result.data && result.data.Items) {
-          console.log(result.data.Items);
+         console.log(result.data.Items);
           setarray(result.data.Items)
         }
 
@@ -192,12 +180,14 @@ const Profile = () => {
   }, [token]);
 
 
+
   // searching Reports
   const searchItems = (searchValue) => {
     setSearchInput(searchValue);
     if (searchInput !== "") {
       const filteredData = array.filter((item) => {
         return Object.values(item)
+      //  console.log(item)
           .join("")
           .toLowerCase()
           .includes(searchInput.toLowerCase());
@@ -214,10 +204,12 @@ const Profile = () => {
       .includes(searchInput.toLowerCase());
   });
 
+
+
   // Ascending order filter
   const compare = (a, b) => {
-    const labA = a.labname.toUpperCase();
-    const labB = b.labname.toUpperCase();
+    const labA = a.clientName.toUpperCase();
+    const labB = b.clientName.toUpperCase();
 
     let comparison = 0;
     if (labA > labB) {
@@ -231,19 +223,21 @@ const Profile = () => {
     if (searchInput !== "") {
       setFilteredResults(filteredResults.sort(compare));
     } else {
-      setarray(labdata.sort(compare));
+      setarray(array.sort(compare));
     }
     setopenAlpha(false);
   };
 
   // Status filter
   const labstatus = (a) => {
-    if (searchInput !== "") {
-      setFilteredResults(labdata.filter((e, i, array) => e.status === a));
-    } else {
-      setarray(labdata.filter((e, i, array) => e.status === a));
-    }
-    setopenStatus(false);
+      // console.log("helllo"+ array[0]);
+     if (searchInput !== "") {
+       setFilteredResults(array.filter((e, i, array) => e.reportStatus === a))
+       console.log(e)
+     } else {
+       setarray(array.filter((e, i, array) => e.Status === a));
+     }
+     setopenStatus(false);
   };
 
   function reportStatusClickHanlder(stat) {
@@ -285,9 +279,16 @@ const Profile = () => {
 
 
   // making dates short
-  const dateConstractor = (data) => {
-    if (data) {
-      return JSON.stringify(data).slice(1, 25)
+  const dateConstractor = (timeStamp) => {
+    if (timeStamp) {
+      // return JSON.stringify(data).slice(1, 25)
+      var date=new Date(timeStamp)
+      const  customDate=JSON.stringify(date).slice(1,11);
+      const customTime=JSON.stringify(date).slice(12,17);
+      const currentDate=customDate + " /"+customTime;
+
+      // const currentDate=customDate.splice
+      return currentDate
     }
   }
 
@@ -331,7 +332,7 @@ const Profile = () => {
               <input
                 type="text"
                 className={classes.form_control}
-                placeholder="Search"
+                placeHolder="Search"
                 onChange={(e) => searchItems(e.target.value)}
               />
             </div>
@@ -375,7 +376,7 @@ const Profile = () => {
                 </div>
               </p>
             </Col>
-            <Col md={4} xs={3} className={classes.proCol2}>
+            <Col md={4} xs={3} className={classes.proCol2} >
               <p>
                 Date/Time{" "}
                 <span className={classes.date_sort_btn}>
@@ -383,7 +384,7 @@ const Profile = () => {
                 </span>
               </p>
             </Col>
-            <Col md={1} xs={2}>
+            <Col md={1} xs={2} style={{marginTop:"6px"}}>
               <p>View </p>
             </Col>
             <Col md={1} xs={1} className={classes.proCol5}>
@@ -400,7 +401,7 @@ const Profile = () => {
                   }
                 >
                   <li onClick={() => labstatus("complete")}>Complete</li>
-                  <li onClick={() => labstatus("inpreview")}>inreview</li>
+                  <li onClick={() => labstatus("inreview")}>inreview</li>
                   {/* <li onClick={() => labstatus("incomplete")}>InComplete</li> */}
                 </div>
               </p>
@@ -408,7 +409,7 @@ const Profile = () => {
           </Row>
         )}
         <div className={setclassname}>
-          {searchInput.length > 1 ? (
+          {searchInput.length > 0 ? (
             filteredResults.length === 0 ? (
               <Container className={classes.emptdata_img}>
                 <img
@@ -419,28 +420,33 @@ const Profile = () => {
               </Container>
             ) : (
               filteredResults.map((a, i) => {
+                // var date = new Date();
+                // console.log(date);
                 return (
-                    <Row  className={classes.rowe}>
+                  <>
+                  
+                    <Row className={classes.rowe}>
                       <Col md={6} xs={5} className={classes.proCol}>
-                        {a.labname}
+                        {a.clientName}
                       </Col>
                       <Col md={4} xs={3} className={classes.proCol2}>
-                        {JSON.stringify(a.date).slice(1, 24)}
+                        {a.customTimeStamp}
                       </Col>
                       <Col md={1} xs={2}>
                         <button className={classes.proCol3}>View</button>
                       </Col>
                       <Col md={1} xs={2} className={classes.proCol4}>
-                        <p >filtred {a.status} </p>
+                        <p>{a.reportStatus}</p>
                       </Col>
                     </Row>
+                  </>
                 );
               })
             )
           ) : array.length === 0 ? (
             <Container
               className={classes.emptdata_img1}
-              style={{ marginTop: "200px" }}
+              style={{ marginTop: "0px" }}
             >
               <img
                 src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
@@ -452,6 +458,7 @@ const Profile = () => {
           ) : (
             array.map((a, i) => {
               return (
+                <>
                   <Row className={classes.rowe}>
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
@@ -476,6 +483,7 @@ const Profile = () => {
                       >{a.reportStatus}</p>
                     </Col>
                   </Row>
+                </>
               );
             })
           )}
