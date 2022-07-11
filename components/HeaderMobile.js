@@ -10,7 +10,7 @@ const HeaderMobile = () => {
  
 
 
-<div class={classes.headerMobile}>
+<div className={classes.headerMobile}>
   <d ><img src="/Frame.svg" alt=""/></d>
   
 </div>

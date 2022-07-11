@@ -451,13 +451,13 @@ export default GenerateDetails;
 //  });
 
 {
-  /* <div class="row">
-            <div class="col-sm-3">
+  /* <div className="row">
+            <div className="col-sm-3">
               <label for="exampleZip" className={classes.detail}>
                 Geographical Location
               </label>
             </div>
-            <div class="col-sm-4 " className={classes.geographical_filed}>
+            <div className="col-sm-4 " className={classes.geographical_filed}>
               <label for="exampleZip" className={classes.detail1}>
                 Longitude:
               </label>
