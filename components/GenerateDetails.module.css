@@ -123,6 +123,22 @@
   color: #000000;
   cursor: pointer;
 }
+.Invisible {
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: -9999999;
+  cursor: pointer;
+}
+.longitude {
+  margin-left: 10px;
+}
+.danger_text {
+  color: #cc0000;
+  margin-bottom: 12px;
+}
 @media screen and (max-width: 786px) {
   .arrowleft {
     font-size: 30px;
