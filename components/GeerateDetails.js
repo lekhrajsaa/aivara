@@ -28,9 +28,9 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 let messg;
 const sampledata = [
   { id: 1, sample: "River bed" },
-  { id: 2, sample: "Reservolr " },
-  { id: 3, sample: " Lake land" },
-  { id: 4, sample: "freshWater" },
+  { id: 2, sample: "Reservoir " },
+  { id: 3, sample: " Lake " },
+  { id: 4, sample: "FreshWater" },
   { id: 5, sample: "Spring water" },
   { id: 6, sample: "Underground water" },
   { id: 7, sample: "Ocean" },
@@ -39,14 +39,26 @@ const sampledata = [
 ];
 
 const GenerateDetails = () => {
-  const [clientName, setclientName] = useState();
-  const [sampleType, setsampleType] = useState();
-  const [generatedBy, setgenerated] = useState();
-  const [siteCode, setsiteCode] = useState();
-  const [latitude, setlatitude] = useState();
-  const [longitude, setlongitude] = useState();
-  const [uploadPercentage, setUploadPercentage] = useState(0)
-
+  let sampleError = "";
+  const initialValue = {
+    clientName: "",
+    sampleType: "",
+    generatedBy: "",
+    siteCode: "",
+    latitude: "",
+    longitude: "",
+  };
+  const [report, setreport] = useState(initialValue);
+  // const [clientName, setclientName] = useState();
+  const [sampleType, setsampleType] = useState("");
+  // const [generatedBy, setgenerated] = useState();
+  // const [siteCode, setsiteCode] = useState();
+  // const [latitude, setlatitude] = useState();
+  // const [longitude, setlongitude] = useState();
+  const [uploadPercentage, setUploadPercentage] = useState(0);
+  const [showMenu, setshowMenu] = useState(false);
+  const [formError, setformError] = useState({});
+  const [isSubmit, setisSubmit] = useState(false);
   //wait flag
   const [pleaseWait, setPleaseWait] = useState(false);
 
@@ -54,32 +66,54 @@ const GenerateDetails = () => {
   //   latitude: "",
   //   longitude: "",
   // });
-  console.log(uploadPercentage)
+  console.log(uploadPercentage);
 
-  let name, value;
-  const geoInput = (e) => {
-    name = e.target.name;
-    value = e.target.value;
-    setgeoLocation({ ...geoLocation, [name]: value });
+  // let name, value;
+  // const geoInput = (e) => {
+  //   name = e.target.name;
+  //   value = e.target.value;
+  //   setgeoLocation({ ...geoLocation, [name]: value });
+  // };
+  const handleReport = (e) => {
+    const { name, value } = e.target;
+    setreport({ ...report, [name]: value });
+    setisSubmit(true);
+  };
+  useEffect(() => {
+    console.log(formError);
+    if (Object.keys(formError).length === 0 && isSubmit) {
+      console.log(report);
+    }
+  }, [formError]);
+  const handleChange = (event) => {
+    setValues(event.target.value);
+    setsampleType(event.target.value);
+    setisSubmit(true);
   };
   const [values, setValues] = React.useState();
   const [ErrorMessage, setErrorMessage] = useState(false);
   const [token, setToken] = useState();
   const [selectOpen, setselectOpen] = useState(false);
+  const [isError, setIsError] = useState(false);
   const images = useSelector((state) => state.userdata.lab_images);
   const route = useRouter();
+
   const SubmitReport = async (e) => {
     console.log(images);
     e.preventDefault();
-    console.log(clientName, " ", sampleType, " ", generatedBy);
-    // if (!clientName && !sampleType && !generatedBy && !siteCode && !longitude && !latitude)
-    // (messg = "Enter all fileds"), setErrorMessage(true);
-    // return;
-    console.log("hello");
-    console.log(clientName, " ", sampleType, " ", generatedBy);
+    setIsError(validate2(sampleType));
 
+    setformError(validate(report));
+    const { clientName, generatedBy, siteCode, longitude, latitude } = report;
 
-    if (clientName && sampleType && generatedBy && siteCode && longitude && latitude) {
+    if (
+      clientName &&
+      sampleType &&
+      generatedBy &&
+      siteCode &&
+      longitude &&
+      latitude
+    ) {
       try {
         var formData = new FormData();
 
@@ -101,18 +135,24 @@ const GenerateDetails = () => {
         setPleaseWait(true);
 
         try {
-          const response = await axios.post(`${process.env.NEXT_PUBLIC_SERVER_API}postReport`, formData, {
-            headers: {
-              Authorization: `Bearer ${String(token)}`,
-              "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-              origin: `${process.env.REACT_APP_CLIENT}`
-            },
-            onUploadProgress: (data) => {
-              let progresPercent = Math.floor((data.loaded / data.total) * 100);
-              // console.log(data.loaded, data.total, progresPercent);
-              setUploadPercentage(progresPercent); //set the state for upload progress bar
+          const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_SERVER_API}postReport`,
+            formData,
+            {
+              headers: {
+                Authorization: `Bearer ${String(token)}`,
+                "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+                origin: `${process.env.REACT_APP_CLIENT}`,
+              },
+              onUploadProgress: (data) => {
+                let progresPercent = Math.floor(
+                  (data.loaded / data.total) * 100
+                );
+                // console.log(data.loaded, data.total, progresPercent);
+                setUploadPercentage(progresPercent); //set the state for upload progress bar
+              },
             }
-          })
+          );
 
           const data = response.data;
 
@@ -128,14 +168,12 @@ const GenerateDetails = () => {
               setErrorMessage(true);
             }
           }
-
         } catch (err) {
-          console.log(err)
+          console.log(err);
           errors = "server Error";
           setErrorMessage(true);
           setPleaseWait(false);
         }
-
 
         // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
         //   method: "POST",
@@ -164,12 +202,38 @@ const GenerateDetails = () => {
       } catch (err) {
         console.log(err);
       }
-    }else{
-      
+    } else {
     }
-
   };
-  console.log(images);
+  const validate = (values) => {
+    const errors = {};
+    if (!values.clientName) {
+      errors.clientName = "ClientName is required";
+    }
+    if (!values.sampleType) {
+      errors.sampleType = "  SampleType is required";
+    }
+    if (!values.generatedBy) {
+      errors.generatedBy = "GeneratedBy is required";
+    }
+    if (!values.siteCode) {
+      errors.siteCode = "SiteCode is required";
+    }
+    if (!values.latitude) {
+      errors.latitude = "Latitude is required";
+    }
+    if (!values.longitude) {
+      errors.longitude = "  Longitude is required";
+    }
+    return errors;
+  };
+  const validate2 = (val) => {
+    if (!val) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   useEffect(() => {
     setToken(localStorage.getItem("token"));
@@ -181,17 +245,18 @@ const GenerateDetails = () => {
     ? `${classes.select_tag} ${classes.select_tagopen}`
     : classes.select_tagopen;
 
-  const handleChange = (event) => {
-    setValues(event.target.value);
-    setsampleType(event.target.value);
-  };
   const OpenClose = () => {
-    if (isModal === true) {
+    if (isModal === true && showMenu == true) {
       setIsModal(false);
     } else {
       setIsModal(true);
+      setshowMenu(true);
     }
   };
+  const hideMenu = () => {
+    setshowMenu(false);
+  };
+  // form validation
 
   return (
     <>
@@ -228,10 +293,13 @@ const GenerateDetails = () => {
                 type="text"
                 name="clientName"
                 className={classes.fill}
-                value={clientName}
+                value={report.clientName}
+                // value={clientName}
                 required
-                onChange={(e) => setclientName(e.target.value)}
+                // onChange={(e) => setclientName(e.target.value)}
+                onChange={handleReport}
               />
+              <p className={classes.danger_text}>{formError.clientName}</p>
             </Col>
           </Row>
           <Row className={classes.rowe}>
@@ -256,40 +324,46 @@ const GenerateDetails = () => {
                 style={{ cursor: "pointer" }}
               />
               <div className={contentClassname}>
-                <FormControl>
-                  {sampledata.map((val) => {
-                    return (
-                      <>
-                        <RadioGroup
-                          aria-labelledby="demo-radio-buttons-group-label"
-                          name="radio-buttons-group"
-                          color="default"
-                          value={values}
-                          onChange={handleChange}
-                          sx={{ fontSize: 2, marginLeft: 2, padding: 0 }}
-                        >
-                          <FormControlLabel
-                            label={val.sample}
-                            value={val.sample}
-                            control={
-                              <Radio
-                                color="default"
-                                sx={{
-                                  "& .MuiSvgIcon-root": {
-                                    fontSize: 20,
-                                    display: "block",
-                                    padding: 0,
-                                  },
-                                }}
-                              />
-                            }
-                          />
-                        </RadioGroup>
-                      </>
-                    );
-                  })}
-                </FormControl>
+                {showMenu ? (
+                  <FormControl>
+                    <div onClick={hideMenu} className={classes.Invisible}></div>
+                    {sampledata.map((val) => {
+                      return (
+                        <>
+                          <RadioGroup
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            name="radio-buttons-group"
+                            color="default"
+                            value={values}
+                            onChange={handleChange}
+                            sx={{ fontSize: 2, marginLeft: 2, padding: 0 }}
+                          >
+                            <FormControlLabel
+                              label={val.sample}
+                              value={val.sample}
+                              control={
+                                <Radio
+                                  color="default"
+                                  sx={{
+                                    "& .MuiSvgIcon-root": {
+                                      fontSize: 20,
+                                      display: "block",
+                                      padding: 0,
+                                    },
+                                  }}
+                                />
+                              }
+                            />
+                          </RadioGroup>
+                        </>
+                      );
+                    })}
+                  </FormControl>
+                ) : null}
               </div>
+              <p className={classes.danger_text}>
+                {isError && <p>SampleType is required</p>}
+              </p>
             </Col>
           </Row>
           <Row className={classes.rowe}>
@@ -304,10 +378,13 @@ const GenerateDetails = () => {
                 type="text"
                 name="generatedBy"
                 required
-                value={generatedBy}
-                onChange={(e) => setgenerated(e.target.value)}
+                // value={generatedBy}
+                value={report.generatedBy}
+                // onChange={(e) => setgenerated(e.target.value)}
+                onChange={handleReport}
                 className={classes.fill}
               />
+              <p className={classes.danger_text}>{formError.generatedBy}</p>
             </Col>
           </Row>
           <Row className={classes.rowe}>
@@ -322,9 +399,12 @@ const GenerateDetails = () => {
                 name="siteCode"
                 required
                 className={classes.fill}
-                value={siteCode}
-                onChange={(e) => setsiteCode(e.target.value)}
+                // value={siteCode}
+                value={report.siteCode}
+                // onChange={(e) => setsiteCode(e.target.value)}
+                onChange={handleReport}
               />
+              <p className={classes.danger_text}>{formError.siteCode}</p>
             </Col>
           </Row>
           {/* =========================================== */}
@@ -343,10 +423,13 @@ const GenerateDetails = () => {
                 id="exampleState"
                 name="latitude"
                 className={classes.fill1}
-                value={latitude}
+                // value={latitude}
+                value={report.latitude}
                 required
-                onChange={(e) => setlatitude(e.target.value)}
+                // onChange={(e) => setlatitude(e.target.value)}
+                onChange={handleReport}
               />
+
               <label
                 for="exampleZip"
                 className={`${classes.detail1} ${classes.detail12}`}
@@ -357,10 +440,19 @@ const GenerateDetails = () => {
                 id="exampleZip"
                 name="longitude"
                 required
-                value={longitude}
-                onChange={(e) => setlongitude(e.target.value)}
+                // value={longitude}
+                value={report.longitude}
+                // onChange={(e) => setlongitude(e.target.value)}
+                onChange={handleReport}
                 className={`${classes.fill1} ${classes.fill12}`}
               />
+              <p className={classes.danger_text}>
+                {formError.latitude}{" "}
+                <span className={classes.longitude}>
+                  {" "}
+                  {formError.longitude}
+                </span>
+              </p>
             </Col>
           </Row>
 
@@ -374,7 +466,9 @@ const GenerateDetails = () => {
         Report Analysis is in process please wait...
       </div> : null} */}
 
-      {pleaseWait && <BackdropBuffer bufferText="Report Analysis is in process please wait..." />}
+      {pleaseWait && (
+        <BackdropBuffer bufferText="Report Analysis is in process please wait..." />
+      )}
 
       <Container className={classes.footer}>
         <p> copyright aivara | terms and coditions </p>
