@@ -24,8 +24,8 @@ const NewHome = () => {
   
   const per = 66;
   const percentage = 56;
-  const [clientNumber, setClientNumber] = useState(100)
-  const [reportNumber, setReportNumber] = useState(100)
+  const [clientNumber, setClientNumber] = useState(0)
+  const [reportNumber, setReportNumber] = useState(0)
 
   // geting all report data from database
   const fetchAllReportData = async (token) => {
@@ -47,7 +47,7 @@ const NewHome = () => {
 
           //set report no
           const reportNo = result.data.Items.length;
-          setReportNumber(reportNo)
+          // setReportNumber(reportNo)
 
           //set client no
           let clientNo = 0;
@@ -56,7 +56,12 @@ const NewHome = () => {
             clientNo = [...new Set(clients)].length
           }
 
-          setClientNumber(clientNo);
+          
+          setReportNumber(100);
+          setClientNumber(100);
+
+          setTimeout(() => {setReportNumber(0); setClientNumber(0);}, 1000);
+          setTimeout(() => {setReportNumber(reportNo); setClientNumber(clientNo);}, 2000);
         }
 
       })
