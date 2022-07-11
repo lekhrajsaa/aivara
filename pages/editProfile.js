@@ -15,7 +15,7 @@ export default function home() {
   });
   return (
     <>
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
       <script
         src="https://kit.fontawesome.com/f80c821559.js"
         crossorigin="anonymous"
@@ -30,7 +30,9 @@ export default function home() {
         src="https://kit.fontawesome.com/4a4ddc9f6c.js"
         crossorigin="anonymous"
       ></script>
-      <link rel="stylesheet" type="text/css" href="style.css"></link>
+      <link rel="stylesheet" type="text/css" href="style.css"></link> */}
+
+
       {show && (
         <>
           <Header headerWithSignout={false} />

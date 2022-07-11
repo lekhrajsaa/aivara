@@ -25,6 +25,7 @@ const NewHome = () => {
   
   const per = 66;
   const percentage = 56;
+<<<<<<< HEAD
   const [clientNumber, setClientNumber] = useState(100)
   const [reportNumber, setReportNumber] = useState(100)
 const[timePeriod,SettimePeriod]=useState("Today")
@@ -35,6 +36,10 @@ const[opendropBox,setopenDropBox]=useState(true)
      console.log();
      SettimePeriod(e.target.innerHTML);
    };
+=======
+  const [clientNumber, setClientNumber] = useState(0)
+  const [reportNumber, setReportNumber] = useState(0)
+>>>>>>> 2d3fa7f0c050d28578f8c46ef3b71f7f45d695f0
 
   // geting all report data from database
   const fetchAllReportData = async (token) => {
@@ -56,7 +61,7 @@ const[opendropBox,setopenDropBox]=useState(true)
 
           //set report no
           const reportNo = result.data.Items.length;
-          setReportNumber(reportNo)
+          // setReportNumber(reportNo)
 
           //set client no
           let clientNo = 0;
@@ -65,7 +70,12 @@ const[opendropBox,setopenDropBox]=useState(true)
             clientNo = [...new Set(clients)].length
           }
 
-          setClientNumber(clientNo);
+          
+          setReportNumber(100);
+          setClientNumber(100);
+
+          setTimeout(() => {setReportNumber(0); setClientNumber(0);}, 1000);
+          setTimeout(() => {setReportNumber(reportNo); setClientNumber(clientNo);}, 2000);
         }
 
       })
@@ -93,8 +103,7 @@ const[opendropBox,setopenDropBox]=useState(true)
         <Row>
           <Col md={11} xs={10}>
             <div className={classes.hello}>
-              Hello,<span> </span>
-              {userdata.name}
+              Hello, {userdata.name}
             </div>
             <div
               style={{

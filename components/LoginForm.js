@@ -165,9 +165,9 @@ const LoginForm = () => {
     setFieldDisplay("password");
   };
   return (
-    // <div class="row" style={{ marginTop: "10%", marginLeft: "10%" }}>
+    // <div className="row" style={{ marginTop: "10%", marginLeft: "10%" }}>
 
-    //   <div class="col-md-5 col-xs-12">
+    //   <div className="col-md-5 col-xs-12">
     <>
       <HeaderMobile />
       {login ? (
@@ -215,13 +215,13 @@ const LoginForm = () => {
                   <a onClick={() => handleBack()}>back</a>
                 </div>
                 <div
-                  class="mb-3"
+                  // className="mb-3"
                   style={{
                     flex: 1,
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  className={classes.login}
+                  className={"mb-3 "+classes.login}
                 >
                   <label
                     for="exampleInputEmail1"
@@ -235,8 +235,8 @@ const LoginForm = () => {
                   >
                     Login
                   </label>
-                  <div class="row">
-                    <div class="col-4 col-xs-8">
+                  <div className="row">
+                    <div className="col-4 col-xs-8">
                       {!show && (
                         <input
                           onKeyPress={(event) => enterKey(event)}
@@ -274,17 +274,16 @@ const LoginForm = () => {
                         </Slide>
                       )}
                     </div>
-                    <div class="col-2" style={{ zIndex: "100" }}>
+                    <div className="col-2" style={{ zIndex: "100" }}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="26"
                         height="26"
                         fill="currentColor"
-                        class="bi bi-arrow-right"
                         viewBox="0 0 16 16"
                         style={{ color: "#DCD3E9" }}
                         onClick={() => changeField()}
-                        className={classes.email}
+                        className={"bi bi-arrow-right "+classes.email}
                       >
                         <path
                           fill-rule="evenodd"
@@ -294,8 +293,8 @@ const LoginForm = () => {
                     </div>
                   </div>
                   <div>
-                    <div class="row">
-                      <div class="col-9">
+                    <div className="row">
+                      <div className="col-9">
                         <div
                           className={classes.bottomLine}
                           style={{ marginTop: "2%" }}

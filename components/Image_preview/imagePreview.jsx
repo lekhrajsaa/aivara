@@ -24,7 +24,7 @@ const ImagePreview = ({ galleryItems, currentIndex, setPreviewImage }) => {
 
                 {/* <img src={galleryItems[currentIndex]} /> */}
 
-                <a class="button" href={galleryItems[currentIndex]} download>
+                <a className="button" href={galleryItems[currentIndex]} download>
                     <p className={classes.image_modal_download}>
                         <FileDownloadOutlinedIcon />
                         Download

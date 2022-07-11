@@ -77,7 +77,7 @@ export default function verify() {
         <div className={classes.verifyEmail_headerMobile}>
           <HeaderMobile className={classes.logo} />
           <div
-            class={classes.back}
+            className={classes.back}
             style={{
               position: "absolute",
               top: "6%",

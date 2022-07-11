@@ -230,12 +230,12 @@ const Profile = () => {
 
   // Status filter
   const labstatus = (a) => {
-      console.log("hello");
+      // console.log("helllo"+ array[0]);
      if (searchInput !== "") {
-       setFilteredResults(labdata.filter((e, i, array) => e.status === a));
-       console.log()
+       setFilteredResults(array.filter((e, i, array) => e.reportStatus === a))
+       console.log(e)
      } else {
-       setarray(labdata.filter((e, i, array) => e.reportStatus === a));
+       setarray(array.filter((e, i, array) => e.Status === a));
      }
      setopenStatus(false);
   };
@@ -283,7 +283,6 @@ const Profile = () => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
       var date=new Date(timeStamp)
-      console.log(date)
       const  customDate=JSON.stringify(date).slice(1,11);
       const customTime=JSON.stringify(date).slice(12,17);
       const currentDate=customDate + " /"+customTime;
