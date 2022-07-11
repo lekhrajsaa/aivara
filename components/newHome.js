@@ -18,6 +18,7 @@ import "react-circular-progressbar/dist/styles.css";
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
+
 const NewHome = () => {
   const userdata = useSelector((state) => state.userdata.userdata);
   const router = useRouter();
@@ -26,6 +27,14 @@ const NewHome = () => {
   const percentage = 56;
   const [clientNumber, setClientNumber] = useState(100)
   const [reportNumber, setReportNumber] = useState(100)
+const[timePeriod,SettimePeriod]=useState("Today")
+const[opendropBox,setopenDropBox]=useState(true)
+
+   const selectdayHandler = (e) => {
+     setopenDropBox(false);
+     console.log();
+     SettimePeriod(e.target.innerHTML);
+   };
 
   // geting all report data from database
   const fetchAllReportData = async (token) => {
@@ -76,8 +85,7 @@ const NewHome = () => {
     }
   }, [])
 
-
-
+ 
 
   return (
     <div className={classes.allBody}>
@@ -122,22 +130,69 @@ const NewHome = () => {
             </Dropdown.Menu>
           </Dropdown> */}
 
-          <div className={classes.dropdown}>
+          <div className={classes.dropdown} style={{ width: "200px" }}>
             <button className={classes.dropbtn}>
-              {" "}
+              {timePeriod}
               {/* <img className={classes.img} src="/user.svg"></img> */}
               {/* <CgProfile className={classes.img} /> */}
               {/* <img src="./profileIcon.png" className={classes.img}></img> */}
-              Today
+
               <img src="./downArraw.png" className={classes.todayIcon}></img>
             </button>
             <div className={classes.dropdown_content}>
-              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400", backgroundColor: "#ddd" }} defaultChecked>Today</a>
-              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400" }}>Yesterday</a>
-              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400" }}>2 days ago</a>
-              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400" }}>7 days ago</a>
-              <a style={{ color: "#000000", fontFamily: "Inter", fontWeight: "400" }}>15 days ago</a>
-
+              <a
+             
+                style={{
+                  color: "#000000",
+                  fontFamily: "Inter",
+                  fontWeight: "400",
+                  backgroundColor: "#ddd",
+                }}
+                onClick={selectdayHandler}
+                defaultChecked
+              >
+                Today
+              </a>
+              <a
+                style={{
+                  color: "#000000",
+                  fontFamily: "Inter",
+                  fontWeight: "400",
+                }}
+                onClick={selectdayHandler}
+              >
+                Yesterday
+              </a>
+              <a
+                style={{
+                  color: "#000000",
+                  fontFamily: "Inter",
+                  fontWeight: "400",
+                }}
+                onClick={selectdayHandler}
+              >
+                2 days ago
+              </a>
+              <a
+                style={{
+                  color: "#000000",
+                  fontFamily: "Inter",
+                  fontWeight: "400",
+                }}
+                onClick={selectdayHandler}
+              >
+                7 days ago
+              </a>
+              <a
+                style={{
+                  color: "#000000",
+                  fontFamily: "Inter",
+                  fontWeight: "400",
+                }}
+                onClick={selectdayHandler}
+              >
+                15 days ago
+              </a>
             </div>
           </div>
 
@@ -180,7 +235,9 @@ const NewHome = () => {
 
           {/* <a onClick={() => router.push("/home")} ><p className={classes.viewRep}>View Report</p></a> */}
           <a onClick={() => router.push("/gen")}>
-            <Button className={classes.GenerateReport} >Generate Report <img src="./edit.png"></img></Button>
+            <Button className={classes.GenerateReport}>
+              Generate Report <img src="./edit.png"></img>
+            </Button>
             {/* <p className={classes.GenerateReport}>
               Generate Report <span> </span>
               <img src="./edit.png"></img>
