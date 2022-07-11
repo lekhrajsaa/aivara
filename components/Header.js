@@ -10,7 +10,7 @@ const Header = () => {
  
 
 
-<div class={classes.header}>
+<div className={classes.header}>
   <d ><img src="/Frame.svg" alt=""/></d>
   
 </div>

@@ -85,8 +85,7 @@ const NewHome = () => {
         <Row>
           <Col md={11} xs={10}>
             <div className={classes.hello}>
-              Hello,<span> </span>
-              {userdata.name}
+              Hello, {userdata.name}
             </div>
             <div
               style={{

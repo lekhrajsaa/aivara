@@ -31,8 +31,8 @@ function WithSignout(props) {
       style={{ backgroundColor: "#000000", height: "44px" }}
       className={classes.mobileH}
     >
-      <nav class="navbar" className={classes.fix}>
-        <div class="container-fluid">
+      <nav className={"navbar " + classes.fix}>
+        <div className="container-fluid">
           <div
             style={{ marginLeft: "3%", color: "white" }}
             className={classes.heading}
@@ -87,8 +87,8 @@ function WithoutPofile(props) {
       style={{ backgroundColor: "#000000", height: "44px" }}
       className={classes.mobileH}
     >
-      <nav class="navbar" className={classes.fix}>
-        <div class="container-fluid">
+      <nav className={"navbar " + classes.fix}>
+        <div className="container-fluid">
           <div
             style={{ marginLeft: "3%", color: "white" }}
             className={classes.heading}

@@ -121,8 +121,13 @@ const Untitle = () => {
 
   // making dates short
   const dateConstractor = (data) => {
+    // if (data) {
+    //   return JSON.stringify(data).slice(1, 25)
+    // }
     if (data) {
-      return JSON.stringify(data).slice(1, 25)
+      // console.log(data)
+      let date = new Date(data);
+      return `${date.getUTCDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
     }
   }
 
@@ -162,7 +167,10 @@ const Untitle = () => {
               onBlur={() => setIsEditEnable(false)}
               disabled={!isEditEnable}
               ref={titleInput}
-              style={{ padding: "5px 10px", border: "none", padding: "0px", width: `${pageTitle.length * 12 + 10}px`, color: "#313131", fontFamily: "sora", fontWeight: "700", background: "transparent" }}
+              style={{ padding: "5px 10px", border: "none", 
+              width: `${pageTitle.length * 14 + 10}px`,
+              color: "#313131", fontFamily: "sora", 
+              fontWeight: "700", background: "transparent" }}
             />
             <MdOutlineModeEdit onClick={()=>{
               setIsEditEnable(true); 
@@ -175,9 +183,9 @@ const Untitle = () => {
           <div className={classes.download} onClick={() => { setKeepInput(false); handlePrint() }}>
             Download
           </div>
-          {/* <div className={classes.email} onClick={() => emailHandler()}>
+          <div className={classes.email} onClick={() => emailHandler()}>
             Email
-          </div> */}
+          </div>
           <div onClick={closeBtnHanlder} className={classes.closeIcon}>
             <AiOutlineClose />
           </div>
@@ -197,6 +205,11 @@ const Untitle = () => {
             Timestamp:
             <p className={`${classes.subName} ${classes.leftSubName}`}>
               {dateConstractor(reportTableData.customTimeStamp)}
+              &nbsp; &nbsp; &nbsp;
+              {((new Date(reportTableData.customTimeStamp).getHours())) === 0 ? '12' :  ((new Date(reportTableData.customTimeStamp).getUTCHours()))}
+              :
+              {(new Date(reportTableData.customTimeStamp).getMinutes())}
+              {/* {reportTableData.customTimeStamp} */}
             </p>
           </div>
         </div>

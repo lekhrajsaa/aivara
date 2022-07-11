@@ -455,12 +455,12 @@ const SignUpForm = () => {
 
   return (
     <>
-      {/* // <div class="row" style={{ marginTop: "10%", marginLeft: "10%" }}>
-    //   <div class="col-md-5 col-xs-12">
+      {/* // <div className="row" style={{ marginTop: "10%", marginLeft: "10%" }}>
+    //   <div className="col-md-5 col-xs-12">
     //     <form> */}
       <div>
         <div
-          class={classes.back}
+          className={classes.back}
           style={{
             position: "absolute",
             top: "7%",
@@ -567,8 +567,8 @@ const SignUpForm = () => {
                     >
                       Sign up
                     </label>
-                    <div class="row">
-                      <div class="col-4 col-xs-8">
+                    <div className="row">
+                      <div className="col-4 col-xs-8">
                         <input
                           onKeyPress={(event) => enterKey(event)}
                           type={nameDisplay}
@@ -676,17 +676,16 @@ const SignUpForm = () => {
                           </Slide>
                         )}
                       </div>
-                      <div class="col-2" style={{ zIndex: "100" }}>
+                      <div className="col-2" style={{ zIndex: "100" }}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           width="26"
                           height="26"
                           fill="currentColor"
-                          class="bi bi-arrow-right"
                           viewBox="0 0 16 16"
                           style={{ color: "#DCD3E9" }}
                           onClick={() => changeField()}
-                          className={classes.email}
+                          className={"bi bi-arrow-right "+classes.email}
                         >
                           <path
                             fill-rule="evenodd"
@@ -696,8 +695,8 @@ const SignUpForm = () => {
                       </div>
                     </div>
                     <div>
-                      <div class="row">
-                        <div class="col-9">
+                      <div className="row">
+                        <div className="col-9">
                           <div
                             className={classes.bottomLine}
                             style={{ marginTop: "2%" }}
@@ -708,7 +707,7 @@ const SignUpForm = () => {
 
                     {/* <div
             id="emailHelp"
-            class="form-text"
+            className="form-text"
             style={{
               marginTop: "4%",
               fontFamily: "Sora, sans-serif",

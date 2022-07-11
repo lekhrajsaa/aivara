@@ -15,17 +15,16 @@ const HeaderApp = () => {
       style={{ backgroundColor: "#000000", padding: "6px" }}
       className={classes.mobileH}
     >
-      <nav class="navbar">
-        <div class="container-fluid">
+      <nav className="navbar">
+        <div className="container-fluid">
           <div style={{ marginLeft: "4%", color: "white" }}>
-            <a class="navbar-brand" href="/home">
+            <a className="navbar-brand" href="/home">
               <img src="/AivarA.svg" style={{ color: "white" }} />
             </a>
           </div>
 
           <a
-            className={classes.gen}
-            class="gen navbar-brand"
+            className={"gen navbar-brand "+classes.gen}
             href="/"
             style={{
               marginRight: "4%",

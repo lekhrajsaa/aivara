@@ -74,7 +74,7 @@ const Profile = () => {
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
   const [tableheaderTab, settableheaderTab] = useState(true);
-  // for  toggle class
+  // for  toggle className
   const [datalenghtIszreo, setdatalenghtIszreo] = useState(false);
   const [openAlpha, setopenAlpha] = useState(false);
   const [openStatus, setopenStatus] = useState(false);
@@ -331,7 +331,7 @@ const Profile = () => {
               <input
                 type="text"
                 className={classes.form_control}
-                placeHolder="Search"
+                placeholder="Search"
                 onChange={(e) => searchItems(e.target.value)}
               />
             </div>
@@ -420,8 +420,7 @@ const Profile = () => {
             ) : (
               filteredResults.map((a, i) => {
                 return (
-                  <>
-                    <Row className={classes.rowe}>
+                    <Row  className={classes.rowe}>
                       <Col md={6} xs={5} className={classes.proCol}>
                         {a.labname}
                       </Col>
@@ -435,7 +434,6 @@ const Profile = () => {
                         <p >filtred {a.status} </p>
                       </Col>
                     </Row>
-                  </>
                 );
               })
             )
@@ -454,7 +452,6 @@ const Profile = () => {
           ) : (
             array.map((a, i) => {
               return (
-                <>
                   <Row className={classes.rowe}>
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
@@ -479,7 +476,6 @@ const Profile = () => {
                       >{a.reportStatus}</p>
                     </Col>
                   </Row>
-                </>
               );
             })
           )}
