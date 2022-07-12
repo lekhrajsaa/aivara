@@ -39,11 +39,11 @@ const labdata = [
     date: "08/03/22;23:00",
     status: "incomplete",
   },
- 
+
 ];
 
 const Profile = () => {
- 
+
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
   const [timePeriod, SettimePeriod] = useState("Today");
@@ -52,7 +52,7 @@ const Profile = () => {
   // console.log("this is useradata")
   // console.log(userdata)
   const [array, setarray] = useState(labdata);
- 
+
   const router = useRouter();
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
@@ -128,9 +128,9 @@ const Profile = () => {
         body,
         options
       );
-     console.log(resp);
-      await setuser(resp.data.data.getUser);
-       dispatch(Getting_user_data(resp.data.data.getUser));
+      console.log(resp);
+      setuser(resp.data.data.getUser);
+      dispatch(Getting_user_data(resp.data.data.getUser));
     } catch (err) {
       console.log(err);
     }
@@ -149,13 +149,13 @@ const Profile = () => {
     };
 
 
-    
+
 
     fetch(`${SERVER_URL}getAllReport`, requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result && result.data && result.data.Items) {
-         console.log(result.data.Items);
+          console.log(result.data.Items);
           setarray(result.data.Items)
         }
 
@@ -187,7 +187,7 @@ const Profile = () => {
     if (searchInput !== "") {
       const filteredData = array.filter((item) => {
         return Object.values(item)
-      //  console.log(item)
+          //  console.log(item)
           .join("")
           .toLowerCase()
           .includes(searchInput.toLowerCase());
@@ -230,14 +230,16 @@ const Profile = () => {
 
   // Status filter
   const labstatus = (a) => {
-      // console.log("helllo"+ array[0]);
-     if (searchInput !== "") {
-       setFilteredResults(array.filter((e, i, array) => e.reportStatus === a))
-       console.log(e)
-     } else {
-       setarray(array.filter((e, i, array) => e.Status === a));
-     }
-     setopenStatus(false);
+    // console.log("helllo"+ array[0]);
+    // if (searchInput !== "") {
+      if(a === 'all'){
+        setFilteredResults(array)
+      }
+      setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
+    // } else {
+    //   // setarray(array.filter((e, i, array) => e.Status === a));
+    // }
+    setopenStatus(false);
   };
 
   function reportStatusClickHanlder(stat) {
@@ -282,10 +284,10 @@ const Profile = () => {
   const dateConstractor = (timeStamp) => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
-      var date=new Date(timeStamp)
-      const  customDate=JSON.stringify(date).slice(1,11);
-      const customTime=JSON.stringify(date).slice(12,17);
-      const currentDate=customDate + " /"+customTime;
+      var date = new Date(timeStamp)
+      const customDate = JSON.stringify(date).slice(1, 11);
+      const customTime = JSON.stringify(date).slice(12, 17);
+      const currentDate = customDate + " / " + customTime;
 
       // const currentDate=customDate.splice
       return currentDate
@@ -322,7 +324,7 @@ const Profile = () => {
 
   return (
     <div className={classes.homeBody}>
-      <Container className={classes.name}>
+      <Container style={{ paddingLeft: 0 }} className={classes.name}>
         {searchBarTab && (
           <div className={classes.search_main}>
             <div className={`${classes.form_group} ${classes.has_search}`}>
@@ -354,7 +356,7 @@ const Profile = () => {
         )}
       </Container>
 
-      <Container className={classes.report}>
+      {/* <Container className={classes.report}>
         {searchBarTab && (
           <Row className={classes.tableheader}>
             <Col md={6} xs={6} className={classes.tableheader_text}>
@@ -384,7 +386,7 @@ const Profile = () => {
                 </span>
               </p>
             </Col>
-            <Col md={1} xs={2} style={{marginTop:"6px"}}>
+            <Col md={1} xs={2} style={{ marginTop: "6px" }}>
               <p>View </p>
             </Col>
             <Col md={1} xs={1} className={classes.proCol5}>
@@ -402,12 +404,13 @@ const Profile = () => {
                 >
                   <li onClick={() => labstatus("complete")}>Complete</li>
                   <li onClick={() => labstatus("inreview")}>inreview</li>
-                  {/* <li onClick={() => labstatus("incomplete")}>InComplete</li> */}
                 </span>
               </p>
             </Col>
           </Row>
         )}
+
+        
         <div className={setclassname}>
           {searchInput.length > 0 ? (
             filteredResults.length === 0 ? (
@@ -424,7 +427,7 @@ const Profile = () => {
                 // console.log(date);
                 return (
                   <>
-                  
+
                     <Row className={classes.rowe}>
                       <Col md={6} xs={5} className={classes.proCol}>
                         {a.clientName}
@@ -488,7 +491,137 @@ const Profile = () => {
             })
           )}
         </div>
+      </Container> */}
+
+      <Container sx={{ ml: 2 }} style={{ marginLeft: "auto", marginTop: "50px" }}>
+        <Row className={classes.tableheader}>
+          <Col style={{ padding: 0 }} md={6} xs={6} className={classes.tableheader_text}>
+            <p>
+              Reports{" "}
+              <span className={classes.alpha_sort_btn} onClick={sortbox}>
+                <BiChevronDown />
+              </span>
+              <span
+                className={
+                  openAlpha
+                    ? classes.alpha_sort_box
+                    : classes.alpha_sort_box_hide
+                }
+              >
+                <li className={classes.alpha_sort_text} onClick={ascendOrder}>
+                  Alphabetical Sorting
+                </li>
+              </span>
+            </p>
+          </Col>
+          <Col md={4} xs={3} className={classes.proCol2} >
+            <p>
+              Date/Time{" "}
+              <span className={classes.date_sort_btn}>
+                <BiChevronDown />
+              </span>
+            </p>
+          </Col>
+          <Col md={1} xs={2} style={{ marginTop: "6px" }}>
+            <p >View </p>
+          </Col>
+          <Col md={1} xs={1} className={classes.proCol5}>
+            <p>
+              Status
+              <span className={classes.status_sort_btn} onClick={statusCheck}>
+                <BiChevronDown />
+              </span>
+              <span
+                className={
+                  openStatus
+                    ? classes.status_sort_box
+                    : classes.status_sort_box_hide
+                }
+              >
+                <li onClick={() => labstatus("all")}>All</li>
+                <li onClick={() => labstatus("complete")}>Complete</li>
+                <li onClick={() => labstatus("in review")}>inreview</li>
+              </span>
+            </p>
+          </Col>
+        </Row>
+
+        {
+          (array && filteredResults.length === 0) ? array.map((a, i) => {
+
+            return (
+              <>
+                <Row style={{ padding: 0 }} className={classes.rowe}>
+                  <Col md={6} xs={5} className={classes.proCol}>
+                    {a.clientName}
+                  </Col>
+                  <Col md={4} xs={3} className={classes.proCol2}>
+                    {dateConstractor(a.customTimeStamp)}
+                  </Col>
+                  <Col md={1} xs={2}>
+                    <button className={classes.proCol3}
+                      onClick={() => {
+                        if (a.reportStatus.toLowerCase() === 'complete') {
+                          fetchOneReport(a.reportId)
+                        } else {
+                          console.log('Yo', a.reportStatus);
+                          setOpenIncompleteStatusDilogBox(a.reportStatus);
+                          setIncompleteReportId(a.reportId)
+                        }
+                      }
+                      }
+                    >View</button>
+                  </Col>
+                  <Col md={1} xs={2} className={classes.proCol4}>
+                    <p>{a.reportStatus}</p>
+                  </Col>
+                </Row>
+              </>
+            );
+          }) : ''
+        }
+        {
+          filteredResults &&
+          filteredResults.map((a, i) => {
+
+            return (
+              <>
+
+                <Row className={classes.rowe}>
+                  <Col md={6} xs={5} className={classes.proCol}>
+                    {a.clientName}
+                  </Col>
+                  <Col md={4} xs={3} className={classes.proCol2}>
+                  {dateConstractor(a.customTimeStamp)}
+                  </Col>
+                  <Col md={1} xs={2}>
+                    <button className={classes.proCol3}
+                      onClick={() => {
+                        if (a.reportStatus.toLowerCase() === 'complete') {
+                          fetchOneReport(a.reportId)
+                        } else {
+                          console.log('Yo', a.reportStatus);
+                          setOpenIncompleteStatusDilogBox(a.reportStatus);
+                          setIncompleteReportId(a.reportId)
+                        }
+                      }
+                      }
+                    >View</button>
+                  </Col>
+                  <Col md={1} xs={2} className={classes.proCol4}>
+                    <p>{a.reportStatus}</p>
+                  </Col>
+                </Row>
+              </>
+            );
+          })
+
+        }
       </Container>
+
+
+
+
       <Container className={classes.report2}>
         <div className={classes.uploadicon}>
           {/* <i

@@ -464,6 +464,7 @@
   font-family: "Sora";
   font-weight: 500;
   color: black;
+  padding: 0;
 }
 .heading {
   margin-bottom: 4%;
@@ -639,7 +640,8 @@
 .homeBody {
   padding-left: 16%;
   width: auto;
-  margin-right: 5%;
+  /* margin-right: 5%; */
+  margin: 0 2%;
 }
 
 /* ===========search bar and generate button */
@@ -652,7 +654,7 @@
 .search_main {
   width: 80%;
   display: flex;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
 .form_control {
