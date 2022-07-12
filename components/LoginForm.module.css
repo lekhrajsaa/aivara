@@ -774,7 +774,7 @@
   /* padding-top: 13px; */
   height: 50px;
   border-radius: 4px;
-  position: absolute;
+  position: relative;
 
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
@@ -783,7 +783,7 @@
 }
 .listday_hide,
 .alpha_sort_box_hide,
-.status_sort_box_hide {
+.status_sort_box_hide,.dateTimestatus_sort_box_hide{
   display: none;
 }
 .alpha_sort_text {
@@ -794,26 +794,42 @@
   margin-top: 14px;
   display: block;
 }
-.status_sort_box {
+.dateTimestatus_sort_box{
+  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  width: 110px;
+  /* padding: 2px; */
+  color:#395D89;
+  text-align: start;
+  padding: 5px;
+
+}
+
+
+
+.status_sort_box{
   border: none;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   width: 140px;
   /* padding: 2px; */
-  position: absolute;
-  right: 70px;
+  position: relative;
+  right: 0px;
+  
   z-index: 9999;
   background-color: white;
   text-align: start;
   padding-bottom: 10px;
 }
-.status_sort_box li {
+.status_sort_box li{
   list-style: none;
   padding-left: 10px;
   padding-top: 5px;
   color: #000000;
 }
-.status_sort_box li:hover {
+
+.status_sort_box li:hover{
   background-color: #c4c4c4;
   cursor: pointer;
  
@@ -833,6 +849,7 @@
   .status_sort_box li {
     font-size: 13px;
   }
+   
 }
 /* @media screen and (min-width: 1011px) and (max-width: 1600px) {
   .status_sort_box {
@@ -843,9 +860,11 @@
   .dayfilter {
     padding-left: 100px;
   }
+  
 }
 @media screen and (max-width: 1450px) {
   .dayfilter {
     padding-left: 200px;
   }
+   
 }
