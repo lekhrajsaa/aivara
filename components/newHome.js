@@ -95,9 +95,7 @@ const NewHome = () => {
       <Container className={classes.name}>
         <Row>
           <Col md={11} xs={10}>
-            <div className={classes.hello}>
-              Hello, {userdata.name}
-            </div>
+            <div className={classes.hello}>Hello, {userdata.name}</div>
             <div
               style={{
                 color: "#C4C4C4",
@@ -132,70 +130,16 @@ const NewHome = () => {
             </Dropdown.Menu>
           </Dropdown> */}
 
-          <div className={classes.dropdown} style={{ width: "200px" }}>
-            <button className={classes.dropbtn}>
-              {timePeriod}
-              {/* <img className={classes.img} src="/user.svg"></img> */}
-              {/* <CgProfile className={classes.img} /> */}
-              {/* <img src="./profileIcon.png" className={classes.img}></img> */}
-
-              <img src="./downArraw.png" className={classes.todayIcon}></img>
-            </button>
-            <div className={classes.dropdown_content}>
-              <a
-             
-                style={{
-                  color: "#000000",
-                  fontFamily: "Inter",
-                  fontWeight: "400",
-                  backgroundColor: "#ddd",
-                }}
-                onClick={selectdayHandler}
-                defaultChecked
-              >
-                Today
-              </a>
-              <a
-                style={{
-                  color: "#000000",
-                  fontFamily: "Inter",
-                  fontWeight: "400",
-                }}
-                onClick={selectdayHandler}
-              >
-                Yesterday
-              </a>
-              <a
-                style={{
-                  color: "#000000",
-                  fontFamily: "Inter",
-                  fontWeight: "400",
-                }}
-                onClick={selectdayHandler}
-              >
-                2 days ago
-              </a>
-              <a
-                style={{
-                  color: "#000000",
-                  fontFamily: "Inter",
-                  fontWeight: "400",
-                }}
-                onClick={selectdayHandler}
-              >
-                7 days ago
-              </a>
-              <a
-                style={{
-                  color: "#000000",
-                  fontFamily: "Inter",
-                  fontWeight: "400",
-                }}
-                onClick={selectdayHandler}
-              >
-                15 days ago
-              </a>
-            </div>
+          <div className={classes.dropdown}>
+            <select className={classes.dateTimestatus_sort_box}>
+              <option className={classes.dateTimestatus_sort_box_options} selected>Today</option>
+              <option className={classes.dateTimestatus_sort_box_options}>Yesterday</option>
+              <option className={classes.dateTimestatus_sort_box_options}>2 days ago</option>
+              <option className={classes.dateTimestatus_sort_box_options}>7 days ago</option>
+              <option className={classes.dateTimestatus_sort_box_options}>15 days ago</option>
+              <option className={classes.dateTimestatus_sort_box_options}>1 month ago</option>
+              <option className={classes.dateTimestatus_sort_box_options}>2 month ago</option>
+            </select>
           </div>
 
           <div className={classes.threeparts}>

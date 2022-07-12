@@ -94,7 +94,7 @@ function WithoutPofile(props) {
             className={classes.heading}
           >
             <a
-              href="/newHome"
+              href="/Home"
               className={classes.brandname}
               style={{ color: "white" }}
             >

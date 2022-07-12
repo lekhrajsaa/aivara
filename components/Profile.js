@@ -1,7 +1,11 @@
 import { Col, Container, Row } from "reactstrap";
 import classes from "./LoginForm.module.css";
 import axios from "axios";
-import { Getting_user_data, setAiReportData, setReportTableData } from "../redux/dataAction";
+import {
+  Getting_user_data,
+  setAiReportData,
+  setReportTableData,
+} from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
 // import { Link, Route } from "react-router-dom";
@@ -20,8 +24,8 @@ import {
   Button,
   DialogActions,
   DialogContent,
-  DialogContentText
-} from '@mui/material';
+  DialogContentText,
+} from "@mui/material";
 
 import Router from "next/router";
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
@@ -39,11 +43,9 @@ const labdata = [
     date: "08/03/22;23:00",
     status: "incomplete",
   },
-
 ];
 
 const Profile = () => {
-
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
   const [timePeriod, SettimePeriod] = useState("Today");
@@ -64,11 +66,13 @@ const Profile = () => {
   const [openAlpha, setopenAlpha] = useState(false);
   const [openStatus, setopenStatus] = useState(false);
   const [openday, setopenday] = useState(false);
-  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] = useState(false);
-  const [openCompleteStatusDilogBox, setOpenCompleteStatusDilogBox] = useState(false);
-  const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] = useState(false);
-  const [incompleteReportId, setIncompleteReportId] = useState('');
-
+  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] =
+    useState(false);
+  const [openCompleteStatusDilogBox, setOpenCompleteStatusDilogBox] =
+    useState(false);
+  const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] =
+    useState(false);
+  const [incompleteReportId, setIncompleteReportId] = useState("");
 
   const setclassname = datalenghtIszreo
     ? `${classes.scrollRep} ${classes.datalenght_zero}`
@@ -81,6 +85,7 @@ const Profile = () => {
       setopenAlpha(true);
     }
   };
+   
   const statusCheck = () => {
     if (openStatus) {
       setopenStatus(false);
@@ -97,9 +102,9 @@ const Profile = () => {
   };
   const selectdayHandler = (e) => {
     setopenday(false);
-    console.log()
+    console.log();
     SettimePeriod(e.target.innerHTML);
-  }
+  };
   const getUserData = async () => {
     let body = {
       query: `{
@@ -143,24 +148,20 @@ const Profile = () => {
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     var requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: myHeaders,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
-
-
-
     fetch(`${SERVER_URL}getAllReport`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
+      .then((response) => response.json())
+      .then((result) => {
         if (result && result.data && result.data.Items) {
           console.log(result.data.Items);
           setarray(result.data.Items)
         }
-
       })
-      .catch(error => console.log('error', error));
+      .catch((error) => console.log("error", error));
   };
 
   //
@@ -179,18 +180,24 @@ const Profile = () => {
     }
   }, [token]);
 
+  //Day time filter
 
+  const datetimeFilter=(a)=>{
+    console.log(a)
+  }
 
   // searching Reports
   const searchItems = (searchValue) => {
     setSearchInput(searchValue);
     if (searchInput !== "") {
       const filteredData = array.filter((item) => {
-        return Object.values(item)
-          //  console.log(item)
-          .join("")
-          .toLowerCase()
-          .includes(searchInput.toLowerCase());
+        return (
+          Object.values(item)
+            //  console.log(item)
+            .join("")
+            .toLowerCase()
+            .includes(searchInput.toLowerCase())
+        );
       });
       setFilteredResults(filteredData);
     } else {
@@ -203,8 +210,6 @@ const Profile = () => {
       .toLowerCase()
       .includes(searchInput.toLowerCase());
   });
-
-
 
   // Ascending order filter
   const compare = (a, b) => {
@@ -246,7 +251,7 @@ const Profile = () => {
     if (stat === "incomplete") {
       setOpenIncompleteStatusDilogBox(true);
     } else if (stat.toLowerCase() === "complete") {
-      setOpenCompleteStatusDilogBox(true)
+      setOpenCompleteStatusDilogBox(true);
     } else if (stat.toLowerCase() === "in review") {
       setOpenInReviewStatusDilogBox(true);
     }
@@ -257,28 +262,26 @@ const Profile = () => {
     const reportId = incompleteReportId;
 
     if (reportId && token) {
-
       var myHeaders = new Headers();
       myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       var requestOptions = {
-        method: 'GET',
+        method: "GET",
         headers: myHeaders,
-        redirect: 'follow'
+        redirect: "follow",
       };
 
       fetch(`${SERVER_URL}userReportData/${reportId}`, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-          console.log(result)
-          dispatch(setAiReportData(JSON.parse(result)))
-          router.push("/analysis")
+        .then((response) => response.text())
+        .then((result) => {
+          console.log(result);
+          dispatch(setAiReportData(JSON.parse(result)));
+          router.push("/analysis");
         })
-        .catch(error => console.log('error', error));
+        .catch((error) => console.log("error", error));
     }
   }
-
 
   // making dates short
   const dateConstractor = (timeStamp) => {
@@ -290,37 +293,34 @@ const Profile = () => {
       const currentDate = customDate + " / " + customTime;
 
       // const currentDate=customDate.splice
-      return currentDate
+      return currentDate;
     }
-  }
+  };
 
   //fetchOneReport
   const fetchOneReport = (reportId) => {
-    console.log(reportId)
+    console.log(reportId);
     var myHeaders = new Headers();
     myHeaders.append("x-api-key", XAPIKEY);
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     var requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: myHeaders,
-      redirect: 'follow'
+      redirect: "follow",
     };
 
     fetch(`${SERVER_URL}getOneReport/${reportId}`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
+      .then((response) => response.json())
+      .then((result) => {
         if (result && result.data && result.data.Item) {
           console.log(result.data.Item);
-          dispatch(setReportTableData(result.data.Item))
-          Router.push('/untitle')
+          dispatch(setReportTableData(result.data.Item));
+          Router.push("/untitle");
         }
       })
-      .catch(error => console.log('error', error));
-  }
-
-
-
+      .catch((error) => console.log("error", error));
+  };
 
   return (
     <div className={classes.homeBody}>
@@ -378,13 +378,19 @@ const Profile = () => {
                 </span>
               </p>
             </Col>
-            <Col md={4} xs={3} className={classes.proCol2} >
-              <p>
-                Date/Time{" "}
-                <span className={classes.date_sort_btn}>
-                  <BiChevronDown />
-                </span>
-              </p>
+            <Col md={4} xs={3} className={classes.proCol2}>
+              <select
+                id="datetimeStatus"
+                className={classes.dateTimestatus_sort_box}
+              >
+               <option selected>Date/Time</option>
+                <option value="date" onClick={datetimeFilter("date")}>
+                  Date
+                </option>
+                <option value="time" onClick={datetimeFilter("time")}>
+                  Time
+                </option>
+              </select>
             </Col>
             <Col md={1} xs={2} style={{ marginTop: "6px" }}>
               <p>View </p>
@@ -427,7 +433,6 @@ const Profile = () => {
                 // console.log(date);
                 return (
                   <>
-
                     <Row className={classes.rowe}>
                       <Col md={6} xs={5} className={classes.proCol}>
                         {a.clientName}
@@ -472,18 +477,28 @@ const Profile = () => {
                     <Col md={1} xs={2}>
                       <button
                         className={classes.proCol3}
-                        onClick={() => { if (a.reportStatus.toLowerCase() === 'complete') { fetchOneReport(a.reportId) } else { console.log('Yo', a.reportStatus); setOpenIncompleteStatusDilogBox(a.reportStatus); setIncompleteReportId(a.reportId) } }}
+                        onClick={() => {
+                          if (a.reportStatus.toLowerCase() === "complete") {
+                            fetchOneReport(a.reportId);
+                          } else {
+                            console.log("Yo", a.reportStatus);
+                            setOpenIncompleteStatusDilogBox(a.reportStatus);
+                            setIncompleteReportId(a.reportId);
+                          }
+                        }}
                       >
                         View
                       </button>
                     </Col>
                     <Col md={1} xs={2}>
                       <p
-                      // style={{cursor: 'pointer'}} 
+                      // style={{cursor: 'pointer'}}
                       // onClick={e => { reportStatusClickHanlder(a.reportStatus)}}
                       // onMouseOver={e => e.target.style.color = '#395d89'}
                       // onMouseOut={e => e.target.style.color = '#212529'}
-                      >{a.reportStatus}</p>
+                      >
+                        {a.reportStatus}
+                      </p>
                     </Col>
                   </Row>
                 </>
@@ -638,24 +653,28 @@ const Profile = () => {
         </div>
       </Container>
 
-
       <Dialog
         open={openIncompleteStatusDilogBox}
         // onClose={() => setOpen(false)}
-        aria-labelledby='dilog-title'
-        aria-aria-describedby='dilog-description'
+        aria-labelledby="dilog-title"
+        aria-aria-describedby="dilog-description"
         sx={{ p: 2 }}
-
       >
-        <DialogTitle id="dilog-title">Please complete your report details</DialogTitle>
-        <DialogContent >
+        <DialogTitle id="dilog-title">
+          Please complete your report details
+        </DialogTitle>
+        <DialogContent>
           <DialogContentText>
             Please click on complete now button to complete your report details
           </DialogContentText>
         </DialogContent>
         <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button onClick={() => setOpenIncompleteStatusDilogBox(false)}>Complete Later</Button>
-          <Button variant="contained" onClick={completeNowClickHanlder}>Complete Now</Button>
+          <Button onClick={() => setOpenIncompleteStatusDilogBox(false)}>
+            Complete Later
+          </Button>
+          <Button variant="contained" onClick={completeNowClickHanlder}>
+            Complete Now
+          </Button>
         </DialogActions>
       </Dialog>
 
@@ -663,46 +682,47 @@ const Profile = () => {
       <Dialog
         open={openCompleteStatusDilogBox}
         // onClose={() => setOpen(false)}
-        aria-labelledby='dilog-title'
-        aria-aria-describedby='dilog-description'
+        aria-labelledby="dilog-title"
+        aria-aria-describedby="dilog-description"
         sx={{ p: 2 }}
-
       >
         <DialogTitle id="dilog-title">Report Status</DialogTitle>
-        <DialogContent >
-          <DialogContentText>
-            Your Report is Complete!
-          </DialogContentText>
+        <DialogContent>
+          <DialogContentText>Your Report is Complete!</DialogContentText>
         </DialogContent>
         <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button variant="contained" onClick={() => setOpenCompleteStatusDilogBox(false)}>Okay</Button>
+          <Button
+            variant="contained"
+            onClick={() => setOpenCompleteStatusDilogBox(false)}
+          >
+            Okay
+          </Button>
         </DialogActions>
       </Dialog>
-
 
       {/* Report Status Complete */}
       <Dialog
         open={openInReviewStatusDilogBox}
         // onClose={() => setOpen(false)}
-        aria-labelledby='dilog-title'
-        aria-aria-describedby='dilog-description'
+        aria-labelledby="dilog-title"
+        aria-aria-describedby="dilog-description"
         sx={{ p: 2 }}
-
       >
         <DialogTitle id="dilog-title">Report Status</DialogTitle>
-        <DialogContent >
-          <DialogContentText>
-            Your Report is in review
-          </DialogContentText>
+        <DialogContent>
+          <DialogContentText>Your Report is in review</DialogContentText>
         </DialogContent>
         <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button variant="contained" onClick={() => setOpenInReviewStatusDilogBox(false)}>Okay</Button>
+          <Button
+            variant="contained"
+            onClick={() => setOpenInReviewStatusDilogBox(false)}
+          >
+            Okay
+          </Button>
         </DialogActions>
       </Dialog>
-
     </div>
   );
 };
 
 export default Profile;
-
