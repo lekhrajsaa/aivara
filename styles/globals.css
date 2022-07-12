@@ -7,7 +7,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Sora, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
+html::-webkit-scrollbar{
+  display: none;
+}
 a {
   color: inherit;
   text-decoration: none;
@@ -15,6 +17,7 @@ a {
 
 * {
   box-sizing: border-box;
+  /* outline: 2px solid rgba(0, 255, 0, 0.1); */
 }
 
 .alice-carousel__stage-item{

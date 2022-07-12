@@ -362,7 +362,7 @@ const Profile = () => {
                 <span className={classes.alpha_sort_btn} onClick={sortbox}>
                   <BiChevronDown />
                 </span>
-                <div
+                <span
                   className={
                     openAlpha
                       ? classes.alpha_sort_box
@@ -372,7 +372,7 @@ const Profile = () => {
                   <li className={classes.alpha_sort_text} onClick={ascendOrder}>
                     Alphabetical Sorting
                   </li>
-                </div>
+                </span>
               </p>
             </Col>
             <Col md={4} xs={3} className={classes.proCol2}>
@@ -392,7 +392,7 @@ const Profile = () => {
                 <span className={classes.status_sort_btn} onClick={statusCheck}>
                   <BiChevronDown />
                 </span>
-                <div
+                <span
                   className={
                     openStatus
                       ? classes.status_sort_box
@@ -402,7 +402,7 @@ const Profile = () => {
                   <li onClick={() => labstatus("complete")}>Complete</li>
                   <li onClick={() => labstatus("inpreview")}>inreview</li>
                   {/* <li onClick={() => labstatus("incomplete")}>InComplete</li> */}
-                </div>
+                </span>
               </p>
             </Col>
           </Row>

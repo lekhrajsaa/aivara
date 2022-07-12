@@ -1,82 +1,95 @@
 #header {
-    position: absolute;
-    width: 17%;
-  }
-  #header .pro-sidebar {
-    height: 94vh;
-  }
-  #header .closemenu {
-    color: black;
-    background-color: #C4C4C4;
-    position: absolute;
-    /* margin-left: 50px; */
-    right: 0;
-    z-index: 9999;
-    line-height: 10px;
-    border-radius: 50%;
-    font-size: 30px;
-    top: 65px;
-    cursor: pointer;
-    min-height: 30px;
-    min-width: 30px;
-    
-  }
-  #header .pro-sidebar {
-    width: 100%;
-    min-width: 100%;
-  }
-  #header .pro-sidebar.collapsed {
-    width: 20px;
-    min-width: 80px;
-    background: -webkit-linear-gradient(left, #0B0A0A 82%, transparent 18%); 
-  }
-  #header .pro-sidebar-inner {
-    background: transparent;
-     /* box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15); */
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout {
-    overflow-y: hidden;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
-    font-size: 20px;
-    padding: 0 20px;
-    color: blue;
-    font-weight: 400;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout ul {
-    padding: 0 0px;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
-    color: #FFFFFF;
-    margin: 10px -5px;
-    font-weight: bold;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper {
-    background-color: transparent;
-    color: white;
-    
-    
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper .pro-item-content {
-    /* color: red; */
-    font-weight: 400;
-  }
-  #header .pro-sidebar-inner .pro-sidebar-layout .active {
-    background-image: linear-gradient(0deg, black 30%, #B2CCFD 100%);
-    background: -webkit-linear-gradient(left,  rgba(178, 204, 253, 0.3)
-    82%, transparent 0%); 
-    
-  }
-  #header .logo {
-    padding: 20px;
-  }
-  
-  @media only screen and (max-width: 720px) {
-    html {
-      overflow: hidden;
-    }
-  }
-  #header .pro-sidebar {
-    background: -webkit-linear-gradient(left, #0B0A0A 93%, transparent 7%); 
+  position: absolute;
+  top: 0;
+  width: 17%;
+  height: 100vh;
+}
 
+
+
+#header .closemenu {
+  color: black;
+  background-color: #C4C4C4;
+  position: absolute;
+  /* margin-left: 50px; */
+  right: 0;
+  z-index: 10;
+  line-height: 10px;
+  border-radius: 50%;
+  font-size: 30px;
+  top: 65px;
+  cursor: pointer;
+  min-height: 30px;
+  min-width: 30px;
+
+}
+
+#header .pro-sidebar {
+  width: 100%;
+  min-width: 100%;
+}
+
+#header .pro-sidebar.collapsed {
+  width: 20px;
+  min-width: 80px;
+  background: -webkit-linear-gradient(left, #0B0A0A 82%, transparent 18%);
+}
+
+#header .pro-sidebar-inner {
+  background: transparent;
+  /* box-shadow: 0.5px 0.866px 2px 0px rgba(0, 0, 0, 0.15); */
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout {
+  overflow-y: hidden;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
+  font-size: 20px;
+  padding: 0 20px;
+  color: blue;
+  font-weight: 400;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout ul {
+  padding: 0 0px;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item {
+  color: #FFFFFF;
+  margin: 10px -5px;
+  font-weight: bold;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper {
+  background-color: transparent;
+  color: white;
+
+
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout ul .pro-inner-item .pro-icon-wrapper .pro-item-content {
+  /* color: red; */
+  font-weight: 400;
+}
+
+#header .pro-sidebar-inner .pro-sidebar-layout .active {
+  background-image: linear-gradient(0deg, black 30%, #B2CCFD 100%);
+  background: -webkit-linear-gradient(left, rgba(178, 204, 253, 0.3) 82%, transparent 0%);
+
+}
+
+#header .logo {
+  padding: 20px;
+}
+
+@media only screen and (max-width: 720px) {
+  html {
+    overflow: hidden;
   }
+}
+
+#header .pro-sidebar {
+  background: -webkit-linear-gradient(left, #0B0A0A 93%, transparent 7%);
+
+}

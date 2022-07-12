@@ -24,6 +24,7 @@
   height: 50vh;
   max-height: 400px;
   width: 40vw;
+  min-width: 600px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
   border-radius: 20px;
@@ -44,6 +45,7 @@
   /* height: 60vh; */
   /* max-height:500px; */
   width: 24vw;
+  min-width: 300px;
   margin-top: 10%;
   margin-left: 4%;
   border-radius: 10px;
@@ -52,6 +54,7 @@
 }
 .parent {
   display: flex;
+  flex-wrap: wrap;
 }
 .viewRep{
   margin-top: 35%;
@@ -310,3 +313,17 @@ padding-bottom: 8%;
 .todayIcon{
   margin-left: 10%;
 }
+
+
+ @media screen and (max-width: 1200px) {
+  .GenerateReport{
+    margin-top: 0;
+    margin-left: 0;
+  }
+  .viewReport{
+    margin-left: 0;
+  }
+  .clientCount{
+    width: 95%;
+  }
+ }
