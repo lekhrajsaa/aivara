@@ -184,7 +184,7 @@ const Untitle = () => {
             Download
           </div>
           <div className={classes.email} onClick={() => emailHandler()}>
-            Email
+            {/* Email */}
           </div>
           <div onClick={closeBtnHanlder} className={classes.closeIcon}>
             <AiOutlineClose />
