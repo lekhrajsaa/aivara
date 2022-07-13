@@ -420,7 +420,6 @@ const Profile = () => {
             </Col>
           </Row>
         )}
-
         
         <div className={setclassname}>
           {searchInput.length > 0 ? (
@@ -465,7 +464,6 @@ const Profile = () => {
                 src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
                 className={classes.dataempty_image1}
               />
-
               <h4 className={classes.no_report}>No Reports Found</h4>
             </Container>
           ) : (
@@ -513,9 +511,17 @@ const Profile = () => {
         </div>
       </Container> */}
 
-      <Container sx={{ ml: 2 }} style={{ marginLeft: "auto", marginTop: "50px" }}>
+      <Container
+        sx={{ ml: 2 }}
+        style={{ marginLeft: "auto", marginTop: "50px" }}
+      >
         <Row className={classes.tableheader}>
-          <Col style={{ padding: 0 }} md={6} xs={6} className={classes.tableheader_text}>
+          <Col
+            style={{ padding: 0 }}
+            md={6}
+            xs={6}
+            className={classes.tableheader_text}
+          >
             <p>
               Reports{" "}
               <span className={classes.alpha_sort_btn} onClick={sortbox}>
@@ -547,8 +553,8 @@ const Profile = () => {
               <option value="time">Time</option>
             </select>
           </Col>
-          <Col md={1} xs={2} style={{ marginTop: "6px" }}>
-            <p >View </p>
+          <Col md={1} xs={2} >
+            <p>View </p>
           </Col>
           <Col md={1} xs={1} className={classes.proCol5}>
             <p style={{cursor: 'pointer'}} onClick={statusCheck}>
@@ -571,47 +577,45 @@ const Profile = () => {
           </Col>
         </Row>
 
-        {
-          (array && filteredResults.length === 0) ? array.map((a, i) => {
-
-            return (
-              <>
-                <Row style={{ padding: 0 }} className={classes.rowe}>
-                  <Col md={6} xs={5} className={classes.proCol}>
-                    {a.clientName}
-                  </Col>
-                  <Col md={4} xs={3} className={classes.proCol2}>
-                    {dateConstractor(a.customTimeStamp)}
-                  </Col>
-                  <Col md={1} xs={2}>
-                    <button className={classes.proCol3}
-                      onClick={() => {
-                        if (a.reportStatus.toLowerCase() === 'complete') {
-                          fetchOneReport(a.reportId)
-                        } else {
-                          console.log('Yo', a.reportStatus);
-                          setOpenIncompleteStatusDilogBox(a.reportStatus);
-                          setIncompleteReportId(a.reportId)
-                        }
-                      }
-                      }
-                    >View</button>
-                  </Col>
-                  <Col md={1} xs={2} className={classes.proCol4}>
-                    <p>{a.reportStatus}</p>
-                  </Col>
-                </Row>
-              </>
-            );
-          }) : ''
-        }
-        {
-          filteredResults &&
+        {array && filteredResults.length === 0
+          ? array.map((a, i) => {
+              return (
+                <>
+                  <Row style={{ padding: 0 }} className={classes.rowe}>
+                    <Col md={6} xs={5} className={classes.proCol}>
+                      {a.clientName}
+                    </Col>
+                    <Col md={4} xs={3} className={classes.proCol2}>
+                      {dateConstractor(a.customTimeStamp)}
+                    </Col>
+                    <Col md={1} xs={2}>
+                      <button
+                        className={classes.proCol3}
+                        onClick={() => {
+                          if (a.reportStatus.toLowerCase() === "complete") {
+                            fetchOneReport(a.reportId);
+                          } else {
+                            console.log("Yo", a.reportStatus);
+                            setOpenIncompleteStatusDilogBox(a.reportStatus);
+                            setIncompleteReportId(a.reportId);
+                          }
+                        }}
+                      >
+                        View
+                      </button>
+                    </Col>
+                    <Col md={1} xs={2} className={classes.proCol4}>
+                      <p>{a.reportStatus}</p>
+                    </Col>
+                  </Row>
+                </>
+              );
+            })
+          : ""}
+        {filteredResults &&
           filteredResults.map((a, i) => {
-
             return (
               <>
-
                 <Row className={classes.rowe}>
                   <Col md={6} xs={5} className={classes.proCol}>
                     {a.clientName}
@@ -620,18 +624,20 @@ const Profile = () => {
                     {dateConstractor(a.customTimeStamp)}
                   </Col>
                   <Col md={1} xs={2}>
-                    <button className={classes.proCol3}
+                    <button
+                      className={classes.proCol3}
                       onClick={() => {
-                        if (a.reportStatus.toLowerCase() === 'complete') {
-                          fetchOneReport(a.reportId)
+                        if (a.reportStatus.toLowerCase() === "complete") {
+                          fetchOneReport(a.reportId);
                         } else {
-                          console.log('Yo', a.reportStatus);
+                          console.log("Yo", a.reportStatus);
                           setOpenIncompleteStatusDilogBox(a.reportStatus);
-                          setIncompleteReportId(a.reportId)
+                          setIncompleteReportId(a.reportId);
                         }
-                      }
-                      }
-                    >View</button>
+                      }}
+                    >
+                      View
+                    </button>
                   </Col>
                   <Col md={1} xs={2} className={classes.proCol4}>
                     <p>{a.reportStatus}</p>
@@ -639,9 +645,7 @@ const Profile = () => {
                 </Row>
               </>
             );
-          })
-
-        }
+          })}
       </Container>
 
 
