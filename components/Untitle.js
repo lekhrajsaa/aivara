@@ -120,16 +120,21 @@ const Untitle = () => {
   }
 
   // making dates short
-  const dateConstractor = (data) => {
-    // if (data) {
-    //   return JSON.stringify(data).slice(1, 25)
-    // }
-    if (data) {
-      // console.log(data)
-      let date = new Date(data);
-      return `${date.getUTCDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
+  const dateConstructor = (timeStamp) => {
+    if (timeStamp) {
+      // return JSON.stringify(data).slice(1, 25)
+      var date = JSON.stringify(new Date(timeStamp))
+      console.log(date)
+      const day = date.slice(9, 11);
+      const month = date.slice(6, 8);
+      const year = date.slice(1, 5);
+      const customDate = `${day}/${month}/${year}`;
+      const customTime = date.slice(12, 17)
+
+      // const currentDate=customDate.splice
+      return {customDate, customTime};
     }
-  }
+  };
 
 
   function fileInputChangeHandler(e) {
@@ -204,12 +209,10 @@ const Untitle = () => {
           <div className={classes.name}>
             Timestamp:
             <p className={`${classes.subName} ${classes.leftSubName}`}>
-              {dateConstractor(reportTableData.customTimeStamp)}
-              &nbsp; &nbsp; &nbsp;
-              {((new Date(reportTableData.customTimeStamp).getHours())) === 0 ? '12' :  ((new Date(reportTableData.customTimeStamp).getUTCHours()))}
-              :
-              {(new Date(reportTableData.customTimeStamp).getMinutes())}
-              {/* {reportTableData.customTimeStamp} */}
+              {dateConstructor(reportTableData.customTimeStamp).customDate}
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {dateConstructor(reportTableData.customTimeStamp).customTime}
+
             </p>
           </div>
         </div>

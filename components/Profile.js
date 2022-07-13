@@ -110,12 +110,12 @@ const Profile = () => {
       query: `{
         getUser {
           name
-    labName
-    phoneNo
-    email
-    userId
-    lastLoggedIn
-    password
+          labName
+          phoneNo
+          email
+          userId
+          lastLoggedIn
+          password
         }
       }`,
       variables: {},
@@ -183,8 +183,8 @@ const Profile = () => {
   //Day time filter
 
   const datetimeFilter = (a) => {
-    console.log(a);
-  };
+    console.log(a)
+  }
 
   // searching Reports
   const searchItems = (searchValue) => {
@@ -235,15 +235,10 @@ const Profile = () => {
 
   // Status filter
   const labstatus = (a) => {
-    // console.log("helllo"+ array[0]);
-    // if (searchInput !== "") {
-      if(a === 'all'){
-        setFilteredResults(array)
-      }
-      setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
-    // } else {
-    //   // setarray(array.filter((e, i, array) => e.Status === a));
-    // }
+    if (a === 'all') {
+      setFilteredResults(array)
+    }
+    setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
     setopenStatus(false);
   };
 
@@ -287,10 +282,20 @@ const Profile = () => {
   const dateConstractor = (timeStamp) => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
-      var date = new Date(timeStamp)
-      const customDate = JSON.stringify(date).slice(1, 11);
-      const customTime = JSON.stringify(date).slice(12, 17);
-      const currentDate = customDate + " / " + customTime;
+      var date = JSON.stringify(new Date(timeStamp))
+      console.log(date)
+      const day = date.slice(9, 11);
+      const month = date.slice(6, 8);
+      const year = date.slice(3, 5);
+      const customDate = `${day}/${month}/${year}`;
+      // const customDate = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
+      // console.log('date', customDate)
+      // console.log('hour', date.slice(12, 14))
+      // const hour = Number(date.slice(12, 14)) % 12;
+      // const minute = date.slice(15, 17);
+      // const customTime = `${hour}:${minute}`;
+      const customTime = date.slice(12, 17)
+      const currentDate = customDate + " ; " + customTime;
 
       // const currentDate=customDate.splice
       return currentDate;
@@ -535,25 +540,26 @@ const Profile = () => {
               </span>
             </p>
           </Col>
-          <Col md={4} xs={3} className={classes.proCol2}>
-            <select style={{fontFamily: "Sora",
-                border:"none",
-                fontSize:"15px",
-                fontWeight: "700",
-                color: "#395d89"}}>
-                  
-               <option  selected>Date/Time</option>
-               <option>Date</option>
-               <option>Time</option>
+          <Col md={4} xs={3} className={classes.proCol2} >
+            {/* <p>
+              Date/Time{" "}
+              <span className={classes.date_sort_btn}>
+                <BiChevronDown />
+              </span>
+            </p> */}
+            <select id="datetimeStatus" class="LoginForm_dateTimestatus_sort_box__FcA3z">
+              <option>Date/Time</option>
+              <option value="date">Date</option>
+              <option value="time">Time</option>
             </select>
           </Col>
           <Col md={1} xs={2} >
             <p>View </p>
           </Col>
           <Col md={1} xs={1} className={classes.proCol5}>
-            <p>
+            <p style={{cursor: 'pointer'}} onClick={statusCheck}>
               Status
-              <span className={classes.status_sort_btn} onClick={statusCheck}>
+              <span className={classes.status_sort_btn}>
                 <BiChevronDown />
               </span>
               <span
@@ -642,7 +648,10 @@ const Profile = () => {
           })}
       </Container>
 
-      <Container className={classes.report2}>
+
+
+
+      <Container style={{marginLeft: '-10px'}} className={classes.report2}>
         <div className={classes.uploadicon}>
           {/* <i
             className="fa-solid fa-arrow-up-from-bracket"
