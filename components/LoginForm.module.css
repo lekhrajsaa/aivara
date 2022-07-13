@@ -506,9 +506,10 @@
   text-decoration: none;
   background: none;
   position: relative;
-
 }
-
+.proCol4{
+  min-width: 100px;
+}
 .proCol4 p {
   text-align: left;
   font-family: "Sora";
@@ -535,6 +536,8 @@
   font-weight: 350;
   color: #606060;
   font-size: 95%;
+  width: fit-content;
+  margin-left: auto;
 }
 
 .proCol {
@@ -542,6 +545,7 @@
   font-weight: 500;
   color: black;
   padding: 0;
+  width: fit-content;
 }
 
 .heading {
