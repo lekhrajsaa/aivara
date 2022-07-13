@@ -132,13 +132,30 @@ const NewHome = () => {
 
           <div className={classes.dropdown}>
             <select className={classes.dateTimestatus_sort_box}>
-              <option className={classes.dateTimestatus_sort_box_options} selected>Today</option>
-              <option className={classes.dateTimestatus_sort_box_options}>Yesterday</option>
-              <option className={classes.dateTimestatus_sort_box_options}>2 days ago</option>
-              <option className={classes.dateTimestatus_sort_box_options}>7 days ago</option>
-              <option className={classes.dateTimestatus_sort_box_options}>15 days ago</option>
-              <option className={classes.dateTimestatus_sort_box_options}>1 month ago</option>
-              <option className={classes.dateTimestatus_sort_box_options}>2 month ago</option>
+              <option
+                className={classes.dateTimestatus_sort_box_options}
+                selected
+              >
+                Today
+              </option>
+              <option className={classes.dateTimestatus_sort_box_options}>
+                Yesterday
+              </option>
+              <option className={classes.dateTimestatus_sort_box_options}>
+                2 days ago
+              </option>
+              <option className={classes.dateTimestatus_sort_box_options}>
+                7 days ago
+              </option>
+              <option className={classes.dateTimestatus_sort_box_options}>
+                15 days ago
+              </option>
+              <option className={classes.dateTimestatus_sort_box_options}>
+                1 month ago
+              </option>
+              <option className={classes.dateTimestatus_sort_box_options}>
+                2 month ago
+              </option>
             </select>
           </div>
 
@@ -148,7 +165,8 @@ const NewHome = () => {
                 value={clientNumber}
                 styles={buildStyles({
                   pathColor: "#4EAFE5",
-                  trailColor: "transparent",
+                  // trailColor: "transparent",
+                  trailColor: "#d4e6fb",
                   pathTransitionDuration: 0.5,
                 })}
                 className={classes.noOfClientsChart}
@@ -157,7 +175,7 @@ const NewHome = () => {
                 value={reportNumber}
                 styles={buildStyles({
                   pathColor: "#2438EE",
-                  trailColor: "transparent",
+                  trailColor: " rgb(133, 171, 254)",
                 })}
                 className={classes.noOfReportsChart}
               />
