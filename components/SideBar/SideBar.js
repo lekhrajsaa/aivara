@@ -35,6 +35,7 @@ import { CgLogOff } from "react-icons/cg";
 //import sidebar css from react-pro-sidebar module and our custom css
 import "react-pro-sidebar/dist/css/styles.css";
 import classes from "./SideBar.module.css";
+
 const Sidebar = (props) => {
   const router = useRouter();
   //create initial menuCollapse state using useState hook
@@ -129,11 +130,11 @@ const Sidebar = (props) => {
               </MenuItem>
             </Menu>
           </SidebarContent>
-          <SidebarFooter>
+          {/* <SidebarFooter>
             <Menu iconShape="square">
-              {/* <MenuItem icon={<FiLogOut />}>Logout</MenuItem> */}
+              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
             </Menu>
-          </SidebarFooter>
+          </SidebarFooter> */}
         </ProSidebar>
       </div>
     </>

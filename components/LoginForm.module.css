@@ -13,12 +13,14 @@
 #logo_cont {
   width: 60px;
 }
+
 .step {
   font-family: "Sora", sans-serif;
   font-size: 95%;
   color: #9b9b9b;
   margin-top: 1%;
 }
+
 @media screen and (max-width: 1000px) {
   .step {
     display: none;
@@ -31,11 +33,9 @@
 }
 
 .bottomLine {
-  background: linear-gradient(
-    118.65deg,
-    #3699fb 6.89%,
-    rgba(255, 172, 242, 0) 107.01%
-  );
+  background: linear-gradient(118.65deg,
+      #3699fb 6.89%,
+      rgba(255, 172, 242, 0) 107.01%);
   height: 16%;
   width: 48%;
   /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);  */
@@ -44,11 +44,13 @@
 .email:focus {
   outline: none;
 }
+
 .email::placeholder {
   color: #dcd3e9;
   font-size: 100%;
   font-family: "Sora", sans-serif;
 }
+
 .footer {
   width: 60%;
   padding-left: 0%;
@@ -63,20 +65,22 @@
   text-align: justify;
   color: #7b757a;
 }
+
 @media screen and (max-width: 1300px) and (min-width: 990px) {
-  .footer {
-  }
+  .footer {}
 }
 
 .signup {
   margin-top: 21% !important;
   margin-left: 10% !important;
 }
+
 .login {
   margin-top: 20% !important;
   margin-left: 10% !important;
   width: auto;
 }
+
 /* @media screen and (max-width: 1300px) and (min-width:990px){
    .signup {
     margin-top: 30% !important;
@@ -103,17 +107,21 @@
 */
 
 @media screen and (max-width: 1530px) {
+
   .signup,
   .login {
     margin-top: 21.22% !important;
     margin-left: 15% !important;
     width: auto;
   }
+
   .status_sort_box {
-    right: 500px;
+    /* right: 500px; */
   }
 }
+
 @media screen and (width: 1024px) and (height: 600px) {
+
   .signup,
   .login {
     margin-top: 28.22% !important;
@@ -121,42 +129,54 @@
     width: auto;
   }
 }
+
 @media screen and (min-width: 1400px) and (max-width: 1530px) {
+
   .signup,
   .login {
     margin-top: 21.22% !important;
     margin-left: 15% !important;
   }
 }
+
 @media screen and (max-width: 1400px) {
+
   .signup,
   .login {
     margin-top: 32% !important;
     margin-left: 15% !important;
   }
 }
+
 @media screen and (max-width: 1399px) {
+
   .signup,
   .login {
     margin-top: 27% !important;
     margin-left: 15% !important;
   }
 }
+
 @media screen and (max-width: 1200px) {
+
   .signup,
   .login {
     margin-top: 30% !important;
     margin-left: 15% !important;
   }
 }
+
 @media screen and (max-width: 1090px) {
+
   .signup,
   .login {
     margin-top: 35% !important;
     margin-left: 20% !important;
   }
 }
+
 @media screen and (max-height: 900px) {
+
   .signup,
   .login {
     margin-top: 30% !important;
@@ -169,11 +189,13 @@
     margin-top: 22% !important;
   }
 }
+
 @media screen and (min-height: 700px) and (max-height: 840px) {
   .signup {
     margin-top: 25% !important;
   }
 }
+
 @media screen and (max-width: 1630px) and (max-height: 700px) {
   .login {
     margin-top: 18% !important;
@@ -192,16 +214,19 @@
     font-size: 80% !important;
   }
 }
+
 @media screen and (max-width: 580px) {
   .secure {
     font-size: 70% !important;
   }
 }
+
 @media screen and (max-width: 285px) {
   .only {
     font-size: 70% !important;
   }
 }
+
 @media screen and (max-width: 500px) {
   .secure {
     font-size: 60% !important;
@@ -214,6 +239,7 @@
     width: 120% !important;
   }
 }
+
 @media screen and (min-width: 760px) and (max-width: 930px) {
   .bottomLine {
     width: 130% !important;
@@ -221,12 +247,14 @@
     padding-bottom: 2.5px;
   }
 }
+
 @media screen and (min-width: 260px) and (max-width: 430px) {
   .bottomLine {
     width: 110% !important;
     padding-bottom: 2.5px;
   }
 }
+
 .strongpassword {
   margin-top: 15px;
   margin-bottom: 2px;
@@ -237,6 +265,7 @@
   font-family: "Sora", sans-serif;
   font-size: 80%;
 }
+
 .success {
   color: #c4c4c4;
   font-size: 150%;
@@ -244,6 +273,7 @@
   margin-top: 20%;
   margin-left: 20%;
 }
+
 .resend {
   color: #818181;
   font-size: 87%;
@@ -264,10 +294,12 @@
   font-family: "Sora";
   color: white;
 }
+
 .testTab:focus {
   color: #395d89 !important;
   font-weight: bold;
 }
+
 .testTab {
   margin-left: 2.5%;
   border: 0px solid white !important;
@@ -304,11 +336,13 @@
     font-size: 75%;
   }
 }
+
 @media (max-width: 370px) {
   .uploadBox {
     font-size: 70%;
   }
 }
+
 @media (max-width: 345px) {
   .uploadBox {
     font-size: 65%;
@@ -337,6 +371,7 @@
   color: #818181;
   font-weight: bold;
 }
+
 .back :hover {
   cursor: pointer;
 }
@@ -347,12 +382,14 @@
 
   font-size: 14px;
 }
+
 .report2 {
   text-align: left;
   padding-right: 0%;
   margin-top: 8%;
   font-family: "Sora";
 }
+
 @media screen and (max-height: 750px) {
   .report2 {
     margin-top: 3% !important;
@@ -363,6 +400,7 @@
   .report2 {
     margin-top: 2% !important;
   }
+
   .report {
     margin-top: 6%;
     font-size: 14px;
@@ -373,13 +411,16 @@
   border: 0.5px solid #c0bec0;
   margin-top: 1%;
 }
+
 .scrollRep {
   overflow-y: scroll;
   height: 350px;
 }
+
 .scrollRep::-webkit-scrollbar {
   display: none;
 }
+
 /* .uploadicon{
   margin-left: 77%;
   margin-top: 8%;
@@ -412,6 +453,34 @@
    
   }
 } */
+
+.status_sort_box{
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.1) -2px 2px 15px -3px,
+              rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  width: 140px;
+  /* padding: 2px; */
+  position: absolute;
+  top: 40px;
+  right: 0px;
+  z-index: 9999;
+  background-color: white;
+  text-align: start;
+  padding-bottom: 10px;
+}
+
+.status_sort_box li{
+  list-style: none;
+  padding-left: 10px;
+  padding-top: 5px;
+  color: #000000;
+}
+
+.status_sort_box li:hover{
+  background-color: #c4c4c4;
+  cursor: pointer;
+ 
+}
 .hello {
   color: #3699fb;
   font-family: "Sora";
@@ -423,9 +492,11 @@
   margin-top: 3%;
   padding: auto;
 }
+
 .time {
   color: #c4c4c4;
 }
+
 .proCol5 {
   text-align: left;
   font-family: "Sora";
@@ -434,7 +505,10 @@
   border: none;
   text-decoration: none;
   background: none;
+  position: relative;
+
 }
+
 .proCol4 p {
   text-align: left;
   font-family: "Sora";
@@ -444,6 +518,7 @@
   text-decoration: none;
   background: none;
 }
+
 .proCol3 {
   text-align: left;
   font-family: "Sora";
@@ -453,6 +528,7 @@
   text-decoration: none;
   background: none;
 }
+
 .proCol2 {
   text-align: right;
   font-family: "Sora";
@@ -460,11 +536,14 @@
   color: #606060;
   font-size: 95%;
 }
+
 .proCol {
   font-family: "Sora";
   font-weight: 500;
   color: black;
+  padding: 0;
 }
+
 .heading {
   margin-bottom: 4%;
   color: #395d89 !important;
@@ -472,23 +551,28 @@
   font-weight: 600;
   font-family: "Sora";
 }
+
 .rowe {
   border-bottom: 0.5px solid #3f3d3f;
   margin-bottom: 2%;
   padding-bottom: 1%;
   border-width: 50% !important;
 }
+
 .dropdown-toggle::after {
   display: none !important;
   content: none !important;
 }
+
 .icon::after {
   display: none !important;
   content: none !important;
 }
+
 .my-dropdown-toggle:after {
   display: none !important;
 }
+
 .dropbtn {
   color: white;
   background-color: white !important;
@@ -520,6 +604,7 @@
   text-decoration: none;
   display: block;
 }
+
 .dropdown_content a:hover {
   background-color: #ddd;
 }
@@ -533,75 +618,90 @@
     width: 120% !important;
   }
 }
+
 @media screen and (min-width: 250px) and (max-width: 570px) {
   .profileLine {
     width: 120% !important;
   }
 }
+
 @media screen and (min-width: 250px) and (max-width: 560px) {
+
   .tableheader,
-  .row{
+  .row {
     width: 100% !important;
-   
+
   }
 }
+
 @media screen and (min-width: 450px) and (max-width: 560px) {
   .dropdown {
     width: 140% !important;
     font-size: 90%;
   }
 }
+
 @media screen and (min-width: 990px) and (max-width: 1100px) {
   .mobileH {
     width: 20% !important;
   }
 }
+
 @media screen and (min-width: 770px) and (max-width: 900px) {
   .mobileH {
     width: 110% !important;
   }
 }
+
 @media screen and (min-width: 555px) and (max-width: 670px) {
   .mobileH {
     width: 110% !important;
   }
 }
+
 @media screen and (min-width: 1193px) and (max-width: 1255px) {
   .mobileH {
     width: 105% !important;
   }
 }
+
 @media screen and (min-width: 250px) and (max-width: 415px) {
   .report {
     margin-left: 30px;
   }
 }
+
 @media screen and (min-width: 870px) and (max-width: 1200px) {
   .report {
     margin-top: 12% !important;
   }
 }
+
 @media screen and (min-width: 416px) and (max-width: 569px) {
   .report {
     margin-left: 35px;
   }
 }
+
 @media screen and (min-width: 525px) and (max-width: 870px) {
   .report {
     margin-top: 22% !important;
   }
 }
+
 @media screen and (min-width: 430px) and (max-width: 525px) {
   .report {
     margin-top: 30% !important;
   }
 }
+
 @media screen and (min-width: 250px) and (max-width: 430px) {
   .report {
     margin-top: 25% !important;
     font-size: small;
   }
 }
+
 @media screen and (mx-width: 1376px) {
   .tableheader {
     width: 100%;
@@ -617,11 +717,13 @@
 .Inputimg {
   visibility: hidden;
 }
+
 @media screen and (max-width: 578px) {
   .strongpassword {
     font-size: 10px;
   }
 }
+
 @media screen and (min-width: 430px) and (max-width: 750px) {
   .bottomLine {
     width: 100% !important;
@@ -629,9 +731,11 @@
     padding-bottom: 2.5px;
   }
 }
+
 .dropdown_conten a {
   cursor: pointer;
 }
+
 .Generate {
   background-color: red;
 }
@@ -639,7 +743,8 @@
 .homeBody {
   padding-left: 16%;
   width: auto;
-  margin-right: 5%;
+  /* margin-right: 5%; */
+  margin: 0 2%;
 }
 
 /* ===========search bar and generate button */
@@ -652,7 +757,7 @@
 .search_main {
   width: 80%;
   display: flex;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 
 .form_control {
@@ -681,6 +786,7 @@
   font-size: 30px;
   font-family: "sora";
 }
+
 .gen_button {
   outline: none;
   padding: 12px;
@@ -688,7 +794,7 @@
   border-radius: 3px;
   background-color: #b7d7f7;
   font-size: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .emptdata_img,
@@ -701,11 +807,13 @@
 .no_report {
   font-family: "sora";
 }
+
 @media screen and (max-width: 786px) {
   .search_main {
     width: 50%;
     margin: 10px;
   }
+
   .form_control {
     width: 400px;
   }
@@ -716,10 +824,12 @@
   font-size: 30px;
   font-family: "sora";
 }
+
 .dayfilter {
   padding-left: 400px;
   text-align: center;
 }
+
 .dayfilter h6 {
   font-size: 20px;
   border-radius: 16px;
@@ -730,6 +840,7 @@
   background-color: white;
   cursor: pointer;
 }
+
 .listday {
   height: auto;
   width: 140;
@@ -741,25 +852,31 @@
   padding: 10px 10px;
   border-radius: 13px;
 }
+
 .listday li {
   list-style: none;
 }
+
 .tableheader {
   align-items: flex-start;
 }
+
 .tableheader p {
   color: #395d89;
   font-weight: bold;
 }
+
 .dataempty_image {
   padding-top: 0px;
   height: 320px;
 }
+
 .dataempty_image1 {
   padding-top: 10px;
   margin-top: 0px;
   height: 320px;
 }
+
 .alpha_sort_btn,
 .date_sort_btn,
 .status_sort_btn {
@@ -767,6 +884,7 @@
   font-weight: bolder;
   cursor: pointer;
 }
+
 .alpha_sort_box {
   z-index: 999;
   width: 200px;
@@ -774,18 +892,20 @@
   /* padding-top: 13px; */
   height: 50px;
   border-radius: 4px;
-  position: relative;
-
+  position: absolute;
+  display: block;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   background-color: white;
   text-align: center;
 }
+
 .listday_hide,
 .alpha_sort_box_hide,
-.status_sort_box_hide,.dateTimestatus_sort_box_hide{
+.status_sort_box_hide, .dateTimestatus_sort_box_hide {
   display: none;
 }
+
 .alpha_sort_text {
   list-style: none;
   background-color: #b7d7f7;
@@ -794,13 +914,14 @@
   margin-top: 14px;
   display: block;
 }
-.dateTimestatus_sort_box{
+
+.dateTimestatus_sort_box {
   border: none;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 700;
   width: 110px;
   /* padding: 2px; */
-  color:#395D89;
+  color: #395D89;
   text-align: start;
   padding: 5px;
 
@@ -808,49 +929,28 @@
 
 
 
-.status_sort_box{
-  border: none;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
-    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
-  width: 140px;
-  /* padding: 2px; */
-  position: relative;
-  right: 0px;
-  
-  z-index: 9999;
-  background-color: white;
-  text-align: start;
-  padding-bottom: 10px;
-}
-.status_sort_box li{
-  list-style: none;
-  padding-left: 10px;
-  padding-top: 5px;
-  color: #000000;
-}
 
-.status_sort_box li:hover{
-  background-color: #c4c4c4;
-  cursor: pointer;
- 
-}
 @media screen and (min-width: 990px) and (max-width: 1149px) {
   .status_sort_box {
-    right: 75px;
+    /* right: 75px; */
   }
+
   .status_sort_box li {
     font-size: 10px;
   }
 }
+
 @media screen and (min-width: 1150px) and (max-width: 1650px) {
   .status_sort_box {
-    right: 80px;
+    /* right: 80px; */
   }
+
   .status_sort_box li {
     font-size: 13px;
   }
-   
+
 }
+
 /* @media screen and (min-width: 1011px) and (max-width: 1600px) {
   .status_sort_box {
     right: 80px;
@@ -860,11 +960,12 @@
   .dayfilter {
     padding-left: 100px;
   }
-  
+
 }
+
 @media screen and (max-width: 1450px) {
   .dayfilter {
     padding-left: 200px;
   }
-   
+
 }

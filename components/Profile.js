@@ -158,7 +158,7 @@ const Profile = () => {
       .then((result) => {
         if (result && result.data && result.data.Items) {
           console.log(result.data.Items);
-          setarray(result.data.Items);
+          setarray(result.data.Items)
         }
       })
       .catch((error) => console.log("error", error));
@@ -237,12 +237,10 @@ const Profile = () => {
   const labstatus = (a) => {
     // console.log("helllo"+ array[0]);
     // if (searchInput !== "") {
-    if (a === "all") {
-      setFilteredResults(array);
-    }
-    setFilteredResults(
-      array.filter((e, i) => e.reportStatus.toLowerCase() === a)
-    );
+      if(a === 'all'){
+        setFilteredResults(array)
+      }
+      setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
     // } else {
     //   // setarray(array.filter((e, i, array) => e.Status === a));
     // }
@@ -289,7 +287,7 @@ const Profile = () => {
   const dateConstractor = (timeStamp) => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
-      var date = new Date(timeStamp);
+      var date = new Date(timeStamp)
       const customDate = JSON.stringify(date).slice(1, 11);
       const customTime = JSON.stringify(date).slice(12, 17);
       const currentDate = customDate + " / " + customTime;
@@ -538,14 +536,17 @@ const Profile = () => {
             </p>
           </Col>
           <Col md={4} xs={3} className={classes.proCol2}>
-            <p>
-              Date/Time{" "}
-              <span className={classes.date_sort_btn}>
+            <select classname={classes.dateTimestatus_sort_box }>
+             
+              {/* <span className={classes.date_sort_btn}>
                 <BiChevronDown />
-              </span>
-            </p>
+              </span> */}
+              <option selected>Date/Time</option>
+              <option>Date</option>
+              <option>Time</option>
+            </select>
           </Col>
-          <Col md={1} xs={2} style={{ marginTop: "6px" }}>
+          <Col md={1} xs={2} >
             <p>View </p>
           </Col>
           <Col md={1} xs={1} className={classes.proCol5}>
