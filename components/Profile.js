@@ -536,14 +536,15 @@ const Profile = () => {
             </p>
           </Col>
           <Col md={4} xs={3} className={classes.proCol2}>
-            <select classname={classes.dateTimestatus_sort_box }>
-             
-              {/* <span className={classes.date_sort_btn}>
-                <BiChevronDown />
-              </span> */}
-              <option selected>Date/Time</option>
-              <option>Date</option>
-              <option>Time</option>
+            <select style={{fontFamily: "Sora",
+                border:"none",
+                fontSize:"15px",
+                fontWeight: "700",
+                color: "#395d89"}}>
+                  
+               <option  selected>Date/Time</option>
+               <option>Date</option>
+               <option>Time</option>
             </select>
           </Col>
           <Col md={1} xs={2} >

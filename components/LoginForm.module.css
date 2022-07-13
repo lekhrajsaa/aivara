@@ -25,7 +25,7 @@
   .step {
     display: none;
   }
-}
+
 
 .logo {
   width: 100%;
@@ -66,9 +66,7 @@
   color: #7b757a;
 }
 
-@media screen and (max-width: 1300px) and (min-width: 990px) {
-  .footer {}
-}
+
 
 .signup {
   margin-top: 21% !important;
@@ -102,9 +100,9 @@
     margin-left: 12% !important;
   }
   
- 
+ */
 }
-*/
+
 
 @media screen and (max-width: 1530px) {
 
@@ -115,9 +113,7 @@
     width: auto;
   }
 
-  .status_sort_box {
-    /* right: 500px; */
-  }
+ 
 }
 
 @media screen and (width: 1024px) and (height: 600px) {
@@ -454,6 +450,13 @@
   }
 } */
 
+.dateTimestatus_sort_box{
+  border: none;
+  font-family: "Sora";
+  font-weight: 400;
+  color: #395d89;
+}
+
 .status_sort_box{
   border: none;
   box-shadow: rgba(0, 0, 0, 0.1) -2px 2px 15px -3px,
@@ -533,8 +536,8 @@
   text-align: right;
   font-family: "Sora";
   font-weight: 350;
-  color: #606060;
-  font-size: 95%;
+   color: #395d89;
+font-size: 95%;
 }
 
 .proCol {
@@ -915,7 +918,7 @@
   display: block;
 }
 
-.dateTimestatus_sort_box {
+.dateTimestatus_sort_box{
   border: none;
   font-size: 20px;
   font-weight: 700;
@@ -931,9 +934,7 @@
 
 
 @media screen and (min-width: 990px) and (max-width: 1149px) {
-  .status_sort_box {
-    /* right: 75px; */
-  }
+  
 
   .status_sort_box li {
     font-size: 10px;
@@ -941,9 +942,7 @@
 }
 
 @media screen and (min-width: 1150px) and (max-width: 1650px) {
-  .status_sort_box {
-    /* right: 80px; */
-  }
+  
 
   .status_sort_box li {
     font-size: 13px;
