@@ -54,6 +54,8 @@ const Profile = () => {
   // console.log("this is useradata")
   // console.log(userdata)
   const [array, setarray] = useState(labdata);
+  const [dateTimeOpened, setDateTimeOpened] = useState(false);
+  const [dateTimeValue, setDateTimeValue] = useState('Date/Time');
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -103,7 +105,7 @@ const Profile = () => {
   const selectdayHandler = (e) => {
     setopenday(false);
     console.log();
-    SettimePeriod(e.target.innerHTML);
+    SettimePeriod(e.target.innerText);
   };
   const getUserData = async () => {
     let body = {
@@ -141,6 +143,15 @@ const Profile = () => {
     }
   };
 
+
+  function dateTimeClickHanlder(){
+    setDateTimeOpened(prv => !prv);
+  }
+  function dateTimeOptionClickHanlder(e){
+    setDateTimeValue(e.target.innerText);
+    setDateTimeOpened(false)
+  }
+  
   // geting all report data from database
   const fetchAllReportData = async () => {
     var myHeaders = new Headers();
@@ -188,18 +199,18 @@ const Profile = () => {
 
   // searching Reports
   const searchItems = (searchValue) => {
-     setSearchInput(searchValue);
-     if (searchInput !== "") {
-       const filteredData = array.filter((item) => {
-         return Object.values(item)
-           .join("")
-           .toLowerCase()
-           .includes(searchInput.toLowerCase());
-       });
-       setFilteredResults(filteredData);
-     } else {
-       setFilteredResults(array);
-     }
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      const filteredData = array.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(filteredData);
+    } else {
+      setFilteredResults(array);
+    }
   };
   const filteredData = array.filter((item) => {
     return Object.values(item)
@@ -328,7 +339,7 @@ const Profile = () => {
     <div className={classes.homeBody}>
       <Container style={{ paddingLeft: 0, maxWidth: 'unset' }} className={classes.name}>
         {searchBarTab && (
-          <div style={{justifyContent: 'space-between', marginRight: '15%', width: 'unset'}} className={classes.search_main}>
+          <div style={{ justifyContent: 'space-between', marginRight: '15%', width: 'unset' }} className={classes.search_main}>
             <div className={`${classes.form_group} ${classes.has_search}`}>
               <span className={classes.searchicon}>
                 <AiOutlineSearch />
@@ -543,11 +554,14 @@ const Profile = () => {
                 <BiChevronDown />
               </span>
             </p> */}
-            <select id="datetimeStatus" class="LoginForm_dateTimestatus_sort_box__FcA3z">
-              <option>Date/Time</option>
-              <option value="date">Date</option>
-              <option value="time">Time</option>
-            </select>
+            <div  id="datetimeStatus" class={classes.dateTimestatus_sort_box}>
+              <p onBlur={() => dateTimeOpened(false)} onClick={dateTimeClickHanlder} className={classes.datetimeStatus}>{dateTimeValue} <BiChevronDown /></p>
+              <ul style={{display: 'none'}} className={dateTimeOpened && classes.dateTimestatus_sort_box_options}>
+                <li onClick={dateTimeOptionClickHanlder}>Date/Time</li>
+                <li onClick={dateTimeOptionClickHanlder}>Date</li>
+                <li onClick={dateTimeOptionClickHanlder}>Time</li>
+              </ul>
+            </div>
           </Col>
           <Col md={1} xs={2} >
             <p>View </p>
@@ -573,7 +587,7 @@ const Profile = () => {
           </Col>
         </Row>
 
-        <Row style={{overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px'}}>
+        <Row style={{ overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px' }}>
 
           {array && filteredResults.length === 0
             ? array.map((a, i) => {
@@ -614,7 +628,7 @@ const Profile = () => {
             filteredResults.map((a, i) => {
               return (
                 <>
-                  <Row style={{ padding: '10px 0', marginLeft: '0', marginRight: '0', alignItems: 'center'  }} className={classes.rowe}>
+                  <Row style={{ padding: '10px 0', marginLeft: '0', marginRight: '0', alignItems: 'center' }} className={classes.rowe}>
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
                     </Col>

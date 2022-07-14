@@ -3,6 +3,7 @@ import { Col, Container, Row } from "reactstrap";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import classes from "./newHome.module.css";
+import { BiChevronDown } from "react-icons/bi";
 import {
   Button,
   ButtonGroup,
@@ -25,14 +26,14 @@ const NewHome = () => {
   
   const per = 66;
   const percentage = 56;
-  const [timePeriod,SettimePeriod]=useState("Today")
-  const [openState,setopenState]=useState(false)
+  const [timePeriod, setTimePeriod]=useState("Today")
+  const [timePeriodOpen, setTimePeriodOpen] = useState(false)
   const [clientNumber, setClientNumber] = useState(0)
   const [reportNumber, setReportNumber] = useState(0)
 
   const selectdayHandler=(e)=>{
-   SettimePeriod(e.target.innerHTML)
-  
+    setTimePeriod(e.target.innerText);
+    setTimePeriodOpen(false);
   }
   // geting all report data from database
   const fetchAllReportData = async (token) => {
@@ -131,32 +132,30 @@ const NewHome = () => {
           </Dropdown> */}
 
           <div className={classes.dropdown}>
-            <select className={classes.dateTimestatus_sort_box}>
-              <option
-                className={classes.dateTimestatus_sort_box_options}
-                selected
-              >
+            <h3 onClick={() => {setTimePeriodOpen(prv => !prv)}}>{timePeriod} <BiChevronDown /></h3>
+            <ul style={{display: 'none'}} className={timePeriodOpen && classes.timePeriod_sort_box}>
+              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
                 Today
-              </option>
-              <option className={classes.dateTimestatus_sort_box_options}>
+              </li>
+              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
                 Yesterday
-              </option>
-              <option className={classes.dateTimestatus_sort_box_options}>
+              </li>
+              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
                 2 days ago
-              </option>
-              <option className={classes.dateTimestatus_sort_box_options}>
+              </li>
+              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
                 7 days ago
-              </option>
-              <option className={classes.dateTimestatus_sort_box_options}>
+              </li>
+              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
                 15 days ago
-              </option>
-              <option className={classes.dateTimestatus_sort_box_options}>
+              </li>
+              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
                 1 month ago
-              </option>
-              <option className={classes.dateTimestatus_sort_box_options}>
+              </li>
+              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
                 2 month ago
-              </option>
-            </select>
+              </li>
+            </ul>
           </div>
 
           <div className={classes.threeparts}>
