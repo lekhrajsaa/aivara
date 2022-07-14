@@ -60,6 +60,8 @@ const Profile = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
+
+  // filter output
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
   const [tableheaderTab, settableheaderTab] = useState(true);
@@ -102,11 +104,91 @@ const Profile = () => {
       setopenday(true);
     }
   };
+  
   const selectdayHandler = (e) => {
     setopenday(false);
-    console.log();
     SettimePeriod(e.target.innerText);
+    
+    // console.log(e.target.innerText);
+    // handler
+    const ONEDAY = 86400000;//ms
+
+    switch (e.target.innerText) {
+      case "Today":
+        reportOfToday();
+        break;
+      case "Yesterday":
+        filterReportsOnTimeStamp(ONEDAY);
+        break;
+      case "2 day ago":
+        filterReportsOnTimeStamp(2*ONEDAY);
+        break;
+      case "7 day ago":
+        filterReportsOnTimeStamp(7*ONEDAY);
+        break;
+      case "15 day ago":
+        filterReportsOnTimeStamp(15*ONEDAY);
+        break;
+      case "1 month ago":
+        filterReportsOnTimeStamp(30*ONEDAY);
+        break;
+      case "2 month ago":
+        filterReportsOnTimeStamp(60*ONEDAY);
+        break;
+    
+      default:
+        break;
+    };
+
+    function reportOfToday() {
+      let dupiDate = new Date();
+
+      const filteredOutput = array.filter(item => {
+        let temp = item.customTimeStamp;
+        let tempDate = new Date(temp);
+
+        // let dupli = todayInMS - filterOn;
+
+        // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()}`)
+
+        // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
+        if (tempDate.getFullYear() === dupiDate.getFullYear()  && tempDate.getMonth() === dupiDate.getMonth() && tempDate.getDate() === dupiDate.getDate()) {
+          return true;
+        }
+        return false;
+      });
+
+      // console.log(filteredOutput)
+      setFilteredResults(filteredOutput);
+      
+    }
+
+    function filterReportsOnTimeStamp(filterOn) {
+      let todayInMS = Date.now();
+
+      const filteredOutput = array.filter(item => {
+        let temp = item.customTimeStamp;
+        let tempDate = new Date(temp);
+
+        let dupli = todayInMS - filterOn;
+        let dupiDate = new Date(dupli);
+
+        // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()}`)
+
+        // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
+        // console.log(temp," and ", dupli, temp > dupli)
+        if(dupli <= temp) {
+          // console.log("matched", item)
+          return true;
+        }
+        return false;
+      });
+
+      // console.log(filteredOutput, "filterd date")
+      setFilteredResults(filteredOutput);
+    };
   };
+
   const getUserData = async () => {
     let body = {
       query: `{
@@ -291,7 +373,7 @@ const Profile = () => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
       var date = JSON.stringify(new Date(timeStamp))
-      console.log(date)
+      // console.log(date)
       const day = date.slice(9, 11);
       const month = date.slice(6, 8);
       const year = date.slice(3, 5);
