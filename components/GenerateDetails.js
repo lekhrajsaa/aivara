@@ -325,7 +325,7 @@ const GenerateDetails = () => {
               />
               <div className={contentClassname}>
                 {showMenu ? (
-                  <FormControl>
+                  <FormControl >
                     <div onClick={hideMenu} className={classes.Invisible}></div>
                     {sampledata.map((val) => {
                       return (
@@ -457,7 +457,7 @@ const GenerateDetails = () => {
           </Row>
 
           {/* ============================================= */}
-          <button className={classes.sub} onClick={SubmitReport}>
+          <button className={classes.sub} onClick={SubmitReport} style={{margin:"10px "}}>
             SUBMIT
           </button>
         </Container>
@@ -471,7 +471,7 @@ const GenerateDetails = () => {
       )}
 
       <Container className={classes.footer}>
-        <p> copyright aivara | terms and coditions </p>
+        {/* <p> copyright aivara | terms and coditions </p> */}
       </Container>
       <Stack spacing={2} sx={{ width: "100%" }}>
         <Snackbar
