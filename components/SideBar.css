@@ -10,20 +10,26 @@
 #header .closemenu {
   color: black;
   background-color: #C4C4C4;
-  position: absolute;
   /* margin-left: 50px; */
+  position: absolute;
+  top: 65px;
   right: 0;
   z-index: 10;
   line-height: 10px;
   border-radius: 50%;
   font-size: 30px;
-  top: 65px;
   cursor: pointer;
-  min-height: 30px;
-  min-width: 30px;
-
+  /* min-height: 30px;
+  min-width: 30px; */
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
+#header .closemenu svg{
+  margin: 0;
+}
 #header .pro-sidebar {
   width: 100%;
   min-width: 100%;

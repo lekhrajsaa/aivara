@@ -1,5 +1,5 @@
 //import useState hook to create menu collapse state
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //import react pro sidebar components
 import {
@@ -53,12 +53,27 @@ const Sidebar = (props) => {
     window.location.href = "/";
   };
 
+  useEffect(() => {
+    if(window.innerWidth < 900){
+      setMenuCollapse(true)
+    }else{
+      setMenuCollapse(false)
+    }
+    window.onresize = () => {
+      if(window.innerWidth < 900){
+        setMenuCollapse(true)
+      }else{
+        setMenuCollapse(false)
+      }
+    }
+  }, [])
+
   return (
     <>
       <div id="header">
         {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar collapsed={menuCollapse}>
-          <SidebarHeader>
+          <SidebarHeader style={{position: 'relative'}}>
             <div className="logotext">
               {/* small and big change using menucollapse state */}
               {/* <p>{menuCollapse ? "Logo" : "Big Logo"}</p> */}

@@ -162,7 +162,7 @@ const NewHome = () => {
                 className={classes.noOfReportsChart}
               />
             </div>
-            <div>
+            <div className={classes.infoContainer}>
               <div className={classes.noOfClients}>
                 No. of clients<br></br> {clientNumber}
               </div>
