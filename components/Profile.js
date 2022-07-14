@@ -188,21 +188,18 @@ const Profile = () => {
 
   // searching Reports
   const searchItems = (searchValue) => {
-    setSearchInput(searchValue);
-    if (searchInput !== "") {
-      const filteredData = array.filter((item) => {
-        return (
-          Object.values(item)
-            //  console.log(item)
-            .join("")
-            .toLowerCase()
-            .includes(searchInput.toLowerCase())
-        );
-      });
-      setFilteredResults(filteredData);
-    } else {
-      setFilteredResults(array);
-    }
+     setSearchInput(searchValue);
+     if (searchInput !== "") {
+       const filteredData = array.filter((item) => {
+         return Object.values(item)
+           .join("")
+           .toLowerCase()
+           .includes(searchInput.toLowerCase());
+       });
+       setFilteredResults(filteredData);
+     } else {
+       setFilteredResults(array);
+     }
   };
   const filteredData = array.filter((item) => {
     return Object.values(item)
