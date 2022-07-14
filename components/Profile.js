@@ -537,24 +537,29 @@ const Profile = () => {
               </span>
             </p>
           </Col>
-          <Col md={4} xs={3} className={classes.proCol2} >
+          <Col md={4} xs={3} className={classes.proCol2}>
             {/* <p>
               Date/Time{" "}
               <span className={classes.date_sort_btn}>
                 <BiChevronDown />
               </span>
             </p> */}
-            <select id="datetimeStatus" class="LoginForm_dateTimestatus_sort_box__FcA3z">
-              <option>Date/Time</option>
+            <select
+              id="datetimeStatus"
+              // className="LoginForm_dateTimestatus_sort_box__FcA3z"
+            >
+              <option className={classes.dateTimestatus_option}>
+                Date/Time
+              </option>
               <option value="date">Date</option>
               <option value="time">Time</option>
             </select>
           </Col>
-          <Col md={1} xs={2} >
+          <Col md={1} xs={2}>
             <p>View </p>
           </Col>
           <Col md={1} xs={1} className={classes.proCol5}>
-            <p style={{cursor: 'pointer'}} onClick={statusCheck}>
+            <p style={{ cursor: "pointer" }} onClick={statusCheck}>
               Status
               <span className={classes.status_sort_btn}>
                 <BiChevronDown />
@@ -645,10 +650,7 @@ const Profile = () => {
           })}
       </Container>
 
-
-
-
-      <Container style={{marginLeft: '-10px'}} className={classes.report2}>
+      <Container style={{ marginLeft: "-10px" }} className={classes.report2}>
         <div className={classes.uploadicon}>
           {/* <i
             className="fa-solid fa-arrow-up-from-bracket"
