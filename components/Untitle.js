@@ -209,9 +209,9 @@ const Untitle = () => {
           <div className={classes.name}>
             Timestamp:
             <p className={`${classes.subName} ${classes.leftSubName}`}>
-              {dateConstructor(reportTableData.customTimeStamp).customDate}
+              {reportTableData.customTimeStamp && dateConstructor(reportTableData.customTimeStamp).customDate}
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {dateConstructor(reportTableData.customTimeStamp).customTime}
+              {reportTableData.customTimeStamp &&  dateConstructor(reportTableData.customTimeStamp).customTime}
 
             </p>
           </div>
