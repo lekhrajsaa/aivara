@@ -325,7 +325,7 @@ const GenerateDetails = () => {
               />
               <div className={contentClassname}>
                 {showMenu ? (
-                  <FormControl >
+                  <FormControl>
                     <div onClick={hideMenu} className={classes.Invisible}></div>
                     {sampledata.map((val) => {
                       return (

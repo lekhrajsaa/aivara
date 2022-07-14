@@ -165,8 +165,8 @@ const NewHome = () => {
                 value={clientNumber}
                 styles={buildStyles({
                   pathColor: "#4EAFE5",
-                  trailColor: "transparent",
-                  // trailColor: "#d4e6fb",
+                  // trailColor: "transparent",
+                  trailColor: "#d4e6fb",
                   pathTransitionDuration: 0.5,
                 })}
                 className={classes.noOfClientsChart}
@@ -175,8 +175,8 @@ const NewHome = () => {
                 value={reportNumber}
                 styles={buildStyles({
                   pathColor: "#2438EE",
-                  trailColor: "transparent",
-                  // trailColor: " rgb(133, 171, 254)",
+                  // trailColor: "transparent",
+                  trailColor: " rgb(133, 171, 254)",
                 })}
                 className={classes.noOfReportsChart}
               />
