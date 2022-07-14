@@ -386,7 +386,7 @@
 .report2 {
   text-align: left;
   padding-right: 0%;
-  margin-top: 8%;
+  margin-top: 3%;
   font-family: "Sora";
 }
 
@@ -517,6 +517,7 @@
   border: none;
   text-decoration: none;
   background: none;
+  margin-bottom: 0;
 }
 
 .proCol3 {
@@ -557,7 +558,7 @@
 
 .rowe {
   border-bottom: 0.5px solid #3f3d3f;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
   padding-bottom: 1%;
   border-width: 50% !important;
 }

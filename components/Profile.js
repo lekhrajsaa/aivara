@@ -329,9 +329,9 @@ const Profile = () => {
 
   return (
     <div className={classes.homeBody}>
-      <Container style={{ paddingLeft: 0 }} className={classes.name}>
+      <Container style={{ paddingLeft: 0, maxWidth: 'unset' }} className={classes.name}>
         {searchBarTab && (
-          <div className={classes.search_main}>
+          <div style={{justifyContent: 'space-between', marginRight: '15%', width: 'unset'}} className={classes.search_main}>
             <div className={`${classes.form_group} ${classes.has_search}`}>
               <span className={classes.searchicon}>
                 <AiOutlineSearch />
@@ -512,8 +512,7 @@ const Profile = () => {
       </Container> */}
 
       <Container
-        sx={{ ml: 2 }}
-        style={{ marginLeft: "auto", marginTop: "50px" }}
+        style={{ marginLeft: '0', marginRight: '0', marginTop: '2%', maxWidth: 'unset' }}
       >
         <Row className={classes.tableheader}>
           <Col
@@ -557,7 +556,7 @@ const Profile = () => {
             <p>View </p>
           </Col>
           <Col md={1} xs={1} className={classes.proCol5}>
-            <p style={{cursor: 'pointer'}} onClick={statusCheck}>
+            <p style={{ cursor: 'pointer' }} onClick={statusCheck}>
               Status
               <span className={classes.status_sort_btn}>
                 <BiChevronDown />
@@ -577,11 +576,13 @@ const Profile = () => {
           </Col>
         </Row>
 
-        {array && filteredResults.length === 0
-          ? array.map((a, i) => {
+        <Row style={{overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px'}}>
+
+          {array && filteredResults.length === 0
+            ? array.map((a, i) => {
               return (
                 <>
-                  <Row style={{ padding: 0 }} className={classes.rowe}>
+                  <Row style={{ padding: '15px 0', marginLeft: '0', marginRight: '0' }} className={classes.rowe}>
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
                     </Col>
@@ -611,47 +612,46 @@ const Profile = () => {
                 </>
               );
             })
-          : ""}
-        {filteredResults &&
-          filteredResults.map((a, i) => {
-            return (
-              <>
-                <Row className={classes.rowe}>
-                  <Col md={6} xs={5} className={classes.proCol}>
-                    {a.clientName}
-                  </Col>
-                  <Col md={4} xs={3} className={classes.proCol2}>
-                    {dateConstractor(a.customTimeStamp)}
-                  </Col>
-                  <Col md={1} xs={2}>
-                    <button
-                      className={classes.proCol3}
-                      onClick={() => {
-                        if (a.reportStatus.toLowerCase() === "complete") {
-                          fetchOneReport(a.reportId);
-                        } else {
-                          console.log("Yo", a.reportStatus);
-                          setOpenIncompleteStatusDilogBox(a.reportStatus);
-                          setIncompleteReportId(a.reportId);
-                        }
-                      }}
-                    >
-                      View
-                    </button>
-                  </Col>
-                  <Col md={1} xs={2} className={classes.proCol4}>
-                    <p>{a.reportStatus}</p>
-                  </Col>
-                </Row>
-              </>
-            );
-          })}
+            : ""}
+          {filteredResults &&
+            filteredResults.map((a, i) => {
+              return (
+                <>
+                  <Row style={{ padding: '10px 0', marginLeft: '0', marginRight: '0', alignItems: 'center'  }} className={classes.rowe}>
+                    <Col md={6} xs={5} className={classes.proCol}>
+                      {a.clientName}
+                    </Col>
+                    <Col md={4} xs={3} className={classes.proCol2}>
+                      {dateConstractor(a.customTimeStamp)}
+                    </Col>
+                    <Col md={1} xs={2}>
+                      <button
+                        className={classes.proCol3}
+                        onClick={() => {
+                          if (a.reportStatus.toLowerCase() === "complete") {
+                            fetchOneReport(a.reportId);
+                          } else {
+                            console.log("Yo", a.reportStatus);
+                            setOpenIncompleteStatusDilogBox(a.reportStatus);
+                            setIncompleteReportId(a.reportId);
+                          }
+                        }}
+                      >
+                        View
+                      </button>
+                    </Col>
+                    <Col md={1} xs={2} className={classes.proCol4}>
+                      <p>{a.reportStatus}</p>
+                    </Col>
+                  </Row>
+                </>
+              );
+            })}
+        </Row>
+
       </Container>
 
-
-
-
-      <Container style={{marginLeft: '-10px'}} className={classes.report2}>
+      <Container style={{ marginLeft: '-10px' }} className={classes.report2}>
         <div className={classes.uploadicon}>
           {/* <i
             className="fa-solid fa-arrow-up-from-bracket"
