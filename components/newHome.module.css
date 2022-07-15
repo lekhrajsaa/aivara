@@ -325,24 +325,32 @@ margin-left: 30%;
   padding-bottom: 8%;
 }
 
-.dateTimestatus_sort_box {
-  border: none;
-  font-size: 20px;
-  font-weight: 700;
-  width: 155px;
-  /* padding: 2px; */
-  color: #395D89;
-  text-align: start;
-  padding: 5px;
+.dropdown{
+  cursor: pointer;
+}
+.timePeriod_sort_box{
+  display: block !important;
+  position: absolute;
+  list-style: none;
+  border-radius: 5px;
+  padding: 0;
+  width: 120px;
+  background-color: white;
+  z-index: 10;
+  box-shadow: 2px 2px 10px #ccc;
+  overflow: hidden;
+}
+.timePeriod_sort_box > h3{
+  cursor: pointer;
+  font-weight: 600;
+}
+.timePeriod_sort_box_options{
+  padding: 2px 10px;
 
 }
-
-.dateTimestatus_sort_box_options {
-  font-size: 14px;
-
+.timePeriod_sort_box_options:hover{
+  background-color: #ccc;
 }
-
-
 
 .dropdown_content a {
   text-decoration: none;

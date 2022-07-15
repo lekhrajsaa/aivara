@@ -54,10 +54,14 @@ const Profile = () => {
   // console.log("this is useradata")
   // console.log(userdata)
   const [array, setarray] = useState(labdata);
+  const [dateTimeOpened, setDateTimeOpened] = useState(false);
+  const [dateTimeValue, setDateTimeValue] = useState('Date/Time');
 
   const router = useRouter();
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState("");
+
+  // filter output
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
   const [tableheaderTab, settableheaderTab] = useState(true);
@@ -100,11 +104,97 @@ const Profile = () => {
       setopenday(true);
     }
   };
+  
   const selectdayHandler = (e) => {
     setopenday(false);
-    console.log();
-    SettimePeriod(e.target.innerHTML);
+    SettimePeriod(e.target.innerText);
+    
+    // console.log(e.target.innerText);
+    // handler
+    const ONEDAY = 86400000;//ms
+
+    switch (e.target.innerText) {
+      case "Today":
+        reportOfToday();
+        break;
+      case "Yesterday":
+        filterReportsOnTimeStamp(ONEDAY);
+        break;
+      case "2 day ago":
+        filterReportsOnTimeStamp(2*ONEDAY);
+        break;
+      case "7 day ago":
+        filterReportsOnTimeStamp(7*ONEDAY);
+        break;
+      case "15 day ago":
+        filterReportsOnTimeStamp(15*ONEDAY);
+        break;
+      case "1 month ago":
+        filterReportsOnTimeStamp(30*ONEDAY);
+        break;
+      case "2 month ago":
+        filterReportsOnTimeStamp(60*ONEDAY);
+        break;
+    
+      default:
+        break;
+    };
+
+    function reportOfToday() {
+      let dupiDate = new Date();
+
+      const filteredOutput = array.filter(item => {
+        let temp = item.customTimeStamp;
+        let tempDate = new Date(temp);
+
+        // let dupli = todayInMS - filterOn;
+
+        // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} --- ${dupiDate.getHours()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()} --- ${tempDate.getHours()}`)
+
+        // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
+        if (tempDate.getFullYear() === dupiDate.getFullYear()  && tempDate.getMonth() === dupiDate.getMonth() && tempDate.getDate() === dupiDate.getDate()) {
+          return true;
+        }
+        return false;
+      });
+
+      // console.log(filteredOutput)
+      setFilteredResults(filteredOutput);
+      
+    }
+
+    function filterReportsOnTimeStamp(filterOn) {
+      let todayInMS = Date.now();
+
+      let chacha = new Date(todayInMS);
+
+      let todayAt12 = new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getTime();// in ms
+
+      // console.log(`${new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getDate()} and ${chacha.getTime()}`)
+
+      const filteredOutput = array.filter(item => {
+        let temp = item.customTimeStamp;
+        let tempDate = new Date(temp);
+
+        let dupli = todayAt12 - filterOn;
+        let dupiDate = new Date(dupli);
+
+        // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()}`)
+
+        // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
+        // console.log(temp," and ", dupli, temp > dupli)
+        if(dupli <= temp) {
+          // console.log("matched", item)
+          return true;
+        }
+        return false;
+      });
+
+      // console.log(filteredOutput, "filterd date")
+      setFilteredResults(filteredOutput);
+    };
   };
+
   const getUserData = async () => {
     let body = {
       query: `{
@@ -141,6 +231,15 @@ const Profile = () => {
     }
   };
 
+
+  function dateTimeClickHanlder(){
+    setDateTimeOpened(prv => !prv);
+  }
+  function dateTimeOptionClickHanlder(e){
+    setDateTimeValue(e.target.innerText);
+    setDateTimeOpened(false)
+  }
+  
   // geting all report data from database
   const fetchAllReportData = async () => {
     var myHeaders = new Headers();
@@ -281,8 +380,8 @@ const Profile = () => {
   const dateConstractor = (timeStamp) => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
-      var date = JSON.stringify(new Date(timeStamp));
-      console.log(date);
+      var date = JSON.stringify(new Date(timeStamp))
+      // console.log(date)
       const day = date.slice(9, 11);
       const month = date.slice(6, 8);
       const year = date.slice(3, 5);
@@ -333,14 +432,7 @@ const Profile = () => {
         className={classes.name}
       >
         {searchBarTab && (
-          <div
-            style={{
-              justifyContent: "space-between",
-              marginRight: "15%",
-              width: "unset",
-            }}
-            className={classes.search_main}
-          >
+          <div style={{ justifyContent: 'space-between', marginRight: '15%', width: 'unset' }} className={classes.search_main}>
             <div className={`${classes.form_group} ${classes.has_search}`}>
               <span className={classes.searchicon}>
                 <AiOutlineSearch />
@@ -560,20 +652,14 @@ const Profile = () => {
                 <BiChevronDown />
               </span>
             </p> */}
-            <select
-              id="datetimeStatus"
-              className={classes.dateTimestatus_sort_box}
-            >
-              <option className={classes.dateTimestatus_option}>
-                Date/Time
-              </option>
-              <option value="date" className={classes.dateTimestatus_option}>
-                Date
-              </option>
-              <option className={classes.dateTimestatus_option} value="time">
-                Time
-              </option>
-            </select>
+            <div  id="datetimeStatus" class={classes.dateTimestatus_sort_box}>
+              <p onBlur={() => dateTimeOpened(false)} onClick={dateTimeClickHanlder} className={classes.datetimeStatus}>{dateTimeValue} <BiChevronDown /></p>
+              <ul style={{display: 'none'}} className={dateTimeOpened && classes.dateTimestatus_sort_box_options}>
+                <li onClick={dateTimeOptionClickHanlder}>Date/Time</li>
+                <li onClick={dateTimeOptionClickHanlder}>Date</li>
+                <li onClick={dateTimeOptionClickHanlder}>Time</li>
+              </ul>
+            </div>
           </Col>
           <Col md={1} xs={2}>
             <p>View </p>
@@ -599,14 +685,8 @@ const Profile = () => {
           </Col>
         </Row>
 
-        <Row
-          style={{
-            overflowY: "scroll",
-            height: "55vh",
-            alignContent: "flex-start",
-            marginTop: "5px",
-          }}
-        >
+        <Row style={{ overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px' }}>
+
           {array && filteredResults.length === 0
             ? array.map((a, i) => {
               return (
@@ -653,15 +733,7 @@ const Profile = () => {
             filteredResults.map((a, i) => {
               return (
                 <>
-                  <Row
-                    style={{
-                      padding: "10px 0",
-                      marginLeft: "0",
-                      marginRight: "0",
-                      alignItems: "center",
-                    }}
-                    className={classes.rowe}
-                  >
+                  <Row style={{ padding: '10px 0', marginLeft: '0', marginRight: '0', alignItems: 'center' }} className={classes.rowe}>
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
                     </Col>
