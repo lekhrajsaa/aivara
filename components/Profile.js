@@ -149,7 +149,7 @@ const Profile = () => {
 
         // let dupli = todayInMS - filterOn;
 
-        // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()}`)
+        // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} --- ${dupiDate.getHours()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()} --- ${tempDate.getHours()}`)
 
         // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
         if (tempDate.getFullYear() === dupiDate.getFullYear()  && tempDate.getMonth() === dupiDate.getMonth() && tempDate.getDate() === dupiDate.getDate()) {
@@ -166,11 +166,17 @@ const Profile = () => {
     function filterReportsOnTimeStamp(filterOn) {
       let todayInMS = Date.now();
 
+      let chacha = new Date(todayInMS);
+
+      let todayAt12 = new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getTime();// in ms
+
+      // console.log(`${new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getDate()} and ${chacha.getTime()}`)
+
       const filteredOutput = array.filter(item => {
         let temp = item.customTimeStamp;
         let tempDate = new Date(temp);
 
-        let dupli = todayInMS - filterOn;
+        let dupli = todayAt12 - filterOn;
         let dupiDate = new Date(dupli);
 
         // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()}`)
