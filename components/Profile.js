@@ -79,12 +79,8 @@ const Profile = () => {
   const [openAlpha, setopenAlpha] = useState(false);
   const [openStatus, setopenStatus] = useState(false);
   const [openday, setopenday] = useState(false);
-  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] =
-    useState(false);
-  const [openCompleteStatusDilogBox, setOpenCompleteStatusDilogBox] =
-    useState(false);
-  const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] =
-    useState(false);
+  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] = useState(false);
+  // const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] = useState(false);
   const [incompleteReportId, setIncompleteReportId] = useState("");
 
   const setclassname = datalenghtIszreo
@@ -949,49 +945,8 @@ const Profile = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Report Status Complete */}
-      <Dialog
-        open={openCompleteStatusDilogBox}
-        // onClose={() => setOpen(false)}
-        aria-labelledby="dilog-title"
-        aria-aria-describedby="dilog-description"
-        sx={{ p: 2 }}
-      >
-        <DialogTitle id="dilog-title">Report Status</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Your Report is Complete!</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button
-            variant="contained"
-            onClick={() => setOpenCompleteStatusDilogBox(false)}
-          >
-            Okay
-          </Button>
-        </DialogActions>
-      </Dialog>
 
-      {/* Report Status Complete */}
-      <Dialog
-        open={openInReviewStatusDilogBox}
-        // onClose={() => setOpen(false)}
-        aria-labelledby="dilog-title"
-        aria-aria-describedby="dilog-description"
-        sx={{ p: 2 }}
-      >
-        <DialogTitle id="dilog-title">Report Status</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Your Report is in review</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button
-            variant="contained"
-            onClick={() => setOpenInReviewStatusDilogBox(false)}
-          >
-            Okay
-          </Button>
-        </DialogActions>
-      </Dialog>
+
     </div>
   );
 };

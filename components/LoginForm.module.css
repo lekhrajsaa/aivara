@@ -891,6 +891,7 @@
   position: fixed;
   padding: 10px 10px;
   border-radius: 13px;
+  z-index: 2;
 }
 
 .listday li {
@@ -899,11 +900,14 @@
 
 .tableheader {
   align-items: flex-start;
+
 }
 
 .tableheader p {
   color: #395d89;
   font-weight: bold;
+  position: relative;
+  z-index: 0;
 }
 
 .dataempty_image {
