@@ -929,12 +929,13 @@
   text-align: start;
   padding: 5px;
   border:transparent;
-
-
+  outline: none;
+  border-radius:0px;
 }
 .dateTimestatus_option{
   border: transparent;
-  color: red;
+  color: #395D89;
+  
 }
 
 

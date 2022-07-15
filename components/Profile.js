@@ -158,7 +158,7 @@ const Profile = () => {
       .then((result) => {
         if (result && result.data && result.data.Items) {
           console.log(result.data.Items);
-          setarray(result.data.Items)
+          setarray(result.data.Items);
         }
       })
       .catch((error) => console.log("error", error));
@@ -183,23 +183,23 @@ const Profile = () => {
   //Day time filter
 
   const datetimeFilter = (a) => {
-    console.log(a)
-  }
+    console.log(a);
+  };
 
   // searching Reports
   const searchItems = (searchValue) => {
-     setSearchInput(searchValue);
-     if (searchInput !== "") {
-       const filteredData = array.filter((item) => {
-         return Object.values(item)
-           .join("")
-           .toLowerCase()
-           .includes(searchInput.toLowerCase());
-       });
-       setFilteredResults(filteredData);
-     } else {
-       setFilteredResults(array);
-     }
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      const filteredData = array.filter((item) => {
+        return Object.values(item)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(filteredData);
+    } else {
+      setFilteredResults(array);
+    }
   };
   const filteredData = array.filter((item) => {
     return Object.values(item)
@@ -232,10 +232,12 @@ const Profile = () => {
 
   // Status filter
   const labstatus = (a) => {
-    if (a === 'all') {
-      setFilteredResults(array)
+    if (a === "all") {
+      setFilteredResults(array);
     }
-    setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
+    setFilteredResults(
+      array.filter((e, i) => e.reportStatus.toLowerCase() === a)
+    );
     setopenStatus(false);
   };
 
@@ -279,8 +281,8 @@ const Profile = () => {
   const dateConstractor = (timeStamp) => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
-      var date = JSON.stringify(new Date(timeStamp))
-      console.log(date)
+      var date = JSON.stringify(new Date(timeStamp));
+      console.log(date);
       const day = date.slice(9, 11);
       const month = date.slice(6, 8);
       const year = date.slice(3, 5);
@@ -291,7 +293,7 @@ const Profile = () => {
       // const hour = Number(date.slice(12, 14)) % 12;
       // const minute = date.slice(15, 17);
       // const customTime = `${hour}:${minute}`;
-      const customTime = date.slice(12, 17)
+      const customTime = date.slice(12, 17);
       const currentDate = customDate + " ; " + customTime;
 
       // const currentDate=customDate.splice
@@ -326,9 +328,19 @@ const Profile = () => {
 
   return (
     <div className={classes.homeBody}>
-      <Container style={{ paddingLeft: 0, maxWidth: 'unset' }} className={classes.name}>
+      <Container
+        style={{ paddingLeft: 0, maxWidth: "unset" }}
+        className={classes.name}
+      >
         {searchBarTab && (
-          <div style={{justifyContent: 'space-between', marginRight: '15%', width: 'unset'}} className={classes.search_main}>
+          <div
+            style={{
+              justifyContent: "space-between",
+              marginRight: "15%",
+              width: "unset",
+            }}
+            className={classes.search_main}
+          >
             <div className={`${classes.form_group} ${classes.has_search}`}>
               <span className={classes.searchicon}>
                 <AiOutlineSearch />
@@ -509,7 +521,12 @@ const Profile = () => {
       </Container> */}
 
       <Container
-        style={{ marginLeft: '0', marginRight: '0', marginTop: '2%', maxWidth: 'unset' }}
+        style={{
+          marginLeft: "0",
+          marginRight: "0",
+          marginTop: "2%",
+          maxWidth: "unset",
+        }}
       >
         <Row className={classes.tableheader}>
           <Col
@@ -545,24 +562,24 @@ const Profile = () => {
             </p> */}
             <select
               id="datetimeStatus"
-              // className="LoginForm_dateTimestatus_sort_box__FcA3z"
+              className={classes.dateTimestatus_sort_box}
             >
               <option className={classes.dateTimestatus_option}>
                 Date/Time
               </option>
-              <option value="date">Date</option>
-              <option value="time">Time</option>
+              <option value="date" className={classes.dateTimestatus_option}>
+                Date
+              </option>
+              <option className={classes.dateTimestatus_option} value="time">
+                Time
+              </option>
             </select>
           </Col>
           <Col md={1} xs={2}>
             <p>View </p>
           </Col>
           <Col md={1} xs={1} className={classes.proCol5}>
-<<<<<<< HEAD
             <p style={{ cursor: "pointer" }} onClick={statusCheck}>
-=======
-            <p style={{ cursor: 'pointer' }} onClick={statusCheck}>
->>>>>>> 12695309cdcad963a2ca91ab3ea61c3e33c2d8f9
               Status
               <span className={classes.status_sort_btn}>
                 <BiChevronDown />
@@ -582,13 +599,26 @@ const Profile = () => {
           </Col>
         </Row>
 
-        <Row style={{overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px'}}>
-
+        <Row
+          style={{
+            overflowY: "scroll",
+            height: "55vh",
+            alignContent: "flex-start",
+            marginTop: "5px",
+          }}
+        >
           {array && filteredResults.length === 0
             ? array.map((a, i) => {
               return (
                 <>
-                  <Row style={{ padding: '15px 0', marginLeft: '0', marginRight: '0' }} className={classes.rowe}>
+                  <Row
+                    style={{
+                      padding: "15px 0",
+                      marginLeft: "0",
+                      marginRight: "0",
+                    }}
+                    className={classes.rowe}
+                  >
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
                     </Col>
@@ -602,7 +632,7 @@ const Profile = () => {
                           if (a.reportStatus.toLowerCase() === "complete") {
                             fetchOneReport(a.reportId);
                           } else {
-                            console.log("Yo", a.reportStatus);
+                            // console.log("Yo", a.reportStatus);
                             setOpenIncompleteStatusDilogBox(a.reportStatus);
                             setIncompleteReportId(a.reportId);
                           }
@@ -623,7 +653,15 @@ const Profile = () => {
             filteredResults.map((a, i) => {
               return (
                 <>
-                  <Row style={{ padding: '10px 0', marginLeft: '0', marginRight: '0', alignItems: 'center'  }} className={classes.rowe}>
+                  <Row
+                    style={{
+                      padding: "10px 0",
+                      marginLeft: "0",
+                      marginRight: "0",
+                      alignItems: "center",
+                    }}
+                    className={classes.rowe}
+                  >
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
                     </Col>
@@ -637,7 +675,7 @@ const Profile = () => {
                           if (a.reportStatus.toLowerCase() === "complete") {
                             fetchOneReport(a.reportId);
                           } else {
-                            console.log("Yo", a.reportStatus);
+                            // console.log("Yo", a.reportStatus);
                             setOpenIncompleteStatusDilogBox(a.reportStatus);
                             setIncompleteReportId(a.reportId);
                           }
@@ -654,14 +692,9 @@ const Profile = () => {
               );
             })}
         </Row>
-
       </Container>
 
-<<<<<<< HEAD
       <Container style={{ marginLeft: "-10px" }} className={classes.report2}>
-=======
-      <Container style={{ marginLeft: '-10px' }} className={classes.report2}>
->>>>>>> 12695309cdcad963a2ca91ab3ea61c3e33c2d8f9
         <div className={classes.uploadicon}>
           {/* <i
             className="fa-solid fa-arrow-up-from-bracket"
