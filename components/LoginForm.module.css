@@ -920,6 +920,21 @@
   margin-top: 0px;
   height: 320px;
 }
+.reportListContainer{
+  overflow-y: scroll;
+  padding-right: 5px;
+  scrollbar-color: #313131 #fff;
+  scrollbar-width: thin;
+}
+.reportListContainer::-webkit-scrollbar{
+  width: 8px;
+}
+.reportListContainer::-webkit-scrollbar-thumb{
+  cursor: pointer;
+  background-color: #313131;
+  border-radius: 10px;
+}
+
 
 .alpha_sort_btn,
 .date_sort_btn,
