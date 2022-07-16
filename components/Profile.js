@@ -388,7 +388,7 @@ const Profile = () => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
       var date = JSON.stringify(new Date(timeStamp))
-      console.log(date, " DATE COMPARE ", new Date(timeStamp).getHours(), new Date(timeStamp).getMinutes())
+      // console.log(date, " DATE COMPARE ", new Date(timeStamp).getHours(), new Date(timeStamp).getMinutes())
       const day = date.slice(9, 11);
       const month = date.slice(6, 8);
       const year = date.slice(3, 5);
@@ -490,60 +490,49 @@ const Profile = () => {
     setstartDate(startDateTimestamp);
     setendDate(endDateTimestamp);
 
+    console.log("-----calender testing--------")
+    // console.log(endDateTimestamp == 7 * NEXT_DAT_IN_MS , endDateTimestamp,NEXT_DAT_IN_MS, " <- start end -> ", startDateTimestamp == TODAY_IN_MS, startDateTimestamp, TODAY_IN_MS )
+
+    // console.log(  ( NEXT_DAT_IN_MS - endDateTimestamp ) / ONE_DAYIN_MS , "days")
+
+    if (startDateTimestamp <= NEXT_DAT_IN_MS && startDateTimestamp == TODAY_IN_MS) {
+      const dispDay = Math.ceil((NEXT_DAT_IN_MS - endDateTimestamp) / ONE_DAYIN_MS);
+
+      if (dispDay == 0) { console.log("Today"); SettimePeriod("Today") }
+      else if (dispDay == 1) { console.log("Yesterday"); SettimePeriod("Yesterday") }
+      else { console.log(`Last ${dispDay} Days`); SettimePeriod(`Last ${dispDay} Days`) }
+
+    } else {
+      console.log("custom");
+      SettimePeriod("custom")
+    }
+
   }
 
   useEffect(() => {
     console.log(startDate, endDate);
-
+    
     const filteredOutput = array.filter(item => {
-      console.log(item)
+      // console.log(item)
 
       let temp = item.customTimeStamp;
       let tempDate = new Date(temp);
-      console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
+      // console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
+
+      console.log("custom time stamp", temp, temp >= endDate && temp <= startDate )
 
       if (temp >= endDate && temp <= startDate || temp <= endDate && temp >= startDate) {
         // console.log("matched", item)
+        // console.log(temp," -->", endDate,"to", startDate , timePeriod)
         return true;
       }
       return false;
     });
 
+    // console.log(filteredOutput, timePeriod)
+
     setFilteredResults(filteredOutput);
 
-
-    // if (startDate > endDate) {
-
-    //   const filteredOutput = array.filter(item => {
-    //     console.log(item)
-
-    //     let temp = item.customTimeStamp;
-    //     let tempDate = new Date(temp);
-    //     console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
-
-    //     if (temp >= endDate && temp <= startDate) {
-    //       // console.log("matched", item)
-    //       return true;
-    //     }
-    //     return false;
-    //   });
-
-    //   setarray(filteredOutput);
-    //   // console.log(filteredOutput, " new calender ", startDate, " to ", endDate)
-    // } else {
-    //   const filteredOutput = array.filter(item => {
-    //     let temp = item.customTimeStamp;
-    //     let tempDate = new Date(temp);
-
-    //     if (temp <= endDate && temp >= startDate) {
-    //       // console.log("matched", item)
-    //       return true;
-    //     }
-    //     return false;
-    //   });
-    //   setarray(filteredOutput);
-    //   // console.log(filteredOutput, " new calender ", startDate, " to ", endDate)
-    // }
   }, [startDate, endDate])
 
 
@@ -564,22 +553,17 @@ const Profile = () => {
               />
             </div>
             <div className={classes.dayfilter}>
-              <h6 onClick={daysfilter}>
-                {timePeriod} <BiChevronDown />
-              </h6>
-              <div className={openday ? classes.listday : classes.listday_hide}>
-                {/* <li onClick={selectdayHandler}>Today</li>
-                <li onClick={selectdayHandler}>Yesterday</li>
-                <li onClick={selectdayHandler}>2 day ago</li>
-                <li onClick={selectdayHandler}>7 day ago</li>
-                <li onClick={selectdayHandler}>15 day ago</li>
-                <li onClick={selectdayHandler}>1 month ago</li>
-                <li onClick={selectdayHandler}>2 month ago</li> */}
+              <h6 onClick={daysfilter} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 
                 <DateRangeSelector
-                  inputComponent={<input type='text' name='dates' className='form-control pull-right' />}
+                  inputComponent={
+                    <div style={{ position:"relative"}}>
+                      <input type='text' name='dates' className='form-control pull-right' value={timePeriod} style={{border: "none", textAlign: "center", fontSize:"22px", fontWeight:"600", cursor:"pointer" }} />
+                      <BiChevronDown style={{position:"absolute", right:"0", top:"12px"}}/>
+                    </div>
+                  }
                   options={{
-                    opens: 'right',
+                    opens: 'left',
                     buttonClasses: ['btn btn-sm'],
                     applyClass: 'btn-primary',
                     separator: ' to ',
@@ -587,14 +571,13 @@ const Profile = () => {
                     dateLimit: { days: 90 },
                     ranges: {
                       Today: [new Date(NEXT_DAT_IN_MS), new Date(TODAY_IN_MS)],
-                      Yesterday: [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 2 * ONE_DAYIN_MS)],
+                      Yesterday: [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 1 * ONE_DAYIN_MS)],
                       'Last 7 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 7 * ONE_DAYIN_MS)],
                       'Last 28 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 28 * ONE_DAYIN_MS)],
                       'Last 60 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 60 * ONE_DAYIN_MS)],
                       'Last 90 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 90 * ONE_DAYIN_MS)],
                       'Last 120 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 120 * ONE_DAYIN_MS)],
-                      'Last 180 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 180 * ONE_DAYIN_MS)],
-                      'Last 1 year': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 365 * ONE_DAYIN_MS)]
+                      'Last 180 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 180 * ONE_DAYIN_MS)]
                     },
                     locale: {
                       applyLabel: 'Update',
@@ -609,7 +592,18 @@ const Profile = () => {
                   callback={callback}
                 />
 
-              </div>
+                {/* <div style={{position:"absolute", height:"35px", width:"145px", background:"#ffffff", padding:"6px 12px", border:"none"}}>{timePeriod}</div> */}
+
+              </h6>
+              {/* <div className={openday ? classes.listday : classes.listday_hide}> */}
+              {/* <li onClick={selectdayHandler}>Today</li>
+                <li onClick={selectdayHandler}>Yesterday</li>
+                <li onClick={selectdayHandler}>2 day ago</li>
+                <li onClick={selectdayHandler}>7 day ago</li>
+                <li onClick={selectdayHandler}>15 day ago</li>
+                <li onClick={selectdayHandler}>1 month ago</li>
+                <li onClick={selectdayHandler}>2 month ago</li> */}
+              {/* </div> */}
             </div>
           </div>
         )}
