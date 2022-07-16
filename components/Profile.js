@@ -823,7 +823,7 @@ const Profile = () => {
           </Col>
         </Row>
 
-        <Row style={{ overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px' }}>
+        <Row className={classes.reportListContainer} style={{ overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px' }}>
 
           {array && filteredResults.length === 0
             ? array.map((a, i) => {
