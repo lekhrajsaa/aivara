@@ -491,8 +491,8 @@ const Profile = () => {
 
     // console.log(  ( NEXT_DAT_IN_MS - endDateTimestamp ) / ONE_DAYIN_MS , "days")
 
-    if (startDateTimestamp <= NEXT_DAT_IN_MS && startDateTimestamp == TODAY_IN_MS) {
-      const dispDay = Math.ceil((NEXT_DAT_IN_MS - endDateTimestamp) / ONE_DAYIN_MS);
+    if (startDateTimestamp <= NEXT_DAT_IN_MS && endDateTimestamp == NEXT_DAT_IN_MS) {
+      const dispDay = Math.ceil((NEXT_DAT_IN_MS - startDateTimestamp) / ONE_DAYIN_MS) - 1;
 
       if (dispDay == 0) { console.log("Today"); SettimePeriod("Today") }
       else if (dispDay == 1) { console.log("Yesterday"); SettimePeriod("Yesterday") }
@@ -515,9 +515,9 @@ const Profile = () => {
       let tempDate = new Date(temp);
       // console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
 
-      console.log("custom time stamp", temp, temp >= endDate && temp <= startDate )
+      console.log("custom time stamp", temp, temp >= endDate && temp <= startDate || temp <= endDate && temp >= startDate )
 
-      if (temp >= endDate && temp <= startDate || temp <= endDate && temp >= startDate) {
+      if ((temp >= endDate && temp <= startDate) || (temp <= endDate && temp >= startDate)) {
         // console.log("matched", item)
         // console.log(temp," -->", endDate,"to", startDate , timePeriod)
         return true;
@@ -525,9 +525,9 @@ const Profile = () => {
       return false;
     });
 
-    // console.log(filteredOutput, timePeriod)
+    console.log(filteredOutput, timePeriod)
 
-    setFilteredResults(filteredOutput);
+    setFilteredResults([...filteredOutput]);
 
   }, [startDate, endDate])
 
@@ -566,14 +566,14 @@ const Profile = () => {
                     format: 'L',
                     dateLimit: { days: 90 },
                     ranges: {
-                      Today: [new Date(NEXT_DAT_IN_MS), new Date(TODAY_IN_MS)],
-                      Yesterday: [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 1 * ONE_DAYIN_MS)],
-                      'Last 7 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 7 * ONE_DAYIN_MS)],
-                      'Last 28 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 28 * ONE_DAYIN_MS)],
-                      'Last 60 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 60 * ONE_DAYIN_MS)],
-                      'Last 90 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 90 * ONE_DAYIN_MS)],
-                      'Last 120 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 120 * ONE_DAYIN_MS)],
-                      'Last 180 Days': [new Date(NEXT_DAT_IN_MS), new Date(NEXT_DAT_IN_MS - 180 * ONE_DAYIN_MS)]
+                      Today: [new Date(TODAY_IN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Yesterday': [new Date((NEXT_DAT_IN_MS - 2 * ONE_DAYIN_MS) + 2), new Date(NEXT_DAT_IN_MS)],
+                      'Last 7 Days': [new Date(NEXT_DAT_IN_MS - 7 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 28 Days': [new Date(NEXT_DAT_IN_MS - 28 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 60 Days': [new Date(NEXT_DAT_IN_MS - 60 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 90 Days': [new Date(NEXT_DAT_IN_MS - 90 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 120 Days': [new Date(NEXT_DAT_IN_MS - 120 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 180 Days': [new Date(NEXT_DAT_IN_MS - 180 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)]
                     },
                     locale: {
                       applyLabel: 'Update',
