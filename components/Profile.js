@@ -95,6 +95,12 @@ const Profile = () => {
     }
   };
 
+
+  useEffect(() => {
+    setFilteredResults(array)
+  }, [array])
+
+
   const statusCheck = () => {
     if (openStatus) {
       setopenStatus(false);
@@ -566,7 +572,7 @@ const Profile = () => {
                     format: 'L',
                     dateLimit: { days: 90 },
                     ranges: {
-                      Today: [new Date(TODAY_IN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Today': [new Date(TODAY_IN_MS), new Date(NEXT_DAT_IN_MS)],
                       'Yesterday': [new Date((NEXT_DAT_IN_MS - 2 * ONE_DAYIN_MS) + 2), new Date(NEXT_DAT_IN_MS)],
                       'Last 7 Days': [new Date(NEXT_DAT_IN_MS - 7 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
                       'Last 28 Days': [new Date(NEXT_DAT_IN_MS - 28 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
@@ -825,41 +831,6 @@ const Profile = () => {
 
         <Row className={classes.reportListContainer} style={{ overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px' }}>
 
-          {array && filteredResults.length === 0
-            ? array.map((a, i) => {
-              return (
-                <>
-                  <Row style={{ padding: '15px 0', marginLeft: '0', marginRight: '0' }} className={classes.rowe}>
-                    <Col md={6} xs={5} className={classes.proCol}>
-                      {a.clientName}
-                    </Col>
-                    <Col md={4} xs={3} className={classes.proCol2}>
-                      {dateConstractor(a.customTimeStamp)}
-                    </Col>
-                    <Col md={1} xs={2}>
-                      <button
-                        className={classes.proCol3}
-                        onClick={() => {
-                          if (a.reportStatus.toLowerCase() === "complete") {
-                            fetchOneReport(a.reportId);
-                          } else {
-                            console.log("Yo", a.reportStatus);
-                            setOpenIncompleteStatusDilogBox(a.reportStatus);
-                            setIncompleteReportId(a.reportId);
-                          }
-                        }}
-                      >
-                        View
-                      </button>
-                    </Col>
-                    <Col md={1} xs={2} className={classes.proCol4}>
-                      <p>{a.reportStatus}</p>
-                    </Col>
-                  </Row>
-                </>
-              );
-            })
-            : ""}
           {filteredResults &&
             filteredResults.map((a, i) => {
               return (
@@ -894,6 +865,14 @@ const Profile = () => {
                 </>
               );
             })}
+
+          {(filteredResults.length < 1) && <Container className={classes.emptdata_img}>
+            <img
+              src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
+              className={classes.dataempty_image}
+            />
+            <h4 className={classes.no_report}>No Reports Found </h4>
+          </Container>}
         </Row>
 
       </Container>

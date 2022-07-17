@@ -46,9 +46,9 @@ function WithSignout(props) {
             </a>
           </div>
           {/* setProfile(); */}
-          <Col md={1} xs={2} className={classes.fullDropdown}>
-            <div className={classes.dropdown}>
-              <button className={classes.dropbtn}>
+          <Col style={{width: 'fit-content'}} md={1} xs={1} className={classes.fullDropdown}>
+            <div style={{width: 'fit-content'}} className={classes.dropdown}>
+              <button style={{width: 'fit-content'}} className={classes.dropbtn}>
                 {" "}
                 {/* <img className={classes.img} src="/user.svg"></img> */}
                 {/* <CgProfile className={classes.img} /> */}

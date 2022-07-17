@@ -27,7 +27,7 @@ const detail = () => {
       setShow(false);
       router.push("/")
     }
-  });
+  }, []);
 
   useEffect(() => {
     socket.on('report data', (data) => {
@@ -64,6 +64,8 @@ const detail = () => {
     }
 
   }
+
+
   // const [token, setToken] = useState(false);
   // useEffect(() => {
   //   setToken(localStorage.getItem("isloggin"));
