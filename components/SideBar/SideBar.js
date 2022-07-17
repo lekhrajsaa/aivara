@@ -11,6 +11,15 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 
+import {
+  Dialog,
+  DialogTitle,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+} from "@mui/material";
+
 //import icons from react icons
 import { FaList, FaRegHeart } from "react-icons/fa";
 import {
@@ -22,7 +31,7 @@ import {
 import { RiHome2Line } from "react-icons/ri";
 import { RiPencilLine } from "react-icons/ri";
 import { BiCog } from "react-icons/bi";
-import {CgChevronRight} from "react-icons/cg";
+import { CgChevronRight } from "react-icons/cg";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import {
   AiOutlineRight,
@@ -40,8 +49,12 @@ const Sidebar = (props) => {
   const router = useRouter();
   //create initial menuCollapse state using useState hook
   const [menuCollapse, setMenuCollapse] = useState(false);
-
+  
   const [homeClick, setOnHomeClick] = useState();
+  const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
+
+
+
   //create a custom function that will change menucollapse state from false to true and true to false
   const menuIconClick = () => {
     //condition checking to change state from true to false and vice versa
@@ -54,15 +67,15 @@ const Sidebar = (props) => {
   };
 
   useEffect(() => {
-    if(window.innerWidth < 900){
+    if (window.innerWidth < 900) {
       setMenuCollapse(true)
-    }else{
+    } else {
       setMenuCollapse(false)
     }
     window.onresize = () => {
-      if(window.innerWidth < 900){
+      if (window.innerWidth < 900) {
         setMenuCollapse(true)
-      }else{
+      } else {
         setMenuCollapse(false)
       }
     }
@@ -73,19 +86,19 @@ const Sidebar = (props) => {
       <div id="header">
         {/* collapsed props to change menu size using menucollapse state */}
         <ProSidebar collapsed={menuCollapse}>
-          <SidebarHeader style={{position: 'relative'}}>
+          <SidebarHeader style={{ position: 'relative' }}>
             <div className="logotext">
               {/* small and big change using menucollapse state */}
               {/* <p>{menuCollapse ? "Logo" : "Big Logo"}</p> */}
             </div>
             <div className="closemenu" onClick={menuIconClick}>
               {/* changing menu collapse icon on click */}
-              
-                {menuCollapse ? 
-                <AiOutlineRight size={18} className={classes.closeIcon} style={{fontWeight:"800"}} /> 
+
+              {menuCollapse ?
+                <AiOutlineRight size={18} className={classes.closeIcon} style={{ fontWeight: "800" }} />
                 // <CgChevronRight />
-                : <AiOutlineLeft size={18} className={classes.closeIcon}/>}
-                
+                : <AiOutlineLeft size={18} className={classes.closeIcon} />}
+
             </div>
           </SidebarHeader>
           <SidebarContent>
@@ -125,7 +138,7 @@ const Sidebar = (props) => {
               </MenuItem>
               <MenuItem icon={<CgLogOff className={classes.icon} />}>
                 <a
-                  onClick={removeDetail}
+                  onClick={() => setOpenLogoutPopup(true)}
                   style={{ color: "white" }}
                   className={classes.txt}
                 >
@@ -152,6 +165,34 @@ const Sidebar = (props) => {
           </SidebarFooter> */}
         </ProSidebar>
       </div>
+
+      {/* Logout Dilog Box */}
+      <Dialog
+        open={openLogoutPopup}
+        // onClose={() => setOpen(false)}
+        aria-labelledby="dilog-title"
+        aria-aria-describedby="dilog-description"
+        sx={{ p: 2 }}
+      >
+        <DialogTitle id="dilog-title">User Logout</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Are you sure you want to logout?</DialogContentText>
+        </DialogContent>
+        <DialogActions sx={{ mx: 1, mb: 1 }}>
+          <Button
+            variant="text"
+            onClick={() => setOpenLogoutPopup(false)}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            onClick={removeDetail}
+          >
+            Logout
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

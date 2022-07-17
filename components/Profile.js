@@ -28,6 +28,10 @@ import {
 } from "@mui/material";
 
 import Router from "next/router";
+
+import DateRangeSelector from 'react-daterangeselector';
+import 'react-daterangeselector/dist/styles.min.css';
+
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
 // const SERVER_URL = "http://localhost:5000/";
@@ -65,17 +69,18 @@ const Profile = () => {
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
   const [tableheaderTab, settableheaderTab] = useState(true);
+
+  //
+  const [startDate, setstartDate] = useState('')
+  const [endDate, setendDate] = useState('')
+
   // for  toggle class
   const [datalenghtIszreo, setdatalenghtIszreo] = useState(false);
   const [openAlpha, setopenAlpha] = useState(false);
   const [openStatus, setopenStatus] = useState(false);
   const [openday, setopenday] = useState(false);
-  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] =
-    useState(false);
-  const [openCompleteStatusDilogBox, setOpenCompleteStatusDilogBox] =
-    useState(false);
-  const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] =
-    useState(false);
+  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] = useState(false);
+  // const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] = useState(false);
   const [incompleteReportId, setIncompleteReportId] = useState("");
 
   const setclassname = datalenghtIszreo
@@ -104,11 +109,11 @@ const Profile = () => {
       setopenday(true);
     }
   };
-  
+
   const selectdayHandler = (e) => {
     setopenday(false);
     SettimePeriod(e.target.innerText);
-    
+
     // console.log(e.target.innerText);
     // handler
     const ONEDAY = 86400000;//ms
@@ -121,21 +126,21 @@ const Profile = () => {
         filterReportsOnTimeStamp(ONEDAY);
         break;
       case "2 day ago":
-        filterReportsOnTimeStamp(2*ONEDAY);
+        filterReportsOnTimeStamp(2 * ONEDAY);
         break;
       case "7 day ago":
-        filterReportsOnTimeStamp(7*ONEDAY);
+        filterReportsOnTimeStamp(7 * ONEDAY);
         break;
       case "15 day ago":
-        filterReportsOnTimeStamp(15*ONEDAY);
+        filterReportsOnTimeStamp(15 * ONEDAY);
         break;
       case "1 month ago":
-        filterReportsOnTimeStamp(30*ONEDAY);
+        filterReportsOnTimeStamp(30 * ONEDAY);
         break;
       case "2 month ago":
-        filterReportsOnTimeStamp(60*ONEDAY);
+        filterReportsOnTimeStamp(60 * ONEDAY);
         break;
-    
+
       default:
         break;
     };
@@ -152,7 +157,7 @@ const Profile = () => {
         // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} --- ${dupiDate.getHours()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()} --- ${tempDate.getHours()}`)
 
         // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
-        if (tempDate.getFullYear() === dupiDate.getFullYear()  && tempDate.getMonth() === dupiDate.getMonth() && tempDate.getDate() === dupiDate.getDate()) {
+        if (tempDate.getFullYear() === dupiDate.getFullYear() && tempDate.getMonth() === dupiDate.getMonth() && tempDate.getDate() === dupiDate.getDate()) {
           return true;
         }
         return false;
@@ -160,7 +165,7 @@ const Profile = () => {
 
       // console.log(filteredOutput)
       setFilteredResults(filteredOutput);
-      
+
     }
 
     function filterReportsOnTimeStamp(filterOn) {
@@ -168,7 +173,7 @@ const Profile = () => {
 
       let chacha = new Date(todayInMS);
 
-      let todayAt12 = new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getTime();// in ms
+      let todayAt12 = new Date(`${chacha.getFullYear()}-${chacha.getMonth() + 1}-${chacha.getDate()}`).getTime();// in ms
 
       // console.log(`${new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getDate()} and ${chacha.getTime()}`)
 
@@ -183,7 +188,7 @@ const Profile = () => {
 
         // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
         // console.log(temp," and ", dupli, temp > dupli)
-        if(dupli <= temp) {
+        if (dupli <= temp) {
           // console.log("matched", item)
           return true;
         }
@@ -232,14 +237,14 @@ const Profile = () => {
   };
 
 
-  function dateTimeClickHanlder(){
+  function dateTimeClickHanlder() {
     setDateTimeOpened(prv => !prv);
   }
-  function dateTimeOptionClickHanlder(e){
+  function dateTimeOptionClickHanlder(e) {
     setDateTimeValue(e.target.innerText);
     setDateTimeOpened(false)
   }
-  
+
   // geting all report data from database
   const fetchAllReportData = async () => {
     var myHeaders = new Headers();
@@ -381,7 +386,7 @@ const Profile = () => {
     if (timeStamp) {
       // return JSON.stringify(data).slice(1, 25)
       var date = JSON.stringify(new Date(timeStamp))
-      // console.log(date)
+      // console.log(date, " DATE COMPARE ", new Date(timeStamp).getHours(), new Date(timeStamp).getMinutes())
       const day = date.slice(9, 11);
       const month = date.slice(6, 8);
       const year = date.slice(3, 5);
@@ -425,6 +430,110 @@ const Profile = () => {
       .catch((error) => console.log("error", error));
   };
 
+  // calender filtering
+
+  const todaay = new Date();
+  const ONE_DAYIN_MS = 86400000;
+  const TODAY_IN_MS = new Date(`${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`).getTime(); // at 12am
+  const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
+
+
+  function filterDateByTimestamp(startValue, endValue) {
+    console.log(array, "okay")
+
+    if (startValue > endValue) {
+
+      const filteredOutput = array.filter(item => {
+        console.log(item)
+
+        let temp = item.customTimeStamp;
+        let tempDate = new Date(temp);
+        console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
+
+        if (temp >= endValue && temp <= startValue) {
+          // console.log("matched", item)
+          return true;
+        }
+        return false;
+      });
+
+      console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
+    } else {
+      const filteredOutput = array.filter(item => {
+        let temp = item.customTimeStamp;
+        let tempDate = new Date(temp);
+
+        if (temp <= endValue && temp >= startValue) {
+          // console.log("matched", item)
+          return true;
+        }
+        return false;
+      });
+
+      console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
+    }
+  }
+
+
+  function callback(start, end) {
+
+    let startDate = new Date(start._d);
+    let endDate = new Date(end._d);
+
+    let startDateTimestamp = startDate.getTime();
+    let endDateTimestamp = endDate.getTime();
+
+    // filterDateByTimestamp(startDateTimestamp, endDateTimestamp)
+
+    setstartDate(startDateTimestamp);
+    setendDate(endDateTimestamp);
+
+    console.log("-----calender testing--------")
+    // console.log(endDateTimestamp == 7 * NEXT_DAT_IN_MS , endDateTimestamp,NEXT_DAT_IN_MS, " <- start end -> ", startDateTimestamp == TODAY_IN_MS, startDateTimestamp, TODAY_IN_MS )
+
+    // console.log(  ( NEXT_DAT_IN_MS - endDateTimestamp ) / ONE_DAYIN_MS , "days")
+
+    if (startDateTimestamp <= NEXT_DAT_IN_MS && endDateTimestamp == NEXT_DAT_IN_MS) {
+      const dispDay = Math.ceil((NEXT_DAT_IN_MS - startDateTimestamp) / ONE_DAYIN_MS) - 1;
+
+      if (dispDay == 0) { console.log("Today"); SettimePeriod("Today") }
+      else if (dispDay == 1) { console.log("Yesterday"); SettimePeriod("Yesterday") }
+      else { console.log(`Last ${dispDay} Days`); SettimePeriod(`Last ${dispDay} Days`) }
+
+    } else {
+      console.log("custom");
+      SettimePeriod("custom")
+    }
+
+  }
+
+  useEffect(() => {
+    console.log(startDate, endDate);
+    
+    const filteredOutput = array.filter(item => {
+      // console.log(item)
+
+      let temp = item.customTimeStamp;
+      let tempDate = new Date(temp);
+      // console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
+
+      console.log("custom time stamp", temp, temp >= endDate && temp <= startDate || temp <= endDate && temp >= startDate )
+
+      if ((temp >= endDate && temp <= startDate) || (temp <= endDate && temp >= startDate)) {
+        // console.log("matched", item)
+        // console.log(temp," -->", endDate,"to", startDate , timePeriod)
+        return true;
+      }
+      return false;
+    });
+
+    console.log(filteredOutput, timePeriod)
+
+    setFilteredResults([...filteredOutput]);
+
+  }, [startDate, endDate])
+
+
   return (
     <div className={classes.homeBody}>
       <Container
@@ -445,18 +554,57 @@ const Profile = () => {
               />
             </div>
             <div className={classes.dayfilter}>
-              <h6 onClick={daysfilter}>
-                {timePeriod} <BiChevronDown />
+              <h6 onClick={daysfilter} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+
+                <DateRangeSelector
+                  inputComponent={
+                    <div style={{ position:"relative"}}>
+                      <input type='text' name='dates' className='form-control pull-right' value={timePeriod} style={{border: "none", textAlign: "center", fontSize:"22px", fontWeight:"600", cursor:"pointer" }} />
+                      <BiChevronDown style={{position:"absolute", right:"0", top:"12px"}}/>
+                    </div>
+                  }
+                  options={{
+                    opens: 'left',
+                    buttonClasses: ['btn btn-sm'],
+                    applyClass: 'btn-primary',
+                    separator: ' to ',
+                    format: 'L',
+                    dateLimit: { days: 90 },
+                    ranges: {
+                      Today: [new Date(TODAY_IN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Yesterday': [new Date((NEXT_DAT_IN_MS - 2 * ONE_DAYIN_MS) + 2), new Date(NEXT_DAT_IN_MS)],
+                      'Last 7 Days': [new Date(NEXT_DAT_IN_MS - 7 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 28 Days': [new Date(NEXT_DAT_IN_MS - 28 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 60 Days': [new Date(NEXT_DAT_IN_MS - 60 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 90 Days': [new Date(NEXT_DAT_IN_MS - 90 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 120 Days': [new Date(NEXT_DAT_IN_MS - 120 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 180 Days': [new Date(NEXT_DAT_IN_MS - 180 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)]
+                    },
+                    locale: {
+                      applyLabel: 'Update',
+                      cancelLabel: 'Clear',
+                      fromLabel: 'Start date',
+                      toLabel: 'End date',
+                      customRangeLabel: 'Custom'
+                    },
+                    minDate: new Date('2022-01-01T00:00:00.000Z'),
+                    alwaysShowCalendars: true
+                  }}
+                  callback={callback}
+                />
+
+                {/* <div style={{position:"absolute", height:"35px", width:"145px", background:"#ffffff", padding:"6px 12px", border:"none"}}>{timePeriod}</div> */}
+
               </h6>
-              <div className={openday ? classes.listday : classes.listday_hide}>
-                <li onClick={selectdayHandler}>Today</li>
+              {/* <div className={openday ? classes.listday : classes.listday_hide}> */}
+              {/* <li onClick={selectdayHandler}>Today</li>
                 <li onClick={selectdayHandler}>Yesterday</li>
                 <li onClick={selectdayHandler}>2 day ago</li>
                 <li onClick={selectdayHandler}>7 day ago</li>
                 <li onClick={selectdayHandler}>15 day ago</li>
                 <li onClick={selectdayHandler}>1 month ago</li>
-                <li onClick={selectdayHandler}>2 month ago</li>
-              </div>
+                <li onClick={selectdayHandler}>2 month ago</li> */}
+              {/* </div> */}
             </div>
           </div>
         )}
@@ -652,9 +800,9 @@ const Profile = () => {
                 <BiChevronDown />
               </span>
             </p> */}
-            <div  id="datetimeStatus" class={classes.dateTimestatus_sort_box}>
+            <div id="datetimeStatus" class={classes.dateTimestatus_sort_box}>
               <p onBlur={() => dateTimeOpened(false)} onClick={dateTimeClickHanlder} className={classes.datetimeStatus}>{dateTimeValue} <BiChevronDown /></p>
-              <ul style={{display: 'none'}} className={dateTimeOpened && classes.dateTimestatus_sort_box_options}>
+              <ul style={{ display: 'none' }} className={dateTimeOpened && classes.dateTimestatus_sort_box_options}>
                 <li onClick={dateTimeOptionClickHanlder}>Date/Time</li>
                 <li onClick={dateTimeOptionClickHanlder}>Date</li>
                 <li onClick={dateTimeOptionClickHanlder}>Time</li>
@@ -685,7 +833,7 @@ const Profile = () => {
           </Col>
         </Row>
 
-        <Row style={{ overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px' }}>
+        <Row className={classes.reportListContainer} style={{ overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px' }}>
 
           {array && filteredResults.length === 0
             ? array.map((a, i) => {
@@ -807,49 +955,8 @@ const Profile = () => {
         </DialogActions>
       </Dialog>
 
-      {/* Report Status Complete */}
-      <Dialog
-        open={openCompleteStatusDilogBox}
-        // onClose={() => setOpen(false)}
-        aria-labelledby="dilog-title"
-        aria-aria-describedby="dilog-description"
-        sx={{ p: 2 }}
-      >
-        <DialogTitle id="dilog-title">Report Status</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Your Report is Complete!</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button
-            variant="contained"
-            onClick={() => setOpenCompleteStatusDilogBox(false)}
-          >
-            Okay
-          </Button>
-        </DialogActions>
-      </Dialog>
 
-      {/* Report Status Complete */}
-      <Dialog
-        open={openInReviewStatusDilogBox}
-        // onClose={() => setOpen(false)}
-        aria-labelledby="dilog-title"
-        aria-aria-describedby="dilog-description"
-        sx={{ p: 2 }}
-      >
-        <DialogTitle id="dilog-title">Report Status</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Your Report is in review</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button
-            variant="contained"
-            onClick={() => setOpenInReviewStatusDilogBox(false)}
-          >
-            Okay
-          </Button>
-        </DialogActions>
-      </Dialog>
+
     </div>
   );
 };

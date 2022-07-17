@@ -875,7 +875,7 @@
   border-radius: 16px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
     rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  width: 180px;
+  width: 190px;
   padding: 7.8px;
   background-color: white;
   cursor: pointer;
@@ -891,6 +891,7 @@
   position: fixed;
   padding: 10px 10px;
   border-radius: 13px;
+  z-index: 2;
 }
 
 .listday li {
@@ -899,11 +900,14 @@
 
 .tableheader {
   align-items: flex-start;
+
 }
 
 .tableheader p {
   color: #395d89;
   font-weight: bold;
+  position: relative;
+  z-index: 0;
 }
 
 .dataempty_image {
@@ -916,6 +920,21 @@
   margin-top: 0px;
   height: 320px;
 }
+.reportListContainer{
+  overflow-y: scroll;
+  padding-right: 5px;
+  scrollbar-color: #313131 #fff;
+  scrollbar-width: thin;
+}
+.reportListContainer::-webkit-scrollbar{
+  width: 8px;
+}
+.reportListContainer::-webkit-scrollbar-thumb{
+  cursor: pointer;
+  background-color: #313131;
+  border-radius: 10px;
+}
+
 
 .alpha_sort_btn,
 .date_sort_btn,
