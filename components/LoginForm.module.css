@@ -453,10 +453,10 @@
   }
 } */
 
-.status_sort_box{
+.status_sort_box {
   border: none;
   box-shadow: rgba(0, 0, 0, 0.1) -2px 2px 15px -3px,
-              rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   width: 140px;
   /* padding: 2px; */
   position: absolute;
@@ -468,18 +468,19 @@
   padding-bottom: 10px;
 }
 
-.status_sort_box li{
+.status_sort_box li {
   list-style: none;
   padding-left: 10px;
   padding-top: 5px;
   color: #000000;
 }
 
-.status_sort_box li:hover{
+.status_sort_box li:hover {
   background-color: #c4c4c4;
   cursor: pointer;
- 
+
 }
+
 .hello {
   color: #3699fb;
   font-family: "Sora";
@@ -506,9 +507,11 @@
   background: none;
   position: relative;
 }
-.proCol4{
+
+.proCol4 {
   min-width: 100px;
 }
+
 .proCol4 p {
   text-align: left;
   font-family: "Sora";
@@ -644,12 +647,14 @@
   overflow: hidden;
   display: block !important;
 }
-.dateTimestatus_sort_box_options li{
+
+.dateTimestatus_sort_box_options li {
   padding: 0px 10px;
   cursor: pointer;
   color: #000000;
 }
-.dateTimestatus_sort_box_options li:hover{
+
+.dateTimestatus_sort_box_options li:hover {
   background-color: #ccc;
 }
 
@@ -920,16 +925,19 @@
   margin-top: 0px;
   height: 320px;
 }
-.reportListContainer{
+
+.reportListContainer {
   overflow-y: scroll;
   padding-right: 5px;
   scrollbar-color: #313131 #fff;
   scrollbar-width: thin;
 }
-.reportListContainer::-webkit-scrollbar{
+
+.reportListContainer::-webkit-scrollbar {
   width: 8px;
 }
-.reportListContainer::-webkit-scrollbar-thumb{
+
+.reportListContainer::-webkit-scrollbar-thumb {
   cursor: pointer;
   background-color: #313131;
   border-radius: 10px;
@@ -1015,16 +1023,29 @@
     right: 80px;
   }
 } */
-@media screen and (max-width: 1150px) {
-  .dayfilter {
-    padding-left: 100px;
-  }
-
-}
 
 @media screen and (max-width: 1450px) {
   .dayfilter {
     padding-left: 200px;
   }
 
+}
+
+@media screen and (max-width: 1150px) {
+  .dayfilter {
+    padding-left: 0px;
+    margin-left: 100px;
+    
+  }
+  .form_control{
+    width: 150%;
+  }
+  .search_main{
+    margin: 0 !important;
+  }
+}
+@media screen and (max-width: 900px) {
+  .homeBody{
+    padding-left: 10%;
+  }
 }

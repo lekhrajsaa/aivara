@@ -3,7 +3,9 @@
 }
 
 .name {
+  margin-left: 0;
   margin-top: 3%;
+  padding-left: 0;
 }
 
 .hello {
@@ -413,5 +415,8 @@ margin-left: 30%;
 @media screen and (max-width: 900px) {
   .allBody{
     padding-left: 12%;
+  }
+  .clientCount{
+    margin-top: 8%;
   }
 }
