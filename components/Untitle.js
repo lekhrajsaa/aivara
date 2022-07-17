@@ -8,7 +8,7 @@ import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-
+import {EmailShareButton} from 'react-share'
 import Header from "../components/HeaderConditional";
 
 
@@ -189,7 +189,8 @@ const Untitle = () => {
             Download
           </div>
           <div className={classes.email} onClick={() => emailHandler()}>
-            {/* Email */}
+            <EmailShareButton
+            url="www.gmail.com">Email</EmailShareButton>
           </div>
           <div onClick={closeBtnHanlder} className={classes.closeIcon}>
             <AiOutlineClose />
