@@ -10,6 +10,9 @@ const ImagePreview = ({ galleryItems, currentIndex, setPreviewImage }) => {
         <div className={classes.backdrop}>
 
             <div className={classes.image_modal}>
+                <p className={classes.image_modal_analysis}>
+                    Analysis
+                </p>
                 <p
                     className={classes.image_modal_close}
                     onClick={() => setPreviewImage(false)}
@@ -24,7 +27,7 @@ const ImagePreview = ({ galleryItems, currentIndex, setPreviewImage }) => {
 
                 {/* <img src={galleryItems[currentIndex]} /> */}
 
-                <a className="button" href={galleryItems[currentIndex]} download>
+                <a className="button" href={galleryItems[currentIndex]} target={'_blank'} download>
                     <p className={classes.image_modal_download}>
                         <FileDownloadOutlinedIcon />
                         Download

@@ -991,7 +991,14 @@
   color: #395D89;
   text-align: start;
   padding: 5px;
-
+  border:transparent;
+  outline: none;
+  border-radius:0px;
+}
+.dateTimestatus_option{
+  border: transparent;
+  color: #395D89;
+  
 }
 
 

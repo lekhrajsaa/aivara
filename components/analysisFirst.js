@@ -207,7 +207,7 @@ const Analysisheader = () => {
       if (updatedReportData.data[currentIndex].genus && updatedReportData.data[currentIndex].genus.length > 0) {
 
         console.log(updatedReportData.data[currentIndex].genus)
-        setGenus(updatedReportData.data[currentIndex].genus)        
+        setGenus(updatedReportData.data[currentIndex].genus)
       } else {
 
         let tempGenus = DataFromAI.data[currentIndex].objects_confidence.map(item => {
@@ -237,7 +237,7 @@ const Analysisheader = () => {
         return secondName;
       })
 
-      
+
       console.log(tempSpecies);
 
 
@@ -274,12 +274,12 @@ const Analysisheader = () => {
 
       fetch(`${SERVER_URL}updateReportData`, requestOptions)
         .then(response => response.text())
-        .then(result => {console.log(result); router.push('/reports'); dispatch(setAiReportData({}))})
-        .catch(error => {console.log('error', error); alert('something went wrong')});
+        .then(result => { console.log(result); router.push('/reports'); dispatch(setAiReportData({})) })
+        .catch(error => { console.log('error', error); alert('something went wrong') });
     }
   }
 
-  
+
   return (
     <>
       <div
@@ -292,7 +292,7 @@ const Analysisheader = () => {
               <h5>Taxa details of the classified image</h5>
             </div>
             <div className={classes.analysis_cross_icon}>
-              <AiOutlineClose onClick={() => { route.push("/home"); dispatch(setAiReportData({}))}} />
+              <AiOutlineClose onClick={() => { route.push("/home"); dispatch(setAiReportData({})) }} />
             </div>
           </div>
           <div className={classes.analysis_body}>
