@@ -262,7 +262,7 @@ const Profile = () => {
       .then((result) => {
         if (result && result.data && result.data.Items) {
           console.log(result.data.Items);
-          setarray(result.data.Items);
+          setarray(result.data.Items)
         }
       })
       .catch((error) => console.log("error", error));
@@ -287,8 +287,8 @@ const Profile = () => {
   //Day time filter
 
   const datetimeFilter = (a) => {
-    console.log(a);
-  };
+    console.log(a)
+  }
 
   // searching Reports
   const searchItems = (searchValue) => {
@@ -336,12 +336,10 @@ const Profile = () => {
 
   // Status filter
   const labstatus = (a) => {
-    if (a === "all") {
-      setFilteredResults(array);
+    if (a === 'all') {
+      setFilteredResults(array)
     }
-    setFilteredResults(
-      array.filter((e, i) => e.reportStatus.toLowerCase() === a)
-    );
+    setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
     setopenStatus(false);
   };
 
@@ -397,7 +395,7 @@ const Profile = () => {
       // const hour = Number(date.slice(12, 14)) % 12;
       // const minute = date.slice(15, 17);
       // const customTime = `${hour}:${minute}`;
-      const customTime = date.slice(12, 17);
+      const customTime = date.slice(12, 17)
       const currentDate = customDate + " ; " + customTime;
 
       // const currentDate=customDate.splice
@@ -509,7 +507,7 @@ const Profile = () => {
 
   useEffect(() => {
     console.log(startDate, endDate);
-    
+
     const filteredOutput = array.filter(item => {
       // console.log(item)
 
@@ -517,7 +515,7 @@ const Profile = () => {
       let tempDate = new Date(temp);
       // console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
 
-      console.log("custom time stamp", temp, temp >= endDate && temp <= startDate || temp <= endDate && temp >= startDate )
+      console.log("custom time stamp", temp, temp >= endDate && temp <= startDate || temp <= endDate && temp >= startDate)
 
       if ((temp >= endDate && temp <= startDate) || (temp <= endDate && temp >= startDate)) {
         // console.log("matched", item)
@@ -536,10 +534,7 @@ const Profile = () => {
 
   return (
     <div className={classes.homeBody}>
-      <Container
-        style={{ paddingLeft: 0, maxWidth: "unset" }}
-        className={classes.name}
-      >
+      <Container style={{ paddingLeft: 0, maxWidth: 'unset' }} className={classes.name}>
         {searchBarTab && (
           <div style={{ justifyContent: 'space-between', marginRight: '15%', width: 'unset' }} className={classes.search_main}>
             <div className={`${classes.form_group} ${classes.has_search}`}>
@@ -558,9 +553,9 @@ const Profile = () => {
 
                 <DateRangeSelector
                   inputComponent={
-                    <div style={{ position:"relative"}}>
-                      <input type='text' name='dates' className='form-control pull-right' value={timePeriod} style={{border: "none", textAlign: "center", fontSize:"22px", fontWeight:"600", cursor:"pointer" }} />
-                      <BiChevronDown style={{position:"absolute", right:"0", top:"12px"}}/>
+                    <div style={{ position: "relative" }}>
+                      <input type='text' name='dates' className='form-control pull-right' value={timePeriod} style={{ border: "none", textAlign: "center", fontSize: "22px", fontWeight: "600", cursor: "pointer" }} />
+                      <BiChevronDown style={{ position: "absolute", right: "0", top: "12px" }} />
                     </div>
                   }
                   options={{
@@ -761,12 +756,7 @@ const Profile = () => {
       </Container> */}
 
       <Container
-        style={{
-          marginLeft: "0",
-          marginRight: "0",
-          marginTop: "2%",
-          maxWidth: "unset",
-        }}
+        style={{ marginLeft: '0', marginRight: '0', marginTop: '2%', maxWidth: 'unset' }}
       >
         <Row className={classes.tableheader}>
           <Col
@@ -793,7 +783,7 @@ const Profile = () => {
               </span>
             </p>
           </Col>
-          <Col md={4} xs={3} className={classes.proCol2}>
+          <Col md={4} xs={3} className={classes.proCol2} >
             {/* <p>
               Date/Time{" "}
               <span className={classes.date_sort_btn}>
@@ -809,11 +799,11 @@ const Profile = () => {
               </ul>
             </div>
           </Col>
-          <Col md={1} xs={2}>
+          <Col md={1} xs={2} >
             <p>View </p>
           </Col>
           <Col md={1} xs={1} className={classes.proCol5}>
-            <p style={{ cursor: "pointer" }} onClick={statusCheck}>
+            <p style={{ cursor: 'pointer' }} onClick={statusCheck}>
               Status
               <span className={classes.status_sort_btn}>
                 <BiChevronDown />
@@ -839,14 +829,7 @@ const Profile = () => {
             ? array.map((a, i) => {
               return (
                 <>
-                  <Row
-                    style={{
-                      padding: "15px 0",
-                      marginLeft: "0",
-                      marginRight: "0",
-                    }}
-                    className={classes.rowe}
-                  >
+                  <Row style={{ padding: '15px 0', marginLeft: '0', marginRight: '0' }} className={classes.rowe}>
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
                     </Col>
@@ -860,7 +843,7 @@ const Profile = () => {
                           if (a.reportStatus.toLowerCase() === "complete") {
                             fetchOneReport(a.reportId);
                           } else {
-                            // console.log("Yo", a.reportStatus);
+                            console.log("Yo", a.reportStatus);
                             setOpenIncompleteStatusDilogBox(a.reportStatus);
                             setIncompleteReportId(a.reportId);
                           }
@@ -895,7 +878,7 @@ const Profile = () => {
                           if (a.reportStatus.toLowerCase() === "complete") {
                             fetchOneReport(a.reportId);
                           } else {
-                            // console.log("Yo", a.reportStatus);
+                            console.log("Yo", a.reportStatus);
                             setOpenIncompleteStatusDilogBox(a.reportStatus);
                             setIncompleteReportId(a.reportId);
                           }
@@ -912,9 +895,10 @@ const Profile = () => {
               );
             })}
         </Row>
+
       </Container>
 
-      <Container style={{ marginLeft: "-10px" }} className={classes.report2}>
+      <Container style={{ marginLeft: '-10px' }} className={classes.report2}>
         <div className={classes.uploadicon}>
           {/* <i
             className="fa-solid fa-arrow-up-from-bracket"
