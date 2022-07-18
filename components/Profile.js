@@ -32,7 +32,9 @@ import Router from "next/router";
 
 import { DayPicker } from 'react-day-picker';
 
-import 'react-day-picker/dist/style.css';
+// import 'react-day-picker/dist/style.css';
+
+// import './calendar.module.css'
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
