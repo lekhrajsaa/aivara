@@ -40,7 +40,7 @@ function WithSignout(props) {
             <a
               href="/newHome"
               className={classes.brandname}
-              style={{ color: "white" }}
+              style={{ color: "white",marginLeft:"-20px"}}
             >
               AIVARA
             </a>
