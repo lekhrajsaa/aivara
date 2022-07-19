@@ -48,6 +48,7 @@ import classes from "./SideBar.module.css";
 const Sidebar = (props) => {
   const router = useRouter();
   //create initial menuCollapse state using useState hook
+  
   const [menuCollapse, setMenuCollapse] = useState(false);
   
   const [homeClick, setOnHomeClick] = useState();
@@ -63,17 +64,18 @@ const Sidebar = (props) => {
   const removeDetail = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
-    window.location.href = "/";
+    // window.location.href = "/";
+    router.push('/')
   };
 
   useEffect(() => {
-    if (window.innerWidth < 900) {
+    if (window.innerWidth < 1000) {
       setMenuCollapse(true)
     } else {
       setMenuCollapse(false)
     }
     window.onresize = () => {
-      if (window.innerWidth < 900) {
+      if (window.innerWidth < 1000) {
         setMenuCollapse(true)
       } else {
         setMenuCollapse(false)

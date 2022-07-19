@@ -7,7 +7,7 @@ import {
   setReportTableData,
 } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Xapkey } from "../apikey";
+// import { Xapkey } from "../apikey";
 // import { Link, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
@@ -29,10 +29,8 @@ import {
 
 import Router from "next/router";
 
-import { format } from 'date-fns';
-import { DayPicker } from 'react-day-picker';
-
-import 'react-day-picker/dist/style.css';
+// import DateRangeSelector from 'react-daterangeselector';
+// import 'react-daterangeselector/dist/styles.min.css';
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
@@ -345,7 +343,11 @@ const Profile = () => {
   // Status filter
   const labstatus = (a) => {
     if (a === 'all') {
-      setFilteredResults(array)
+      //temporary bug Fix
+      setTimeout(() => {
+        setFilteredResults(array);
+        console.log('allfdlkj', filteredResults, filteredResults.length)
+      }, 0);
     }
     setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
     setopenStatus(false);
@@ -437,101 +439,107 @@ const Profile = () => {
   };
 
   // calender filtering
-  const [isCalendarShow, setIsCalendarShow] = useState(false);
-  const [calenderOption, setCalenderOption] = useState("Today")
 
   const todaay = new Date();
   const ONE_DAYIN_MS = 86400000;
   const TODAY_IN_MS = new Date(`${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`).getTime(); // at 12am
   const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
 
-  //
-  const defaultSelected = {
-    from: new Date(TODAY_IN_MS),
-    to: new Date(TODAY_IN_MS)
-  };
-  const [range, setRange] = useState(defaultSelected);
 
-  let footer = <div style={{ display: "flex", justifyContent: "end" }}>
-  <button
-    onClick={() => {
-      setRange(defaultSelected)
-      setIsCalendarShow(false)
-    }}
-    style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "rgba(95, 165, 250, 0.1)", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
-  >
-    Cancel
-  </button>
-  <button
-    style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "#5FA5FA", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
-    onClick={() => {
-      updateCalender()
-      setIsCalendarShow(false)
-    }}
-  >
-    Ok
-  </button>
-</div>;
-
-  if (range?.from) {
-    if (!range.to) {
-      footer = footer;
-    } else if (range.to) {
-      footer = footer;
-    }
-  }
-
-  // filter reports on date
-  function updateCalender() {
-    let fromTime = new Date(range.from).getTime(); // in ms
-
-    // reports for a single day
-    if (!range.to) {
-      console.log("single date")
-
-      let toTimee = fromTime + ONE_DAYIN_MS;
-      return filterDateByTimestamp(fromTime, toTimee)
-    }
-
-    let toTime = new Date(range.to).getTime(); // in ms
-
-    // today
-    if (fromTime === toTime) {
-      console.log("today")
-
-      let toTimee = toTime + ONE_DAYIN_MS;
-      filterDateByTimestamp(fromTime, toTimee)
-    }
-
-    // reports for date range
-    if (range.from && range.to) {
-      console.log("range of date", range)
-      console.log(new Date(range.from).getTime(), "gg from")
-      console.log(new Date(range.to).getTime(), "gg to")
-
-      let toTimee = toTime + ONE_DAYIN_MS;
-      filterDateByTimestamp(fromTime, toTimee)
-    }
-  }
-
-  // filter logic
   function filterDateByTimestamp(startValue, endValue) {
+    console.log(array, "okay")
+
+    if (startValue > endValue) {
+
+      const filteredOutput = array.filter(item => {
+        console.log(item)
+
+        let temp = item.customTimeStamp;
+        let tempDate = new Date(temp);
+        console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
+
+        if (temp >= endValue && temp <= startValue) {
+          // console.log("matched", item)
+          return true;
+        }
+        return false;
+      });
+
+      console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
+    } else {
+      const filteredOutput = array.filter(item => {
+        let temp = item.customTimeStamp;
+        let tempDate = new Date(temp);
+
+        if (temp <= endValue && temp >= startValue) {
+          // console.log("matched", item)
+          return true;
+        }
+        return false;
+      });
+
+      console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
+    }
+  }
+
+
+  function callback(start, end) {
+
+    let startDate = new Date(start._d);
+    let endDate = new Date(end._d);
+
+    let startDateTimestamp = startDate.getTime();
+    let endDateTimestamp = endDate.getTime();
+
+    // filterDateByTimestamp(startDateTimestamp, endDateTimestamp)
+
+    setstartDate(startDateTimestamp);
+    setendDate(endDateTimestamp);
+
+    console.log("-----calender testing--------")
+    // console.log(endDateTimestamp == 7 * NEXT_DAT_IN_MS , endDateTimestamp,NEXT_DAT_IN_MS, " <- start end -> ", startDateTimestamp == TODAY_IN_MS, startDateTimestamp, TODAY_IN_MS )
+
+    // console.log(  ( NEXT_DAT_IN_MS - endDateTimestamp ) / ONE_DAYIN_MS , "days")
+
+    if (startDateTimestamp <= NEXT_DAT_IN_MS && endDateTimestamp == NEXT_DAT_IN_MS) {
+      const dispDay = Math.ceil((NEXT_DAT_IN_MS - startDateTimestamp) / ONE_DAYIN_MS) - 1;
+
+      if (dispDay == 0) { console.log("Today"); SettimePeriod("Today") }
+      else if (dispDay == 1) { console.log("Yesterday"); SettimePeriod("Yesterday") }
+      else { console.log(`Last ${dispDay} Days`); SettimePeriod(`Last ${dispDay} Days`) }
+
+    } else {
+      console.log("custom");
+      SettimePeriod("custom")
+    }
+
+  }
+
+  useEffect(() => {
+    console.log(startDate, endDate);
 
     const filteredOutput = array.filter(item => {
+      // console.log(item)
 
       let temp = item.customTimeStamp;
+      let tempDate = new Date(temp);
+      // console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
 
-      if (temp <= endValue && temp >= startValue) { return true; }
+      console.log("custom time stamp", temp, temp >= endDate && temp <= startDate || temp <= endDate && temp >= startDate)
+
+      if ((temp >= endDate && temp <= startDate) || (temp <= endDate && temp >= startDate)) {
+        // console.log("matched", item)
+        // console.log(temp," -->", endDate,"to", startDate , timePeriod)
+        return true;
+      }
       return false;
     });
 
-    console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
+    console.log(filteredOutput, timePeriod)
 
-    if (filteredOutput.length === 0) { console.log("pok u"); return setFilteredResults([]) }
+    setFilteredResults([...filteredOutput]);
 
-    setFilteredResults(filteredOutput)
-
-  }
+  }, [startDate, endDate])
 
 
   return (
@@ -551,110 +559,57 @@ const Profile = () => {
               />
             </div>
             <div className={classes.dayfilter}>
-              <h6 onClick={daysfilter} style={{ display: "flex", justifyContent: "center", alignItems: "center", fontSize: "18px" }}>
-                <div onClick={() => setIsCalendarShow(!isCalendarShow)}> {calenderOption} </div>                
-                {isCalendarShow ? (
-                  <div style={{ position: "absolute", top: "160px", right:"50px", background: "#fff", padding: "10px", display: "flex", boxShadow: "rgb(158 158 158) 5px 6px 16px 0px", borderRadius: "5%", zIndex: "100", transform: "scale(0.85, 0.8)" }}>
+              <h6 onClick={daysfilter} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 
-                    <div style={{ width: "140px", padding: "10px", borderRight: "rgb(158 158 158) 2px solid" }}>
-                      <div
-                        style={{ marginTop: "25px", textAlign: "start" }}
-                        onClick={(e) => {
-                          setCalenderOption("Today")
-                          setRange({
-                            from: new Date(TODAY_IN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
-                        }}
-                      >
-                        Today
-                      </div>
-                      <div
-                        style={{ marginTop: "25px", textAlign: "start" }}
-                        onClick={(e) => {
-                          setCalenderOption("Yesterday")
-                          setRange({
-                            from: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
-                        }}
-                      >
-                        Yesterday
-                      </div>
-                      <div
-                        style={{ marginTop: "25px", textAlign: "start" }}
-                        onClick={(e) => {
-                          setCalenderOption("2 days ago")
-                          setRange({
-                            from: new Date(TODAY_IN_MS - 2 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
-                        }}
-                      >
-                        2 days ago
-                      </div>
-                      <div
-                        style={{ marginTop: "25px", textAlign: "start" }}
-                        onClick={(e) => {
-                          setCalenderOption("7 days ago")
-                          setRange({
-                            from: new Date(TODAY_IN_MS - 7 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
-                        }}
-                      >
-                        7 days ago
-                      </div>
-                      <div
-                        style={{ marginTop: "25px", textAlign: "start" }}
-                        onClick={(e) => {
-                          setCalenderOption("15 days ago")
-                          setRange({
-                            from: new Date(TODAY_IN_MS - 15 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
-                        }}
-                      >
-                        15 days ago
-                      </div>
-                      <div
-                        style={{ marginTop: "25px", textAlign: "start" }}
-                        onClick={(e) => {
-                          setCalenderOption("1 month ago")
-                          setRange({
-                            from: new Date(TODAY_IN_MS - 30 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
-                        }}
-                      >
-                        1 month ago
-                      </div>
-                      <div
-                        style={{ marginTop: "25px", textAlign: "start" }}
-                        onClick={(e) => {
-                          setCalenderOption("2 month ago")
-                          setRange({
-                            from: new Date(TODAY_IN_MS - 60 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
-                        }}
-                      >
-                        2 month ago
-                      </div>
+                {/* <DateRangeSelector
+                  inputComponent={
+                    <div style={{ position: "relative" }}>
+                      <input type='text' name='dates' className='form-control pull-right' value={timePeriod} style={{ border: "none", textAlign: "center", fontSize: "22px", fontWeight: "600", cursor: "pointer" }} />
+                      <BiChevronDown style={{ position: "absolute", right: "0", top: "12px" }} />
                     </div>
+                  }
+                  options={{
+                    opens: 'left',
+                    buttonClasses: ['btn btn-sm'],
+                    applyClass: 'btn-primary',
+                    separator: ' to ',
+                    format: 'L',
+                    dateLimit: { days: 90 },
+                    ranges: {
+                      'Today': [new Date(TODAY_IN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Yesterday': [new Date((NEXT_DAT_IN_MS - 2 * ONE_DAYIN_MS) + 2), new Date(NEXT_DAT_IN_MS)],
+                      'Last 7 Days': [new Date(NEXT_DAT_IN_MS - 7 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 28 Days': [new Date(NEXT_DAT_IN_MS - 28 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 60 Days': [new Date(NEXT_DAT_IN_MS - 60 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 90 Days': [new Date(NEXT_DAT_IN_MS - 90 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 120 Days': [new Date(NEXT_DAT_IN_MS - 120 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
+                      'Last 180 Days': [new Date(NEXT_DAT_IN_MS - 180 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)]
+                    },
+                    locale: {
+                      applyLabel: 'Update',
+                      cancelLabel: 'Clear',
+                      fromLabel: 'Start date',
+                      toLabel: 'End date',
+                      customRangeLabel: 'Custom'
+                    },
+                    minDate: new Date('2022-01-01T00:00:00.000Z'),
+                    alwaysShowCalendars: true
+                  }}
+                  callback={callback}
+                /> */}
 
-                    <DayPicker
-                      style={{ background: "#fff", padding: "10px" }}
-                      mode="range"
-                      defaultMonth={todaay}
-                      selected={range}
-                      footer={footer}
-                      onSelect={setRange}
-                      onBlur={() => setIsCalendarShow(false)}
-                    />
-                  </div>
-                ) : null}
+                {/* <div style={{position:"absolute", height:"35px", width:"145px", background:"#ffffff", padding:"6px 12px", border:"none"}}>{timePeriod}</div> */}
+
               </h6>
+              {/* <div className={openday ? classes.listday : classes.listday_hide}> */}
+              {/* <li onClick={selectdayHandler}>Today</li>
+                <li onClick={selectdayHandler}>Yesterday</li>
+                <li onClick={selectdayHandler}>2 day ago</li>
+                <li onClick={selectdayHandler}>7 day ago</li>
+                <li onClick={selectdayHandler}>15 day ago</li>
+                <li onClick={selectdayHandler}>1 month ago</li>
+                <li onClick={selectdayHandler}>2 month ago</li> */}
+              {/* </div> */}
             </div>
           </div>
         )}

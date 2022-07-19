@@ -161,7 +161,7 @@ const Untitle = () => {
 
   return (
     <>
-      <div ref={componentRef} style={{ width: "100%", height: "100vh" }}>
+      <div className={classes.mainContainer} ref={componentRef} style={{ width: "100%" }}>
         {show && <Header icon={true} />}
         <div className={classes.container}>
           <div className={classes.untitle}>
@@ -173,7 +173,7 @@ const Untitle = () => {
               disabled={!isEditEnable}
               ref={titleInput}
               style={{ padding: "5px 10px", border: "none", 
-              width: `${pageTitle.length * 14 + 10}px`,
+              width: `${pageTitle.length * 14 + 20}px`,
               color: "#313131", fontFamily: "sora", 
               fontWeight: "700", background: "transparent" }}
             />
@@ -222,12 +222,12 @@ const Untitle = () => {
           <Table bordered className={classes.tableBody}>
             <thead>
               <tr className={classes.tableHeading}>
-                <th>Site Code</th>
+                <th><span>Site Code</span></th>
                 <th>Geographical Location</th>
                 <th>Taxa Details</th>
                 <th>Count of Images</th>
                 <th>Count of taxa</th>
-                <th>Relative Abundance</th>
+                <th><span>Relative Abundance</span></th>
               </tr>
             </thead>
             <tbody className={classes.tbody}>{tableData}</tbody>
