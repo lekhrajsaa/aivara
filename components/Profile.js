@@ -30,9 +30,11 @@ import {
 import Router from "next/router";
 
 
-// import { DayPicker } from 'react-day-picker';
+import { DayPicker } from 'react-day-picker';
 
 // import 'react-day-picker/dist/style.css';
+// import calStyle from './calStyle.module.css'
+
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
@@ -437,101 +439,101 @@ const Profile = () => {
   };
 
   // calender filtering
-//   const [isCalendarShow, setIsCalendarShow] = useState(false);
-//   const [calenderOption, setCalenderOption] = useState("Today")
+  const [isCalendarShow, setIsCalendarShow] = useState(false);
+  const [calenderOption, setCalenderOption] = useState("Today")
 
-//   const todaay = new Date();
-//   const ONE_DAYIN_MS = 86400000;
-//   const TODAY_IN_MS = new Date(`${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`).getTime(); // at 12am
-//   const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
+  const todaay = new Date();
+  const ONE_DAYIN_MS = 86400000;
+  const TODAY_IN_MS = new Date(`${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`).getTime(); // at 12am
+  const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
 
-//   //
-//   const defaultSelected = {
-//     from: new Date(TODAY_IN_MS),
-//     to: new Date(TODAY_IN_MS)
-//   };
-//   const [range, setRange] = useState(defaultSelected);
+  //
+  const defaultSelected = {
+    from: new Date(TODAY_IN_MS),
+    to: new Date(TODAY_IN_MS)
+  };
+  const [range, setRange] = useState(defaultSelected);
 
-//   let footer = <div style={{ display: "flex", justifyContent: "end" }}>
-//   <button
-//     onClick={() => {
-//       setRange(defaultSelected)
-//       setIsCalendarShow(false)
-//     }}
-//     style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "rgba(95, 165, 250, 0.1)", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
-//   >
-//     Cancel
-//   </button>
-//   <button
-//     style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "#5FA5FA", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
-//     onClick={() => {
-//       updateCalender()
-//       setIsCalendarShow(false)
-//     }}
-//   >
-//     Ok
-//   </button>
-// </div>;
+  let footer = <div style={{ display: "flex", justifyContent: "end" }}>
+  <button
+    onClick={() => {
+      setRange(defaultSelected)
+      setIsCalendarShow(false)
+    }}
+    style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "rgba(95, 165, 250, 0.1)", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
+  >
+    Cancel
+  </button>
+  <button
+    style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "#5FA5FA", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
+    onClick={() => {
+      updateCalender()
+      setIsCalendarShow(false)
+    }}
+  >
+    Ok
+  </button>
+</div>;
 
-//   if (range?.from) {
-//     if (!range.to) {
-//       footer = footer;
-//     } else if (range.to) {
-//       footer = footer;
-//     }
-//   }
+  if (range?.from) {
+    if (!range.to) {
+      footer = footer;
+    } else if (range.to) {
+      footer = footer;
+    }
+  }
 
-//   // filter reports on date
-//   function updateCalender() {
-//     let fromTime = new Date(range.from).getTime(); // in ms
+  // filter reports on date
+  function updateCalender() {
+    let fromTime = new Date(range.from).getTime(); // in ms
 
-//     // reports for a single day
-//     if (!range.to) {
-//       console.log("single date")
+    // reports for a single day
+    if (!range.to) {
+      console.log("single date")
 
-//       let toTimee = fromTime + ONE_DAYIN_MS;
-//       return filterDateByTimestamp(fromTime, toTimee)
-//     }
+      let toTimee = fromTime + ONE_DAYIN_MS;
+      return filterDateByTimestamp(fromTime, toTimee)
+    }
 
-//     let toTime = new Date(range.to).getTime(); // in ms
+    let toTime = new Date(range.to).getTime(); // in ms
 
-//     // today
-//     if (fromTime === toTime) {
-//       console.log("today")
+    // today
+    if (fromTime === toTime) {
+      console.log("today")
 
-//       let toTimee = toTime + ONE_DAYIN_MS;
-//       filterDateByTimestamp(fromTime, toTimee)
-//     }
+      let toTimee = toTime + ONE_DAYIN_MS;
+      filterDateByTimestamp(fromTime, toTimee)
+    }
 
-//     // reports for date range
-//     if (range.from && range.to) {
-//       console.log("range of date", range)
-//       console.log(new Date(range.from).getTime(), "gg from")
-//       console.log(new Date(range.to).getTime(), "gg to")
+    // reports for date range
+    if (range.from && range.to) {
+      console.log("range of date", range)
+      console.log(new Date(range.from).getTime(), "gg from")
+      console.log(new Date(range.to).getTime(), "gg to")
 
-//       let toTimee = toTime + ONE_DAYIN_MS;
-//       filterDateByTimestamp(fromTime, toTimee)
-//     }
-//   }
+      let toTimee = toTime + ONE_DAYIN_MS;
+      filterDateByTimestamp(fromTime, toTimee)
+    }
+  }
 
-//   // filter logic
-//   function filterDateByTimestamp(startValue, endValue) {
+  // filter logic
+  function filterDateByTimestamp(startValue, endValue) {
 
-//     const filteredOutput = array.filter(item => {
+    const filteredOutput = array.filter(item => {
 
-//       let temp = item.customTimeStamp;
+      let temp = item.customTimeStamp;
 
-//       if (temp <= endValue && temp >= startValue) { return true; }
-//       return false;
-//     });
+      if (temp <= endValue && temp >= startValue) { return true; }
+      return false;
+    });
 
-//     console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
+    console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
 
-//     if (filteredOutput.length === 0) { console.log("pok u"); return setFilteredResults([]) }
+    if (filteredOutput.length === 0) { console.log("pok u"); return setFilteredResults([]) }
 
-//     setFilteredResults(filteredOutput)
+    setFilteredResults(filteredOutput)
 
-//   }
+  }
 
 
   return (
@@ -552,7 +554,7 @@ const Profile = () => {
             </div>
             <div className={classes.dayfilter}>
               <h6 onClick={daysfilter} style={{ display: "flex", justifyContent: "center", alignItems: "center", fontSize: "18px" }}>
-                {/* <div onClick={() => setIsCalendarShow(!isCalendarShow)}> {calenderOption} </div>                
+                <div onClick={() => setIsCalendarShow(!isCalendarShow)}> {calenderOption} </div>                
                 {isCalendarShow ? (
                   <div style={{ position: "absolute", top: "160px", right:"50px", background: "#fff", padding: "10px", display: "flex", boxShadow: "rgb(158 158 158) 5px 6px 16px 0px", borderRadius: "5%", zIndex: "100", transform: "scale(0.85, 0.8)" }}>
 
@@ -653,7 +655,7 @@ const Profile = () => {
                       onBlur={() => setIsCalendarShow(false)}
                     />
                   </div>
-                ) : null} */}
+                ) : null}
               </h6>
             </div>
           </div>
