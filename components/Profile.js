@@ -450,7 +450,7 @@ const Profile = () => {
   };
   const [range, setRange] = useState(defaultSelected);
 
-  let footer = <div style={{ display: "flex", justifyContent: "end", borderTop: "rgb(158 158 158) 2px solid"}}>
+  let footer = <div style={{ display: "flex", justifyContent: "end", borderTop: "rgb(158 158 158) 2px solid" }}>
     <button
       onClick={() => {
         setRange(defaultSelected)
@@ -549,10 +549,10 @@ const Profile = () => {
               />
             </div>
             <div className={classes.dayfilter}>
-              <h6 onClick={daysfilter} style={{ height:"50px", display: "flex", justifyContent: "start", alignItems: "center", fontSize: "18px" }}>
-                <div onClick={() => setIsCalendarShow(!isCalendarShow)} style={{display:"flex", position:"relative", width:"200px"}}>
+              <h6 onClick={daysfilter} style={{ height: "50px", display: "flex", justifyContent: "start", alignItems: "center", fontSize: "18px" }}>
+                <div onClick={() => setIsCalendarShow(!isCalendarShow)} style={{ display: "flex", position: "relative", width: "200px" }}>
 
-                  <div style={{position:"absolute", left:"10px"}}>
+                  <div style={{ position: "absolute", left: "10px" }}>
                     <svg
                       width="20"
                       height="22"
@@ -569,9 +569,9 @@ const Profile = () => {
                     </svg>
                   </div>
 
-                  <div style={{margin:"0 0 0 45px"}}>{calenderOption}</div>
+                  <div style={{ margin: "0 0 0 45px" }}>{calenderOption}</div>
 
-                  <div style={{position:"absolute", right:"10px"}}>
+                  <div style={{ position: "absolute", right: "10px" }}>
                     <svg
                       width="12"
                       height="8"

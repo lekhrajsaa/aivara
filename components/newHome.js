@@ -24,8 +24,8 @@ const NewHome = () => {
   const userdata = useSelector((state) => state.userdata.userdata);
   const router = useRouter();
   
-  const per = 66;
-  const percentage = 56;
+  const [totalReport, setTotalReport] = useState(100)
+
   const [timePeriod, setTimePeriod]=useState("Today")
   const [timePeriodOpen, setTimePeriodOpen] = useState(false)
   const [clientNumber, setClientNumber] = useState(0)
@@ -51,7 +51,11 @@ const NewHome = () => {
       .then(response => response.json())
       .then(result => {
         if (result && result.data && result.data.Items) {
-          console.log(result.data.Items);
+          console.log(result.data);
+
+          if (result.data.ScannedCount) {
+            setTotalReport(result.data.ScannedCount)
+          }
 
           //set report no
           const reportNo = result.data.Items.length;
@@ -89,7 +93,6 @@ const NewHome = () => {
     }
   }, [])
 
- 
 
   return (
     <div className={classes.allBody}>
@@ -161,7 +164,7 @@ const NewHome = () => {
           <div className={classes.threeparts}>
             <div className={classes.chart}>
               <CircularProgressbar
-                value={clientNumber}
+                value={(clientNumber / totalReport) * 100}
                 styles={buildStyles({
                   pathColor: "#4EAFE5",
                   // trailColor: "transparent",
@@ -172,7 +175,7 @@ const NewHome = () => {
                 className={classes.noOfClientsChart}
               />
               <CircularProgressbar
-                value={reportNumber}
+                value={(reportNumber / totalReport) * 100}
                 styles={buildStyles({
                   pathColor: "#2438EE",
                   // trailColor: "transparent",
