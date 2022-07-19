@@ -7,7 +7,7 @@ import {
   setReportTableData,
 } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
-// import { Xapkey } from "../apikey";
+import { Xapkey } from "../apikey";
 // import { Link, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
@@ -29,8 +29,8 @@ import {
 
 import Router from "next/router";
 
-// import DateRangeSelector from 'react-daterangeselector';
-// import 'react-daterangeselector/dist/styles.min.css';
+
+import { DayPicker } from 'react-day-picker';
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
@@ -71,8 +71,8 @@ const Profile = () => {
   const [tableheaderTab, settableheaderTab] = useState(true);
 
   //
-  const [startDate, setstartDate] = useState('')
-  const [endDate, setendDate] = useState('')
+  // const [startDate, setstartDate] = useState('')
+  // const [endDate, setendDate] = useState('')
 
   // for  toggle class
   const [datalenghtIszreo, setdatalenghtIszreo] = useState(false);
@@ -116,95 +116,95 @@ const Profile = () => {
     }
   };
 
-  const selectdayHandler = (e) => {
-    setopenday(false);
-    SettimePeriod(e.target.innerText);
+  // const selectdayHandler = (e) => {
+  //   setopenday(false);
+  //   SettimePeriod(e.target.innerText);
 
-    // console.log(e.target.innerText);
-    // handler
-    const ONEDAY = 86400000;//ms
+  //   // console.log(e.target.innerText);
+  //   // handler
+  //   const ONEDAY = 86400000;//ms
 
-    switch (e.target.innerText) {
-      case "Today":
-        reportOfToday();
-        break;
-      case "Yesterday":
-        filterReportsOnTimeStamp(ONEDAY);
-        break;
-      case "2 day ago":
-        filterReportsOnTimeStamp(2 * ONEDAY);
-        break;
-      case "7 day ago":
-        filterReportsOnTimeStamp(7 * ONEDAY);
-        break;
-      case "15 day ago":
-        filterReportsOnTimeStamp(15 * ONEDAY);
-        break;
-      case "1 month ago":
-        filterReportsOnTimeStamp(30 * ONEDAY);
-        break;
-      case "2 month ago":
-        filterReportsOnTimeStamp(60 * ONEDAY);
-        break;
+  //   switch (e.target.innerText) {
+  //     case "Today":
+  //       reportOfToday();
+  //       break;
+  //     case "Yesterday":
+  //       filterReportsOnTimeStamp(ONEDAY);
+  //       break;
+  //     case "2 day ago":
+  //       filterReportsOnTimeStamp(2 * ONEDAY);
+  //       break;
+  //     case "7 day ago":
+  //       filterReportsOnTimeStamp(7 * ONEDAY);
+  //       break;
+  //     case "15 day ago":
+  //       filterReportsOnTimeStamp(15 * ONEDAY);
+  //       break;
+  //     case "1 month ago":
+  //       filterReportsOnTimeStamp(30 * ONEDAY);
+  //       break;
+  //     case "2 month ago":
+  //       filterReportsOnTimeStamp(60 * ONEDAY);
+  //       break;
 
-      default:
-        break;
-    };
+  //     default:
+  //       break;
+  //   };
 
-    function reportOfToday() {
-      let dupiDate = new Date();
+  //   function reportOfToday() {
+  //     let dupiDate = new Date();
 
-      const filteredOutput = array.filter(item => {
-        let temp = item.customTimeStamp;
-        let tempDate = new Date(temp);
+  //     const filteredOutput = array.filter(item => {
+  //       let temp = item.customTimeStamp;
+  //       let tempDate = new Date(temp);
 
-        // let dupli = todayInMS - filterOn;
+  //       // let dupli = todayInMS - filterOn;
 
-        // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} --- ${dupiDate.getHours()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()} --- ${tempDate.getHours()}`)
+  //       // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} --- ${dupiDate.getHours()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()} --- ${tempDate.getHours()}`)
 
-        // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
-        if (tempDate.getFullYear() === dupiDate.getFullYear() && tempDate.getMonth() === dupiDate.getMonth() && tempDate.getDate() === dupiDate.getDate()) {
-          return true;
-        }
-        return false;
-      });
+  //       // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
+  //       if (tempDate.getFullYear() === dupiDate.getFullYear() && tempDate.getMonth() === dupiDate.getMonth() && tempDate.getDate() === dupiDate.getDate()) {
+  //         return true;
+  //       }
+  //       return false;
+  //     });
 
-      // console.log(filteredOutput)
-      setFilteredResults(filteredOutput);
+  //     // console.log(filteredOutput)
+  //     setFilteredResults(filteredOutput);
 
-    }
+  //   }
 
-    function filterReportsOnTimeStamp(filterOn) {
-      let todayInMS = Date.now();
+  //   function filterReportsOnTimeStamp(filterOn) {
+  //     let todayInMS = Date.now();
 
-      let chacha = new Date(todayInMS);
+  //     let chacha = new Date(todayInMS);
 
-      let todayAt12 = new Date(`${chacha.getFullYear()}-${chacha.getMonth() + 1}-${chacha.getDate()}`).getTime();// in ms
+  //     let todayAt12 = new Date(`${chacha.getFullYear()}-${chacha.getMonth() + 1}-${chacha.getDate()}`).getTime();// in ms
 
-      // console.log(`${new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getDate()} and ${chacha.getTime()}`)
+  //     // console.log(`${new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getDate()} and ${chacha.getTime()}`)
 
-      const filteredOutput = array.filter(item => {
-        let temp = item.customTimeStamp;
-        let tempDate = new Date(temp);
+  //     const filteredOutput = array.filter(item => {
+  //       let temp = item.customTimeStamp;
+  //       let tempDate = new Date(temp);
 
-        let dupli = todayAt12 - filterOn;
-        let dupiDate = new Date(dupli);
+  //       let dupli = todayAt12 - filterOn;
+  //       let dupiDate = new Date(dupli);
 
-        // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()}`)
+  //       // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()}`)
 
-        // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
-        // console.log(temp," and ", dupli, temp > dupli)
-        if (dupli <= temp) {
-          // console.log("matched", item)
-          return true;
-        }
-        return false;
-      });
+  //       // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
+  //       // console.log(temp," and ", dupli, temp > dupli)
+  //       if (dupli <= temp) {
+  //         // console.log("matched", item)
+  //         return true;
+  //       }
+  //       return false;
+  //     });
 
-      // console.log(filteredOutput, "filterd date")
-      setFilteredResults(filteredOutput);
-    };
-  };
+  //     // console.log(filteredOutput, "filterd date")
+  //     setFilteredResults(filteredOutput);
+  //   };
+  // };
 
   const getUserData = async () => {
     let body = {
@@ -343,11 +343,7 @@ const Profile = () => {
   // Status filter
   const labstatus = (a) => {
     if (a === 'all') {
-      //temporary bug Fix
-      setTimeout(() => {
-        setFilteredResults(array);
-        console.log('allfdlkj', filteredResults, filteredResults.length)
-      }, 0);
+      setFilteredResults(array)
     }
     setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
     setopenStatus(false);
@@ -439,107 +435,101 @@ const Profile = () => {
   };
 
   // calender filtering
+  const [isCalendarShow, setIsCalendarShow] = useState(false);
+  const [calenderOption, setCalenderOption] = useState("Today")
 
   const todaay = new Date();
   const ONE_DAYIN_MS = 86400000;
   const TODAY_IN_MS = new Date(`${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`).getTime(); // at 12am
   const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
 
+  //
+  const defaultSelected = {
+    from: new Date(TODAY_IN_MS),
+    to: new Date(TODAY_IN_MS)
+  };
+  const [range, setRange] = useState(defaultSelected);
 
+  let footer = <div style={{ display: "flex", justifyContent: "end", borderTop: "rgb(158 158 158) 2px solid" }}>
+    <button
+      onClick={() => {
+        setRange(defaultSelected)
+        setIsCalendarShow(false)
+      }}
+      style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "rgba(95, 165, 250, 0.1)", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
+    >
+      Cancel
+    </button>
+    <button
+      style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "#5FA5FA", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
+      onClick={() => {
+        updateCalender()
+        setIsCalendarShow(false)
+      }}
+    >
+      Ok
+    </button>
+  </div>;
+
+  if (range?.from) {
+    if (!range.to) {
+      footer = footer;
+    } else if (range.to) {
+      footer = footer;
+    }
+  }
+
+  // filter reports on date
+  function updateCalender() {
+    let fromTime = new Date(range.from).getTime(); // in ms
+
+    // reports for a single day
+    if (!range.to) {
+      console.log("single date")
+
+      let toTimee = fromTime + ONE_DAYIN_MS;
+      return filterDateByTimestamp(fromTime, toTimee)
+    }
+
+    let toTime = new Date(range.to).getTime(); // in ms
+
+    // today
+    if (fromTime === toTime) {
+      console.log("today")
+
+      let toTimee = toTime + ONE_DAYIN_MS;
+      filterDateByTimestamp(fromTime, toTimee)
+    }
+
+    // reports for date range
+    if (range.from && range.to) {
+      console.log("range of date", range)
+      console.log(new Date(range.from).getTime(), "gg from")
+      console.log(new Date(range.to).getTime(), "gg to")
+
+      let toTimee = toTime + ONE_DAYIN_MS;
+      filterDateByTimestamp(fromTime, toTimee)
+    }
+  }
+
+  // filter logic
   function filterDateByTimestamp(startValue, endValue) {
-    console.log(array, "okay")
-
-    if (startValue > endValue) {
-
-      const filteredOutput = array.filter(item => {
-        console.log(item)
-
-        let temp = item.customTimeStamp;
-        let tempDate = new Date(temp);
-        console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
-
-        if (temp >= endValue && temp <= startValue) {
-          // console.log("matched", item)
-          return true;
-        }
-        return false;
-      });
-
-      console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
-    } else {
-      const filteredOutput = array.filter(item => {
-        let temp = item.customTimeStamp;
-        let tempDate = new Date(temp);
-
-        if (temp <= endValue && temp >= startValue) {
-          // console.log("matched", item)
-          return true;
-        }
-        return false;
-      });
-
-      console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
-    }
-  }
-
-
-  function callback(start, end) {
-
-    let startDate = new Date(start._d);
-    let endDate = new Date(end._d);
-
-    let startDateTimestamp = startDate.getTime();
-    let endDateTimestamp = endDate.getTime();
-
-    // filterDateByTimestamp(startDateTimestamp, endDateTimestamp)
-
-    setstartDate(startDateTimestamp);
-    setendDate(endDateTimestamp);
-
-    console.log("-----calender testing--------")
-    // console.log(endDateTimestamp == 7 * NEXT_DAT_IN_MS , endDateTimestamp,NEXT_DAT_IN_MS, " <- start end -> ", startDateTimestamp == TODAY_IN_MS, startDateTimestamp, TODAY_IN_MS )
-
-    // console.log(  ( NEXT_DAT_IN_MS - endDateTimestamp ) / ONE_DAYIN_MS , "days")
-
-    if (startDateTimestamp <= NEXT_DAT_IN_MS && endDateTimestamp == NEXT_DAT_IN_MS) {
-      const dispDay = Math.ceil((NEXT_DAT_IN_MS - startDateTimestamp) / ONE_DAYIN_MS) - 1;
-
-      if (dispDay == 0) { console.log("Today"); SettimePeriod("Today") }
-      else if (dispDay == 1) { console.log("Yesterday"); SettimePeriod("Yesterday") }
-      else { console.log(`Last ${dispDay} Days`); SettimePeriod(`Last ${dispDay} Days`) }
-
-    } else {
-      console.log("custom");
-      SettimePeriod("custom")
-    }
-
-  }
-
-  useEffect(() => {
-    console.log(startDate, endDate);
 
     const filteredOutput = array.filter(item => {
-      // console.log(item)
 
       let temp = item.customTimeStamp;
-      let tempDate = new Date(temp);
-      // console.log(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate())
 
-      console.log("custom time stamp", temp, temp >= endDate && temp <= startDate || temp <= endDate && temp >= startDate)
-
-      if ((temp >= endDate && temp <= startDate) || (temp <= endDate && temp >= startDate)) {
-        // console.log("matched", item)
-        // console.log(temp," -->", endDate,"to", startDate , timePeriod)
-        return true;
-      }
+      if (temp <= endValue && temp >= startValue) { return true; }
       return false;
     });
 
-    console.log(filteredOutput, timePeriod)
+    console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
 
-    setFilteredResults([...filteredOutput]);
+    if (filteredOutput.length === 0) { console.log("pok u"); return setFilteredResults([]) }
 
-  }, [startDate, endDate])
+    setFilteredResults(filteredOutput)
+
+  }
 
 
   return (
@@ -559,57 +549,143 @@ const Profile = () => {
               />
             </div>
             <div className={classes.dayfilter}>
-              <h6 onClick={daysfilter} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <h6 onClick={daysfilter} style={{ height: "50px", display: "flex", justifyContent: "start", alignItems: "center", fontSize: "18px" }}>
+                <div onClick={() => setIsCalendarShow(!isCalendarShow)} style={{ display: "flex", position: "relative", width: "200px" }}>
 
-                {/* <DateRangeSelector
-                  inputComponent={
-                    <div style={{ position: "relative" }}>
-                      <input type='text' name='dates' className='form-control pull-right' value={timePeriod} style={{ border: "none", textAlign: "center", fontSize: "22px", fontWeight: "600", cursor: "pointer" }} />
-                      <BiChevronDown style={{ position: "absolute", right: "0", top: "12px" }} />
+                  <div style={{ position: "absolute", left: "10px" }}>
+                    <svg
+                      width="20"
+                      height="22"
+                      viewBox="0 0 20 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M14.5438 1.16981L14.5449 1.94736C17.4021 2.1713 19.2896 4.11829 19.2927 7.10408L19.3039 15.8438C19.308 19.0991 17.2629 21.1021 13.9847 21.1073L5.97716 21.1176C2.71947 21.1218 0.648715 19.0711 0.644619 15.8064L0.633353 7.1694C0.629257 4.1639 2.45013 2.2221 5.30739 1.9598L5.30637 1.18225C5.30535 0.726088 5.6433 0.382928 6.09391 0.382928C6.54452 0.381892 6.88248 0.724014 6.8835 1.18018L6.88453 1.90589L12.9677 1.8976L12.9667 1.17188C12.9657 0.71572 13.3037 0.373598 13.7543 0.372561C14.1946 0.371524 14.5428 0.713647 14.5438 1.16981ZM2.21147 7.48974L17.7165 7.46901V7.10615C17.6725 4.87717 16.5541 3.70773 14.5469 3.53356L14.5479 4.33185C14.5479 4.77764 14.2007 5.13117 13.7604 5.13117C13.3098 5.13221 12.9708 4.77972 12.9708 4.33392L12.9698 3.49416L6.88654 3.50246L6.88756 4.34118C6.88756 4.78801 6.55063 5.1405 6.10002 5.1405C5.64941 5.14154 5.31043 4.79008 5.31043 4.34325L5.30941 3.54496C3.31239 3.74505 2.20738 4.91864 2.21045 7.16732L2.21147 7.48974ZM13.3292 12.2017V12.2131C13.3394 12.69 13.7286 13.0518 14.2007 13.0415C14.6616 13.0301 15.0292 12.6351 15.019 12.1582C14.9975 11.702 14.6278 11.3298 14.1679 11.3308C13.6968 11.3412 13.3282 11.7248 13.3292 12.2017ZM14.1751 16.8567C13.704 16.8463 13.3241 16.4534 13.3231 15.9765C13.3128 15.4996 13.6907 15.1046 14.1618 15.0932H14.172C14.6534 15.0932 15.0436 15.4861 15.0436 15.9734C15.0446 16.4606 14.6554 16.8556 14.1751 16.8567ZM9.10991 12.2183C9.13039 12.6952 9.52058 13.0674 9.99167 13.0466C10.4525 13.0249 10.8202 12.6309 10.7997 12.154C10.7884 11.6875 10.4095 11.3246 9.94866 11.3257C9.47756 11.3464 9.10888 11.7414 9.10991 12.2183ZM9.99576 16.81C9.52467 16.8307 9.13551 16.4585 9.114 15.9816C9.114 15.5047 9.48166 15.1108 9.95275 15.089C10.4136 15.088 10.7935 15.4508 10.8038 15.9163C10.8253 16.3943 10.4566 16.7882 9.99576 16.81ZM4.89055 12.2546C4.91103 12.7315 5.30122 13.1047 5.77231 13.0829C6.23316 13.0622 6.60082 12.6672 6.57931 12.1903C6.56907 11.7238 6.19015 11.3609 5.72827 11.3619C5.25718 11.3827 4.88953 11.7777 4.89055 12.2546ZM5.77641 16.8152C5.30531 16.837 4.91615 16.4637 4.89465 15.9868C4.89362 15.5099 5.2623 15.1149 5.73339 15.0942C6.19424 15.0932 6.57419 15.456 6.58443 15.9226C6.60594 16.3995 6.23828 16.7945 5.77641 16.8152Z"
+                        fill="#838383"
+                      />
+                    </svg>
+                  </div>
+
+                  <div style={{ margin: "0 0 0 45px" }}>{calenderOption}</div>
+
+                  <div style={{ position: "absolute", right: "10px" }}>
+                    <svg
+                      width="12"
+                      height="8"
+                      viewBox="0 0 12 8"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M6 8L0 0H12L6 8Z" fill="#838383" />
+                    </svg>
+                  </div>
+
+                </div>
+                {isCalendarShow ? (
+                  <div style={{ position: "absolute", top: "100px", right: "50px", background: "#fff", padding: "10px", display: "flex", boxShadow: "rgb(158 158 158) 5px 6px 16px 0px", borderRadius: "5%", zIndex: "100", transform: "scale(0.85, 0.8)" }}>
+
+                    <div style={{ width: "140px", padding: "10px", borderRight: "rgb(158 158 158) 2px solid" }}>
+                      <div
+                        style={{ marginTop: "25px", textAlign: "start" }}
+                        onClick={(e) => {
+                          setCalenderOption("Today")
+                          setRange({
+                            from: new Date(TODAY_IN_MS),
+                            to: new Date(TODAY_IN_MS)
+                          })
+                        }}
+                      >
+                        Today
+                      </div>
+                      <div
+                        style={{ marginTop: "25px", textAlign: "start" }}
+                        onClick={(e) => {
+                          setCalenderOption("Yesterday")
+                          setRange({
+                            from: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
+                            to: new Date(TODAY_IN_MS)
+                          })
+                        }}
+                      >
+                        Yesterday
+                      </div>
+                      <div
+                        style={{ marginTop: "25px", textAlign: "start" }}
+                        onClick={(e) => {
+                          setCalenderOption("2 days ago")
+                          setRange({
+                            from: new Date(TODAY_IN_MS - 2 * ONE_DAYIN_MS),
+                            to: new Date(TODAY_IN_MS)
+                          })
+                        }}
+                      >
+                        2 days ago
+                      </div>
+                      <div
+                        style={{ marginTop: "25px", textAlign: "start" }}
+                        onClick={(e) => {
+                          setCalenderOption("7 days ago")
+                          setRange({
+                            from: new Date(TODAY_IN_MS - 7 * ONE_DAYIN_MS),
+                            to: new Date(TODAY_IN_MS)
+                          })
+                        }}
+                      >
+                        7 days ago
+                      </div>
+                      <div
+                        style={{ marginTop: "25px", textAlign: "start" }}
+                        onClick={(e) => {
+                          setCalenderOption("15 days ago")
+                          setRange({
+                            from: new Date(TODAY_IN_MS - 15 * ONE_DAYIN_MS),
+                            to: new Date(TODAY_IN_MS)
+                          })
+                        }}
+                      >
+                        15 days ago
+                      </div>
+                      <div
+                        style={{ marginTop: "25px", textAlign: "start" }}
+                        onClick={(e) => {
+                          setCalenderOption("1 month ago")
+                          setRange({
+                            from: new Date(TODAY_IN_MS - 30 * ONE_DAYIN_MS),
+                            to: new Date(TODAY_IN_MS)
+                          })
+                        }}
+                      >
+                        1 month ago
+                      </div>
+                      <div
+                        style={{ marginTop: "25px", textAlign: "start" }}
+                        onClick={(e) => {
+                          setCalenderOption("2 month ago")
+                          setRange({
+                            from: new Date(TODAY_IN_MS - 60 * ONE_DAYIN_MS),
+                            to: new Date(TODAY_IN_MS)
+                          })
+                        }}
+                      >
+                        2 month ago
+                      </div>
                     </div>
-                  }
-                  options={{
-                    opens: 'left',
-                    buttonClasses: ['btn btn-sm'],
-                    applyClass: 'btn-primary',
-                    separator: ' to ',
-                    format: 'L',
-                    dateLimit: { days: 90 },
-                    ranges: {
-                      'Today': [new Date(TODAY_IN_MS), new Date(NEXT_DAT_IN_MS)],
-                      'Yesterday': [new Date((NEXT_DAT_IN_MS - 2 * ONE_DAYIN_MS) + 2), new Date(NEXT_DAT_IN_MS)],
-                      'Last 7 Days': [new Date(NEXT_DAT_IN_MS - 7 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
-                      'Last 28 Days': [new Date(NEXT_DAT_IN_MS - 28 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
-                      'Last 60 Days': [new Date(NEXT_DAT_IN_MS - 60 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
-                      'Last 90 Days': [new Date(NEXT_DAT_IN_MS - 90 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
-                      'Last 120 Days': [new Date(NEXT_DAT_IN_MS - 120 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)],
-                      'Last 180 Days': [new Date(NEXT_DAT_IN_MS - 180 * ONE_DAYIN_MS), new Date(NEXT_DAT_IN_MS)]
-                    },
-                    locale: {
-                      applyLabel: 'Update',
-                      cancelLabel: 'Clear',
-                      fromLabel: 'Start date',
-                      toLabel: 'End date',
-                      customRangeLabel: 'Custom'
-                    },
-                    minDate: new Date('2022-01-01T00:00:00.000Z'),
-                    alwaysShowCalendars: true
-                  }}
-                  callback={callback}
-                /> */}
 
-                {/* <div style={{position:"absolute", height:"35px", width:"145px", background:"#ffffff", padding:"6px 12px", border:"none"}}>{timePeriod}</div> */}
-
+                    <DayPicker
+                      style={{ background: "#fff", padding: "10px" }}
+                      mode="range"
+                      defaultMonth={todaay}
+                      selected={range}
+                      footer={footer}
+                      onSelect={setRange}
+                      onBlur={() => setIsCalendarShow(false)}
+                    />
+                  </div>
+                ) : null}
               </h6>
-              {/* <div className={openday ? classes.listday : classes.listday_hide}> */}
-              {/* <li onClick={selectdayHandler}>Today</li>
-                <li onClick={selectdayHandler}>Yesterday</li>
-                <li onClick={selectdayHandler}>2 day ago</li>
-                <li onClick={selectdayHandler}>7 day ago</li>
-                <li onClick={selectdayHandler}>15 day ago</li>
-                <li onClick={selectdayHandler}>1 month ago</li>
-                <li onClick={selectdayHandler}>2 month ago</li> */}
-              {/* </div> */}
             </div>
           </div>
         )}

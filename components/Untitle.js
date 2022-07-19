@@ -8,7 +8,7 @@ import { Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import {EmailShareButton} from 'react-share'
+import { EmailShareButton } from 'react-share'
 import Header from "../components/HeaderConditional";
 
 
@@ -132,7 +132,7 @@ const Untitle = () => {
       const customTime = date.slice(12, 17)
 
       // const currentDate=customDate.splice
-      return {customDate, customTime};
+      return { customDate, customTime };
     }
   };
 
@@ -172,15 +172,17 @@ const Untitle = () => {
               onBlur={() => setIsEditEnable(false)}
               disabled={!isEditEnable}
               ref={titleInput}
-              style={{ padding: "5px 10px", border: "none", 
-              width: `${pageTitle.length * 14 + 20}px`,
-              color: "#313131", fontFamily: "sora", 
-              fontWeight: "700", background: "transparent" }}
+              style={{
+                padding: "5px 10px", border: "none",
+                width: `${pageTitle.length * 14 + 10}px`,
+                color: "#313131", fontFamily: "sora",
+                fontWeight: "700", background: "transparent"
+              }}
             />
-            <MdOutlineModeEdit onClick={()=>{
-              setIsEditEnable(true); 
-              setTimeout(()=> {
-                titleInput.current.focus(); 
+            <MdOutlineModeEdit onClick={() => {
+              setIsEditEnable(true);
+              setTimeout(() => {
+                titleInput.current.focus();
                 titleInput.current.select()
               }, 100)
             }} className={classes.editIcon} />
@@ -190,7 +192,7 @@ const Untitle = () => {
           </div>
           <div className={classes.email} onClick={() => emailHandler()}>
             <EmailShareButton
-            url="www.gmail.com">Email</EmailShareButton>
+              url="www.gmail.com">Email</EmailShareButton>
           </div>
           <div onClick={closeBtnHanlder} className={classes.closeIcon}>
             <AiOutlineClose />
@@ -212,7 +214,7 @@ const Untitle = () => {
             <p className={`${classes.subName} ${classes.leftSubName}`}>
               {reportTableData.customTimeStamp && dateConstructor(reportTableData.customTimeStamp).customDate}
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {reportTableData.customTimeStamp &&  dateConstructor(reportTableData.customTimeStamp).customTime}
+              {reportTableData.customTimeStamp && dateConstructor(reportTableData.customTimeStamp).customTime}
 
             </p>
           </div>
