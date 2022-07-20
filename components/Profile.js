@@ -536,10 +536,14 @@ const Profile = () => {
     <div className={classes.homeBody}>
       <Container style={{ paddingLeft: 0, maxWidth: 'unset' }} className={classes.name}>
         {searchBarTab && (
-          <div style={{ justifyContent: 'space-between', marginRight: '15%', width: 'unset' }} className={classes.search_main}>
+          <div style={{ justifyContent: 'space-between', width: 'unset' }} className={classes.search_main}>
             <div className={`${classes.form_group} ${classes.has_search}`}>
               <span className={classes.searchicon}>
-                <AiOutlineSearch />
+                {/* <AiOutlineSearch /> */}
+                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="7.82345" cy="7.82345" r="6.74142" stroke="#696969" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M12.5117 12.8633L15.1547 15.4994" stroke="#696969" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </span>
               <input
                 type="text"
@@ -869,7 +873,7 @@ const Profile = () => {
               </span>
             </p>
           </Col>
-          <Col md={4} xs={3} className={classes.proCol2} >
+          <Col md={4} xs={3} className={classes.proCol2  + " " + classes.proCol3} >
             {/* <p>
               Date/Time{" "}
               <span className={classes.date_sort_btn}>
@@ -885,10 +889,10 @@ const Profile = () => {
               </ul>
             </div>
           </Col>
-          <Col md={1} xs={2} >
+          <Col md={1} xs={2} className={classes.proCol3}>
             <p>View </p>
           </Col>
-          <Col md={1} xs={1} className={classes.proCol5}>
+          <Col md={1} xs={1} className={classes.proCol5 + " " + classes.proCol3}>
             <p style={{ cursor: 'pointer' }} onClick={statusCheck}>
               Status
               <span className={classes.status_sort_btn}>
