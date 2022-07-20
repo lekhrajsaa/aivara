@@ -23,7 +23,8 @@ const ImagePreview = ({ galleryItems, currentIndex, setPreviewImage }) => {
                 {/* <figure>
                     <img src={galleryItems[currentIndex]} />
                 </figure> */}
-                <Test imageurl={galleryItems[currentIndex]} />
+                {/* <Test imageurl={galleryItems[currentIndex]} /> */}
+                <img src={galleryItems[currentIndex]} alt="" />
 
                 {/* <img src={galleryItems[currentIndex]} /> */}
 

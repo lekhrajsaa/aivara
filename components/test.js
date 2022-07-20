@@ -42,7 +42,7 @@ export default class Test extends Component {
         alt="Two pebbles anthropomorphized holding hands"
         annotations={this.state.annotations}
         type={this.state.type}
-        value={this.state.annotation}
+        value={this.state.annotation}  
         onChange={this.onChange}
         onSubmit={this.onSubmit}
         // onMouseDown={this.click}
