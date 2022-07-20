@@ -973,7 +973,7 @@
 .alpha_sort_btn,
 .date_sort_btn,
 .status_sort_btn {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bolder;
   cursor: pointer;
 }

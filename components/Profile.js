@@ -343,7 +343,9 @@ const Profile = () => {
   // Status filter
   const labstatus = (a) => {
     if (a === 'all') {
-      setFilteredResults(array)
+      setTimeout(() => {
+        setFilteredResults(array)
+      }, 0)
     }
     setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
     setopenStatus(false);
