@@ -190,7 +190,7 @@ const Untitle = () => {
           <div className={classes.download} onClick={() => { setKeepInput(false); handlePrint() }}>
             Download
           </div>
-          <div className={classes.email} onClick={() => emailHandler()}>
+          <div className={classes.email} > {/*onClick={() => emailHandler()}*/}
             <EmailShareButton
               url="www.gmail.com">Email</EmailShareButton>
           </div>
@@ -241,7 +241,7 @@ const Untitle = () => {
               <label htmlFor="uploadSignatureInput">
                 {imagePreview && (
                   <img
-                    style={{ height: "100px", width: "auto" }}
+                    style={{ height: "50px", width: "auto" }}
                     src={imagePreview}
                   />
                 )}
