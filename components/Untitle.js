@@ -28,6 +28,7 @@ const Untitle = () => {
   const [isEditEnable, setIsEditEnable] = useState(false);
 
   const titleInput = useRef();
+  const table = useRef();
 
   const router = useRouter();
 
@@ -156,6 +157,7 @@ const Untitle = () => {
   const handlePrint = useReactToPrint({
     documentTitle: 'emp-data',
     content: () => componentRef.current,
+    onBeforePrint: () => {table.current.style.maxHeight = 'unset';},
     onAfterPrint: () => setKeepInput(true)
   });
 
@@ -220,7 +222,7 @@ const Untitle = () => {
           </div>
         </div>
 
-        <div className={classes.table}>
+        <div ref={table} className={classes.table}>
           <Table bordered className={classes.tableBody}>
             <thead>
               <tr className={classes.tableHeading}>
@@ -246,9 +248,10 @@ const Untitle = () => {
                   />
                 )}
                 {!imagePreview && <BsUpload className={classes.uploadIcon} />}
-                {!imagePreview && "Your Signature "}
+                {!imagePreview && " Your Signature"}
               </label>
-              {keepInput && <input onChange={fileInputChangeHandler} type="file" accept="image/jgp, image/jpeg"
+              {keepInput && <input onChange={fileInputChangeHandler}
+                type="file" accept="image/jgp, image/jpeg"
                 id="uploadSignatureInput" style={{ display: 'none' }} />}
             </p>
           </div>
