@@ -154,7 +154,7 @@ const Untitle = () => {
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
-    documentTitle: 'emp-data',
+    documentTitle:`${pageTitle}`+ "_report",
     content: () => componentRef.current,
     onAfterPrint: () => setKeepInput(true)
   });
@@ -192,7 +192,10 @@ const Untitle = () => {
           </div>
           <div className={classes.email} > {/*onClick={() => emailHandler()}*/}
             <EmailShareButton
-              url="www.gmail.com">Email</EmailShareButton>
+            body="This is the system generated mail from aivara"
+              url= " https://dashboard.aivara.in"
+              
+              subject="Aivara report">Email</EmailShareButton>
           </div>
           <div onClick={closeBtnHanlder} className={classes.closeIcon}>
             <AiOutlineClose />
