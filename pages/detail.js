@@ -12,7 +12,10 @@ import { setAiReportData } from "../redux/dataAction";
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 const detail = () => {
-  const socket = io(`https://socket-server-demo-i.herokuapp.com`);//* socket url
+  // const socket = io(`https://socket-server-demo-i.herokuapp.com`);//* socket url
+  // const socket = io(`https://dev.aivara.in/socket`);//* socket url
+  const socket = io(`http://13.232.246.133`);//* socket url
+  // const socket = io(`http://localhost:8000`);//* socket url
 
   const dispatch = useDispatch();
 
@@ -30,6 +33,10 @@ const detail = () => {
   }, []);
 
   useEffect(() => {
+    socket.on('test api', (data) => {
+      console.log(data)
+    })
+
     socket.on('report data', (data) => {
       console.log(data);
 
