@@ -60,6 +60,8 @@ const Profile = () => {
   const [array, setarray] = useState(labdata);
   const [dateTimeOpened, setDateTimeOpened] = useState(false);
   const [dateTimeValue, setDateTimeValue] = useState('Date/Time');
+  const [showDate, setShowDate] = useState(true);
+  const [showTime, setShowTime] = useState(true)
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -247,6 +249,26 @@ const Profile = () => {
     setDateTimeOpened(prv => !prv);
   }
   function dateTimeOptionClickHanlder(e) {
+    // console.log(e.target.innerText)
+
+    switch (e.target.innerText) {
+      case "Date/Time":
+        setShowDate(true);
+        setShowTime(true);
+        break;
+      case "Date":
+        setShowDate(true);
+        setShowTime(false);
+        break;
+      case "Time":
+        setShowDate(false);
+        setShowTime(true);
+        break;
+
+      default:
+        break;
+    }
+
     setDateTimeValue(e.target.innerText);
     setDateTimeOpened(false)
   }
@@ -410,6 +432,32 @@ const Profile = () => {
       return currentDate;
     }
   };
+
+  const timeMacker = (timeStamp) => {
+    if(timeStamp) {
+      const newDate = new Date(timeStamp);
+
+      console.log(newDate.getHours(), newDate.getMinutes(), "from time macker")
+
+      const h = parseInt(newDate.getHours()/10) === 0 ? `0${newDate.getHours()}`: `${newDate.getHours()}`
+      const m = parseInt(newDate.getMinutes()/10) === 0 ? `0${newDate.getMinutes()}`: `${newDate.getMinutes()}`
+
+      return `${h}:${m}`
+    }
+  }
+
+  const dateMacker = (timeStamp) => {
+    if(timeStamp) {
+      const newDate = new Date(timeStamp);
+
+      // console.log(newDate.getDate(), newDate.getFullYear(), newDate.getMonth()+1, "from date macker")
+
+      return `${newDate.getDate()}/${newDate.getMonth()+1}/${JSON.stringify(newDate.getFullYear()).slice(2,4)}`
+    }
+  }
+
+  // console.log(timeMacker(1657474021848));
+  // console.log(dateMacker(1657474021848));
 
   //fetchOneReport
   const fetchOneReport = (reportId) => {
@@ -875,7 +923,7 @@ const Profile = () => {
               </span>
             </p>
           </Col>
-          <Col md={4} xs={3} className={classes.proCol2  + " " + classes.proCol3} >
+          <Col md={4} xs={3} className={classes.proCol2 + " " + classes.proCol3} >
             {/* <p>
               Date/Time{" "}
               <span className={classes.date_sort_btn}>
@@ -926,7 +974,10 @@ const Profile = () => {
                       {a.clientName}
                     </Col>
                     <Col md={4} xs={3} className={classes.proCol2}>
-                      {dateConstractor(a.customTimeStamp)}
+                      {/* {dateConstractor(a.customTimeStamp)} */}
+                      {showDate ? dateMacker(a.customTimeStamp) : null} 
+                      {showDate && showTime ? " ; " : null}
+                      {showTime ? timeMacker(a.customTimeStamp) : null}
                     </Col>
                     <Col md={1} xs={2}>
                       <button
