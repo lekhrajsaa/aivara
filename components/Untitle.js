@@ -193,11 +193,12 @@ const Untitle = () => {
             Download
           </div>
           <div className={classes.email} > {/*onClick={() => emailHandler()}*/}
-            <EmailShareButton
+            {/* <EmailShareButton
             body="This is the system generated mail from aivara"
               url= " https://dashboard.aivara.in"
               
-              subject="Aivara report">Email</EmailShareButton>
+              subject="Aivara report">
+                Email</EmailShareButton> */}
           </div>
           <div onClick={closeBtnHanlder} className={classes.closeIcon}>
             <AiOutlineClose />
