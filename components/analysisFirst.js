@@ -114,16 +114,19 @@ const Analysisheader = () => {
   const handleOnSlideChange = (event) => {
     console.log("slide");
     const { itemsInSlide, item } = event;
-
-    setcurrentIndex(item);
+    
+    setcurrentIndex((item + 1) % galleryItems.length);
+    // console.log(currentIndex ,updatedReportData)
+    // setcurrentIndex(item);
     setitemsInSlide(item);
+
   };
   const renderNextButton = ({ isDisabled }) => {
     return <BiChevronRight style={{
       width: 'fit-content',
       position: "absolute",
       top: "20px",
-      right: "-30px",
+      right: "-50px",
       fontSize: "30px"
     }} className="alice_carousel__next_btn" />;
   };
@@ -132,7 +135,7 @@ const Analysisheader = () => {
       width: 'fit-content',
       position: "absolute",
       top: "20px",
-      left: "-30px",
+      left: "-50px",
       fontSize: "30px"
     }}
       className="alice_carousel__prev_btn" />;
@@ -174,6 +177,19 @@ const Analysisheader = () => {
 
   //ai report data....
   console.log(DataFromAI);
+
+  useEffect(() => {
+    const allSlides = document.querySelectorAll('.alice-carousel__stage-item');
+    const bigImg = document.querySelector('#bigImage');
+
+      Array.from(allSlides).forEach(slide => {
+        if(slide.children[0].children[0].src === bigImg.children[0].src){
+          slide.children[0].children[0].classList.add('hero');
+        }else{
+          slide.children[0].children[0].classList.remove('hero');
+        }
+      })
+  }, [currentIndex])
 
 
   useEffect(() => {
@@ -434,15 +450,15 @@ const Analysisheader = () => {
               </div> */}
 
               <div className={classes.carousel_main}>
-                <div className={classes.bigImage}>
+                <div id="bigImage" className={classes.bigImage}>
                   <img src={galleryItems[currentIndex]} />
                 </div>
-                <div className="carousel_itme">
+                <div className={classes.carousel_item}>
                   <AliceCarousel
                     // items={galleryItems.map((item, i) => {
                     //   return <img key={i} className={classes.imagestyle} src={item} role="presentation" />
                     // })}
-                    slideToIndex={currentIndex}
+                    // slideToIndex={currentIndex}
                     responsive={{
                       0: {
                         items: 4,
