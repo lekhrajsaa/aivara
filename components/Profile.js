@@ -687,7 +687,7 @@ const Profile = () => {
                             to: new Date(TODAY_IN_MS)
                           })
                         }}
-                      >
+                      > 
                         7 days ago
                       </div>
                       <div
