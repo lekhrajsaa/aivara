@@ -22,9 +22,25 @@ a {
 
 .alice-carousel__stage-item{
   width: fit-content;
+  /* height: 40px !important;
+  width: 40px !important; */
 }
 
-
+/* .alice-carousel__stage-item{
+  width: 50px;
+  height: 50px;
+  outline: 1px solid blue;
+} */
+/* .alice-carousel__stage-item:hover{
+  transform: scale(1.1);
+} */
+.alice-carousel__wrapper{
+  padding: 8px 0;
+}
+.hero{
+  transform: scale(1.2);
+  border: 3px solid #3699fb;
+}
 
 /* .rdp{
   height: 10px;
@@ -355,3 +371,5 @@ a {
 }
 
 /* calender styling end */
+
+

@@ -67,7 +67,7 @@
   margin-right: 0px;
   position: relative;
   /* width: 250px; */
-  width: 350px;
+  width: 250px;
   text-align: center;
 }
 .analysis_image img {
@@ -521,8 +521,8 @@
 }
 
 .imagestyle {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   margin: 0px;
   padding: 0px;
 }
@@ -530,20 +530,20 @@
 .bigImage {
   /* visibility: hidden; */
   margin-left: 2.7px;
-  width: 70%;
+  /* width: 70%; */
+  width: 100%;
   height: 300px;
   /* border: 2px solid rgb(6, 6, 6); */
 }
 .bigImage img {
-  width: 90%;
-  height: 270px;
-  margin-left: 25%;
+  width: 100%;
+  height: 300px;
+  /* margin-left: 25%; */
 }
-.carousel_itme {
+.carousel_item {
   /* width: 275px; */
-  width: fit-content !important;
-  margin: 10px;
-  /* margin-top: 40px; */
+  margin-top: 20px;
+  height: 80px;
 }
 
 .carsousel_size {
@@ -551,12 +551,13 @@
 }
 .carousel_main {
   height: 200px;
-  margin-left: 5%;
+  /* margin-left: 5%; */
 }
 .imagestyle:hover {
-  
-  transform: scale(1.25);
-  /* width: 62px;
-  height: 65px; */
-  border: 1px solid #3699fb;
+  transform: scale(1.15);
+  border: 3px solid #3699fb;
+}
+.imagestyle.hero{
+  transform: scale(1.15);
+  border: 3px solid #3699fb;
 }
