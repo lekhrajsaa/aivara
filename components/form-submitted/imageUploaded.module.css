@@ -1,5 +1,5 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400&family=Ubuntu:wght@400&display=swap"); */
-/* * {
+/* @import url("https://fonts.googleapis.com/css2?family=Sora:wght@400&family=Ubuntu:wght@400&display=swap");
+* {
   margin: 0;
   font-family: "Sora", sans-serif;
 } */
@@ -21,6 +21,9 @@
 }
 .header p {
   letter-spacing: 0.2rem;
+  font-weight: 300;
+  font-size: 1.1rem;
+  margin: auto 0;
 }
 .body {
   display: flex;
@@ -31,11 +34,14 @@
 }
 .body p {
   color: #395d89;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   margin-top: 0.5rem;
   letter-spacing: 0.05rem;
+  font-weight: 400;
 }
-.link {
+.body a {
   color: #395d89;
-  margin-top: 10rem;
+  margin-top: 7.75rem;
+  font-weight: 400;
+  font-size: 0.9rem;
 }

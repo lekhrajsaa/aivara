@@ -13,14 +13,12 @@ const ReportSubmitted = () => {
         <p>
           Track under review section&nbsp;
           <span>
-            <Link className={styles.sectionLink} to="/section">
-              link
-            </Link>
+            <Link to="/section">link</Link>
           </span>
         </p>
-        <Link to="/" className={styles.link}>
-          back to dashboard
-        </Link>
+        <span className={styles.link}>
+          <Link to="/">back to dashboard</Link>
+        </span>
       </div>
     </div>
   );
