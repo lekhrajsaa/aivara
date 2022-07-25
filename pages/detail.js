@@ -13,14 +13,14 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 const detail = () => {
   // const socket = io(`https://socket-server-demo-i.herokuapp.com`);//* socket url
-  const socket = io(`https://dev.aivara.in`);//* socket url
+  // const socket = io(`https://dev.aivara.in`);//* socket url
   // const socket = io(`http://13.232.246.133`);//* socket url
   // const socket = io(`http://localhost:8000`);//* socket url
 
   const dispatch = useDispatch();
 
-  const [isRealTimeData, setIsRealTimeData] = useState(false);
-  const [realtimeData, setRealtimeData] = useState({});
+  // const [isRealTimeData, setIsRealTimeData] = useState(false);
+  // const [realtimeData, setRealtimeData] = useState({});
 
   const router = useRouter();
   const [show, setShow] = useState(true);
@@ -32,45 +32,45 @@ const detail = () => {
     }
   }, []);
 
-  useEffect(() => {
-    socket.on('test api', (data) => {
-      console.log(data)
-    })
+  // useEffect(() => {
+  //   socket.on('test api', (data) => {
+  //     console.log(data)
+  //   })
 
-    socket.on('report data', (data) => {
-      console.log(data);
+  //   socket.on('report data', (data) => {
+  //     console.log(data);
 
-      setIsRealTimeData(data.flag);
-      setRealtimeData(data);
-    });
-  }, [socket])
+  //     setIsRealTimeData(data.flag);
+  //     setRealtimeData(data);
+  //   });
+  // }, [socket])
 
   //if realtime data received and flag is true
-  if (isRealTimeData) {
-    console.log(realtimeData, "gg");
+  // if (isRealTimeData) {
+  //   console.log(realtimeData, "gg");
 
-    if (realtimeData.token && realtimeData.reportId) {
-      var myHeaders = new Headers();
-      myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
-      myHeaders.append("Authorization", `Bearer ${realtimeData.token}`);
+  //   if (realtimeData.token && realtimeData.reportId) {
+  //     var myHeaders = new Headers();
+  //     myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
+  //     myHeaders.append("Authorization", `Bearer ${realtimeData.token}`);
 
-      var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-      };
+  //     var requestOptions = {
+  //       method: 'GET',
+  //       headers: myHeaders,
+  //       redirect: 'follow'
+  //     };
 
-      fetch(`${SERVER_URL}userReportData/${realtimeData.reportId}`, requestOptions)
-        .then(response => response.text())
-        .then(result => {
-          console.log(result)
-          dispatch(setAiReportData(JSON.parse(result)))
-          router.push("/analysis")
-        })
-        .catch(error => console.log('error', error));
-    }
+  //     fetch(`${SERVER_URL}userReportData/${realtimeData.reportId}`, requestOptions)
+  //       .then(response => response.text())
+  //       .then(result => {
+  //         console.log(result)
+  //         dispatch(setAiReportData(JSON.parse(result)))
+  //         router.push("/analysis")
+  //       })
+  //       .catch(error => console.log('error', error));
+  //   }
 
-  }
+  // }
 
 
   // const [token, setToken] = useState(false);

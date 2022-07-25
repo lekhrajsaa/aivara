@@ -42,3 +42,10 @@ export const setReportTableData = (data) => {
     payload: data,
   };
 }
+
+export const setDetailData = (data) => {
+  return {
+    type: ActionTypes.DETAIL_DATA,
+    payload: data,
+  };
+}

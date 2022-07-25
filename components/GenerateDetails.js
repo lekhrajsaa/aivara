@@ -7,7 +7,7 @@ import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { Xapkey } from "../apikey";
 import { ResetTvRounded, TryRounded } from "@mui/icons-material";
@@ -17,11 +17,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 // import { padding } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import { BiChevronDown } from "react-icons/bi";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import FormLabel from "@mui/material/FormLabel";
 
 import FormControl from "@mui/material/FormControl";
 import BackdropBuffer from "./backdrop_buffer/backdrop_buffer";
+import { setDetailData } from "../redux/dataAction";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -98,9 +99,12 @@ const GenerateDetails = () => {
   const images = useSelector((state) => state.userdata.lab_images);
   const route = useRouter();
 
+  const dispatch = useDispatch();
+
   const SubmitReport = async (e) => {
     console.log(images);
     e.preventDefault();
+
     setIsError(validate2(sampleType));
 
     setformError(validate(report));
@@ -114,94 +118,105 @@ const GenerateDetails = () => {
       longitude &&
       latitude
     ) {
-      try {
-        var formData = new FormData();
 
-        images.map((file, index) => {
-          formData.append("uploadImages", file);
-        });
-        console.log(formData);
-        formData.append("clientName", clientName);
-        formData.append("sampleType", sampleType);
-        formData.append("generatedBy", generatedBy);
-        formData.append("siteCode", siteCode);
-        formData.append("latitude", latitude);
-        formData.append("longitude", longitude);
-        //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
-        //REACT_APP_SERVER
-        //NEXT_PUBLIC_SERVER_API
+      dispatch(setDetailData({
+        clientName,
+        sampleType,
+        generatedBy,
+        siteCode,
+        longitude,
+        latitude,
+      }))
 
-        //setting wait flag as true
-        setPleaseWait(true);
+      route.push('/gen')
+      // try {
+      //   var formData = new FormData();
 
-        try {
-          const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_SERVER_API}postReport`,
-            formData,
-            {
-              headers: {
-                Authorization: `Bearer ${String(token)}`,
-                "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-                origin: `${process.env.REACT_APP_CLIENT}`,
-              },
-              onUploadProgress: (data) => {
-                let progresPercent = Math.floor(
-                  (data.loaded / data.total) * 100
-                );
-                // console.log(data.loaded, data.total, progresPercent);
-                setUploadPercentage(progresPercent); //set the state for upload progress bar
-              },
-            }
-          );
+      //   images.map((file, index) => {
+      //     formData.append("uploadImages", file);
+      //   });
+      //   console.log(formData);
+      //   formData.append("clientName", clientName);
+      //   formData.append("sampleType", sampleType);
+      //   formData.append("generatedBy", generatedBy);
+      //   formData.append("siteCode", siteCode);
+      //   formData.append("latitude", latitude);
+      //   formData.append("longitude", longitude);
+      //   //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
+      //   //REACT_APP_SERVER
+      //   //NEXT_PUBLIC_SERVER_API
 
-          const data = response.data;
+      //   //setting wait flag as true
+      //   setPleaseWait(true);
 
-          if (data.errors && data.errors[0].status === 401) {
-            console.log(data.errors[0].message);
-            errors = data.errors[0].message;
-            setErrorMessage(true);
-          } else {
-            if (data.status === 200) {
-              console.log(data);
-            } else {
-              errors = "server Error";
-              setErrorMessage(true);
-            }
-          }
-        } catch (err) {
-          console.log(err);
-          errors = "server Error";
-          setErrorMessage(true);
-          setPleaseWait(false);
-        }
+      //   try {
+      //     const response = await axios.post(
+      //       `${process.env.NEXT_PUBLIC_SERVER_API}postReport`,
+      //       formData,
+      //       {
+      //         headers: {
+      //           Authorization: `Bearer ${String(token)}`,
+      //           "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+      //           origin: `${process.env.REACT_APP_CLIENT}`,
+      //         },
+      //         onUploadProgress: (data) => {
+      //           let progresPercent = Math.floor(
+      //             (data.loaded / data.total) * 100
+      //           );
+      //           // console.log(data.loaded, data.total, progresPercent);
+      //           setUploadPercentage(progresPercent); //set the state for upload progress bar
+      //         },
+      //       }
+      //     );
 
-        // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
-        //   method: "POST",
-        //   headers: {
-        //     Authorization: `Bearer ${String(token)}`,
-        //     "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-        //     origin:`${process.env.REACT_APP_CLIENT}`
-        //   },
-        //   body: formData,
-        // })
-        //   .then((response) => response.json())
-        //   .then((data) => {
-        //     if (data.errors && data.errors[0].status === 401) {
-        //       console.log(data.errors[0].message);
-        //       errors = data.errors[0].message;
-        //       setErrorMessage(true);
-        //     } else {
-        //       if (data.status === 200) {
-        //         console.log(data);
-        //       } else {
-        //         errors = "server Error";
-        //         setErrorMessage(true);
-        //       }
-        //     }
-        //   });
-      } catch (err) {
-        console.log(err);
-      }
+      //     const data = response.data;
+
+      //     if (data.errors && data.errors[0].status === 401) {
+      //       console.log(data.errors[0].message);
+      //       errors = data.errors[0].message;
+      //       setErrorMessage(true);
+      //     } else {
+      //       if (data.status === 200) {
+      //         console.log(data);
+      //       } else {
+      //         errors = "server Error";
+      //         setErrorMessage(true);
+      //       }
+      //     }
+      //   } catch (err) {
+      //     console.log(err);
+      //     errors = "server Error";
+      //     setErrorMessage(true);
+      //     setPleaseWait(false);
+      //   }
+
+      //   // await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}/postReport`, {
+      //   //   method: "POST",
+      //   //   headers: {
+      //   //     Authorization: `Bearer ${String(token)}`,
+      //   //     "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+      //   //     origin:`${process.env.REACT_APP_CLIENT}`
+      //   //   },
+      //   //   body: formData,
+      //   // })
+      //   //   .then((response) => response.json())
+      //   //   .then((data) => {
+      //   //     if (data.errors && data.errors[0].status === 401) {
+      //   //       console.log(data.errors[0].message);
+      //   //       errors = data.errors[0].message;
+      //   //       setErrorMessage(true);
+      //   //     } else {
+      //   //       if (data.status === 200) {
+      //   //         console.log(data);
+      //   //       } else {
+      //   //         errors = "server Error";
+      //   //         setErrorMessage(true);
+      //   //       }
+      //   //     }
+      //   //   });
+      // } catch (err) {
+      //   console.log(err);
+      // }
     } else {
     }
   };
@@ -325,7 +340,7 @@ const GenerateDetails = () => {
               />
               <div className={contentClassname}>
                 {showMenu ? (
-                  <FormControl style={{position:"x`x"}}>
+                  <FormControl style={{ position: "x`x" }}>
                     <div onClick={hideMenu} className={classes.Invisible}></div>
                     {sampledata.map((val) => {
                       return (
@@ -457,7 +472,7 @@ const GenerateDetails = () => {
           </Row>
 
           {/* ============================================= */}
-          <button className={classes.sub} onClick={SubmitReport} style={{margin:"10px "}}>
+          <button className={classes.sub} onClick={SubmitReport} style={{ margin: "10px " }}>
             SUBMIT
           </button>
         </Container>
