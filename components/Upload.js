@@ -259,7 +259,7 @@ function StyledDropzone(props) {
             }}
             className={classes.only}
           >
-            only .jpeg and .png formats not exceeding 100 MB
+            Total upload size not exceeding 1 GB
           </p>
         </div>
       </div>
