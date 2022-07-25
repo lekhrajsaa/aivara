@@ -10,8 +10,8 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import axios from "axios";
 // import { Visibility } from "@mui/icons-material";
-import {AiOutlineArrowLeft} from 'react-icons/ai';
-import {BsArrowLeft} from 'react-icons/bs';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
+import { BsArrowLeft } from 'react-icons/bs';
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
@@ -57,7 +57,7 @@ const EditProfile = () => {
   }
 
   ////TRY
-  
+
   const onsubmit = async (e) => {
     const Token = localStorage.getItem("token");
     setUsernameDisabled(true);
@@ -135,9 +135,9 @@ const EditProfile = () => {
     if (userdata.password !== user.oldPassword) {
       setErrorHandle(true);
     }
-   
 
-    
+
+
     let body = {
       query: `mutation {
           updateProfile(updateInput:{
@@ -164,17 +164,17 @@ const EditProfile = () => {
       },
     };
     try {
-      if (Passwordvalidate(user.newPassword)){
-      const resp = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_API}api/v1`,
-        body,
-        options
-      );
-      
-      console.log(resp.data.data.updateProfile);
-      handleClose();
+      if (Passwordvalidate(user.newPassword)) {
+        const resp = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_API}api/v1`,
+          body,
+          options
+        );
+
+        console.log(resp.data.data.updateProfile);
+        handleClose();
       }
-      else{
+      else {
         errors = (
           <div>
             <h6>Password must contains</h6>
@@ -203,11 +203,11 @@ const EditProfile = () => {
   }
   return (
     <>
-    <a onClick={() => router.push("/home")}>
-     <BsArrowLeft  className={classes.backArrow }/>
-     </a> 
+      <a onClick={() => router.push("/home")}>
+        <BsArrowLeft className={classes.backArrow} />
+      </a>
       <label className={classes.heading}>Your Profile</label>
-      
+
       {/* <a onClick={() => router.push("/home")} className={classes.back}>
         back
       </a> */}
@@ -226,9 +226,8 @@ const EditProfile = () => {
               id="userName"
               defaultValue={userdata.name}
               onChange={userInput}
-              className={`${classes.child} ${classes.input} ${
-                usernameDisabled ? null : classes.dis
-              }`}
+              className={`${classes.child} ${classes.input} ${usernameDisabled ? null : classes.dis
+                }`}
             />
             <></>
             <div onClick={onusernameClickEditIcon} className={classes.icon}>
@@ -245,9 +244,8 @@ const EditProfile = () => {
               name="labName"
               defaultValue={userdata.labName}
               onChange={userInput}
-              className={`${classes.child} ${classes.input}  ${
-                emailDisabled ? null : classes.dis
-              }`}
+              className={`${classes.child} ${classes.input}  ${emailDisabled ? null : classes.dis
+                }`}
             />
             <></>
             <div onClick={onEmailClickEditIcon} className={classes.icon}>
@@ -322,7 +320,7 @@ const EditProfile = () => {
                       placeholder=""
                       name="checkPassword"
                       onChange={userInput}
-                      
+
                     />
                   </Form.Group>
                   <Form.Group
@@ -336,7 +334,7 @@ const EditProfile = () => {
                       placeholder=""
                       name="newPassword"
                       onChange={userInput}
-                      
+
                     />
 
                     {errorHandle && (

@@ -3,11 +3,11 @@ import { useDropzone } from "react-dropzone";
 import { Box, Tab, Tabs, TabPanel } from "@mui/material";
 import classes from "./LoginForm.module.css";
 import { setImages } from "../redux/dataAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-// import S3FileUpload from "../node_modules/react-s3";
 import { Construction } from "@mui/icons-material";
 import axios from "axios";
+import BackdropBuffer from './backdrop_buffer/backdrop_buffer';
 
 const baseStyle = {
   flex: 1,
@@ -39,24 +39,18 @@ const rejectStyle = {
 };
 
 function StyledDropzone(props) {
-  // const [files, setFiles] = useState();
   const [fileName, setFileName] = useState([]);
   const [Token, setToken] = useState();
   const [files, setFiles] = useState([]);
-  // const [files, setFiles] = useState([]);
   const dispatch = useDispatch();
   const router = useRouter();
   const [ImageData, setImagedata] = useState([]);
 
-  // const config = {
-  //   bucketName: "aivara-images",
-  //   dirName: "logo-banner" /* optional */,
-  //   region: "ap-south-1",
-  //   accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY_ID,
-  //   secretAccessKey: "a3Hsl+3nR7uVR3T0onaukC45e2+Yi8oWqNeMRphf",
-  // };
+  const detailPageData = useSelector((state) => state.userdata.detailData);
+  const images = useSelector((state) => state.userdata.lab_images);
 
-  // let formData2 = new FormData();
+  const [pleaseWait, setPleaseWait] = useState(false);
+
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
       accept: "image/jpeg,image/png,image/tif,image/tiff",
@@ -70,7 +64,8 @@ function StyledDropzone(props) {
         console.log(formData);
         // dispatch(setImages(formData));
         dispatch(setImages(acceptedFiles));
-        router.push("/detail");
+        // router.push("/detail");
+
         // try {
         //   const res = await axios.post(
         //     `${process.env.NEXT_PUBLIC_SERVER_API}/postReport`,
@@ -198,7 +193,84 @@ function StyledDropzone(props) {
   // };
 
   // className: 'dropzone'
-  console.log(process.env.NEXT_PUBLIC_XAPI);
+  // console.log(process.env.NEXT_PUBLIC_XAPI);
+
+  async function submitHandlder() {
+
+    const {clientName, sampleType, generatedBy, siteCode, latitude, longitude} = detailPageData;
+
+    try {
+      var formData = new FormData();
+
+      images.map((file, index) => {
+        formData.append("uploadImages", file);
+      });
+      console.log(formData);
+      formData.append("clientName", clientName);
+      formData.append("sampleType", sampleType);
+      formData.append("generatedBy", generatedBy);
+      formData.append("siteCode", siteCode);
+      formData.append("latitude", latitude);
+      formData.append("longitude", longitude);
+      //${process.env.NEXT_PUBLIC_SERVER_API}/postReport
+      //REACT_APP_SERVER
+      //NEXT_PUBLIC_SERVER_API
+
+      //setting wait flag as true
+      setPleaseWait(true);
+
+      try {
+        console.log('request sent1')
+        
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER_API}postReport`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${String(token)}`,
+              "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+              origin: `${process.env.REACT_APP_CLIENT}`,
+            },
+            onUploadProgress: (data) => {
+              let progresPercent = Math.floor(
+                (data.loaded / data.total) * 100
+              );
+              // console.log(data.loaded, data.total, progresPercent);
+              setUploadPercentage(progresPercent); //set the state for upload progress bar
+            },
+          }
+        );
+
+        const data = response.data;
+
+        if (data.errors && data.errors[0].status === 401) {
+          console.log(data.errors[0].message);
+          errors = data.errors[0].message;
+          setErrorMessage(true);
+        } else {
+          if (data.status === 200) {
+            console.log(data);
+          } else {
+            errors = "server Error";
+            setErrorMessage(true);
+          }
+        }
+
+        console.log('request sent')
+      } catch (err) {
+        console.log(err);
+        errors = "server Error";
+        setErrorMessage(true);
+        setPleaseWait(false);
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+    console.log(detailPageData)
+  }
+
+
   return (
     <div>
       <div
@@ -262,22 +334,22 @@ function StyledDropzone(props) {
             only .jpeg and .png formats not exceeding 100 MB
           </p>
         </div>
+        <button
+          style={{
+            border: 'none',
+            marginTop: '10px',
+            background: '#B7D7F7',
+            padding: '5px 10px',
+            borderRadius: '5px'
+          }}
+          onClick={submitHandlder}
+        >Submit</button>
       </div>
+
+      {pleaseWait && (
+        <BackdropBuffer bufferText="Report Analysis is in process please wait..." />
+      )}
     </div>
   );
 }
-{/* <StyledDropzone />; */}
 export default StyledDropzone;
-// Object.createObjectURL(file, { preview: file })
-// if (filess.length != 0) {
-//   // dispatch(setImages(files));
-//   // router.push("/detail");
-//   console.log(filess);
-// }
-//{...getInputProps()}
-//{...getRootProps({ style })}
-// type="file"
-// name="uploadImages"
-// multiple
-// onChange={onChanges}
-// className={classes.Inputimg}

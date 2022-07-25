@@ -473,7 +473,8 @@ const NewHome = () => {
           /> */}
 
           {/* <a onClick={() => router.push("/home")} ><p className={classes.viewRep}>View Report</p></a> */}
-          <a onClick={() => router.push("/gen")}>
+          {/* <a onClick={() => router.push("/gen")}> */}
+          <a onClick={() => router.push("/detail")}>
             <Button className={classes.GenerateReport}>
               Generate Report <img src="./edit.png"></img>
             </Button>

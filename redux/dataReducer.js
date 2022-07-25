@@ -6,6 +6,7 @@ const aivaraStatus = {
   modelimge: {},
   reportDataFrom_AI: {},
   reportTableData: {},
+  detailData: {},
 };
 
 export const user = (state = aivaraStatus, action) => {
@@ -21,6 +22,8 @@ export const user = (state = aivaraStatus, action) => {
       return { ...state, reportDataFrom_AI: action.payload };
     case ActionTypes.REPORT_TABLE_DATA:
       return { ...state, reportTableData: action.payload };
+    case ActionTypes.DETAIL_DATA:
+      return { ...state, detailData: action.payload };
     default:
       return state;
   }

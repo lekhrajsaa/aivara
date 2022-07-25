@@ -6,8 +6,9 @@ import StyledDropzone from "../Upload"
 import {Nav, Container } from "react-bootstrap";
 import classes from "./all.module.css";
 
-
 const GeneratePage = () => {
+
+
   return (
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
