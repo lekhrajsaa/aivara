@@ -9,6 +9,8 @@ import { Construction } from "@mui/icons-material";
 import axios from "axios";
 import BackdropBuffer from './backdrop_buffer/backdrop_buffer';
 
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+
 const baseStyle = {
   flex: 1,
   display: "flex",
@@ -197,7 +199,7 @@ function StyledDropzone(props) {
 
   async function submitHandlder() {
 
-    const {clientName, sampleType, generatedBy, siteCode, latitude, longitude} = detailPageData;
+    const { clientName, sampleType, generatedBy, siteCode, latitude, longitude } = detailPageData;
 
     try {
       var formData = new FormData();
@@ -219,53 +221,78 @@ function StyledDropzone(props) {
       //setting wait flag as true
       setPleaseWait(true);
 
-      try {
-        console.log('request sent1')
-        
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_SERVER_API}postReport`,
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${String(token)}`,
-              "x-api-key": process.env.NEXT_PUBLIC_XAPI,
-              origin: `${process.env.REACT_APP_CLIENT}`,
-            },
-            onUploadProgress: (data) => {
-              let progresPercent = Math.floor(
-                (data.loaded / data.total) * 100
-              );
-              // console.log(data.loaded, data.total, progresPercent);
-              setUploadPercentage(progresPercent); //set the state for upload progress bar
-            },
-          }
-        );
-
-        const data = response.data;
-
-        if (data.errors && data.errors[0].status === 401) {
-          console.log(data.errors[0].message);
-          errors = data.errors[0].message;
-          setErrorMessage(true);
-        } else {
-          if (data.status === 200) {
-            console.log(data);
-          } else {
-            errors = "server Error";
-            setErrorMessage(true);
-          }
-        }
-
-        console.log('request sent')
-      } catch (err) {
-        console.log(err);
-        errors = "server Error";
-        setErrorMessage(true);
-        setPleaseWait(false);
+      const token = localStorage.getItem('token');
+      const headers = {
+        Authorization: `Bearer ${String(token)}`,
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+        origin: `${process.env.REACT_APP_CLIENT}`,
       }
 
+      const uploadingMonitor = (data) => {
+        let progresPercent = Math.floor(
+          (data.loaded / data.total) * 100
+        );
+        
+        console.log(`${progresPercent} % uploaded ^-^`)
+      };
+
+      const response = await axios.post(`${SERVER_URL}postReport`, formData, { headers: headers, onUploadProgress: uploadingMonitor })
+
+      const data = response.data;
+
+      console.log(data, "gg")
+
+
+      // try {
+      //   console.log('request sent1')
+
+      //   const response = await axios.post(
+      //     `${process.env.NEXT_PUBLIC_SERVER_API}postReport`,
+      //     formData,
+      //     {
+      //       headers: {
+      //         Authorization: `Bearer ${String(token)}`,
+      //         "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+      //         origin: `${process.env.REACT_APP_CLIENT}`,
+      //       },
+      //       onUploadProgress: (data) => {
+      //         let progresPercent = Math.floor(
+      //           (data.loaded / data.total) * 100
+      //         );
+      //         // console.log(data.loaded, data.total, progresPercent);
+      //         setUploadPercentage(progresPercent); //set the state for upload progress bar
+      //       },
+      //     }
+      //   );
+
+      //   const data = response.data;
+
+      //   if (data.errors && data.errors[0].status === 401) {
+      //     console.log(data.errors[0].message);
+      //     errors = data.errors[0].message;
+      //     setErrorMessage(true);
+      //   } else {
+      //     if (data.status === 200) {
+      //       console.log(data);
+      //     } else {
+      //       errors = "server Error";
+      //       setErrorMessage(true);
+      //     }
+      //   }
+
+      //   console.log('request sent')
+      // } catch (err) {
+      //   console.log(err);
+      //   errors = "server Error";
+      //   setErrorMessage(true);
+      //   setPleaseWait(false);
+      // }
+
     } catch (err) {
-      console.log(err);
+      console.log(err, "errrrrrr not gg");
+      errors = "server Error";
+      setErrorMessage(true);
+      setPleaseWait(false);
     }
     console.log(detailPageData)
   }
