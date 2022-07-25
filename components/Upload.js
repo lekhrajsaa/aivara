@@ -242,7 +242,9 @@ function StyledDropzone(props) {
 
       console.log(data, "gg")
 
+      // setPleaseWait(false);
 
+      router.push('/report-data-uploaded');
       // try {
       //   console.log('request sent1')
 

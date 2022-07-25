@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import styles from "./imageUploaded.module.css";
 
 const ImageUploaded = () => {
@@ -11,7 +11,7 @@ const ImageUploaded = () => {
       <div className={styles.body}>
         <p>Your images are uploaded,</p>
         <p> Please wait for the analysed images, you will be notified</p>
-        <Link to="/" className={styles.link}>
+        <Link href="/home" className={styles.link}>
           back to dashboard
         </Link>
       </div>
