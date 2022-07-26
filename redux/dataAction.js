@@ -49,3 +49,10 @@ export const setDetailData = (data) => {
     payload: data,
   };
 }
+
+export const setPrevPage = (data) => {
+  return {
+    type: ActionTypes.PREV_PAGE,
+    payload: data,
+  };
+}

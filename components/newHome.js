@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Row } from "reactstrap";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./newHome.module.css";
 import calClass from "./LoginForm.module.css";
 import { BiChevronDown } from "react-icons/bi";
@@ -18,6 +18,7 @@ import { FiChevronDown } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
 
 import { DayPicker } from 'react-day-picker';
+import { setPrevPage } from "../redux/dataAction";
 
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
@@ -26,6 +27,7 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 const NewHome = () => {
   const userdata = useSelector((state) => state.userdata.userdata);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [totalReport, setTotalReport] = useState(100)
   const [array, setarray] = useState([])
@@ -97,6 +99,8 @@ const NewHome = () => {
     if (token) {
       fetchAllReportData(token);
     }
+
+    dispatch(setPrevPage("/home"))
   }, [])
 
 

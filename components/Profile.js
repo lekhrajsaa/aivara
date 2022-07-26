@@ -4,6 +4,7 @@ import axios from "axios";
 import {
   Getting_user_data,
   setAiReportData,
+  setPrevPage,
   setReportTableData,
 } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -300,6 +301,7 @@ const Profile = ({updateReport}) => {
 
   //
   useEffect(() => {
+    dispatch(setPrevPage("/reports"))
     setToken(localStorage.getItem("token"));
     if (token) {
       getUserData();
@@ -1024,7 +1026,7 @@ const Profile = ({updateReport}) => {
           ></i> */}
           <button
             className={classes.gen_button}
-            onClick={() => router.push("/gen")}
+            onClick={() => router.push("/detail")}
           >
             <FileUploadOutlinedIcon />
             Generate report
