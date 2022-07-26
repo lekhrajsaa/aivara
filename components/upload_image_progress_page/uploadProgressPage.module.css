@@ -1,0 +1,34 @@
+.PageMainContainer{
+    width: 80%;
+    margin: auto;
+    min-height: 90vh;
+    font-family: 'sora';
+}
+.pageTitle{
+    color: #395D89;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 20px 0;
+    margin-top: 16px;
+    border-bottom: 2px solid #395D89;
+}
+.pageTitle p{
+    margin: 0;
+}
+.progressContainer{
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.progressCount{
+    font-size: 72px;
+    text-align: center;
+    color: #606060;
+}
+.pageHint{
+    font-size: 22px;
+    text-align: center;
+    margin-top: 40px;
+}
