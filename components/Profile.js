@@ -49,7 +49,9 @@ const labdata = [
   },
 ];
 
-const Profile = () => {
+const Profile = ({updateReport}) => {
+  console.log(updateReport)// for update purpose
+
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
   const [timePeriod, SettimePeriod] = useState("Today");

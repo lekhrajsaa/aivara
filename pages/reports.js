@@ -7,7 +7,12 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { Col, Container, Row } from "reactstrap";
 import { useRouter } from "next/router";
 
-export default function home() {
+// import io from 'socket.io-client';
+// const SOCKET_URL = "https://dev.aivara.in";
+
+export default function home({updateReport}) {
+  console.log(updateReport);
+  
   const router = useRouter();
   const [show, setShow]= useState(true);
   useEffect(() => {
@@ -39,7 +44,7 @@ export default function home() {
       <Header headerWithSignout={true} />
       <Sidebar highlite={true} />
 
-      <Profile />
+      <Profile updateReport={updateReport.current}/>
       </>
 }
     </>

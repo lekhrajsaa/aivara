@@ -9,35 +9,26 @@ import "../components/SideBar.css";
 
 
 import io from 'socket.io-client';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Alert, Snackbar, Stack } from "@mui/material";
 
+const SOCKET_URL = "https://dev.aivara.in";
 
 function MyApp({ Component, pageProps }) {
 
   //* realtime start
 
-  const socket = io(`https://dev.aivara.in`);//* socket url
+  const socket = io(SOCKET_URL);
   const [newMessage, setNewMessage] = useState(false)
 
-  // const [isRealTimeData, setIsRealTimeData] = useState(false);
-  // const [realtimeData, setRealtimeData] = useState({});
+  const updateReport = useRef(1);
 
-  // const router = useRouter();
-  // const [show, setShow] = useState(true);
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   if (!token) {
-  //     setShow(false);
-  //     router.push("/")
-  //   }
-  // }, []);
 
   useEffect(() => {
     socket.on('test api', (data) => {
       console.log(data)
       setNewMessage(true)
+      updateReport.current++;
     })
 
     const token = localStorage.getItem('token');
@@ -48,7 +39,7 @@ function MyApp({ Component, pageProps }) {
         console.log(data, "with token");
         setNewMessage(true);
       } else {
-        console.log(data, "without token")
+        console.log(data, "without token") //test
       }
 
       // setIsRealTimeData(data.flag);
@@ -56,68 +47,34 @@ function MyApp({ Component, pageProps }) {
     });
   }, [socket])
 
-  //if realtime data received and flag is true
-  // if (isRealTimeData) {
-  //   console.log(realtimeData, "gg");
-
-  //   if (realtimeData.token && realtimeData.reportId) {
-  //     var myHeaders = new Headers();
-  //     myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
-  //     myHeaders.append("Authorization", `Bearer ${realtimeData.token}`);
-
-  //     var requestOptions = {
-  //       method: 'GET',
-  //       headers: myHeaders,
-  //       redirect: 'follow'
-  //     };
-
-  //     fetch(`${SERVER_URL}userReportData/${realtimeData.reportId}`, requestOptions)
-  //       .then(response => response.text())
-  //       .then(result => {
-  //         console.log(result)
-  //         dispatch(setAiReportData(JSON.parse(result)))
-  //         router.push("/analysis")
-  //       })
-  //       .catch(error => console.log('error', error));
-  //   }
-
-  // }
-
-
-  // const [token, setToken] = useState(false);
-  // useEffect(() => {
-  //   setToken(localStorage.getItem("isloggin"));
-  // }, []);
-  // if (token === null) {
-  //   window.location.href = "/";
-  // }
-
   //* realtime end
+
   let messg = "AI Report Generated"
 
   const Snackk = () => {
     return (
-    <Stack spacing={2} sx={{ width: "100%" }}>
-      <Snackbar
-        open={newMessage}
-        autoHideDuration={6000}
-        onClose={() => setNewMessage(false)}
-      >
-        <Alert
+      <Stack spacing={2} sx={{ width: "100%" }}>
+        <Snackbar
+          open={newMessage}
+          autoHideDuration={6000}
           onClose={() => setNewMessage(false)}
-          severity="success"
-          sx={{ width: "100%" }}
         >
-          {messg}
-        </Alert>
-      </Snackbar>
-    </Stack>
-  )}
+          <Alert
+            onClose={() => setNewMessage(false)}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            {messg}
+          </Alert>
+        </Snackbar>
+      </Stack>
+    )
+  }
 
   return (
     <Provider store={store}>
       <persistGet persistor={persistor}>
-        <Component {...pageProps} />
+        <Component {...pageProps} updateReport={updateReport}/>
         <Snackk />
       </persistGet>
     </Provider>
