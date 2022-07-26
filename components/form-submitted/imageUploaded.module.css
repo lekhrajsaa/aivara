@@ -34,14 +34,15 @@
 }
 .body p {
   color: #395d89;
-  font-size: 1.5rem;
-  margin-top: 0.5rem;
-  letter-spacing: 0.05rem;
+  font-size: 1.6rem;
   font-weight: 400;
+}
+.body .p {
+  margin-top: -1.2rem;
 }
 .body a {
   color: #395d89;
-  margin-top: 7.75rem;
+  margin-top: 7rem;
   font-weight: 400;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
