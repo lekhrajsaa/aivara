@@ -10,7 +10,9 @@ const ImageUploaded = () => {
       </div>
       <div className={styles.body}>
         <p>Your images are uploaded,</p>
-        <p> Please wait for the analysed images, you will be notified</p>
+        <p className={styles.p}>
+          Please wait for the analysed images, you will be notified
+        </p>
         <Link href="/home" className={styles.link}>
           back to dashboard
         </Link>
