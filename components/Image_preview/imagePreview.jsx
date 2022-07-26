@@ -3,11 +3,11 @@ import classes from "./imagePreview.module.css";
 import Test from "../test";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import Annotation from "react-image-annotation";
-import {
-  PointSelector,
-  RectangleSelector,
-  OvalSelector,
-} from "react-image-annotation/lib/selectors";
+// import {
+//   PointSelector,
+//   RectangleSelector,
+//   OvalSelector,
+// } from "react-image-annotation/lib/selectors";
 
 export default class ImagePreview extends Component {
       
@@ -25,8 +25,11 @@ export default class ImagePreview extends Component {
 
   onSubmit = (annotation) => {
     const img = new Image();
+    img.src = this.props.galleryItems[this.props.currentIndex];
+    
     img.onload = function() {
-      alert(this.width + 'x' + this.height);
+      console.log('ddd', this.width+'x', this.height+'y')
+      alert(this.width + ' x ' + this.height);
     }
     
     const { geometry, data } = annotation;
