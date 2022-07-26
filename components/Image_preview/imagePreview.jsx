@@ -1,42 +1,90 @@
-import React from 'react';
-import classes from './imagePreview.module.css';
-import Test from '../test';
-import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import React, { Component } from "react";
+import classes from "./imagePreview.module.css";
+import Test from "../test";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import Annotation from "react-image-annotation";
+import {
+  PointSelector,
+  RectangleSelector,
+  OvalSelector,
+} from "react-image-annotation/lib/selectors";
 
-const ImagePreview = ({ galleryItems, currentIndex, setPreviewImage }) => {
+export default class ImagePreview extends Component {
+      
+  state = {
+    annotations: [],
+    annotation: {},
+    
+    
+  }
 
-    console.log(galleryItems[currentIndex])
+  onChange = (annotation) => {
+    this.setState({ annotation });
+  };
+
+
+  onSubmit = (annotation) => {
+    const img = new Image();
+    img.onload = function() {
+      alert(this.width + 'x' + this.height);
+    }
+    
+    const { geometry, data } = annotation;
+    console.log(geometry);
+    console.log(data);
+
+    
+    
+
+    this.setState({
+      annotation: {},
+      annotations: this.state.annotations.concat({
+        geometry,
+        data: {
+          ...data,
+          id: Math.random(),
+        },
+      }),
+    });
+  };
+
+  render() {
     return (
-        <div className={classes.backdrop}>
+        
+      <div className={classes.backdrop}>
+        <div className={classes.image_modal}>
+          <p className={classes.image_modal_analysis}>Analysis</p>
+          <p
+            className={classes.image_modal_close}
+            onClick={() => this.props.setPreviewImage(false)}
+          >
+            Close
+          </p>
+          <Annotation
+           
+            src={this.props.galleryItems[this.props.currentIndex]}
+            alt="Two pebbles anthropomorphized holding hands"
+            annotations={this.state.annotations}
+            type={this.state.type}
+            value={this.state.annotation}
+            onChange={this.onChange}
+            onSubmit={this.onSubmit}
+          />
 
-            <div className={classes.image_modal}>
-                <p className={classes.image_modal_analysis}>
-                    Analysis
-                </p>
-                <p
-                    className={classes.image_modal_close}
-                    onClick={() => setPreviewImage(false)}
-                >
-                    Close
-                </p>
-
-                {/* <figure>
-                    <img src={galleryItems[currentIndex]} />
-                </figure> */}
-                {/* <Test imageurl={galleryItems[currentIndex]} /> */}
-                <img src={galleryItems[currentIndex]} alt="" />
-
-                {/* <img src={galleryItems[currentIndex]} /> */}
-
-                <a className="button" href={galleryItems[currentIndex]} target={'_blank'} download>
-                    <p className={classes.image_modal_download}>
-                        <FileDownloadOutlinedIcon />
-                        Download
-                    </p>
-                </a>
-            </div>
+          <a
+            className="button"
+            href={this.props.galleryItems[this.props.currentIndex]}
+            target={"_blank"}
+            download
+          >
+            <p className={classes.image_modal_download}>
+              <FileDownloadOutlinedIcon />
+              Download
+            </p>
+          </a>
         </div>
+      </div>
     );
+  }
 }
 
-export default ImagePreview;

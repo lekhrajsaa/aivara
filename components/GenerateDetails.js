@@ -40,6 +40,8 @@ const sampledata = [
 ];
 
 const GenerateDetails = () => {
+  const prevPage = useSelector((state) => state.userdata.prevPage);
+
   let sampleError = "";
   const initialValue = {
     clientName: "",
@@ -293,7 +295,7 @@ const GenerateDetails = () => {
           color: "#000000",
         }}
       >
-        <a href="/gen">back</a>
+        <a onClick={() => route.push(prevPage)}>back</a>
       </div>
       <form>
         <Container fluid className={classes.cont}>

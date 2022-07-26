@@ -4,6 +4,7 @@ import axios from "axios";
 import {
   Getting_user_data,
   setAiReportData,
+  setPrevPage,
   setReportTableData,
 } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -49,7 +50,9 @@ const labdata = [
   },
 ];
 
-const Profile = () => {
+const Profile = ({updateReport}) => {
+  console.log(updateReport)// for update purpose
+
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
   const [timePeriod, SettimePeriod] = useState("Today");
@@ -298,6 +301,7 @@ const Profile = () => {
 
   //
   useEffect(() => {
+    dispatch(setPrevPage("/reports"))
     setToken(localStorage.getItem("token"));
     if (token) {
       getUserData();

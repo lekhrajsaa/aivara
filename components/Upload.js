@@ -292,8 +292,8 @@ function StyledDropzone(props) {
 
     } catch (err) {
       console.log(err, "errrrrrr not gg");
-      errors = "server Error";
-      setErrorMessage(true);
+      // errors = "server Error";
+      // setErrorMessage(true);
       setPleaseWait(false);
     }
     console.log(detailPageData)
