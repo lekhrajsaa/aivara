@@ -1,4 +1,4 @@
-.con{
+.con {
     margin-top: 2%;
     font-weight: 700;
     font-family: Sora;
@@ -6,13 +6,23 @@
     margin-left: 10%;
 }
 
-.focus{
+.focus {
     color: #395D89;
     font-weight: 700;
     font-size: 90%;
 }
-.unfocus{
+
+.unfocus {
     color: #8A8A8A;
     font-weight: 400;
     font-size: 90%;
+}
+
+.backBtn {
+    color: #395D89;
+    font-weight: 700;
+    font-size: 90%;
+    position: absolute;
+    margin-top: 10px;
+    right: 15vw;
 }
