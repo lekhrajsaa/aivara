@@ -1022,7 +1022,7 @@ const Profile = () => {
           ></i> */}
           <button
             className={classes.gen_button}
-            onClick={() => router.push("/gen")}
+            onClick={() => router.push("/detail")}
           >
             <FileUploadOutlinedIcon />
             Generate report
