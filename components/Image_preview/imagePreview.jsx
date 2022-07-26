@@ -26,7 +26,7 @@ export default class ImagePreview extends Component {
   onSubmit = (annotation) => {
     const img = new Image();
     img.src = this.props.galleryItems[this.props.currentIndex];
-    
+
     img.onload = function() {
       console.log('ddd', this.width+'x', this.height+'y')
       alert(this.width + ' x ' + this.height);

@@ -67,7 +67,7 @@ function StyledDropzone(props) {
         // dispatch(setImages(formData));
         dispatch(setImages(acceptedFiles));
         // router.push("/detail");
-
+        submitHandlder()
         // try {
         //   const res = await axios.post(
         //     `${process.env.NEXT_PUBLIC_SERVER_API}/postReport`,
@@ -198,6 +198,7 @@ function StyledDropzone(props) {
   // console.log(process.env.NEXT_PUBLIC_XAPI);
 
   async function submitHandlder() {
+    router.push('/report-data-uploaded');
 
     const { clientName, sampleType, generatedBy, siteCode, latitude, longitude } = detailPageData;
 
@@ -244,7 +245,7 @@ function StyledDropzone(props) {
 
       // setPleaseWait(false);
 
-      router.push('/report-data-uploaded');
+      // router.push('/report-data-uploaded');
       // try {
       //   console.log('request sent1')
 
@@ -297,6 +298,7 @@ function StyledDropzone(props) {
       setPleaseWait(false);
     }
     console.log(detailPageData)
+
   }
 
 
@@ -363,7 +365,7 @@ function StyledDropzone(props) {
             Total upload size not exceeding 1 GB
           </p>
         </div>
-        <button
+        {/* <button
           style={{
             border: 'none',
             marginTop: '10px',
@@ -372,12 +374,12 @@ function StyledDropzone(props) {
             borderRadius: '5px'
           }}
           onClick={submitHandlder}
-        >Submit</button>
+        >Submit</button> */}
       </div>
 
-      {pleaseWait && (
+      {/* {pleaseWait && (
         <BackdropBuffer bufferText="Report Analysis is in process please wait..." />
-      )}
+      )} */}
     </div>
   );
 }
