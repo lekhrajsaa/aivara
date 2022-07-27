@@ -50,9 +50,17 @@ export const setDetailData = (data) => {
   };
 }
 
+// for going back to previous page from detail page
 export const setPrevPage = (data) => {
   return {
     type: ActionTypes.PREV_PAGE,
+    payload: data,
+  };
+}
+
+export const setNotification = (data) => {
+  return {
+    type: ActionTypes.NOTIFICATION,
     payload: data,
   };
 }
