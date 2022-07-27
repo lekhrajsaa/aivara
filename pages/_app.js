@@ -21,14 +21,11 @@ function MyApp({ Component, pageProps }) {
   const socket = io(SOCKET_URL);
   const [newMessage, setNewMessage] = useState(false)
 
-  const updateReport = useRef(1);
-
 
   useEffect(() => {
     socket.on('test api', (data) => {
       console.log(data)
       setNewMessage(true)
-      updateReport.current++;
     })
 
     const token = localStorage.getItem('token');
@@ -74,7 +71,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <persistGet persistor={persistor}>
-        <Component {...pageProps} updateReport={updateReport}/>
+        <Component {...pageProps} updateReport={socket}/>
         <Snackk />
       </persistGet>
     </Provider>
