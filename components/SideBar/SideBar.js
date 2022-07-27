@@ -11,14 +11,14 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 
-import {
-  Dialog,
-  DialogTitle,
-  Button,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-} from "@mui/material";
+// import {
+//   Dialog,
+//   DialogTitle,
+//   Button,
+//   DialogActions,
+//   DialogContent,
+//   DialogContentText,
+// } from "@mui/material";
 
 //import icons from react icons
 import { FaList, FaRegHeart } from "react-icons/fa";
@@ -44,6 +44,7 @@ import { CgLogOff } from "react-icons/cg";
 //import sidebar css from react-pro-sidebar module and our custom css
 import "react-pro-sidebar/dist/css/styles.css";
 import classes from "./SideBar.module.css";
+import LogoutPopup from "../util/logoutPopup";
 
 const Sidebar = (props) => {
   const router = useRouter();
@@ -61,12 +62,12 @@ const Sidebar = (props) => {
     //condition checking to change state from true to false and vice versa
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
-  const removeDetail = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("email");
-    // window.location.href = "/";
-    router.push('/')
-  };
+  // const removeDetail = () => {
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("email");
+  //   // window.location.href = "/";
+  //   router.push('/')
+  // };
 
   useEffect(() => {
     if (window.innerWidth < 1000) {
@@ -169,32 +170,7 @@ const Sidebar = (props) => {
       </div>
 
       {/* Logout Dilog Box */}
-      <Dialog
-        open={openLogoutPopup}
-        // onClose={() => setOpen(false)}
-        aria-labelledby="dilog-title"
-        aria-aria-describedby="dilog-description"
-        sx={{ p: 2 }}
-      >
-        <DialogTitle id="dilog-title">User Logout</DialogTitle>
-        <DialogContent>
-          <DialogContentText>Are you sure you want to logout?</DialogContentText>
-        </DialogContent>
-        <DialogActions sx={{ mx: 1, mb: 1 }}>
-          <Button
-            variant="text"
-            onClick={() => setOpenLogoutPopup(false)}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            onClick={removeDetail}
-          >
-            Logout
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <LogoutPopup setOpenLogoutPopup={setOpenLogoutPopup} open={openLogoutPopup} />
     </>
   );
 };

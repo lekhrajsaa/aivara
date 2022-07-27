@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 // const SOCKET_URL = "https://dev.aivara.in";
 
 export default function home({updateReport}) {
-  console.log(updateReport);
   
   const router = useRouter();
   const [show, setShow]= useState(true);
@@ -44,7 +43,7 @@ export default function home({updateReport}) {
       <Header headerWithSignout={true} />
       <Sidebar highlite={true} />
 
-      <Profile updateReport={updateReport.current}/>
+      <Profile updateReport={updateReport}/>
       </>
 }
     </>

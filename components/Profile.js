@@ -51,7 +51,6 @@ const labdata = [
 ];
 
 const Profile = ({updateReport}) => {
-  console.log(updateReport)// for update purpose
 
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
@@ -121,95 +120,6 @@ const Profile = ({updateReport}) => {
     }
   };
 
-  // const selectdayHandler = (e) => {
-  //   setopenday(false);
-  //   SettimePeriod(e.target.innerText);
-
-  //   // console.log(e.target.innerText);
-  //   // handler
-  //   const ONEDAY = 86400000;//ms
-
-  //   switch (e.target.innerText) {
-  //     case "Today":
-  //       reportOfToday();
-  //       break;
-  //     case "Yesterday":
-  //       filterReportsOnTimeStamp(ONEDAY);
-  //       break;
-  //     case "2 day ago":
-  //       filterReportsOnTimeStamp(2 * ONEDAY);
-  //       break;
-  //     case "7 day ago":
-  //       filterReportsOnTimeStamp(7 * ONEDAY);
-  //       break;
-  //     case "15 day ago":
-  //       filterReportsOnTimeStamp(15 * ONEDAY);
-  //       break;
-  //     case "1 month ago":
-  //       filterReportsOnTimeStamp(30 * ONEDAY);
-  //       break;
-  //     case "2 month ago":
-  //       filterReportsOnTimeStamp(60 * ONEDAY);
-  //       break;
-
-  //     default:
-  //       break;
-  //   };
-
-  //   function reportOfToday() {
-  //     let dupiDate = new Date();
-
-  //     const filteredOutput = array.filter(item => {
-  //       let temp = item.customTimeStamp;
-  //       let tempDate = new Date(temp);
-
-  //       // let dupli = todayInMS - filterOn;
-
-  //       // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} --- ${dupiDate.getHours()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()} --- ${tempDate.getHours()}`)
-
-  //       // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
-  //       if (tempDate.getFullYear() === dupiDate.getFullYear() && tempDate.getMonth() === dupiDate.getMonth() && tempDate.getDate() === dupiDate.getDate()) {
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-
-  //     // console.log(filteredOutput)
-  //     setFilteredResults(filteredOutput);
-
-  //   }
-
-  //   function filterReportsOnTimeStamp(filterOn) {
-  //     let todayInMS = Date.now();
-
-  //     let chacha = new Date(todayInMS);
-
-  //     let todayAt12 = new Date(`${chacha.getFullYear()}-${chacha.getMonth() + 1}-${chacha.getDate()}`).getTime();// in ms
-
-  //     // console.log(`${new Date(`${chacha.getFullYear()}-${chacha.getMonth()+1}-${chacha.getDate()}`).getDate()} and ${chacha.getTime()}`)
-
-  //     const filteredOutput = array.filter(item => {
-  //       let temp = item.customTimeStamp;
-  //       let tempDate = new Date(temp);
-
-  //       let dupli = todayAt12 - filterOn;
-  //       let dupiDate = new Date(dupli);
-
-  //       // console.log("compare -->", `${dupiDate.getDate()} - ${dupiDate.getMonth()+1} - ${dupiDate.getFullYear()} and ${tempDate.getDate()} - ${tempDate.getMonth()+1} - ${tempDate.getFullYear()}`)
-
-  //       // (tempDate.getFullYear() <= dupiDate.getFullYear()  && tempDate.getMonth() <= dupiDate.getMonth() && tempDate.getDate() <= dupiDate.getDate())
-  //       // console.log(temp," and ", dupli, temp > dupli)
-  //       if (dupli <= temp) {
-  //         // console.log("matched", item)
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-
-  //     // console.log(filteredOutput, "filterd date")
-  //     setFilteredResults(filteredOutput);
-  //   };
-  // };
 
   const getUserData = async () => {
     let body = {
@@ -314,13 +224,7 @@ const Profile = ({updateReport}) => {
       setsearchBarTab(true);
       setdatalenghtIszreo(true);
     }
-  }, [token]);
-
-  //Day time filter
-
-  const datetimeFilter = (a) => {
-    console.log(a)
-  }
+  }, [updateReport,token]);
 
   // searching Reports
   const searchItems = (searchValue) => {
@@ -412,30 +316,6 @@ const Profile = ({updateReport}) => {
         .catch((error) => console.log("error", error));
     }
   }
-
-  // making dates short
-  const dateConstractor = (timeStamp) => {
-    if (timeStamp) {
-      // return JSON.stringify(data).slice(1, 25)
-      var date = JSON.stringify(new Date(timeStamp))
-      // console.log(date, " DATE COMPARE ", new Date(timeStamp).getHours(), new Date(timeStamp).getMinutes())
-      const day = date.slice(9, 11);
-      const month = date.slice(6, 8);
-      const year = date.slice(3, 5);
-      const customDate = `${day}/${month}/${year}`;
-      // const customDate = `${date.getDate()}/${date.getUTCMonth()}/${date.getFullYear()}`;
-      // console.log('date', customDate)
-      // console.log('hour', date.slice(12, 14))
-      // const hour = Number(date.slice(12, 14)) % 12;
-      // const minute = date.slice(15, 17);
-      // const customTime = `${hour}:${minute}`;
-      const customTime = date.slice(12, 17)
-      const currentDate = customDate + " ; " + customTime;
-
-      // const currentDate=customDate.splice
-      return currentDate;
-    }
-  };
 
   const timeMacker = (timeStamp) => {
     if(timeStamp) {
