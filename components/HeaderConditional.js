@@ -7,6 +7,8 @@ import user from "../public/Profile_White.svg";
 // import { Navbar,Container, Nav, NavDropdown } from "react-bootstrap";
 import { CgProfile } from "react-icons/cg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutPopup from "./util/logoutPopup";
+
 function WithoutSignout(props) {
   return (
     <div className={classes.body}>
@@ -20,6 +22,8 @@ function WithoutSignout(props) {
 }
 
 function WithSignout(props) {
+  const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
+
   const router = useRouter();
   const removeDetail = () => {
     localStorage.removeItem("token");
@@ -31,8 +35,8 @@ function WithSignout(props) {
     <div
       style={{
         backgroundColor: "#313131",
-        position: "fixed",
-        top: "0",
+        // position: "fixed",
+        // top: "0",
         width: "100%",
       }}
       className={classes.mobileH}
@@ -102,7 +106,7 @@ function WithSignout(props) {
                   Manage accounts
                 </a>
                 <a
-                  onClick={removeDetail}
+                  onClick={()=> setOpenLogoutPopup(true)}
                   style={{ color: "#000000", fontWeight: "500" }}
                 >
                   Sign out
@@ -115,12 +119,14 @@ function WithSignout(props) {
           </Col>
         </div>
       </nav>
+      <LogoutPopup setOpenLogoutPopup={setOpenLogoutPopup} open={openLogoutPopup} />
     </div>
   );
 }
 
 function WithoutPofile(props) {
   const [profileIcon, setProfileIcon] = useState(true);
+
 
   const router = useRouter();
   const removeDetail = () => {
