@@ -24,7 +24,7 @@ const HeaderApp = () => {
           </div>
 
           <a
-            className={"gen navbar-brand "+classes.gen}
+            className={"gen navbar-brand " + classes.gen}
             href="/"
             style={{
               marginRight: "4%",

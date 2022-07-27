@@ -107,8 +107,8 @@
   width: 350px;
   padding: 2px;
 
-  position: fixed;
-  z-index: 9999;
+  position: absolute;
+  z-index: 2;
   background-color: white;
 }
 .select_tag {

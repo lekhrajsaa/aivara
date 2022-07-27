@@ -35,7 +35,7 @@ export default class ImagePreview extends Component {
     let width1;
     const img = new Image();
     img.src = this.props.galleryItems[this.props.currentIndex];
-    
+
     img.onload = function() {
        height1 = this.height;
        width1 = this.width;

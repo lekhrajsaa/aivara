@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
-
-import Header from "../components/HeaderConditional";
-import Sidebar from "../components/SideBar/SideBar";
-import NewHome from "../components/newHome";
 import { useRouter } from "next/router";
-import NotificationBox from "../components/Notifications/notificationBox";
+import ReportSubmitted from "../components/form-submitted/ReportSubmitted";
+import Header from "../components/HeaderConditional";
 
-export default function newHom() {
+const ReportDataSubmitted = () => {
   const router = useRouter();
   const [show, setShow] = useState(true);
   useEffect(() => {
@@ -18,15 +15,15 @@ export default function newHom() {
   });
   return (
     <>
-
       {show && (
         <>
           <Header headerWithSignout={true} />
-          {/* <NotificationBox /> */}
-          <Sidebar highlitehome={true} />
-          <NewHome />
+
+          <ReportSubmitted />
         </>
       )}
     </>
   );
-}
+};
+
+export default ReportDataSubmitted;

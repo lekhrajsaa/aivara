@@ -6,6 +6,10 @@ import { useRouter } from "next/router";
 import user from "../public/Profile_White.svg";
 // import { Navbar,Container, Nav, NavDropdown } from "react-bootstrap";
 import { CgProfile } from "react-icons/cg";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutPopup from "./util/logoutPopup";
+import NotificationBox from "./Notifications/notificationBox";
+
 function WithoutSignout(props) {
   return (
     <div className={classes.body}>
@@ -19,6 +23,9 @@ function WithoutSignout(props) {
 }
 
 function WithSignout(props) {
+  const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
+  const [showNotificationBox, setShowNotificationBox] = useState(false);
+
   const router = useRouter();
   const removeDetail = () => {
     localStorage.removeItem("token");
@@ -26,9 +33,15 @@ function WithSignout(props) {
     window.location.href = "/";
   };
 
+  function notificationIconClickHandler(){
+    setShowNotificationBox(prv => !prv)
+  }
+
   return (
     <div
-      style={{ backgroundColor: "#000000"}}
+      style={{
+        backgroundColor: "#0b0a0a",
+      }}
       className={classes.mobileH}
     >
       <nav className={"navbar " + classes.fix}>
@@ -40,15 +53,49 @@ function WithSignout(props) {
             <a
               href="/newHome"
               className={classes.brandname}
-              style={{ color: "white",marginLeft:"-20px"}}
+              style={{ color: "white", marginLeft: "-20px" }}
             >
               AIVARA
             </a>
           </div>
+          <span
+            style={{
+              marginLeft: "84%",
+              marginBottom: ".2rem",
+              cursor: "pointer",
+              position: "relative",
+            }}
+
+          >
+            <NotificationsIcon
+              onClick={notificationIconClickHandler}
+              style={{ color: "white" }} />
+            <span
+              style={{
+                position: "absolute",
+                backgroundColor: "#3699FB",
+                padding: ".25rem",
+                borderRadius: "50%",
+                top: ".3rem",
+                right: ".15rem",
+              }}
+            />
+          </span>
           {/* setProfile(); */}
-          <Col style={{width: 'fit-content'}} md={1} xs={1} className={classes.fullDropdown}>
-            <div style={{width: 'fit-content'}} className={classes.dropdown}>
-              <button style={{width: 'fit-content'}} className={classes.dropbtn}>
+          {showNotificationBox && <NotificationBox  setShowNotificationBox={setShowNotificationBox} />}
+          <Col
+            style={{ width: "fit-content" }}
+            md={1}
+            xs={1}
+            className={classes.fullDropdown}
+          >
+            <div style={{ width: "fit-content" }} className={classes.dropdown}>
+              <button
+                style={{
+                  width: "fit-content",
+                }}
+                className={classes.dropbtn}
+              >
                 {" "}
                 {/* <img className={classes.img} src="/user.svg"></img> */}
                 {/* <CgProfile className={classes.img} /> */}
@@ -57,23 +104,36 @@ function WithSignout(props) {
               <div className={classes.dropdown_content}>
                 <a
                   onClick={() => router.push("/editProfile")}
-                  style={{ cursor: "pointer",color:"#000000", fontWeight:"500" }}
+                  style={{
+                    cursor: "pointer",
+                    color: "#000000",
+                    fontWeight: "500",
+                  }}
                 >
                   Manage accounts
                 </a>
-                <a onClick={removeDetail} style={{color:"#000000", fontWeight:"500"}}>Sign out</a>
-                <a href="#" style={{color:"#000000", fontWeight:"500"}}>Help & Support</a>
+                <a
+                  onClick={() => setOpenLogoutPopup(true)}
+                  style={{ color: "#000000", fontWeight: "500" }}
+                >
+                  Sign out
+                </a>
+                <a href="#" style={{ color: "#000000", fontWeight: "500" }}>
+                  Help & Support
+                </a>
               </div>
             </div>
           </Col>
         </div>
       </nav>
+      <LogoutPopup setOpenLogoutPopup={setOpenLogoutPopup} open={openLogoutPopup} />
     </div>
   );
 }
 
 function WithoutPofile(props) {
   const [profileIcon, setProfileIcon] = useState(true);
+
 
   const router = useRouter();
   const removeDetail = () => {
@@ -83,10 +143,7 @@ function WithoutPofile(props) {
   };
 
   return (
-    <div
-      style={{ backgroundColor: "#000000" }}
-      className={classes.mobileH}
-    >
+    <div style={{ backgroundColor: "#000000" }} className={classes.mobileH}>
       <nav className={"navbar " + classes.fix}>
         <div className="container-fluid">
           <div
@@ -130,11 +187,11 @@ function WithoutPofile(props) {
 
 function Header(props) {
   const headerWithSignout = props.headerWithSignout;
-  const icon =props.icon;
+  const icon = props.icon;
   if (headerWithSignout) {
     return <WithSignout />;
-  }else if (icon){
-    return <WithoutPofile />
+  } else if (icon) {
+    return <WithoutPofile />;
   }
   return <WithoutSignout />;
 }
