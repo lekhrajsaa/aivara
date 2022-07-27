@@ -3,20 +3,24 @@ import classes from "./imagePreview.module.css";
 import Test from "../test";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import Annotation from "react-image-annotation";
-// import {
-//   PointSelector,
-//   RectangleSelector,
-//   OvalSelector,
-// } from "react-image-annotation/lib/selectors";
+
 
 export default class ImagePreview extends Component {
       
   state = {
     annotations: [],
-    annotation: {},
-    
-    
+    annotation: {
+    geometry:{type: "RECTANGLE",
+    x: 27.666907950415805,
+    y: 21.199999722567473,
+    width: 16.60014477024948,
+    height: 25.818181818181817,},
+    data: {
+      text: 'fdgf',
+      id: Math.random(),
+    }, 
   }
+}
 
   onChange = (annotation) => {
     this.setState({ annotation });
@@ -24,21 +28,28 @@ export default class ImagePreview extends Component {
 
 
   onSubmit = (annotation) => {
+    const { geometry, data } = annotation;
+    console.log(geometry);
+    console.log(data);
+    let height1;
+    let width1;
     const img = new Image();
     img.src = this.props.galleryItems[this.props.currentIndex];
     
     img.onload = function() {
-      console.log('ddd', this.width+'x', this.height+'y')
-      alert(this.width + ' x ' + this.height);
+       height1 = this.height;
+       width1 = this.width;
+
+      const X_CENTER_NORM =  geometry.x / width1;
+      const Y_CENTER_NORM = geometry.y / height1;
+      const WIDTH_NORM = geometry.width / width1;
+      const HEIGHT_NORM = geometry.height / height1;
+      const Label_ID_1 = data.text;
+
+      // console.log(Label_ID_1,X_CENTER_NORM,Y_CENTER_NORM,WIDTH_NORM,HEIGHT_NORM);
     }
-    
-    const { geometry, data } = annotation;
-    console.log(geometry);
-    console.log(data);
-
-    
-    
-
+   
+  
     this.setState({
       annotation: {},
       annotations: this.state.annotations.concat({
@@ -49,6 +60,7 @@ export default class ImagePreview extends Component {
         },
       }),
     });
+    // console.log(annotations);
   };
 
   render() {
