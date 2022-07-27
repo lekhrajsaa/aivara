@@ -14,14 +14,14 @@ const ReportDataUploaded = () => {
     }
   });
   return (
-    <>
+    <div>
       {show && (
         <>
           <Header headerWithSignout={true} />
           <ImageUploaded />
         </>
       )}
-    </>
+    </div>
   );
 };
 

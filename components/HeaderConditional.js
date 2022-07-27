@@ -31,6 +31,9 @@ function WithSignout(props) {
     <div
       style={{
         backgroundColor: "#313131",
+        position: "fixed",
+        top: "0",
+        width: "100%",
       }}
       className={classes.mobileH}
     >
