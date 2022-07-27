@@ -1,15 +1,15 @@
 .mainContainer{
     position: relative;
-    position: fixed;
+    position: absolute;
     top: 50px;
-    right: 70px;
+    right: 85px;
     z-index: 20;
+    outline: none;
 }
 .triangle{
     position: absolute;
     top: -20px;
     right: 20px;
-    /* outline: 1px solid lime; */
     border-left: 5px solid transparent;
     border-top: 10px solid transparent;
     border-right: 5px solid transparent;
@@ -19,7 +19,7 @@
 .notificationBox{
     width: 280px;
     background-color: white;
-    box-shadow: 0px 0px 16px #ddd;
+    box-shadow: 0px 8px 16px #ddd;
     z-index: 10;
     border-radius: 10px;
     font-family: 'sora';

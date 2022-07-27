@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import classes from './notificationBox.module.css';
 import Notification from './notification';
 
-const NotificationBox = () => {
+const NotificationBox = ({ setShowNotificationBox }) => {
+
+    const notificationBox = useRef();
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         notificationBox.current.focus();
+    //     }, 10)
+    // }, []);
+
+    function blurHanlder(){
+        setShowNotificationBox(false);
+    }
     return (
-        <div className={classes.mainContainer}>
+        <div
+            tabIndex={0}
+            ref={notificationBox}
+            onBlur={blurHanlder} 
+            className={classes.mainContainer}
+        >
             <div className={classes.triangle}></div>
             <div className={classes.notificationBox}>
                 <h5 className={classes.notificationHeading}>Notifications</h5>

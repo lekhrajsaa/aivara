@@ -8,6 +8,7 @@ import user from "../public/Profile_White.svg";
 import { CgProfile } from "react-icons/cg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutPopup from "./util/logoutPopup";
+import NotificationBox from "./Notifications/notificationBox";
 
 function WithoutSignout(props) {
   return (
@@ -23,6 +24,7 @@ function WithoutSignout(props) {
 
 function WithSignout(props) {
   const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
+  const [showNotificationBox, setShowNotificationBox] = useState(false);
 
   const router = useRouter();
   const removeDetail = () => {
@@ -30,6 +32,10 @@ function WithSignout(props) {
     localStorage.removeItem("email");
     window.location.href = "/";
   };
+
+  function notificationIconClickHandler(){
+    setShowNotificationBox(prv => !prv)
+  }
 
   return (
     <div
@@ -59,8 +65,11 @@ function WithSignout(props) {
               cursor: "pointer",
               position: "relative",
             }}
+
           >
-            <NotificationsIcon style={{ color: "white" }} />
+            <NotificationsIcon
+              onClick={notificationIconClickHandler}
+              style={{ color: "white" }} />
             <span
               style={{
                 position: "absolute",
@@ -73,6 +82,7 @@ function WithSignout(props) {
             />
           </span>
           {/* setProfile(); */}
+          {showNotificationBox && <NotificationBox  setShowNotificationBox={setShowNotificationBox} />}
           <Col
             style={{ width: "fit-content" }}
             md={1}
@@ -103,7 +113,7 @@ function WithSignout(props) {
                   Manage accounts
                 </a>
                 <a
-                  onClick={()=> setOpenLogoutPopup(true)}
+                  onClick={() => setOpenLogoutPopup(true)}
                   style={{ color: "#000000", fontWeight: "500" }}
                 >
                   Sign out
