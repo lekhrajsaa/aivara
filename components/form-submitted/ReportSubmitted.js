@@ -1,6 +1,6 @@
 import React from "react";
+import Link from "next/link";
 import styles from "./reportSubmitted.module.css";
-import { Link } from "react-router-dom";
 
 const ReportSubmitted = () => {
   return (
@@ -13,11 +13,11 @@ const ReportSubmitted = () => {
         <p>
           Track under review section&nbsp;
           <span>
-            <Link to="/section">link</Link>
+            <Link href="/section">link</Link>
           </span>
         </p>
         <span className={styles.link}>
-          <Link to="/">back to dashboard</Link>
+          <Link href="/">back to dashboard</Link>
         </span>
       </div>
     </div>
