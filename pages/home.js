@@ -4,6 +4,7 @@ import Header from "../components/HeaderConditional";
 import Sidebar from "../components/SideBar/SideBar";
 import NewHome from "../components/newHome";
 import { useRouter } from "next/router";
+import NotificationBox from "../components/Notifications/notificationBox";
 
 export default function newHom() {
   const router = useRouter();
@@ -42,6 +43,7 @@ export default function newHom() {
       {show && (
         <>
           <Header headerWithSignout={true} />
+          <NotificationBox />
           <Sidebar highlitehome={true} />
           <NewHome />
         </>

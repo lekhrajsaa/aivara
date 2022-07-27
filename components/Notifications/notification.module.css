@@ -1,0 +1,26 @@
+.notification{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-bottom: none;
+    box-sizing: border-box;
+}
+.notification.notRead{
+    background-color: #E9F1F9;
+    border-left: 4px solid #3699FB;
+}
+.notification > div {
+    padding: 8px 5px;
+}
+.reportName{
+    font-size: 12px;
+}
+.reportStatus{
+    font-size: 8px;
+}
+.dateContainer{
+    font-size: 8px;
+}

@@ -113,7 +113,7 @@ box-shadow:
   min-height: 25px;
   max-height: 60px;
   position: relative;
-  z-index: 10000;
+  z-index: 10;
 }
 .img{
   

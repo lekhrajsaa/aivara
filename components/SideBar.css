@@ -33,6 +33,7 @@
 #header .pro-sidebar {
   width: 100%;
   min-width: 100%;
+  z-index: 5;
 }
 
 #header .pro-sidebar.collapsed {
