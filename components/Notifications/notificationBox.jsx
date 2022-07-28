@@ -12,7 +12,6 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 const NotificationBox = ({ setShowNotificationBox }) => {
 
-    // const [notifications, setNotifications] = useState([]);
     const dispatch = useDispatch();
 
     const notifications = useSelector((state) => {
@@ -77,6 +76,42 @@ const NotificationBox = ({ setShowNotificationBox }) => {
     }, [])
 
     //
+    const checkNotificationsHandler = async (ids) => {
+        const token = localStorage.getItem('token')
+
+        if(ids.length > 0 && token) {
+            let temp = JSON.stringify(ids)
+
+            var data = JSON.stringify({
+                query: `mutation{
+                  checkNotification(idInput:${temp}){
+                      message
+                  }
+              }`,
+                variables: {}
+            });
+    
+            var config = {
+                method: 'post',
+                url: `${SERVER_URL}api/v1`,
+                headers: {
+                    'x-api-key': X_API_KEY,
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                data: data
+            };
+    
+            try {
+                const response = await axios(config);
+                console.log(response);
+                // dispatch(setNotification());
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
     const timeMacker = (timeStamp) => {
         if (timeStamp) {
             const newDate = new Date(timeStamp);
@@ -97,6 +132,9 @@ const NotificationBox = ({ setShowNotificationBox }) => {
     }
 
     function viewAllClickHandler() {
+        let uncheckedIds = notifications.map(item => item.id);
+        checkNotificationsHandler(uncheckedIds);
+
         const modNotifications = [...notifications];
         modNotifications.forEach(item => {
             item.checked = true;
@@ -108,7 +146,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
         <div
             tabIndex={0}
             ref={notificationBox}
-            onBlur={blurHanlder}
+            // onBlur={blurHanlder}
             className={classes.mainContainer}
         >
             <div className={classes.triangle}></div>
@@ -116,7 +154,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                 <h5 className={classes.notificationHeading}>Notifications</h5>
                 <div className={classes.notificationContainer}>
                     {
-                        notifications.length > 0
+                        notifications?.length > 0
                             ?
                             notifications.map((item) => (
                                 <Notification
@@ -129,9 +167,10 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                                         time: timeMacker(item.customTimeStamp)
                                     }}
                                     readStatus={item.checked}
+                                    checkNotificationsHandler={checkNotificationsHandler}
                                 />))
                             :
-                            null
+                            <p style={{color: '#ccc', textAlign: 'center', margin: '28px 0'}}>No Notifications to show.</p>
                     }
                 </div>
                 <button className={classes.viewAllBtn} onClick={viewAllClickHandler}>View All</button>

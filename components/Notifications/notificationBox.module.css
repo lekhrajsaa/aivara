@@ -35,6 +35,8 @@
 .notificationContainer{
     overflow-y: scroll;
     max-height: 300px;
+    min-height: 80px;
+    background-color: #efefef5c;
 }
 .notificationContainer::-webkit-scrollbar{
     display: none;

@@ -132,7 +132,7 @@ function WithSignout(props) {
                 onClick={notificationIconClickHandler}
                 style={{ color: "white" }}
               />
-              {!(notifications?.filter(notif => notif.checked === false).length < 1) && <span className={classes.notificationDot} />}
+              {notifications && !(notifications?.filter(notif => notif.checked === false).length < 1) && <span className={classes.notificationDot} />}
               {/* <span className={classes.notificationDot}/> */}
             </span>
 

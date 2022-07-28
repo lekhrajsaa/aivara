@@ -4,7 +4,7 @@ import { setNotification } from '../../redux/dataAction';
 
 import classes from './notification.module.css';
 
-const Notification = ({id, reportName, reportStatus, date, readStatus}) => {
+const Notification = ({id, reportName, reportStatus, date, readStatus, checkNotificationsHandler}) => {
 
     const notifications = useSelector(state => state.userdata.notification);
     const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const Notification = ({id, reportName, reportStatus, date, readStatus}) => {
         const modNotifications = [...notifications];
         modNotifications.forEach(item => {
             if(item.id === id){
+                checkNotificationsHandler([id])
                 item.checked = true;
             }
         })
