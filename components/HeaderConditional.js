@@ -33,8 +33,8 @@ function WithSignout(props) {
     window.location.href = "/";
   };
 
-  function notificationIconClickHandler(){
-    setShowNotificationBox(prv => !prv)
+  function notificationIconClickHandler() {
+    setShowNotificationBox((prv) => !prv);
   }
 
   return (
@@ -58,82 +58,91 @@ function WithSignout(props) {
               AIVARA
             </a>
           </div>
-          <span
-            style={{
-              marginLeft: "84%",
-              marginBottom: ".2rem",
-              cursor: "pointer",
-              position: "relative",
-            }}
-
-          >
-            <NotificationsIcon
-              onClick={notificationIconClickHandler}
-              style={{ color: "white" }} />
+          {/* setProfile(); */}
+          {showNotificationBox && (
+            <NotificationBox setShowNotificationBox={setShowNotificationBox} />
+          )}
+          <div style={{ display: "flex", alignItems: "center" }}>
             <span
               style={{
-                position: "absolute",
-                backgroundColor: "#3699FB",
-                padding: ".25rem",
-                borderRadius: "50%",
-                top: ".3rem",
-                right: ".15rem",
+                marginRight: "1rem",
+                marginBottom: ".2rem",
+                cursor: "pointer",
+                position: "relative",
               }}
-            />
-          </span>
-          {/* setProfile(); */}
-          {showNotificationBox && <NotificationBox  setShowNotificationBox={setShowNotificationBox} />}
-          <Col
-            style={{ width: "fit-content" }}
-            md={1}
-            xs={1}
-            className={classes.fullDropdown}
-          >
-            <div style={{ width: "fit-content" }} className={classes.dropdown}>
-              <button
+            >
+              <NotificationsIcon
+                onClick={notificationIconClickHandler}
+                style={{ color: "white" }}
+              />
+              <span
                 style={{
-                  width: "fit-content",
+                  position: "absolute",
+                  backgroundColor: "#3699FB",
+                  padding: ".25rem",
+                  borderRadius: "50%",
+                  top: ".3rem",
+                  right: ".15rem",
                 }}
-                className={classes.dropbtn}
+              />
+            </span>
+            <Col
+              style={{ width: "fit-content" }}
+              md={1}
+              xs={1}
+              className={classes.fullDropdown}
+            >
+              <div
+                style={{ width: "fit-content" }}
+                className={classes.dropdown}
               >
-                {" "}
-                {/* <img className={classes.img} src="/user.svg"></img> */}
-                {/* <CgProfile className={classes.img} /> */}
-                <img src="./profileIcon.png" className={classes.img}></img>
-              </button>
-              <div className={classes.dropdown_content}>
-                <a
-                  onClick={() => router.push("/editProfile")}
+                <button
                   style={{
-                    cursor: "pointer",
-                    color: "#000000",
-                    fontWeight: "500",
+                    width: "fit-content",
                   }}
+                  className={classes.dropbtn}
                 >
-                  Manage accounts
-                </a>
-                <a
-                  onClick={() => setOpenLogoutPopup(true)}
-                  style={{ color: "#000000", fontWeight: "500" }}
-                >
-                  Sign out
-                </a>
-                <a href="#" style={{ color: "#000000", fontWeight: "500" }}>
-                  Help & Support
-                </a>
+                  {" "}
+                  {/* <img className={classes.img} src="/user.svg"></img> */}
+                  {/* <CgProfile className={classes.img} /> */}
+                  <img src="./profileIcon.png" className={classes.img}></img>
+                </button>
+                <div className={classes.dropdown_content}>
+                  <a
+                    onClick={() => router.push("/editProfile")}
+                    style={{
+                      cursor: "pointer",
+                      color: "#000000",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Manage accounts
+                  </a>
+                  <a
+                    onClick={() => setOpenLogoutPopup(true)}
+                    style={{ color: "#000000", fontWeight: "500" }}
+                  >
+                    Sign out
+                  </a>
+                  <a href="#" style={{ color: "#000000", fontWeight: "500" }}>
+                    Help & Support
+                  </a>
+                </div>
               </div>
-            </div>
-          </Col>
+            </Col>
+          </div>
         </div>
       </nav>
-      <LogoutPopup setOpenLogoutPopup={setOpenLogoutPopup} open={openLogoutPopup} />
+      <LogoutPopup
+        setOpenLogoutPopup={setOpenLogoutPopup}
+        open={openLogoutPopup}
+      />
     </div>
   );
 }
 
 function WithoutPofile(props) {
   const [profileIcon, setProfileIcon] = useState(true);
-
 
   const router = useRouter();
   const removeDetail = () => {
