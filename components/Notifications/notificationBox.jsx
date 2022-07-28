@@ -4,13 +4,21 @@ import classes from './notificationBox.module.css';
 import Notification from './notification';
 
 import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux';
+import { setNotification } from '../../redux/dataAction';
 
 const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 const NotificationBox = ({ setShowNotificationBox }) => {
 
-    const [notifications, setNotifications] = useState([])
+    // const [notifications, setNotifications] = useState([]);
+    const dispatch = useDispatch();
+
+    const notifications = useSelector((state) => {
+        console.log(state)
+        return state.userdata.notification;
+    });
 
     const notificationBox = useRef();
     // useEffect(() => {
@@ -56,8 +64,9 @@ const NotificationBox = ({ setShowNotificationBox }) => {
 
         try {
             const response = await axios(config);
-            // console.log(response.data.data.getNotification.notifications)
-            setNotifications(response.data.data.getNotification.notifications.sort(function(a, b){return b.customTimeStamp-a.customTimeStamp}))
+            console.log(response.data.data.getNotification.notifications)
+            dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
+            // setNotifications(response.data.data.getNotification.notifications.sort(function(a, b){return b.customTimeStamp-a.customTimeStamp}))
         } catch (error) {
             console.log(error)
         }
@@ -87,6 +96,13 @@ const NotificationBox = ({ setShowNotificationBox }) => {
         }
     }
 
+    function viewAllClickHandler() {
+        const modNotifications = [...notifications];
+        modNotifications.forEach(item => {
+            item.checked = true;
+        })
+        dispatch(setNotification(modNotifications))
+    }
 
     return (
         <div
@@ -104,7 +120,8 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                             ?
                             notifications.map((item) => (
                                 <Notification
-                                    key={ item.id }
+                                    key={item.id}
+                                    id={item.id}
                                     reportName={item.clientName}
                                     reportStatus={item.reportStatus}
                                     date={{
@@ -117,7 +134,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                             null
                     }
                 </div>
-                <button className={classes.viewAllBtn} onClick={() => { fetchNotification(); console.log("clicked") }}>View All</button>
+                <button className={classes.viewAllBtn} onClick={viewAllClickHandler}>View All</button>
             </div>
         </div>
     );

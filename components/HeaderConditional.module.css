@@ -128,3 +128,12 @@ box-shadow:
   /* padding-right: 10%; */
   margin-left: -15%;
 }
+
+.notificationDot{
+  position: absolute;
+  background-color: #3699FB;
+  padding: .25rem;
+  border-radius: 50%;
+  top: .3rem;
+  right: .15rem;
+}

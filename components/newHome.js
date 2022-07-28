@@ -100,7 +100,7 @@ const NewHome = () => {
       fetchAllReportData(token);
     }
 
-    dispatch(setPrevPage("/home"))
+    // dispatch(setPrevPage("/home"))
   }, [])
 
 

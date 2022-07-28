@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Container, Row } from "reactstrap";
 
 import classes from "./HeaderConditional.module.css";
@@ -9,6 +9,12 @@ import { CgProfile } from "react-icons/cg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutPopup from "./util/logoutPopup";
 import NotificationBox from "./Notifications/notificationBox";
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setNotification } from '../redux/dataAction';
+
+import axios from "axios";
+
 
 function WithoutSignout(props) {
   return (
@@ -26,12 +32,62 @@ function WithSignout(props) {
   const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
   const [showNotificationBox, setShowNotificationBox] = useState(false);
 
+  const notifications = useSelector(state => state.userdata.notification);
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetchNotification()
+  }, []);
+
+
   const removeDetail = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     window.location.href = "/";
   };
+
+  const fetchNotification = async () => {
+    const token = localStorage.getItem('token');
+    const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
+    const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+
+    var data = JSON.stringify({
+      query: `{
+        getNotification{
+            notifications{
+                clientName
+                id
+                reportId
+                reportStatus
+                customTimeStamp
+                checked
+            }
+            status
+        }
+    }`,
+      variables: {}
+    });
+
+    var config = {
+      method: 'post',
+      url: `${SERVER_URL}api/v1`,
+      headers: {
+        'x-api-key': X_API_KEY,
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      data: data
+    };
+
+    try {
+      const response = await axios(config);
+      console.log(response.data.data.getNotification.notifications)
+      dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   function notificationIconClickHandler() {
     setShowNotificationBox((prv) => !prv);
@@ -71,21 +127,15 @@ function WithSignout(props) {
                 position: "relative",
               }}
             >
+
               <NotificationsIcon
                 onClick={notificationIconClickHandler}
                 style={{ color: "white" }}
               />
-              <span
-                style={{
-                  position: "absolute",
-                  backgroundColor: "#3699FB",
-                  padding: ".25rem",
-                  borderRadius: "50%",
-                  top: ".3rem",
-                  right: ".15rem",
-                }}
-              />
+              {!(notifications.filter(notif => notif.checked === false).length < 1) && <span className={classes.notificationDot} />}
+              {/* <span className={classes.notificationDot}/> */}
             </span>
+
             <Col
               style={{ width: "fit-content" }}
               md={1}

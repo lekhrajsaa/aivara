@@ -7,6 +7,7 @@
     border: 1px solid rgba(0,0,0,0.1);
     border-bottom: none;
     box-sizing: border-box;
+    cursor: pointer;
 }
 .notification.notRead{
     background-color: #E9F1F9;

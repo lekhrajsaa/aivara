@@ -15,10 +15,12 @@ export default class ImagePreview extends Component {
           width: 16.60014477024948,
           height: 25.818181818181817,
         },
+        container: '',
         data: {
           text: "Demo1",
           id: Math.random(),
         },
+        
       },
       {geometry: {
         type: "RECTANGLE",
@@ -74,6 +76,13 @@ export default class ImagePreview extends Component {
     });
     // console.log(annotations);
   };
+
+  componentDidMount(){
+    Array.from(document.querySelectorAll('.yvPWU')).forEach((rec)=>{
+      const randomColor = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+      rec.style.border = `2px solid ${randomColor}`;
+    })
+  }
 
   render() {
     return (

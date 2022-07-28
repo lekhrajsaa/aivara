@@ -7,8 +7,8 @@ const aivaraStatus = {
   reportDataFrom_AI: {},
   reportTableData: {},
   detailData: {},
-  prevPage: "/home",
   notification: [],
+  prevPage: "/home",
 };
 
 export const user = (state = aivaraStatus, action) => {

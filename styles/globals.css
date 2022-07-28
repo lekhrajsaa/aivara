@@ -20,20 +20,16 @@ a {
   /* outline: 2px solid rgba(0, 255, 0, 0.1); */
 }
 
-.alice-carousel__stage-item{
-  width: fit-content;
-  /* height: 40px !important;
-  width: 40px !important; */
+/*Modifying for the annotation ractangle*/
+.yvPWU{
+  /* border: none !important; */
+  /* box-shadow: none !important; */
 }
 
-/* .alice-carousel__stage-item{
-  width: 50px;
-  height: 50px;
-  outline: 1px solid blue;
-} */
-/* .alice-carousel__stage-item:hover{
-  transform: scale(1.1);
-} */
+/*For alice carausel modification*/
+.alice-carousel__stage-item{
+  width: fit-content;
+}
 .alice-carousel__wrapper{
   padding: 8px 0;
 }
