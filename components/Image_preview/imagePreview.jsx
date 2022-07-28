@@ -4,28 +4,41 @@ import Test from "../test";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import Annotation from "react-image-annotation";
 
-
 export default class ImagePreview extends Component {
-      
   state = {
-    annotations: [],
-    annotation: {
-    geometry:{type: "RECTANGLE",
-    x: 27.666907950415805,
-    y: 21.199999722567473,
-    width: 16.60014477024948,
-    height: 25.818181818181817,},
-    data: {
-      text: 'fdgf',
-      id: Math.random(),
-    }, 
-  }
-}
+    annotations: [
+      {
+        geometry: {
+          type: "RECTANGLE",
+          x: 27.666907950415805,
+          y: 21.199999722567473,
+          width: 16.60014477024948,
+          height: 25.818181818181817,
+        },
+        data: {
+          text: "Demo1",
+          id: Math.random(),
+        },
+      },
+      {geometry: {
+        type: "RECTANGLE",
+        x: 67.94266903233257,
+        y: 13.9272724498402,
+        width: 9.796806749655431,
+        height: 31.272727272727277,
+      },
+      data:{
+        text: "Demo2",
+        id: Math.random(),
+      }
+    },
+    ],
+    annotation: {},
+  };
 
   onChange = (annotation) => {
     this.setState({ annotation });
   };
-
 
   onSubmit = (annotation) => {
     const { geometry, data } = annotation;
@@ -37,19 +50,18 @@ export default class ImagePreview extends Component {
     img.src = this.props.galleryItems[this.props.currentIndex];
 
     img.onload = function() {
-       height1 = this.height;
-       width1 = this.width;
+      height1 = this.height;
+      width1 = this.width;
 
-      const X_CENTER_NORM =  geometry.x / width1;
+      const X_CENTER_NORM = geometry.x / width1;
       const Y_CENTER_NORM = geometry.y / height1;
       const WIDTH_NORM = geometry.width / width1;
       const HEIGHT_NORM = geometry.height / height1;
       const Label_ID_1 = data.text;
 
       // console.log(Label_ID_1,X_CENTER_NORM,Y_CENTER_NORM,WIDTH_NORM,HEIGHT_NORM);
-    }
-   
-  
+    };
+
     this.setState({
       annotation: {},
       annotations: this.state.annotations.concat({
@@ -65,7 +77,6 @@ export default class ImagePreview extends Component {
 
   render() {
     return (
-        
       <div className={classes.backdrop}>
         <div className={classes.image_modal}>
           <p className={classes.image_modal_analysis}>Analysis</p>
@@ -76,7 +87,6 @@ export default class ImagePreview extends Component {
             Close
           </p>
           <Annotation
-           
             src={this.props.galleryItems[this.props.currentIndex]}
             alt="Two pebbles anthropomorphized holding hands"
             annotations={this.state.annotations}
@@ -102,4 +112,3 @@ export default class ImagePreview extends Component {
     );
   }
 }
-
