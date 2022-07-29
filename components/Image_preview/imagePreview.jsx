@@ -103,6 +103,7 @@ export default class ImagePreview extends Component {
             value={this.state.annotation}
             onChange={this.onChange}
             onSubmit={this.onSubmit}
+            style={{width: 'fit-content', margin: 'auto'}}
           />
 
           <a

@@ -84,7 +84,7 @@ const Profile = ({updateReport}) => {
   const [openStatus, setopenStatus] = useState(false);
   const [openday, setopenday] = useState(false);
   const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] = useState(false);
-  // const [openInReviewStatusDilogBox, setOpenInReviewStatusDilogBox] = useState(false);
+  const [openInAiProcessDilogBox, setOpenInAiProcessDilogBox] = useState(false);
   const [incompleteReportId, setIncompleteReportId] = useState("");
 
   const setclassname = datalenghtIszreo
@@ -869,10 +869,14 @@ const Profile = ({updateReport}) => {
                         onClick={() => {
                           if (a.reportStatus.toLowerCase() === "complete") {
                             fetchOneReport(a.reportId);
-                          } else {
+                          } else if(a.reportStatus.toLowerCase() === "in review"){
                             console.log("Yo", a.reportStatus);
                             setOpenIncompleteStatusDilogBox(a.reportStatus);
                             setIncompleteReportId(a.reportId);
+                          }else if(a.reportStatus.toLowerCase() === "incomplete"){
+                            setOpenIncompleteStatusDilogBox(true)
+                          }else if(a.reportStatus.toLowerCase() === "in ai process"){
+                            setOpenInAiProcessDilogBox(true)
                           }
                         }}
                       >
@@ -938,8 +942,27 @@ const Profile = ({updateReport}) => {
           </Button>
         </DialogActions>
       </Dialog>
-
-
+      <Dialog
+        open={openInAiProcessDilogBox}
+        // onClose={() => setOpen(false)}
+        aria-labelledby="dilog-title"
+        aria-aria-describedby="dilog-description"
+        sx={{ p: 2 }}
+      >
+        <DialogTitle id="dilog-title">
+          IN AI PROCESS
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please wait..! The report is in AI process
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions style={{justifyContent: 'center'}} sx={{ mx: 1, mb: 1 }}>
+          <Button style={{width: '96%', textAlign: 'center'}} variant="contained" onClick={()=> setOpenInAiProcessDilogBox(false)}>
+            Okay
+          </Button>
+        </DialogActions>
+      </Dialog>
 
     </div>
   );
