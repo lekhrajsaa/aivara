@@ -10,7 +10,53 @@ import { setNotification } from '../../redux/dataAction';
 const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
+import io from 'socket.io-client';
+
+const SOCKET_URL = "https://dev.aivara.in";
+
 const NotificationBox = ({ setShowNotificationBox }) => {
+    
+
+    //* realtime start
+    const [makeSocketConn, setMakeSocketConn] = useState(false)
+    let socket;
+
+    if (makeSocketConn) {
+        socket = io(SOCKET_URL);
+    }
+
+    const [newMessage, setNewMessage] = useState(false)
+
+
+    useEffect(() => {
+        if (makeSocketConn) {
+            socket.on('test api', (data) => {
+                console.log(data)
+                setNewMessage(true)
+            })
+
+            const token = localStorage.getItem('token');
+
+            socket.on('report data', (data) => {
+
+                if (token) {
+                    console.log(data, "with token");
+                    setNewMessage(true);
+                } else {
+                    console.log(data, "without token") //test
+                }
+
+                // setIsRealTimeData(data.flag);
+                // setRealtimeData(data);
+            });
+        }
+    }, [socket])
+
+    let messg = "AI Report Generated"
+
+    console.log(newMessage, messg)
+    //* realtime end
+
 
     const dispatch = useDispatch();
 
@@ -79,7 +125,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
     const checkNotificationsHandler = async (ids) => {
         const token = localStorage.getItem('token')
 
-        if(ids.length > 0 && token) {
+        if (ids.length > 0 && token) {
             let temp = JSON.stringify(ids)
 
             var data = JSON.stringify({
@@ -90,7 +136,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
               }`,
                 variables: {}
             });
-    
+
             var config = {
                 method: 'post',
                 url: `${SERVER_URL}api/v1`,
@@ -101,7 +147,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                 },
                 data: data
             };
-    
+
             try {
                 const response = await axios(config);
                 console.log(response);
@@ -170,7 +216,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                                     checkNotificationsHandler={checkNotificationsHandler}
                                 />))
                             :
-                            <p style={{color: '#ccc', textAlign: 'center', margin: '28px 0'}}>No Notifications to show.</p>
+                            <p style={{ color: '#ccc', textAlign: 'center', margin: '28px 0' }}>No Notifications to show.</p>
                     }
                 </div>
                 <button className={classes.viewAllBtn} onClick={viewAllClickHandler}>View All</button>

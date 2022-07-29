@@ -208,7 +208,7 @@ function StyledDropzone(props) {
       images.map((file, index) => {
         formData.append("uploadImages", file);
       });
-      console.log(formData);
+      
       formData.append("clientName", clientName);
       formData.append("sampleType", sampleType);
       formData.append("generatedBy", generatedBy);
@@ -236,6 +236,8 @@ function StyledDropzone(props) {
         
         console.log(`${progresPercent} % uploaded ^-^`)
       };
+
+      console.log(formData, "before post", clientName, sampleType, latitude);
 
       const response = await axios.post(`${SERVER_URL}postReport`, formData, { headers: headers, onUploadProgress: uploadingMonitor })
 
