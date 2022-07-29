@@ -93,15 +93,15 @@ const NewHome = () => {
   };
 
   //
-  const token = localStorage.getItem('token');
   useEffect(() => {
+    const token = localStorage.getItem('token');
 
     if (token) {
       fetchAllReportData(token);
     }
 
     // dispatch(setPrevPage("/home"))
-  }, [token])
+  }, [])
 
 
   // calender filtering
