@@ -9,6 +9,7 @@ const aivaraStatus = {
   detailData: {},
   notification: [],
   prevPage: "/home",
+  socket_conn: false
 };
 
 export const user = (state = aivaraStatus, action) => {
@@ -30,6 +31,8 @@ export const user = (state = aivaraStatus, action) => {
       return { ...state, prevPage: action.payload };
     case ActionTypes.NOTIFICATION:
       return { ...state, notification: action.payload };
+    case ActionTypes.SOCKET_CONN:
+      return { ...state, socket_conn: action.payload };
     default:
       return state;
   }

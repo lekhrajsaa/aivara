@@ -5,7 +5,7 @@ import Notification from './notification';
 
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux';
-import { setNotification } from '../../redux/dataAction';
+import { setNotification, setSocketConn } from '../../redux/dataAction';
 
 const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
@@ -16,12 +16,13 @@ const SOCKET_URL = "https://dev.aivara.in";
 
 const NotificationBox = ({ setShowNotificationBox }) => {
     
+    const socket_conn = useSelector((state) => state.userdata.socket_conn);
+    const dispatch = useDispatch();
 
     //* realtime start
-    const [makeSocketConn, setMakeSocketConn] = useState(false)
     let socket;
 
-    if (makeSocketConn) {
+    if (socket_conn) {
         socket = io(SOCKET_URL);
     }
 
@@ -29,7 +30,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
 
 
     useEffect(() => {
-        if (makeSocketConn) {
+        if (socket_conn) {
             socket.on('test api', (data) => {
                 console.log(data)
                 setNewMessage(true)
@@ -56,9 +57,6 @@ const NotificationBox = ({ setShowNotificationBox }) => {
 
     console.log(newMessage, messg)
     //* realtime end
-
-
-    const dispatch = useDispatch();
 
     const notifications = useSelector((state) => {
         console.log(state)
@@ -112,12 +110,15 @@ const NotificationBox = ({ setShowNotificationBox }) => {
             console.log(response.data.data.getNotification.notifications)
             dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
             // setNotifications(response.data.data.getNotification.notifications.sort(function(a, b){return b.customTimeStamp-a.customTimeStamp}))
+            dispatch(setSocketConn(true)); //socket connection on
         } catch (error) {
             console.log(error)
         }
     }
 
     useEffect(() => {
+        dispatch(setSocketConn(false)); // socket connection off
+
         fetchNotification();
     }, [])
 
