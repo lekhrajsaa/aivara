@@ -50,7 +50,7 @@ const labdata = [
   },
 ];
 
-const Profile = ({updateReport}) => {
+const Profile = () => {
 
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
@@ -224,7 +224,7 @@ const Profile = ({updateReport}) => {
       setsearchBarTab(true);
       setdatalenghtIszreo(true);
     }
-  }, [updateReport,token]);
+  }, [token]);
 
   // searching Reports
   const searchItems = (searchValue) => {
