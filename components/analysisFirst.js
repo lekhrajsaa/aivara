@@ -519,6 +519,7 @@ const Analysisheader = () => {
                   galleryItems={galleryItems}
                   currentIndex={currentIndex}
                   setPreviewImage={setPreviewImage}
+                  reportData={updatedReportData}
                 />
               )
             }

@@ -22,7 +22,8 @@ a {
 
 /*Modifying for the annotation ractangle*/
 .yvPWU{
-  /* border: none !important; */
+  border: none !important;
+  outline: 2px solid lime;
   /* box-shadow: none !important; */
 }
 
