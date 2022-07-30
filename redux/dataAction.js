@@ -64,3 +64,11 @@ export const setNotification = (data) => {
     payload: data,
   };
 }
+
+// for socket connection ( true or false )
+export const setSocketConn = (data) => {
+  return {
+    type: ActionTypes.SOCKET_CONN,
+    payload: data,
+  };
+}

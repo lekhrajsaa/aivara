@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 // import io from 'socket.io-client';
 // const SOCKET_URL = "https://dev.aivara.in";
 
-export default function home({updateReport}) {
+export default function home() {
   
   const router = useRouter();
   const [show, setShow]= useState(true);
@@ -43,7 +43,7 @@ export default function home({updateReport}) {
       <Header headerWithSignout={true} />
       <Sidebar highlite={true} />
 
-      <Profile updateReport={updateReport}/>
+      <Profile /* updateReport={updateReport} *//>
       </>
 }
     </>

@@ -5,14 +5,58 @@ import Notification from './notification';
 
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux';
-import { setNotification } from '../../redux/dataAction';
+import { setNotification, setSocketConn } from '../../redux/dataAction';
 
 const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
-const NotificationBox = ({ setShowNotificationBox }) => {
+import io from 'socket.io-client';
 
+const SOCKET_URL = "https://dev.aivara.in";
+
+const NotificationBox = ({ setShowNotificationBox }) => {
+    
+    const socket_conn = useSelector((state) => state.userdata.socket_conn);
     const dispatch = useDispatch();
+
+    //* realtime start
+    let socket;
+
+    if (socket_conn) {
+        socket = io(SOCKET_URL);
+    }
+
+    const [newMessage, setNewMessage] = useState(false)
+
+
+    useEffect(() => {
+        if (socket_conn) {
+            socket.on('test api', (data) => {
+                console.log(data)
+                setNewMessage(true)
+            })
+
+            const token = localStorage.getItem('token');
+
+            socket.on('report data', (data) => {
+
+                if (token) {
+                    console.log(data, "with token");
+                    setNewMessage(true);
+                } else {
+                    console.log(data, "without token") //test
+                }
+
+                // setIsRealTimeData(data.flag);
+                // setRealtimeData(data);
+            });
+        }
+    }, [socket])
+
+    let messg = "AI Report Generated"
+
+    console.log(newMessage, messg)
+    //* realtime end
 
     const notifications = useSelector((state) => {
         console.log(state)
@@ -66,12 +110,15 @@ const NotificationBox = ({ setShowNotificationBox }) => {
             console.log(response.data.data.getNotification.notifications)
             dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
             // setNotifications(response.data.data.getNotification.notifications.sort(function(a, b){return b.customTimeStamp-a.customTimeStamp}))
+            dispatch(setSocketConn(true)); //socket connection on
         } catch (error) {
             console.log(error)
         }
     }
 
     useEffect(() => {
+        dispatch(setSocketConn(false)); // socket connection off
+
         fetchNotification();
     }, [])
 
@@ -79,7 +126,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
     const checkNotificationsHandler = async (ids) => {
         const token = localStorage.getItem('token')
 
-        if(ids.length > 0 && token) {
+        if (ids.length > 0 && token) {
             let temp = JSON.stringify(ids)
 
             var data = JSON.stringify({
@@ -90,7 +137,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
               }`,
                 variables: {}
             });
-    
+
             var config = {
                 method: 'post',
                 url: `${SERVER_URL}api/v1`,
@@ -101,7 +148,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                 },
                 data: data
             };
-    
+
             try {
                 const response = await axios(config);
                 console.log(response);
@@ -170,7 +217,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                                     checkNotificationsHandler={checkNotificationsHandler}
                                 />))
                             :
-                            <p style={{color: '#ccc', textAlign: 'center', margin: '28px 0'}}>No Notifications to show.</p>
+                            <p style={{ color: '#ccc', textAlign: 'center', margin: '28px 0' }}>No Notifications to show.</p>
                     }
                 </div>
                 <button className={classes.viewAllBtn} onClick={viewAllClickHandler}>View All</button>
