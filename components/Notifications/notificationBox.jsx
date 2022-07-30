@@ -10,52 +10,52 @@ import { setNotification, setSocketConn } from '../../redux/dataAction';
 const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
-const SOCKET_URL = "https://dev.aivara.in";
+// const SOCKET_URL = "https://dev.aivara.in";
 
 const NotificationBox = ({ setShowNotificationBox }) => {
     
-    const socket_conn = useSelector((state) => state.userdata.socket_conn);
+    // const socket_conn = useSelector((state) => state.userdata.socket_conn);
     const dispatch = useDispatch();
 
-    //* realtime start
-    let socket;
+    // //* realtime start
+    // let socket;
 
-    if (socket_conn) {
-        socket = io(SOCKET_URL);
-    }
+    // if (socket_conn) {
+    //     socket = io(SOCKET_URL);
+    // }
 
-    const [newMessage, setNewMessage] = useState(false)
+    // const [newMessage, setNewMessage] = useState(false)
 
 
-    useEffect(() => {
-        if (socket_conn) {
-            socket.on('test api', (data) => {
-                console.log(data)
-                setNewMessage(true)
-            })
+    // useEffect(() => {
+    //     if (socket_conn) {
+    //         socket.on('test api', (data) => {
+    //             console.log(data)
+    //             setNewMessage(true)
+    //         })
 
-            const token = localStorage.getItem('token');
+    //         const token = localStorage.getItem('token');
 
-            socket.on('report data', (data) => {
+    //         socket.on('report data', (data) => {
 
-                if (token) {
-                    console.log(data, "with token");
-                    setNewMessage(true);
-                } else {
-                    console.log(data, "without token") //test
-                }
+    //             if (token) {
+    //                 console.log(data, "with token");
+    //                 setNewMessage(true);
+    //             } else {
+    //                 console.log(data, "without token") //test
+    //             }
 
-                // setIsRealTimeData(data.flag);
-                // setRealtimeData(data);
-            });
-        }
-    }, [socket])
+    //             // setIsRealTimeData(data.flag);
+    //             // setRealtimeData(data);
+    //         });
+    //     }
+    // }, [socket])
 
-    let messg = "AI Report Generated"
+    // let messg = "AI Report Generated"
 
-    console.log(newMessage, messg)
+    // console.log(newMessage, messg)
     //* realtime end
 
     const notifications = useSelector((state) => {
@@ -110,14 +110,14 @@ const NotificationBox = ({ setShowNotificationBox }) => {
             console.log(response.data.data.getNotification.notifications)
             dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
             // setNotifications(response.data.data.getNotification.notifications.sort(function(a, b){return b.customTimeStamp-a.customTimeStamp}))
-            dispatch(setSocketConn(true)); //socket connection on
+            // dispatch(setSocketConn(true)); //socket connection on
         } catch (error) {
             console.log(error)
         }
     }
 
     useEffect(() => {
-        dispatch(setSocketConn(false)); // socket connection off
+        // dispatch(setSocketConn(false)); // socket connection off
 
         fetchNotification();
     }, [])
