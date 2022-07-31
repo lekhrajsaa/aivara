@@ -85,8 +85,6 @@ export default class ImagePreview extends Component {
         Annotations.push({
           X_CENTER_NORM: X_CENTER_NORM,
           Y_CENTER_NORM: Y_CENTER_NORM,
-          // x: X_CENTER_NORM * width1,
-          // y: Y_CENTER_NORM * height1,
           WIDTH_NORM: WIDTH_NORM,
           HEIGHT_NORM: HEIGHT_NORM,
           Label_ID_1,

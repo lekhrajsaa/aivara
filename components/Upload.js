@@ -49,7 +49,7 @@ function StyledDropzone(props) {
   const [ImageData, setImagedata] = useState([]);
 
   const detailPageData = useSelector((state) => state.userdata.detailData);
-  const images = useSelector((state) => state.userdata.lab_images);
+  // const images = useSelector((state) => state.userdata.lab_images);
 
   const [pleaseWait, setPleaseWait] = useState(false);
 
@@ -57,47 +57,51 @@ function StyledDropzone(props) {
     useDropzone({
       accept: "image/jpeg,image/png,image/tif,image/tiff",
       onDrop: async (acceptedFiles) => {
-        setFileName(acceptedFiles);
-        console.log(acceptedFiles);
-        const formData = new FormData();
-        acceptedFiles.forEach((file) => {
-          formData.append("uploadImages", file);
-        });
-        console.log(formData);
-        // dispatch(setImages(formData));
-        dispatch(setImages(acceptedFiles));
-        // router.push("/detail");
-        submitHandlder()
-        // try {
-        //   const res = await axios.post(
-        //     `${process.env.NEXT_PUBLIC_SERVER_API}/postReport`,
-        //     formData,
-        //     {
-        //       headers: {
-        //         "Content-Type": "multipart/form-data",
-        //         Authorization: `Bearer ${Token}`,
-        //         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
-        //       },
-        //     }
-        //   );
-        //   setFiles("");
-        //   console.log(res.status);
-        //   if (res.status === 200) {
-        //     console.log(res);
-        //     let arr = [];
-        //     res.data.result.forEach((item) => {
-        //       // let obj = { key: item.key, location: item.Location };
-        //       // arr.push(obj);
-        //       arr.push(item.Location);
-        //     });
+        // setFileName(acceptedFiles);
+        console.log('files', acceptedFiles);
+        // dispatch(setImages(acceptedFiles));
 
-        //     console.log(arr);
-        //     dispatch(setImages(arr));
-        //     router.push("/detail");
-        //   }
-        // } catch (err) {
-        //   console.log(err);
-        // }
+        // setTimeout(() => {
+
+          const formData = new FormData();
+          acceptedFiles.forEach((file) => {
+            formData.append("uploadImages", file);
+          });
+          console.log(formData);
+          // dispatch(setImages(formData));
+          // router.push("/detail");
+          submitHandlder(acceptedFiles)
+          // try {
+          //   const res = await axios.post(
+          //     `${process.env.NEXT_PUBLIC_SERVER_API}/postReport`,
+          //     formData,
+          //     {
+          //       headers: {
+          //         "Content-Type": "multipart/form-data",
+          //         Authorization: `Bearer ${Token}`,
+          //         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
+          //       },
+          //     }
+          //   );
+          //   setFiles("");
+          //   console.log(res.status);
+          //   if (res.status === 200) {
+          //     console.log(res);
+          //     let arr = [];
+          //     res.data.result.forEach((item) => {
+          //       // let obj = { key: item.key, location: item.Location };
+          //       // arr.push(obj);
+          //       arr.push(item.Location);
+          //     });
+
+          //     console.log(arr);
+          //     dispatch(setImages(arr));
+          //     router.push("/detail");
+          //   }
+          // } catch (err) {
+          //   console.log(err);
+          // }
+        // }, 500)
       },
     });
   console.log(fileName);
@@ -197,7 +201,7 @@ function StyledDropzone(props) {
   // className: 'dropzone'
   // console.log(process.env.NEXT_PUBLIC_XAPI);
 
-  async function submitHandlder() {
+  async function submitHandlder(images) {
     // router.push('/report-data-uploaded');
 
     const { clientName, sampleType, generatedBy, siteCode, latitude, longitude } = detailPageData;
@@ -208,7 +212,7 @@ function StyledDropzone(props) {
       images.map((file, index) => {
         formData.append("uploadImages", file);
       });
-      
+
       formData.append("clientName", clientName);
       formData.append("sampleType", sampleType);
       formData.append("generatedBy", generatedBy);
@@ -233,7 +237,7 @@ function StyledDropzone(props) {
         let progresPercent = Math.floor(
           (data.loaded / data.total) * 100
         );
-        
+
         console.log(`${progresPercent} % uploaded ^-^`)
       };
 
