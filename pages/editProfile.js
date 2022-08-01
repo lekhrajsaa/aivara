@@ -35,7 +35,8 @@ export default function home() {
 
       {show && (
         <>
-          <Header headerWithSignout={false} />
+          {/* <Header headerWithSignout={false} /> */}
+          <Header headerWithSignout={true} />
 
           <main>
             <EditProfile />
