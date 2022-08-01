@@ -1,13 +1,15 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setNotification } from '../../redux/dataAction';
-
+import { useRouter } from 'next/router';
 import classes from './notification.module.css';
 
-const Notification = ({id, reportName, reportStatus, date, readStatus, checkNotificationsHandler}) => {
+const Notification = ({id, reportName, reportStatus, date, readStatus, checkNotificationsHandler, setShowNotificationBox}) => {
 
     const notifications = useSelector(state => state.userdata.notification);
     const dispatch = useDispatch();
+
+    const router = useRouter();
 
     function notificationClickHanlder(){
         const modNotifications = [...notifications];
@@ -18,6 +20,8 @@ const Notification = ({id, reportName, reportStatus, date, readStatus, checkNoti
             }
         })
         dispatch(setNotification(modNotifications))
+        setShowNotificationBox(false)
+        router.push('/reports')
     }
 
     return (

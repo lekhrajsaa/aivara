@@ -215,6 +215,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                                     }}
                                     readStatus={item.checked}
                                     checkNotificationsHandler={checkNotificationsHandler}
+                                    setShowNotificationBox={setShowNotificationBox}
                                 />))
                             :
                             <p style={{ color: '#ccc', textAlign: 'center', margin: '28px 0' }}>No Notifications to show.</p>
