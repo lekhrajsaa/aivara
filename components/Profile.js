@@ -874,6 +874,7 @@ const Profile = () => {
                             setOpenIncompleteStatusDilogBox(a.reportStatus);
                             setIncompleteReportId(a.reportId);
                           }else if(a.reportStatus.toLowerCase() === "incomplete"){
+                            setIncompleteReportId(a.reportId);
                             setOpenIncompleteStatusDilogBox(true)
                           }else if(a.reportStatus.toLowerCase() === "in ai process"){
                             setOpenInAiProcessDilogBox(true)
