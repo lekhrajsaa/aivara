@@ -54,7 +54,8 @@ const Analysisheader = () => {
   const DataFromAI = useSelector((state) => state.userdata.reportDataFrom_AI);
   const dispatch = useDispatch();
 
-  const updatedReportData = DataFromAI;
+  // const updatedReportData = DataFromAI;
+  const [updatedReportData, setUpdatedReportData] = useState(DataFromAI);
 
 
   const mimage = useSelector((state) => state.userdata.modelimge);
@@ -164,6 +165,7 @@ const Analysisheader = () => {
       });
 
       setGenus(temp)
+      setSpecies();
       //updating report data
       updatedReportData.data[currentIndex].genus = temp;
 
@@ -206,7 +208,7 @@ const Analysisheader = () => {
   }, [DataFromAI])
 
   useEffect(() => {
-    if (DataFromAI && DataFromAI.data) {
+    // if (DataFromAI && DataFromAI.data) {
 
       // let text = JSON.stringify(DataFromAI.data[currentIndex].objects_count);
       // let names = text.split(":")[0];
@@ -219,14 +221,15 @@ const Analysisheader = () => {
       // console.log(currentIndex,"test  ", text, " ", names, "length :", names.length, "new ", newName);
       // console.log(firstName, secondName)     
       // console.log(DataFromAI.data[0].objects_confidence);
-
+      console.log('rpt', updatedReportData)
       if (updatedReportData.data[currentIndex].genus && updatedReportData.data[currentIndex].genus.length > 0) {
-
+        console.log('rrr')
         console.log(updatedReportData.data[currentIndex].genus)
         setGenus(updatedReportData.data[currentIndex].genus)
       } else {
-
-        let tempGenus = DataFromAI.data[currentIndex].objects_confidence.map(item => {
+        console.log('confi', updatedReportData)
+        // let tempGenus = DataFromAI.data[currentIndex].objects_confidence.map(item => {
+        let tempGenus = updatedReportData.data[currentIndex].objects_confidence.map(item => {
           let text = JSON.stringify(item);
           let names = text.split(":")[0];
 
@@ -234,6 +237,7 @@ const Analysisheader = () => {
 
           let firstName = newName.split(" ")[0];
 
+          console.log('confff', firstName)
           return firstName;
         })
         console.log(tempGenus);
@@ -258,11 +262,10 @@ const Analysisheader = () => {
 
 
       setSpecies(tempSpecies);
-      setObjectCount(DataFromAI.data[currentIndex].objects_count)
-    }
+      setObjectCount(updatedReportData.data[currentIndex].objects_count)
+    // }
 
-    // DataFromAI.data[currentIndex]
-  }, [currentIndex]);
+  }, [currentIndex, updatedReportData]);
 
   function addGenusFormSubmitHanlder(e) {
     e.preventDefault();
@@ -339,7 +342,7 @@ const Analysisheader = () => {
 
                 <div className={classes.analysis_body_tag}>
                   <p>Specific identified</p>
-                  {Species.map((tag, index) => (
+                  {Species && Species.map((tag, index) => (
                     <div className={classes.tag_item_div} key={index}>
                       <span className={classes.tag_text}>
                         {tag}
@@ -472,7 +475,6 @@ const Analysisheader = () => {
                     onInitialized={handleOnSlideChange}
                     onSlideChanged={handleOnSlideChange}
                     onResized={handleOnSlideChange}
-
                   >
                     {galleryItems.map((item, i) => (
                       <span key={i} onClick={() => slideTo(i)}>
@@ -520,6 +522,7 @@ const Analysisheader = () => {
                   currentIndex={currentIndex}
                   setPreviewImage={setPreviewImage}
                   reportData={updatedReportData}
+                  setUpdatedReportData={setUpdatedReportData}
                 />
               )
             }

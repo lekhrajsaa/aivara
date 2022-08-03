@@ -156,15 +156,16 @@ const NotificationBox = ({ setShowNotificationBox }) => {
 const router = useRouter();
 
     function viewAllClickHandler() {
-        let uncheckedIds = notifications.map(item => item.id);
-        checkNotificationsHandler(uncheckedIds);
+        // let uncheckedIds = notifications.map(item => item.id);
+        // checkNotificationsHandler(uncheckedIds);
 
-        const modNotifications = [...notifications];
-        modNotifications.forEach(item => {
-            item.checked = true;
-        })
-        dispatch(setNotification(modNotifications))
+        // const modNotifications = [...notifications];
+        // modNotifications.forEach(item => {
+        //     item.checked = true;
+        // })
+        // dispatch(setNotification(modNotifications))
        router.push("/notificationspage")
+       setShowNotificationBox(false);
     }
 
     return (

@@ -1,26 +1,56 @@
 import React from 'react'
 import classes from "./allnotifications.module.css"
+import { useSelector, useDispatch } from 'react-redux';
+import { setNotification } from '../../redux/dataAction';
+import { useRouter } from 'next/router';
+import { style } from '@mui/system';
+
+const allNotifications = ({ id ,key,data, dateMacker, timeMacker,checkNotificationsHandler}) => {
+
+  const notifications = useSelector(state => state.userdata.notification);
+  const dispatch = useDispatch();
+
+  const router = useRouter();
 
 
 
-const allNotifications = (data) => {
 
-  console.log(data)
+
+
+  // console.log('not', data)
+  function notificationClickHanlder(id) {
+    
+    const modNotifications = [...notifications];
+    modNotifications.forEach(item => {
+      if (item.id === id) {
+        checkNotificationsHandler([id])
+        item.checked = true;
+      }
+    })
+    dispatch(setNotification(modNotifications))
+    // setShowNotificationBox(false)
+    // console.log("hello")
+    router.push('/reports')
+  }
+  // console.log("hello",data)
   
   return (
     <>
-    <h1 className={classes.notifi_heading}>Notifications</h1>
-    <section className={classes.notificationBox}>
-      
+
+      <h1 className={classes.notifi_heading}>Notifications 
+        {notifications && !(notifications?.filter(notif => notif.checked === false).length < 1) && <span className={classes.notificationDot} style={{ width: "10px", height: "10px", backgroundColor: "blue", borderRadius: "50%", display: "inline-block" }}></span> }
+</h1>
+      <section className={classes.notificationBox} >
+        {/* <div onClick={notificationClickHanlder} className={`${classes.notification} ${readStatus ? ''  : classes.notRead  }`}> */}
        {
             data?.length > 0
               ?
               data.map((item) => (
                 
-               <div className={classes.notificationRow} id={item.id}>
+                <div onClick={() => { notificationClickHanlder(item.id)}} className={`${classes.notificationRow} ${item.checked ? '' : classes.notRead}`} id={item.id}>
                   <div>
-                    <span>{item.reportName}</span><br></br>
-                    <span>{item.date.time} ,{item.date.date}</span>
+                    <span>{item.clientName}</span><br></br>
+                    <span>{timeMacker(item.customTimeStamp)} ,{dateMacker(item.customTimeStamp)}</span>
                   </div>
                   <div>
                     {item.reportStatus}
@@ -28,10 +58,10 @@ const allNotifications = (data) => {
                 </div>
                 ))
               :
-              <p style={{ color: '#ccc', textAlign: 'center', margin: '15% 0',fontSize:"30px" }}>No Notifications to show.</p>
+              <p style={{ color: '#ccc', textAlign: 'center', margin: '15% 0',fontSize:"35px" }}>No Notifications to show.</p>
           }
        
-     
+        {/* </div> */}
       </section>
     </>
 
