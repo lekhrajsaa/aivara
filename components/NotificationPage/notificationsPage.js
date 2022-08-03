@@ -148,6 +148,7 @@ const notificationsPage = () => {
   
       <AllNotifications 
       data={notifications}
+      
     />
     </>
   )
