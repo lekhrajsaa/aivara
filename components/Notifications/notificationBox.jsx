@@ -13,7 +13,7 @@ const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 import io from 'socket.io-client';
 
-const SOCKET_URL = "http://socket.aivara.in";
+const SOCKET_URL = "https://socket.aivara.in";
 
     
 
@@ -22,17 +22,17 @@ const NotificationBox = ({ setShowNotificationBox }) => {
     // const socket_conn = useSelector((state) => state.userdata.socket_conn);
     const dispatch = useDispatch();
 
-    // const socket = io(SOCKET_URL);
+    const socket = io(SOCKET_URL);
 
-    // useEffect(() => {
-    //     socket.on('test api', (data) => {
-    //         console.log(data)
-    //     })
+    useEffect(() => {
+        socket.on('test api', (data) => {
+            console.log(data)
+        })
 
-    //     socket.on('report data', (data) => {
-    //         console.log(data)
-    //     })
-    // }, [socket])
+        socket.on('report data', (data) => {
+            console.log(data)
+        })
+    }, [socket])
 
     const notifications = useSelector((state) => {
         console.log(state)
