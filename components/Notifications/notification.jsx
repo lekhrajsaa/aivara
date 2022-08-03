@@ -24,7 +24,7 @@ const Notification = ({id, reportName, reportStatus, date, readStatus, checkNoti
         router.push('/reports')
     }
 
-    return (
+    return ( 
         <div onClick={notificationClickHanlder} className={`${classes.notification} ${readStatus ?  '' : classes.notRead }`}>
             <div>
                 <div className={classes.reportName}>{reportName}</div>
