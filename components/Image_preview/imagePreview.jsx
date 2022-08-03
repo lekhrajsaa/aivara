@@ -69,17 +69,24 @@ export default class ImagePreview extends Component {
       console.log('Annotation', annotation)
       let Annotations = this.props.reportData.data[this.props.currentIndex].annotations;
       if (!Annotations) {
-
         this.props.reportData.data[this.props.currentIndex]['annotations'] = [{
           X_CENTER_NORM: X_CENTER_NORM,
           Y_CENTER_NORM: Y_CENTER_NORM,
-          // x: X_CENTER_NORM * width1,
-          // y: Y_CENTER_NORM * height1,
           WIDTH_NORM: WIDTH_NORM,
           HEIGHT_NORM: HEIGHT_NORM,
           Label_ID_1,
           TEXT,
-        }]
+        }];
+
+        this.props.reportData.data[this.props.currentIndex].objects_count++;
+
+
+        let obj = new Object();
+        obj[TEXT] = 0;
+        this.props.reportData.data[this.props.currentIndex].objects_confidence.push(obj);
+
+        console.log('Yo',this.props.reportData)
+        this.props.setUpdatedReportData(this.props.reportData)
       } else {
         console.log('ann', Annotation)
         Annotations.push({
@@ -90,6 +97,14 @@ export default class ImagePreview extends Component {
           Label_ID_1,
           TEXT,
         })
+
+        // this.props.reportData.data[this.props.currentIndex].objects_count = ++this.props.reportData.data[this.props.currentIndex].objects_count;
+        this.props.reportData.data[this.props.currentIndex].objects_count++;
+        let obj = new Object();
+        obj[TEXT] = 0;
+        this.props.reportData.data[this.props.currentIndex].objects_confidence.push(obj);
+
+        this.props.setUpdatedReportData(this.props.reportData)
       }
       console.log(this.props.reportData)
 
@@ -109,12 +124,6 @@ export default class ImagePreview extends Component {
     // console.log(annotations);
 
     setTimeout(() => {
-      // Array.from(document.querySelectorAll('.yvPWU')).forEach((rec, i) => {
-      //   if(i === Array.from(document.querySelectorAll('.yvPWU')).length - 1){
-      //     const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
-      //     rec.style.outline = `2px solid ${randomColor}`;
-      //   }
-      // });
       const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
       document.querySelectorAll('.yvPWU')[document.querySelectorAll('.yvPWU').length - 1].style.outline = `2px solid ${randomColor}`;
     }, 10)
@@ -124,35 +133,8 @@ export default class ImagePreview extends Component {
     console.log('report data', this.props.reportData)
     let Annotations = this.props.reportData.data[this.props.currentIndex].annotations;
     if (Annotations) {
-      // xN: X_CENTER_NORM,
-      // yN: Y_CENTER_NORM,
-      // // x: X_CENTER_NORM * width1,
-      // // y: Y_CENTER_NORM * height1,
-      // height: HEIGHT_NORM,
-      // width: WIDTH_NORM,
-      // data: {
-      //   id: Label_ID_1,
-      //   text: TEXT
-      // }
-
-      // {
-      //   geometry: {
-      //     type: "RECTANGLE",
-      //     x: 27.666907950415805,
-      //     y: 21.199999722567473,
-      //     width: 16.60014477024948,
-      //     height: 25.818181818181817,
-      //   },
-      //   container: '',
-      //   data: {
-      //     text: "Demo1",
-      //     id: Math.random(),
-      //   },
-      // }
       const img = new Image();
       img.src = this.props.galleryItems[this.props.currentIndex];
-
-
 
       img.onload = (e) => {
         let height1 = e.target.height;

@@ -40,6 +40,25 @@ function WithSignout(props) {
     fetchNotification()
   }, []);
 
+    // const Snackk = () => {
+  //   return (
+  //     <Stack spacing={2} sx={{ width: "100%" }}>
+  //       <Snackbar
+  //         open={newMessage}
+  //         autoHideDuration={6000}
+  //         onClose={() => setNewMessage(false)}
+  //       >
+  //         <Alert
+  //           onClose={() => setNewMessage(false)}
+  //           severity="success"
+  //           sx={{ width: "100%" }}
+  //         >
+  //           {messg}
+  //         </Alert>
+  //       </Snackbar>
+  //     </Stack>
+  //   )
+  // }
 
   const removeDetail = () => {
     localStorage.removeItem("token");
