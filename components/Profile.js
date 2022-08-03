@@ -13,6 +13,8 @@ import { Xapkey } from "../apikey";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { BiChevronDown } from "react-icons/bi";
+import { BiChevronUp } from "react-icons/bi";
+
 import { useRouter } from "next/router";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 // import Paper from "@material-ui/core/Paper";
@@ -30,8 +32,7 @@ import {
 
 import Router from "next/router";
 
-
-import { DayPicker } from 'react-day-picker';
+import { DayPicker } from "react-day-picker";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
@@ -51,7 +52,6 @@ const labdata = [
 ];
 
 const Profile = () => {
-
   const [user, setuser] = useState([]);
   const [token, setToken] = useState();
   const [timePeriod, SettimePeriod] = useState("Today");
@@ -61,9 +61,9 @@ const Profile = () => {
   // console.log(userdata)
   const [array, setarray] = useState(labdata);
   const [dateTimeOpened, setDateTimeOpened] = useState(false);
-  const [dateTimeValue, setDateTimeValue] = useState('Date/Time');
+  const [dateTimeValue, setDateTimeValue] = useState("Date/Time");
   const [showDate, setShowDate] = useState(true);
-  const [showTime, setShowTime] = useState(true)
+  const [showTime, setShowTime] = useState(true);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -73,6 +73,7 @@ const Profile = () => {
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
   const [tableheaderTab, settableheaderTab] = useState(true);
+  const [arrow, setArrow] = useState(true);
 
   //
   // const [startDate, setstartDate] = useState('')
@@ -83,7 +84,8 @@ const Profile = () => {
   const [openAlpha, setopenAlpha] = useState(false);
   const [openStatus, setopenStatus] = useState(false);
   const [openday, setopenday] = useState(false);
-  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] = useState(false);
+  const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] =
+    useState(false);
   const [openInAiProcessDilogBox, setOpenInAiProcessDilogBox] = useState(false);
   const [incompleteReportId, setIncompleteReportId] = useState("");
 
@@ -99,11 +101,9 @@ const Profile = () => {
     }
   };
 
-
   useEffect(() => {
-    setFilteredResults(array)
-  }, [array])
-
+    setFilteredResults(array);
+  }, [array]);
 
   const statusCheck = () => {
     if (openStatus) {
@@ -119,7 +119,6 @@ const Profile = () => {
       setopenday(true);
     }
   };
-
 
   const getUserData = async () => {
     let body = {
@@ -157,33 +156,32 @@ const Profile = () => {
     }
   };
 
-
   function dateTimeClickHanlder() {
-    setDateTimeOpened(prv => !prv);
+    setDateTimeOpened((prv) => !prv);
   }
   function dateTimeOptionClickHanlder(e) {
-    // console.log(e.target.innerText)
+    console.log(e);
 
-    switch (e.target.innerText) {
-      case "Date/Time":
-        setShowDate(true);
-        setShowTime(true);
-        break;
-      case "Date":
-        setShowDate(true);
-        setShowTime(false);
-        break;
-      case "Time":
-        setShowDate(false);
-        setShowTime(true);
-        break;
+    // switch (e.target.innerText) {
+    //   case "Date/Time":
+    //     setShowDate(true);
+    //     setShowTime(true);
+    //     break;
+    //   case "Date":
+    //     setShowDate(true);
+    //     setShowTime(false);
+    //     break;
+    //   case "Time":
+    //     setShowDate(false);
+    //     setShowTime(true);
+    //     break;
 
-      default:
-        break;
-    }
+    //   default:
+    //     break;
+    // }
 
     setDateTimeValue(e.target.innerText);
-    setDateTimeOpened(false)
+    setDateTimeOpened(false);
   }
 
   // geting all report data from database
@@ -203,7 +201,7 @@ const Profile = () => {
       .then((result) => {
         if (result && result.data && result.data.Items) {
           console.log(result.data.Items);
-          setarray(result.data.Items)
+          setarray(result.data.Items);
         }
       })
       .catch((error) => console.log("error", error));
@@ -211,7 +209,7 @@ const Profile = () => {
 
   //
   useEffect(() => {
-    dispatch(setPrevPage("/reports"))
+    dispatch(setPrevPage("/reports"));
     setToken(localStorage.getItem("token"));
     if (token) {
       getUserData();
@@ -225,6 +223,8 @@ const Profile = () => {
       setdatalenghtIszreo(true);
     }
   }, [token]);
+
+  console.log(filteredResults);
 
   // searching Reports
   const searchItems = (searchValue) => {
@@ -248,6 +248,37 @@ const Profile = () => {
       .includes(searchInput.toLowerCase());
   });
 
+  // ascending date
+  const ascCompare = (a, b) => {
+    const t1 = new Date(a.customTimeStamp).valueOf();
+    const t2 = new Date(b.customTimeStamp).valueOf();
+    return t1 - t2;
+  };
+
+  const ascTime = () => {
+    if (searchInput !== "") {
+      setFilteredResults(filteredResults.sort(ascCompare));
+    } else {
+      setarray(array.sort(ascCompare));
+    }
+    setArrow(false);
+  };
+  // descending date
+  const descCompare = (a, b) => {
+    const t1 = new Date(a.customTimeStamp).valueOf();
+    const t2 = new Date(b.customTimeStamp).valueOf();
+    return t2 - t1;
+  };
+
+  const descTime = () => {
+    if (searchInput !== "") {
+      setFilteredResults(filteredResults.sort(descCompare));
+    } else {
+      setarray(array.sort(descCompare));
+    }
+    setArrow(true);
+  };
+
   // Ascending order filter
   const compare = (a, b) => {
     const labA = a.clientName.toUpperCase();
@@ -267,17 +298,43 @@ const Profile = () => {
     } else {
       setarray(array.sort(compare));
     }
-    setopenAlpha(false);
+    // setopenAlpha(false);
+    setArrow(false);
+  };
+
+  // Descending order filter
+  const dCompare = (a, b) => {
+    const labA = a.clientName.toUpperCase();
+    const labB = b.clientName.toUpperCase();
+
+    let comparison = 0;
+    if (labA > labB) {
+      comparison = -1;
+    } else if (labA < labB) {
+      comparison = 1;
+    }
+    return comparison;
+  };
+  const descendOrder = () => {
+    if (searchInput !== "") {
+      setFilteredResults(filteredResults.sort(dCompare));
+    } else {
+      setarray(array.sort(dCompare));
+    }
+    // setopenAlpha(false);
+    setArrow(true);
   };
 
   // Status filter
   const labstatus = (a) => {
-    if (a === 'all') {
+    if (a === "all") {
       setTimeout(() => {
-        setFilteredResults(array)
-      }, 0)
+        setFilteredResults(array);
+      }, 0);
     }
-    setFilteredResults(array.filter((e, i) => e.reportStatus.toLowerCase() === a))
+    setFilteredResults(
+      array.filter((e, i) => e.reportStatus.toLowerCase() === a)
+    );
     setopenStatus(false);
   };
 
@@ -318,27 +375,35 @@ const Profile = () => {
   }
 
   const timeMacker = (timeStamp) => {
-    if(timeStamp) {
+    if (timeStamp) {
       const newDate = new Date(timeStamp);
 
-      console.log(newDate.getHours(), newDate.getMinutes(), "from time macker")
+      console.log(newDate.getHours(), newDate.getMinutes(), "from time macker");
 
-      const h = parseInt(newDate.getHours()/10) === 0 ? `0${newDate.getHours()}`: `${newDate.getHours()}`
-      const m = parseInt(newDate.getMinutes()/10) === 0 ? `0${newDate.getMinutes()}`: `${newDate.getMinutes()}`
+      const h =
+        parseInt(newDate.getHours() / 10) === 0
+          ? `0${newDate.getHours()}`
+          : `${newDate.getHours()}`;
+      const m =
+        parseInt(newDate.getMinutes() / 10) === 0
+          ? `0${newDate.getMinutes()}`
+          : `${newDate.getMinutes()}`;
 
-      return `${h}:${m}`
+      return `${h}:${m}`;
     }
-  }
+  };
 
   const dateMacker = (timeStamp) => {
-    if(timeStamp) {
+    if (timeStamp) {
       const newDate = new Date(timeStamp);
 
       // console.log(newDate.getDate(), newDate.getFullYear(), newDate.getMonth()+1, "from date macker")
 
-      return `${newDate.getDate()}/${newDate.getMonth()+1}/${JSON.stringify(newDate.getFullYear()).slice(2,4)}`
+      return `${newDate.getDate()}/${newDate.getMonth() + 1}/${JSON.stringify(
+        newDate.getFullYear()
+      ).slice(2, 4)}`;
     }
-  }
+  };
 
   // console.log(timeMacker(1657474021848));
   // console.log(dateMacker(1657474021848));
@@ -370,40 +435,72 @@ const Profile = () => {
 
   // calender filtering
   const [isCalendarShow, setIsCalendarShow] = useState(false);
-  const [calenderOption, setCalenderOption] = useState("Today")
+  const [calenderOption, setCalenderOption] = useState("Today");
 
   const todaay = new Date();
   const ONE_DAYIN_MS = 86400000;
-  const TODAY_IN_MS = new Date(`${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`).getTime(); // at 12am
+  const TODAY_IN_MS = new Date(
+    `${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`
+  ).getTime(); // at 12am
   const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
 
   //
   const defaultSelected = {
     from: new Date(TODAY_IN_MS),
-    to: new Date(TODAY_IN_MS)
+    to: new Date(TODAY_IN_MS),
   };
   const [range, setRange] = useState(defaultSelected);
 
-  let footer = <div style={{ display: "flex", justifyContent: "end", borderTop: "rgb(158 158 158) 2px solid" }}>
-    <button
-      onClick={() => {
-        setRange(defaultSelected)
-        setIsCalendarShow(false)
-      }}
-      style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "rgba(95, 165, 250, 0.1)", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
-    >
-      Cancel
-    </button>
-    <button
-      style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "#5FA5FA", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
-      onClick={() => {
-        updateCalender()
-        setIsCalendarShow(false)
+  let footer = (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "end",
+        borderTop: "rgb(158 158 158) 2px solid",
       }}
     >
-      Ok
-    </button>
-  </div>;
+      <button
+        onClick={() => {
+          setRange(defaultSelected);
+          setIsCalendarShow(false);
+        }}
+        style={{
+          margin: "20px 10px -5px 10px",
+          borderRadius: "8px",
+          width: "80px",
+          backgroundColor: "rgba(95, 165, 250, 0.1)",
+          border: "none",
+          color: "black",
+          padding: "5px",
+          textAlign: "center",
+          textDecoration: "none",
+          display: "inline-bloc",
+        }}
+      >
+        Cancel
+      </button>
+      <button
+        style={{
+          margin: "20px 10px -5px 10px",
+          borderRadius: "8px",
+          width: "80px",
+          backgroundColor: "#5FA5FA",
+          border: "none",
+          color: "black",
+          padding: "5px",
+          textAlign: "center",
+          textDecoration: "none",
+          display: "inline-bloc",
+        }}
+        onClick={() => {
+          updateCalender();
+          setIsCalendarShow(false);
+        }}
+      >
+        Ok
+      </button>
+    </div>
+  );
 
   if (range?.from) {
     if (!range.to) {
@@ -419,64 +516,91 @@ const Profile = () => {
 
     // reports for a single day
     if (!range.to) {
-      console.log("single date")
+      console.log("single date");
 
       let toTimee = fromTime + ONE_DAYIN_MS;
-      return filterDateByTimestamp(fromTime, toTimee)
+      return filterDateByTimestamp(fromTime, toTimee);
     }
 
     let toTime = new Date(range.to).getTime(); // in ms
 
     // today
     if (fromTime === toTime) {
-      console.log("today")
+      console.log("today");
 
       let toTimee = toTime + ONE_DAYIN_MS;
-      filterDateByTimestamp(fromTime, toTimee)
+      filterDateByTimestamp(fromTime, toTimee);
     }
 
     // reports for date range
     if (range.from && range.to) {
-      console.log("range of date", range)
-      console.log(new Date(range.from).getTime(), "gg from")
-      console.log(new Date(range.to).getTime(), "gg to")
+      console.log("range of date", range);
+      console.log(new Date(range.from).getTime(), "gg from");
+      console.log(new Date(range.to).getTime(), "gg to");
 
       let toTimee = toTime + ONE_DAYIN_MS;
-      filterDateByTimestamp(fromTime, toTimee)
+      filterDateByTimestamp(fromTime, toTimee);
     }
   }
 
   // filter logic
   function filterDateByTimestamp(startValue, endValue) {
-
-    const filteredOutput = array.filter(item => {
-
+    const filteredOutput = array.filter((item) => {
       let temp = item.customTimeStamp;
 
-      if (temp <= endValue && temp >= startValue) { return true; }
+      if (temp <= endValue && temp >= startValue) {
+        return true;
+      }
       return false;
     });
 
-    console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
+    console.log(filteredOutput, " new calender ", startValue, " to ", endValue);
 
-    if (filteredOutput.length === 0) { console.log("pok u"); return setFilteredResults([]) }
+    if (filteredOutput.length === 0) {
+      console.log("pok u");
+      return setFilteredResults([]);
+    }
 
-    setFilteredResults(filteredOutput)
-
+    setFilteredResults(filteredOutput);
   }
-
 
   return (
     <div className={classes.homeBody}>
-      <Container style={{ paddingLeft: 0, maxWidth: 'unset' }} className={classes.name}>
+      <Container
+        style={{ paddingLeft: 0, maxWidth: "unset" }}
+        className={classes.name}
+      >
         {searchBarTab && (
-          <div style={{ justifyContent: 'space-between', width: 'unset' }} className={classes.search_main}>
+          <div
+            style={{ justifyContent: "space-between", width: "unset" }}
+            className={classes.search_main}
+          >
             <div className={`${classes.form_group} ${classes.has_search}`}>
               <span className={classes.searchicon}>
                 {/* <AiOutlineSearch /> */}
-                <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="7.82345" cy="7.82345" r="6.74142" stroke="#696969" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M12.5117 12.8633L15.1547 15.4994" stroke="#696969" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                <svg
+                  width="16"
+                  height="17"
+                  viewBox="0 0 16 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle
+                    cx="7.82345"
+                    cy="7.82345"
+                    r="6.74142"
+                    stroke="#696969"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12.5117 12.8633L15.1547 15.4994"
+                    stroke="#696969"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
                 </svg>
               </span>
               <input
@@ -487,9 +611,24 @@ const Profile = () => {
               />
             </div>
             <div className={classes.dayfilter}>
-              <h6 onClick={daysfilter} style={{ height: "50px", display: "flex", justifyContent: "start", alignItems: "center", fontSize: "18px" }}>
-                <div onClick={() => setIsCalendarShow(!isCalendarShow)} style={{ display: "flex", position: "relative", width: "200px" }}>
-
+              <h6
+                onClick={daysfilter}
+                style={{
+                  height: "50px",
+                  display: "flex",
+                  justifyContent: "start",
+                  alignItems: "center",
+                  fontSize: "18px",
+                }}
+              >
+                <div
+                  onClick={() => setIsCalendarShow(!isCalendarShow)}
+                  style={{
+                    display: "flex",
+                    position: "relative",
+                    width: "200px",
+                  }}
+                >
                   <div style={{ position: "absolute", left: "10px" }}>
                     <svg
                       width="20"
@@ -520,20 +659,37 @@ const Profile = () => {
                       <path d="M6 8L0 0H12L6 8Z" fill="#838383" />
                     </svg>
                   </div>
-
                 </div>
                 {isCalendarShow ? (
-                  <div style={{ position: "absolute", top: "100px", right: "50px", background: "#fff", padding: "10px", display: "flex", boxShadow: "rgb(158 158 158) 5px 6px 16px 0px", borderRadius: "5%", zIndex: "100", transform: "scale(0.85, 0.8)" }}>
-
-                    <div style={{ width: "140px", padding: "10px", borderRight: "rgb(158 158 158) 2px solid" }}>
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "100px",
+                      right: "50px",
+                      background: "#fff",
+                      padding: "10px",
+                      display: "flex",
+                      boxShadow: "rgb(158 158 158) 5px 6px 16px 0px",
+                      borderRadius: "5%",
+                      zIndex: "100",
+                      transform: "scale(0.85, 0.8)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "140px",
+                        padding: "10px",
+                        borderRight: "rgb(158 158 158) 2px solid",
+                      }}
+                    >
                       <div
                         style={{ marginTop: "25px", textAlign: "start" }}
                         onClick={(e) => {
-                          setCalenderOption("Today")
+                          setCalenderOption("Today");
                           setRange({
                             from: new Date(TODAY_IN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
+                            to: new Date(TODAY_IN_MS),
+                          });
                         }}
                       >
                         Today
@@ -541,11 +697,11 @@ const Profile = () => {
                       <div
                         style={{ marginTop: "25px", textAlign: "start" }}
                         onClick={(e) => {
-                          setCalenderOption("Yesterday")
+                          setCalenderOption("Yesterday");
                           setRange({
                             from: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
+                            to: new Date(TODAY_IN_MS),
+                          });
                         }}
                       >
                         Yesterday
@@ -553,11 +709,11 @@ const Profile = () => {
                       <div
                         style={{ marginTop: "25px", textAlign: "start" }}
                         onClick={(e) => {
-                          setCalenderOption("2 days ago")
+                          setCalenderOption("2 days ago");
                           setRange({
                             from: new Date(TODAY_IN_MS - 2 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
+                            to: new Date(TODAY_IN_MS),
+                          });
                         }}
                       >
                         2 days ago
@@ -565,23 +721,23 @@ const Profile = () => {
                       <div
                         style={{ marginTop: "25px", textAlign: "start" }}
                         onClick={(e) => {
-                          setCalenderOption("7 days ago")
+                          setCalenderOption("7 days ago");
                           setRange({
                             from: new Date(TODAY_IN_MS - 7 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
+                            to: new Date(TODAY_IN_MS),
+                          });
                         }}
-                      > 
+                      >
                         7 days ago
                       </div>
                       <div
                         style={{ marginTop: "25px", textAlign: "start" }}
                         onClick={(e) => {
-                          setCalenderOption("15 days ago")
+                          setCalenderOption("15 days ago");
                           setRange({
                             from: new Date(TODAY_IN_MS - 15 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
+                            to: new Date(TODAY_IN_MS),
+                          });
                         }}
                       >
                         15 days ago
@@ -589,11 +745,11 @@ const Profile = () => {
                       <div
                         style={{ marginTop: "25px", textAlign: "start" }}
                         onClick={(e) => {
-                          setCalenderOption("1 month ago")
+                          setCalenderOption("1 month ago");
                           setRange({
                             from: new Date(TODAY_IN_MS - 30 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
+                            to: new Date(TODAY_IN_MS),
+                          });
                         }}
                       >
                         1 month ago
@@ -601,11 +757,11 @@ const Profile = () => {
                       <div
                         style={{ marginTop: "25px", textAlign: "start" }}
                         onClick={(e) => {
-                          setCalenderOption("2 month ago")
+                          setCalenderOption("2 month ago");
                           setRange({
                             from: new Date(TODAY_IN_MS - 60 * ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS)
-                          })
+                            to: new Date(TODAY_IN_MS),
+                          });
                         }}
                       >
                         2 month ago
@@ -780,7 +936,12 @@ const Profile = () => {
       </Container> */}
 
       <Container
-        style={{ marginLeft: '0', marginRight: '0', marginTop: '2%', maxWidth: 'unset' }}
+        style={{
+          marginLeft: "0",
+          marginRight: "0",
+          marginTop: "2%",
+          maxWidth: "unset",
+        }}
       >
         <Row className={classes.tableheader}>
           <Col
@@ -789,12 +950,34 @@ const Profile = () => {
             xs={6}
             className={classes.tableheader_text}
           >
-            <p>
-              Reports{" "}
-              <span className={classes.alpha_sort_btn} onClick={sortbox}>
-                <BiChevronDown />
-              </span>
-              <span
+            {arrow ? (
+              <p
+                onClick={() => {
+                  ascendOrder();
+                  sortbox();
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                Reports
+                <span className={classes.alpha_sort_btn}>
+                  <BiChevronDown />
+                </span>
+              </p>
+            ) : (
+              <p
+                onClick={() => {
+                  descendOrder();
+                  sortbox();
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                Reports
+                <span className={classes.alpha_sort_btn}>
+                  <BiChevronUp />
+                </span>
+              </p>
+            )}
+            {/* <span
                 className={
                   openAlpha
                     ? classes.alpha_sort_box
@@ -804,10 +987,13 @@ const Profile = () => {
                 <li className={classes.alpha_sort_text} onClick={ascendOrder}>
                   Alphabetical Sorting
                 </li>
-              </span>
-            </p>
+              </span> */}
           </Col>
-          <Col md={4} xs={3} className={classes.proCol2 + " " + classes.proCol3} >
+          <Col
+            md={4}
+            xs={3}
+            className={classes.proCol2 + " " + classes.proCol3}
+          >
             {/* <p>
               Date/Time{" "}
               <span className={classes.date_sort_btn}>
@@ -815,19 +1001,52 @@ const Profile = () => {
               </span>
             </p> */}
             <div id="datetimeStatus" class={classes.dateTimestatus_sort_box}>
-              <p onBlur={() => dateTimeOpened(false)} onClick={dateTimeClickHanlder} className={classes.datetimeStatus}>{dateTimeValue} <BiChevronDown /></p>
-              <ul style={{ display: 'none' }} className={dateTimeOpened && classes.dateTimestatus_sort_box_options}>
-                <li onClick={dateTimeOptionClickHanlder}>Date/Time</li>
+              {arrow ? (
+                <p
+                  onBlur={() => dateTimeOpened(false)}
+                  // onClick={dateTimeClickHanlder}
+                  onClick={() => {
+                    ascTime();
+                    sortbox();
+                  }}
+                  className={classes.datetimeStatus}
+                >
+                  {dateTimeValue} <BiChevronDown />
+                </p>
+              ) : (
+                <p
+                  onBlur={() => dateTimeOpened(false)}
+                  // onClick={dateTimeClickHanlder}
+                  onClick={() => {
+                    descTime();
+                    sortbox();
+                  }}
+                  className={classes.datetimeStatus}
+                >
+                  {dateTimeValue} <BiChevronUp />
+                </p>
+              )}
+              <ul
+                style={{ display: "none" }}
+                className={
+                  dateTimeOpened && classes.dateTimestatus_sort_box_options
+                }
+              >
+                {/* <li onClick={dateTimeOptionClickHanlder}>Date/Time</li>
                 <li onClick={dateTimeOptionClickHanlder}>Date</li>
-                <li onClick={dateTimeOptionClickHanlder}>Time</li>
+                <li onClick={dateTimeOptionClickHanlder}>Time</li> */}
               </ul>
             </div>
           </Col>
           <Col md={1} xs={2} className={classes.proCol3}>
             <p>View </p>
           </Col>
-          <Col md={1} xs={1} className={classes.proCol5 + " " + classes.proCol3}>
-            <p style={{ cursor: 'pointer' }} onClick={statusCheck}>
+          <Col
+            md={1}
+            xs={1}
+            className={classes.proCol5 + " " + classes.proCol3}
+          >
+            <p style={{ cursor: "pointer" }} onClick={statusCheck}>
               Status
               <span className={classes.status_sort_btn}>
                 <BiChevronDown />
@@ -841,25 +1060,44 @@ const Profile = () => {
               >
                 <li onClick={() => labstatus("all")}>All</li>
                 <li onClick={() => labstatus("complete")}>Complete</li>
-                <li onClick={() => labstatus("in review")}>inreview</li>
+                <li onClick={() => labstatus("in ai process")}>
+                  In AI process
+                </li>
+                <li onClick={() => labstatus("incomplete")}>Incomplete</li>
               </span>
             </p>
           </Col>
         </Row>
 
-        <Row className={classes.reportListContainer} style={{ overflowY: 'scroll', height: '55vh', alignContent: 'flex-start', marginTop: '5px' }}>
-
+        <Row
+          className={classes.reportListContainer}
+          style={{
+            overflowY: "scroll",
+            height: "55vh",
+            alignContent: "flex-start",
+            marginTop: "5px",
+          }}
+        >
           {filteredResults &&
             filteredResults.map((a, i) => {
+              console.log(a);
               return (
                 <>
-                  <Row style={{ padding: '10px 0', marginLeft: '0', marginRight: '0', alignItems: 'center' }} className={classes.rowe}>
+                  <Row
+                    style={{
+                      padding: "10px 0",
+                      marginLeft: "0",
+                      marginRight: "0",
+                      alignItems: "center",
+                    }}
+                    className={classes.rowe}
+                  >
                     <Col md={6} xs={5} className={classes.proCol}>
                       {a.clientName}
                     </Col>
                     <Col md={4} xs={3} className={classes.proCol2}>
                       {/* {dateConstractor(a.customTimeStamp)} */}
-                      {showDate ? dateMacker(a.customTimeStamp) : null} 
+                      {showDate ? dateMacker(a.customTimeStamp) : null}
                       {showDate && showTime ? " ; " : null}
                       {showTime ? timeMacker(a.customTimeStamp) : null}
                     </Col>
@@ -869,15 +1107,21 @@ const Profile = () => {
                         onClick={() => {
                           if (a.reportStatus.toLowerCase() === "complete") {
                             fetchOneReport(a.reportId);
-                          } else if(a.reportStatus.toLowerCase() === "in review"){
+                          } else if (
+                            a.reportStatus.toLowerCase() === "in review"
+                          ) {
                             console.log("Yo", a.reportStatus);
                             setOpenIncompleteStatusDilogBox(a.reportStatus);
                             setIncompleteReportId(a.reportId);
-                          }else if(a.reportStatus.toLowerCase() === "incomplete"){
+                          } else if (
+                            a.reportStatus.toLowerCase() === "incomplete"
+                          ) {
                             setIncompleteReportId(a.reportId);
-                            setOpenIncompleteStatusDilogBox(true)
-                          }else if(a.reportStatus.toLowerCase() === "in ai process"){
-                            setOpenInAiProcessDilogBox(true)
+                            setOpenIncompleteStatusDilogBox(true);
+                          } else if (
+                            a.reportStatus.toLowerCase() === "in ai process"
+                          ) {
+                            setOpenInAiProcessDilogBox(true);
                           }
                         }}
                       >
@@ -892,18 +1136,19 @@ const Profile = () => {
               );
             })}
 
-          {(filteredResults.length < 1) && <Container className={classes.emptdata_img}>
-            <img
-              src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
-              className={classes.dataempty_image}
-            />
-            <h4 className={classes.no_report}>No Reports Found </h4>
-          </Container>}
+          {filteredResults.length < 1 && (
+            <Container className={classes.emptdata_img}>
+              <img
+                src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
+                className={classes.dataempty_image}
+              />
+              <h4 className={classes.no_report}>No Reports Found </h4>
+            </Container>
+          )}
         </Row>
-
       </Container>
 
-      <Container style={{ marginLeft: '-10px' }} className={classes.report2}>
+      <Container style={{ marginLeft: "-10px" }} className={classes.report2}>
         <div className={classes.uploadicon}>
           {/* <i
             className="fa-solid fa-arrow-up-from-bracket"
@@ -950,21 +1195,25 @@ const Profile = () => {
         aria-aria-describedby="dilog-description"
         sx={{ p: 2 }}
       >
-        <DialogTitle id="dilog-title">
-          IN AI PROCESS
-        </DialogTitle>
+        <DialogTitle id="dilog-title">IN AI PROCESS</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please wait..! The report is in AI process
           </DialogContentText>
         </DialogContent>
-        <DialogActions style={{justifyContent: 'center'}} sx={{ mx: 1, mb: 1 }}>
-          <Button style={{width: '96%', textAlign: 'center'}} variant="contained" onClick={()=> setOpenInAiProcessDilogBox(false)}>
+        <DialogActions
+          style={{ justifyContent: "center" }}
+          sx={{ mx: 1, mb: 1 }}
+        >
+          <Button
+            style={{ width: "96%", textAlign: "center" }}
+            variant="contained"
+            onClick={() => setOpenInAiProcessDilogBox(false)}
+          >
             Okay
           </Button>
         </DialogActions>
       </Dialog>
-
     </div>
   );
 };
