@@ -9,7 +9,7 @@ const aivaraStatus = {
   detailData: {},
   notification: [],
   prevPage: "/home",
-  socket_conn: false
+  socket_conn: {}
 };
 
 export const user = (state = aivaraStatus, action) => {

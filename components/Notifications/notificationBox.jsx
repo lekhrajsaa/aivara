@@ -6,19 +6,20 @@ import Notification from './notification';
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux';
 import { setNotification, setSocketConn } from '../../redux/dataAction';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 
 const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
 import io from 'socket.io-client';
+import { notificationApi } from './notificationApi';
 
 const SOCKET_URL = "https://socket.aivara.in";
 
-    
+
 
 const NotificationBox = ({ setShowNotificationBox }) => {
-    
+
     // const socket_conn = useSelector((state) => state.userdata.socket_conn);
     const dispatch = useDispatch();
 
@@ -51,50 +52,18 @@ const NotificationBox = ({ setShowNotificationBox }) => {
     }
 
     const fetchNotification = async () => {
-        const token = localStorage.getItem('token');
 
-        var data = JSON.stringify({
-            query: `{
-            getNotification{
-                notifications{
-                    clientName
-                    id
-                    reportId
-                    reportStatus
-                    customTimeStamp
-                    checked
-                }
-                status
-            }
-        }`,
-            variables: {}
-        });
-
-        var config = {
-            method: 'post',
-            url: `${SERVER_URL}api/v1`,
-            headers: {
-                'x-api-key': X_API_KEY,
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            },
-            data: data
-        };
-
-        try {
-            const response = await axios(config);
-            console.log(response.data.data.getNotification.notifications)
-            dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
-            // setNotifications(response.data.data.getNotification.notifications.sort(function(a, b){return b.customTimeStamp-a.customTimeStamp}))
-            // dispatch(setSocketConn(true)); //socket connection on
-        } catch (error) {
-            console.log(error)
-        }
+        notificationApi()
+            .then((response) => {
+                console.log(response.data.data.getNotification.notifications)
+                dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     useEffect(() => {
-        // dispatch(setSocketConn(false)); // socket connection off
-
         fetchNotification();
     }, [])
 
@@ -153,7 +122,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
             return `${newDate.getDate()}/${newDate.getMonth() + 1}/${JSON.stringify(newDate.getFullYear()).slice(2, 4)}`
         }
     }
-const router = useRouter();
+    const router = useRouter();
 
     function viewAllClickHandler() {
         let uncheckedIds = notifications.map(item => item.id);
@@ -164,7 +133,7 @@ const router = useRouter();
             item.checked = true;
         })
         dispatch(setNotification(modNotifications))
-       router.push("/notificationspage")
+        router.push("/notificationspage")
     }
 
     return (
@@ -183,7 +152,7 @@ const router = useRouter();
                             ?
                             notifications.map((item) => (
                                 <Notification
-                                      key={item.id}
+                                    key={item.id}
                                     id={item.id}
                                     reportName={item.clientName}
                                     reportStatus={item.reportStatus}
@@ -199,7 +168,7 @@ const router = useRouter();
                             <p style={{ color: '#ccc', textAlign: 'center', margin: '28px 0' }}>No Notifications to show.</p>
                     }
                 </div>
-                <button className={classes.viewAllBtn} onClick={viewAllClickHandler}>   View All  </button> 
+                <button className={classes.viewAllBtn} onClick={viewAllClickHandler}>   View All  </button>
             </div>
         </div>
     );
