@@ -96,7 +96,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
         // dispatch(setSocketConn(false)); // socket connection off
 
         fetchNotification();
-    }, [socket])
+    }, [])
 
     //
     const checkNotificationsHandler = async (ids) => {
