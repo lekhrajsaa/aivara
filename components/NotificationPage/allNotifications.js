@@ -3,9 +3,9 @@ import classes from "./allnotifications.module.css"
 
 
 
-const allNotifications = (data) => {
+const allNotifications = ({data, dateMacker, timeMacker}) => {
 
-  console.log(data)
+  console.log('not', data)
   
   return (
     <>
@@ -19,8 +19,8 @@ const allNotifications = (data) => {
                 
                <div className={classes.notificationRow} id={item.id}>
                   <div>
-                    <span>{item.reportName}</span><br></br>
-                    <span>{item.date.time} ,{item.date.date}</span>
+                    <span>{item.clientName}</span><br></br>
+                    <span>{timeMacker(item.customTimeStamp)} ,{dateMacker(item.customTimeStamp)}</span>
                   </div>
                   <div>
                     {item.reportStatus}

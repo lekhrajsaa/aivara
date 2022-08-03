@@ -148,6 +148,9 @@ const notificationsPage = () => {
   
       <AllNotifications 
       data={notifications}
+      timeMacker={timeMacker}
+      dateMacker={dateMacker}
+
     />
     </>
   )
