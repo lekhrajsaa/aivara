@@ -6,57 +6,33 @@ import Notification from './notification';
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux';
 import { setNotification, setSocketConn } from '../../redux/dataAction';
+import {useRouter} from 'next/router';
 
 const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 
-// const SOCKET_URL = "https://dev.aivara.in";
+const SOCKET_URL = "http://socket.aivara.in";
+
+    
 
 const NotificationBox = ({ setShowNotificationBox }) => {
     
     // const socket_conn = useSelector((state) => state.userdata.socket_conn);
     const dispatch = useDispatch();
 
-    // //* realtime start
-    // let socket;
-
-    // if (socket_conn) {
-    //     socket = io(SOCKET_URL);
-    // }
-
-    // const [newMessage, setNewMessage] = useState(false)
-
+    // const socket = io(SOCKET_URL);
 
     // useEffect(() => {
-    //     if (socket_conn) {
-    //         socket.on('test api', (data) => {
-    //             console.log(data)
-    //             setNewMessage(true)
-    //         })
+    //     socket.on('test api', (data) => {
+    //         console.log(data)
+    //     })
 
-    //         const token = localStorage.getItem('token');
-
-    //         socket.on('report data', (data) => {
-
-    //             if (token) {
-    //                 console.log(data, "with token");
-    //                 setNewMessage(true);
-    //             } else {
-    //                 console.log(data, "without token") //test
-    //             }
-
-    //             // setIsRealTimeData(data.flag);
-    //             // setRealtimeData(data);
-    //         });
-    //     }
+    //     socket.on('report data', (data) => {
+    //         console.log(data)
+    //     })
     // }, [socket])
-
-    // let messg = "AI Report Generated"
-
-    // console.log(newMessage, messg)
-    //* realtime end
 
     const notifications = useSelector((state) => {
         console.log(state)
@@ -132,7 +108,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
             var data = JSON.stringify({
                 query: `mutation{
                   checkNotification(idInput:${temp}){
-                      message
+                      message 
                   }
               }`,
                 variables: {}
@@ -177,6 +153,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
             return `${newDate.getDate()}/${newDate.getMonth() + 1}/${JSON.stringify(newDate.getFullYear()).slice(2, 4)}`
         }
     }
+const router = useRouter();
 
     function viewAllClickHandler() {
         let uncheckedIds = notifications.map(item => item.id);
@@ -187,6 +164,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
             item.checked = true;
         })
         dispatch(setNotification(modNotifications))
+       router.push("/notificationspage")
     }
 
     return (
@@ -205,7 +183,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                             ?
                             notifications.map((item) => (
                                 <Notification
-                                    key={item.id}
+                                      key={item.id}
                                     id={item.id}
                                     reportName={item.clientName}
                                     reportStatus={item.reportStatus}
@@ -221,7 +199,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
                             <p style={{ color: '#ccc', textAlign: 'center', margin: '28px 0' }}>No Notifications to show.</p>
                     }
                 </div>
-                <button className={classes.viewAllBtn} onClick={viewAllClickHandler}>View All</button>
+                <button className={classes.viewAllBtn} onClick={viewAllClickHandler}>   View All  </button> 
             </div>
         </div>
     );

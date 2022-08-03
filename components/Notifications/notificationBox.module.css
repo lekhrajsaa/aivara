@@ -47,6 +47,11 @@
     border: none;
     background-color: #3699FB;
     color: white;
+ 
     padding: 5px 0;
     font-size: 14px;
+}
+.linkElement{
+    color: white;
+   text-decoration: none;
 }

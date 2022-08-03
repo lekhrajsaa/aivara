@@ -327,7 +327,7 @@ const EditProfile = () => {
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Conform Password</Form.Label>
+                    <Form.Label>Confirm Password</Form.Label>
                     <Form.Control
                       onClick={checkMessage}
                       type="text"

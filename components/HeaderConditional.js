@@ -126,7 +126,7 @@ function WithSignout(props) {
             className={classes.heading}
           >
             <a
-              href="/newHome"
+              href="/home"
               className={classes.brandname}
               style={{ color: "white", marginLeft: "-20px" }}
             >
