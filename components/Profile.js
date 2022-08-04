@@ -73,6 +73,8 @@ const Profile = () => {
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchBarTab, setsearchBarTab] = useState(true);
   const [tableheaderTab, settableheaderTab] = useState(true);
+
+  // for toggle the up and down arrow icon
   const [arrow, setArrow] = useState(true);
 
   //
@@ -156,34 +158,6 @@ const Profile = () => {
     }
   };
 
-  function dateTimeClickHanlder() {
-    setDateTimeOpened((prv) => !prv);
-  }
-  function dateTimeOptionClickHanlder(e) {
-    console.log(e);
-
-    // switch (e.target.innerText) {
-    //   case "Date/Time":
-    //     setShowDate(true);
-    //     setShowTime(true);
-    //     break;
-    //   case "Date":
-    //     setShowDate(true);
-    //     setShowTime(false);
-    //     break;
-    //   case "Time":
-    //     setShowDate(false);
-    //     setShowTime(true);
-    //     break;
-
-    //   default:
-    //     break;
-    // }
-
-    setDateTimeValue(e.target.innerText);
-    setDateTimeOpened(false);
-  }
-
   // geting all report data from database
   const fetchAllReportData = async () => {
     var myHeaders = new Headers();
@@ -207,7 +181,6 @@ const Profile = () => {
       .catch((error) => console.log("error", error));
   };
 
-  //
   useEffect(() => {
     dispatch(setPrevPage("/reports"));
     setToken(localStorage.getItem("token"));
@@ -248,13 +221,15 @@ const Profile = () => {
       .includes(searchInput.toLowerCase());
   });
 
-  // ascending date
+  //ascending order filter of date/time
   const ascCompare = (a, b) => {
     const t1 = new Date(a.customTimeStamp).valueOf();
     const t2 = new Date(b.customTimeStamp).valueOf();
+    console.log(t1 - t2);
     return t1 - t2;
   };
 
+  // returns date/time with ascending order
   const ascTime = () => {
     if (searchInput !== "") {
       setFilteredResults(filteredResults.sort(ascCompare));
@@ -263,13 +238,15 @@ const Profile = () => {
     }
     setArrow(false);
   };
-  // descending date
+
+  //descending order filter of date/time
   const descCompare = (a, b) => {
     const t1 = new Date(a.customTimeStamp).valueOf();
     const t2 = new Date(b.customTimeStamp).valueOf();
     return t2 - t1;
   };
 
+  // returns date/time with descending order
   const descTime = () => {
     if (searchInput !== "") {
       setFilteredResults(filteredResults.sort(descCompare));
@@ -279,7 +256,7 @@ const Profile = () => {
     setArrow(true);
   };
 
-  // Ascending order filter
+  // ascending order filter of client name
   const compare = (a, b) => {
     const labA = a.clientName.toUpperCase();
     const labB = b.clientName.toUpperCase();
@@ -292,17 +269,18 @@ const Profile = () => {
     }
     return comparison;
   };
+
+  // returns client name with ascending order
   const ascendOrder = () => {
     if (searchInput !== "") {
       setFilteredResults(filteredResults.sort(compare));
     } else {
       setarray(array.sort(compare));
     }
-    // setopenAlpha(false);
     setArrow(false);
   };
 
-  // Descending order filter
+  // descending order filter of client name
   const dCompare = (a, b) => {
     const labA = a.clientName.toUpperCase();
     const labB = b.clientName.toUpperCase();
@@ -315,13 +293,14 @@ const Profile = () => {
     }
     return comparison;
   };
+
+  // returns client name with descending order
   const descendOrder = () => {
     if (searchInput !== "") {
       setFilteredResults(filteredResults.sort(dCompare));
     } else {
       setarray(array.sort(dCompare));
     }
-    // setopenAlpha(false);
     setArrow(true);
   };
 
@@ -977,34 +956,16 @@ const Profile = () => {
                 </span>
               </p>
             )}
-            {/* <span
-                className={
-                  openAlpha
-                    ? classes.alpha_sort_box
-                    : classes.alpha_sort_box_hide
-                }
-              >
-                <li className={classes.alpha_sort_text} onClick={ascendOrder}>
-                  Alphabetical Sorting
-                </li>
-              </span> */}
           </Col>
           <Col
             md={4}
             xs={3}
             className={classes.proCol2 + " " + classes.proCol3}
           >
-            {/* <p>
-              Date/Time{" "}
-              <span className={classes.date_sort_btn}>
-                <BiChevronDown />
-              </span>
-            </p> */}
             <div id="datetimeStatus" class={classes.dateTimestatus_sort_box}>
               {arrow ? (
                 <p
                   onBlur={() => dateTimeOpened(false)}
-                  // onClick={dateTimeClickHanlder}
                   onClick={() => {
                     ascTime();
                     sortbox();
@@ -1016,7 +977,6 @@ const Profile = () => {
               ) : (
                 <p
                   onBlur={() => dateTimeOpened(false)}
-                  // onClick={dateTimeClickHanlder}
                   onClick={() => {
                     descTime();
                     sortbox();
@@ -1031,11 +991,7 @@ const Profile = () => {
                 className={
                   dateTimeOpened && classes.dateTimestatus_sort_box_options
                 }
-              >
-                {/* <li onClick={dateTimeOptionClickHanlder}>Date/Time</li>
-                <li onClick={dateTimeOptionClickHanlder}>Date</li>
-                <li onClick={dateTimeOptionClickHanlder}>Time</li> */}
-              </ul>
+              ></ul>
             </div>
           </Col>
           <Col md={1} xs={2} className={classes.proCol3}>
