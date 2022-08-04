@@ -91,10 +91,7 @@ const Profile = () => {
   const [openInAiProcessDilogBox, setOpenInAiProcessDilogBox] = useState(false);
   const [incompleteReportId, setIncompleteReportId] = useState("");
 
-  const setclassname = datalenghtIszreo
-    ? `${classes.scrollRep} ${classes.datalenght_zero}`
-    : classes.datalenght_zero;
-  console.log(datalenghtIszreo);
+  // sorting arrangement
   const sortbox = () => {
     if (openAlpha) {
       setopenAlpha(false);
@@ -214,12 +211,6 @@ const Profile = () => {
       setFilteredResults(array);
     }
   };
-  const filteredData = array.filter((item) => {
-    return Object.values(item)
-      .join("")
-      .toLowerCase()
-      .includes(searchInput.toLowerCase());
-  });
 
   //ascending order filter of date/time
   const ascCompare = (a, b) => {
@@ -316,16 +307,6 @@ const Profile = () => {
     );
     setopenStatus(false);
   };
-
-  function reportStatusClickHanlder(stat) {
-    if (stat === "incomplete") {
-      setOpenIncompleteStatusDilogBox(true);
-    } else if (stat.toLowerCase() === "complete") {
-      setOpenCompleteStatusDilogBox(true);
-    } else if (stat.toLowerCase() === "in review") {
-      setOpenInReviewStatusDilogBox(true);
-    }
-  }
 
   function completeNowClickHanlder(e) {
     const token = localStorage.getItem("token");
@@ -764,156 +745,6 @@ const Profile = () => {
         )}
       </Container>
 
-      {/* <Container className={classes.report}>
-        {searchBarTab && (
-          <Row className={classes.tableheader}>
-            <Col md={6} xs={6} className={classes.tableheader_text}>
-              <p>
-                Reports{" "}
-                <span className={classes.alpha_sort_btn} onClick={sortbox}>
-                  <BiChevronDown />
-                </span>
-                <span
-                  className={
-                    openAlpha
-                      ? classes.alpha_sort_box
-                      : classes.alpha_sort_box_hide
-                  }
-                >
-                  <li className={classes.alpha_sort_text} onClick={ascendOrder}>
-                    Alphabetical Sorting
-                  </li>
-                </span>
-              </p>
-            </Col>
-            <Col md={4} xs={3} className={classes.proCol2}>
-              <select
-                id="datetimeStatus"
-                className={classes.dateTimestatus_sort_box}
-              >
-               <option selected>Date/Time</option>
-                <option value="date" onClick={datetimeFilter("date")}>
-                  Date
-                </option>
-                <option value="time" onClick={datetimeFilter("time")}>
-                  Time
-                </option>
-              </select>
-            </Col>
-            <Col md={1} xs={2} style={{ marginTop: "6px" }}>
-              <p>View </p>
-            </Col>
-            <Col md={1} xs={1} className={classes.proCol5}>
-              <p>
-                Status
-                <span className={classes.status_sort_btn} onClick={statusCheck}>
-                  <BiChevronDown />
-                </span>
-                <span
-                  className={
-                    openStatus
-                      ? classes.status_sort_box
-                      : classes.status_sort_box_hide
-                  }
-                >
-                  <li onClick={() => labstatus("complete")}>Complete</li>
-                  <li onClick={() => labstatus("inreview")}>inreview</li>
-                </span>
-              </p>
-            </Col>
-          </Row>
-        )}
-        
-        <div className={setclassname}>
-          {searchInput.length > 0 ? (
-            filteredResults.length === 0 ? (
-              <Container className={classes.emptdata_img}>
-                <img
-                  src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
-                  className={classes.dataempty_image}
-                />
-                <h4 className={classes.no_report}>No Reports Found </h4>
-              </Container>
-            ) : (
-              filteredResults.map((a, i) => {
-                // var date = new Date();
-                // console.log(date);
-                return (
-                  <>
-                    <Row className={classes.rowe}>
-                      <Col md={6} xs={5} className={classes.proCol}>
-                        {a.clientName}
-                      </Col>
-                      <Col md={4} xs={3} className={classes.proCol2}>
-                        {a.customTimeStamp}
-                      </Col>
-                      <Col md={1} xs={2}>
-                        <button className={classes.proCol3}>View</button>
-                      </Col>
-                      <Col md={1} xs={2} className={classes.proCol4}>
-                        <p>{a.reportStatus}</p>
-                      </Col>
-                    </Row>
-                  </>
-                );
-              })
-            )
-          ) : array.length === 0 ? (
-            <Container
-              className={classes.emptdata_img1}
-              style={{ marginTop: "0px" }}
-            >
-              <img
-                src="https://esgplaybook.com/wp-content/uploads/undraw_Web_search_re_efla.png"
-                className={classes.dataempty_image1}
-              />
-              <h4 className={classes.no_report}>No Reports Found</h4>
-            </Container>
-          ) : (
-            array.map((a, i) => {
-              return (
-                <>
-                  <Row className={classes.rowe}>
-                    <Col md={6} xs={5} className={classes.proCol}>
-                      {a.clientName}
-                    </Col>
-                    <Col md={4} xs={3} className={classes.proCol2}>
-                      {dateConstractor(a.customTimeStamp)}
-                    </Col>
-                    <Col md={1} xs={2}>
-                      <button
-                        className={classes.proCol3}
-                        onClick={() => {
-                          if (a.reportStatus.toLowerCase() === "complete") {
-                            fetchOneReport(a.reportId);
-                          } else {
-                            console.log("Yo", a.reportStatus);
-                            setOpenIncompleteStatusDilogBox(a.reportStatus);
-                            setIncompleteReportId(a.reportId);
-                          }
-                        }}
-                      >
-                        View
-                      </button>
-                    </Col>
-                    <Col md={1} xs={2}>
-                      <p
-                      // style={{cursor: 'pointer'}}
-                      // onClick={e => { reportStatusClickHanlder(a.reportStatus)}}
-                      // onMouseOver={e => e.target.style.color = '#395d89'}
-                      // onMouseOut={e => e.target.style.color = '#212529'}
-                      >
-                        {a.reportStatus}
-                      </p>
-                    </Col>
-                  </Row>
-                </>
-              );
-            })
-          )}
-        </div>
-      </Container> */}
-
       <Container
         style={{
           marginLeft: "0",
@@ -1106,10 +937,6 @@ const Profile = () => {
 
       <Container style={{ marginLeft: "-10px" }} className={classes.report2}>
         <div className={classes.uploadicon}>
-          {/* <i
-            className="fa-solid fa-arrow-up-from-bracket"
-            style={{ color: "#395D89" }}
-          ></i> */}
           <button
             className={classes.gen_button}
             onClick={() => router.push("/detail")}
