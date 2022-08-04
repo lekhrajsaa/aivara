@@ -17,7 +17,7 @@ const allNotifications = ({data, dateMacker, timeMacker}) => {
               ?
               data.map((item) => (
                 
-               <div className={classes.notificationRow} id={item.id}>
+               <div className={classes.notificationRow } id={item.id}>
                   <div>
                     <span>{item.clientName}</span><br></br>
                     <span>{timeMacker(item.customTimeStamp)} ,{dateMacker(item.customTimeStamp)}</span>

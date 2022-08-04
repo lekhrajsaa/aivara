@@ -135,11 +135,6 @@ const notificationsPage = () => {
     dispatch(setNotification(modNotifications))
     
   }
- 
-
-
-
-
 
   return (
     <>
