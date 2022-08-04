@@ -10,9 +10,6 @@ const EmailVerified = () => {
     
       <div className={classes.circle}>
         <img src="./circle_tick.png"></img>
-        {/* <br></br>
-            <p>You have successfully verified</p>
-            <p>your email.</p> */}
       </div>
       <div className={classes.txt}>
         <p>You have successfully verified</p>

@@ -133,11 +133,6 @@ const notificationsPage = () => {
   //   dispatch(setNotification(modNotifications))
     
   // }
- 
-
-console.log("hello", notifications)
-
-
 
   return (
     <>

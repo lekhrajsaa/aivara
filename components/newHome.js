@@ -52,7 +52,7 @@ const NewHome = () => {
       headers: myHeaders,
       redirect: 'follow'
     };
-
+    //API to get all report data
     fetch(`${SERVER_URL}getAllReport`, requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -99,8 +99,6 @@ const NewHome = () => {
     if (token) {
       fetchAllReportData(token);
     }
-
-    // dispatch(setPrevPage("/home"))
   }, [])
 
 
@@ -249,26 +247,9 @@ const NewHome = () => {
       </Container>
       <div className={classes.parent}>
         <div className={`${classes.clientCount} ${classes.child} `}>
-          {/* <Dropdown >
-            <Dropdown.Toggle
-              className={classes.todayButton}
-              variant=""
-              id="dropdown-basic"
-            >
-              Today
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu className={classes.dropDownToday}>
-              <Dropdown.Item href="#/action-1" className={classes.firstItem}>Today</Dropdown.Item>
-              <Dropdown.Item href="#/action-2" className={classes.firstItem}>Yesterday</Dropdown.Item>
-              <Dropdown.Item href="#/action-3" className={classes.firstItem}>2 days ago</Dropdown.Item>
-              <Dropdown.Item href="#/action-3" className={classes.firstItem}>7 days ago</Dropdown.Item>
-              <Dropdown.Item href="#/action-3" className={classes.firstItem}>15 days ago</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown> */}
 
           <div className={classes.dropdown}>
-            {/* <div className={calClass.dayfilter}> */}
+            
             <h6 style={{ height: "50px", display: "flex", justifyContent: "start", alignItems: "center", fontSize: "18px" }}>
               <div onClick={() => setIsCalendarShow(!isCalendarShow)} style={{ display: "flex", position: "relative", width: "200px" }}>
 
@@ -406,34 +387,9 @@ const NewHome = () => {
                 </div>
               ) : null}
             </h6>
-            {/* </div> */}
+            
           </div>
-          {/* <div className={classes.dropdown}>
-            <h3 onClick={() => { setTimePeriodOpen(prv => !prv) }}>{timePeriod} <BiChevronDown /></h3>
-            <ul style={{ display: 'none' }} className={timePeriodOpen && classes.timePeriod_sort_box}>
-              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
-                Today
-              </li>
-              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
-                Yesterday
-              </li>
-              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
-                2 days ago
-              </li>
-              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
-                7 days ago
-              </li>
-              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
-                15 days ago
-              </li>
-              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
-                1 month ago
-              </li>
-              <li className={classes.timePeriod_sort_box_options} onClick={selectdayHandler}>
-                2 month ago
-              </li>
-            </ul>
-          </div> */}
+      
 
           <div className={classes.threeparts}>
             <div className={classes.chart}>
@@ -441,8 +397,7 @@ const NewHome = () => {
                 value={(clientNumber / totalReport) * 100}
                 styles={buildStyles({
                   pathColor: "#4EAFE5",
-                  // trailColor: "transparent",
-                  // trailColor: "#d4e6fb",
+                  
                   trailColor: "rgb(212 230 251 / 20%)",
                   pathTransitionDuration: 0.5,
                 })}
@@ -452,8 +407,6 @@ const NewHome = () => {
                 value={(reportNumber / totalReport) * 100}
                 styles={buildStyles({
                   pathColor: "#2438EE",
-                  // trailColor: "transparent",
-                  // trailColor: " rgb(133, 171, 254)",
                   trailColor: "rgb(133 171 254 / 12%)",
                 })}
                 className={classes.noOfReportsChart}
@@ -470,22 +423,12 @@ const NewHome = () => {
           </div>
         </div>
         <div className={`${classes.viewReport} ${classes.child} `}>
-          {/* <img
-            src="/fileImage.png"
-            alt="folder"
-            className={classes.folder_image}
-          /> */}
-
-          {/* <a onClick={() => router.push("/home")} ><p className={classes.viewRep}>View Report</p></a> */}
-          {/* <a onClick={() => router.push("/gen")}> */}
+          
           <a onClick={() => router.push("/detail")}>
             <Button className={classes.GenerateReport}>
               Generate Report <img src="./edit.png"></img>
             </Button>
-            {/* <p className={classes.GenerateReport}>
-              Generate Report <span> </span>
-              <img src="./edit.png"></img>
-            </p> */}
+            
           </a>
         </div>
       </div>

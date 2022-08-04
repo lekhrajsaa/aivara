@@ -11,16 +11,17 @@ const Notification = ({id, reportName, reportStatus, date, readStatus, checkNoti
 
     const router = useRouter();
 
+    //changes the notification status and goes to reports page
     function notificationClickHanlder(){
         const modNotifications = [...notifications];
         modNotifications.forEach(item => {
             if(item.id === id){
-                checkNotificationsHandler([id])
-                item.checked = true;
+                checkNotificationsHandler([id]); // <= updating nofications in the server
+                item.checked = true; //setting notification seen status in the browser for ux
             }
         })
-        dispatch(setNotification(modNotifications))
-        setShowNotificationBox(false)
+        dispatch(setNotification(modNotifications)) //udpating the notification data in redux
+        setShowNotificationBox(false); //hiding notification box
         router.push('/reports')
     }
 

@@ -4,9 +4,6 @@ import getTabs from "./tab";
 import Tabs from 'react-responsive-tabs';
 const ReportSubmit = () => {
   const router = useRouter();
-  // const goToInReview = () =>{
-  //   items={getTabs()}   selectedTabKey={0}
-  // }
   return (
       <>
     <div className={classes.body}>

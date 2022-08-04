@@ -10,6 +10,7 @@ import {
 
 const LogoutPopup = ({setOpenLogoutPopup, open}) => {
 
+    //loggin out the user
     const removeDetail = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("email");

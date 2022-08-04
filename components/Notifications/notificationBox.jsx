@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 import classes from './notificationBox.module.css';
 import Notification from './notification';
@@ -17,11 +17,12 @@ import { notificationApi } from './notificationApi';
 const SOCKET_URL = "https://socket.aivara.in";
 
 
-
 const NotificationBox = ({ setShowNotificationBox }) => {
-
+    
     // const socket_conn = useSelector((state) => state.userdata.socket_conn);
     const dispatch = useDispatch();
+    const router = useRouter();
+    const notificationBox = useRef();
 
     const socket = io(SOCKET_URL);
 
@@ -40,19 +41,10 @@ const NotificationBox = ({ setShowNotificationBox }) => {
         return state.userdata.notification;
     });
 
-    const notificationBox = useRef();
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         notificationBox.current.focus();
-    //     }, 10)
-    // }, []);
-
-    function blurHanlder() {
-        setShowNotificationBox(false);
-    }
 
     const fetchNotification = async () => {
 
+        //Fetching Nofications with imported notificationApi function from "notificationApi.js"
         notificationApi()
             .then((response) => {
                 console.log(response.data.data.getNotification.notifications)
@@ -67,7 +59,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
         fetchNotification();
     }, [])
 
-    //
+    //Changes the notification's seen status
     const checkNotificationsHandler = async (ids) => {
         const token = localStorage.getItem('token')
 
@@ -97,47 +89,35 @@ const NotificationBox = ({ setShowNotificationBox }) => {
             try {
                 const response = await axios(config);
                 console.log(response);
-                // dispatch(setNotification());
             } catch (error) {
                 console.log(error)
             }
         }
     }
 
+    //converts timestamp into Time
     const timeMacker = (timeStamp) => {
         if (timeStamp) {
             const newDate = new Date(timeStamp);
-
             const h = parseInt(newDate.getHours() / 10) === 0 ? `0${newDate.getHours()}` : `${newDate.getHours()}`
             const m = parseInt(newDate.getMinutes() / 10) === 0 ? `0${newDate.getMinutes()}` : `${newDate.getMinutes()}`
 
-            return `${h}:${m}`
+            return `${h}:${m}`;
         }
     }
 
+    //converts timestamp into date
     const dateMacker = (timeStamp) => {
         if (timeStamp) {
             const newDate = new Date(timeStamp);
-
             return `${newDate.getDate()}/${newDate.getMonth() + 1}/${JSON.stringify(newDate.getFullYear()).slice(2, 4)}`
         }
     }
-    const router = useRouter();
 
+    //Goes to All Notifications page
     function viewAllClickHandler() {
-        // let uncheckedIds = notifications.map(item => item.id);
-        // checkNotificationsHandler(uncheckedIds);
-
-
-
-        const modNotifications = [...notifications];
-        modNotifications.forEach(item => {
-            item.checked = true;
-        })
-        dispatch(setNotification(modNotifications))
         router.push("/notificationspage")
-         setShowNotificationBox(false);
-
+        setShowNotificationBox(false);
     }
 
     return (
