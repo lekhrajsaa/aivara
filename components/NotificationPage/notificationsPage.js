@@ -54,20 +54,18 @@ const notificationsPage = () => {
       const response = await axios(config);
       console.log(response.data.data.getNotification.notifications)
       dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
-      // setNotifications(response.data.data.getNotification.notifications.sort(function(a, b){return b.customTimeStamp-a.customTimeStamp}))
-      // dispatch(setSocketConn(true)); //socket connection on
+      
     } catch (error) {
       console.log(error)
     }
   }
 
   useEffect(() => {
-    // dispatch(setSocketConn(false)); // socket connection off
 
     fetchNotification();
   }, [])
 
-  //
+
   const checkNotificationsHandler = async (ids) => {
     const token = localStorage.getItem('token')
 
@@ -97,7 +95,7 @@ const notificationsPage = () => {
       try {
         const response = await axios(config);
         console.log(response);
-        // dispatch(setNotification());
+        
       } catch (error) {
         console.log(error)
       }
@@ -124,15 +122,15 @@ const notificationsPage = () => {
   }
 
 
-  function viewAllClickHandler() {
-    let uncheckedIds = notifications.map(item => item.id);
-    checkNotificationsHandler(uncheckedIds);
+  // function viewAllClickHandler() {
+  //   let uncheckedIds = notifications.map(item => item.id);
+  //   checkNotificationsHandler(uncheckedIds);
 
-    const modNotifications = [...notifications];
-    modNotifications.forEach(item => {
-      item.checked = true;
-    })
-    dispatch(setNotification(modNotifications))
+  //   const modNotifications = [...notifications];
+  //   modNotifications.forEach(item => {
+  //     item.checked = true;
+  //   })
+  //   dispatch(setNotification(modNotifications))
     
   }
 
@@ -142,9 +140,14 @@ const notificationsPage = () => {
       <Sidebar />
   
       <AllNotifications 
+        // key={notifications.id}
+        // id={notifications.id}
       data={notifications}
       timeMacker={timeMacker}
       dateMacker={dateMacker}
+     
+        checkNotificationsHandler={checkNotificationsHandler}
+        // setShowNotificationBox={setShowNotificationBox}
 
     />
     </>

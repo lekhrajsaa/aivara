@@ -32,6 +32,8 @@ const Untitle = () => {
 
   const router = useRouter();
 
+
+//Routes to Home 
   function closeBtnHanlder() {
     router.push('/home')
   }
@@ -58,7 +60,6 @@ const Untitle = () => {
             Taxa_Details = Object.keys(item.objects_confidence[0])[0];
 
             let temp = report.map(rep => {
-              // console.log(rep, "test")
 
               if (rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
                 Count_of_Images++; //increasing by 1 when the texa is matched
@@ -112,7 +113,7 @@ const Untitle = () => {
         body: raw,
         redirect: 'follow'
       };
-
+//API to get the details of Table
       fetch(`${SERVER_URL}downloadTableViaEmail`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
@@ -137,7 +138,7 @@ const Untitle = () => {
     }
   };
 
-
+//Function to Uplaod a signature
   function fileInputChangeHandler(e) {
 
     const imgFile = e.target.files[0];

@@ -7,20 +7,15 @@ import { useRouter } from "next/router";
 import io from 'socket.io-client';
 
 import { useDispatch } from "react-redux";
-import { setAiReportData } from "../redux/dataAction";
+import { setAiReportData, setNotification } from "../redux/dataAction";
+import { notificationApi } from "../components/Notifications/notificationApi";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
+const SOCKET_URL = "https://socket.aivara.in";
+
+
 const detail = () => {
-  // const socket = io(`https://socket-server-demo-i.herokuapp.com`);//* socket url
-  // const socket = io(`https://dev.aivara.in`);//* socket url
-  // const socket = io(`http://13.232.246.133`);//* socket url
-  // const socket = io(`http://localhost:8000`);//* socket url
-
-  const dispatch = useDispatch();
-
-  // const [isRealTimeData, setIsRealTimeData] = useState(false);
-  // const [realtimeData, setRealtimeData] = useState({});
 
   const router = useRouter();
   const [show, setShow] = useState(true);
@@ -32,54 +27,31 @@ const detail = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   socket.on('test api', (data) => {
-  //     console.log(data)
-  //   })
-
-  //   socket.on('report data', (data) => {
-  //     console.log(data);
-
-  //     setIsRealTimeData(data.flag);
-  //     setRealtimeData(data);
-  //   });
-  // }, [socket])
-
-  //if realtime data received and flag is true
-  // if (isRealTimeData) {
-  //   console.log(realtimeData, "gg");
-
-  //   if (realtimeData.token && realtimeData.reportId) {
-  //     var myHeaders = new Headers();
-  //     myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
-  //     myHeaders.append("Authorization", `Bearer ${realtimeData.token}`);
-
-  //     var requestOptions = {
-  //       method: 'GET',
-  //       headers: myHeaders,
-  //       redirect: 'follow'
-  //     };
-
-  //     fetch(`${SERVER_URL}userReportData/${realtimeData.reportId}`, requestOptions)
-  //       .then(response => response.text())
-  //       .then(result => {
-  //         console.log(result)
-  //         dispatch(setAiReportData(JSON.parse(result)))
-  //         router.push("/analysis")
-  //       })
-  //       .catch(error => console.log('error', error));
-  //   }
-
-  // }
-
-
-  // const [token, setToken] = useState(false);
-  // useEffect(() => {
-  //   setToken(localStorage.getItem("isloggin"));
-  // }, []);
-  // if (token === null) {
-  //   window.location.href = "/";
-  // }
+    // realtime notification
+    const socket = io(SOCKET_URL);
+    const dispatch = useDispatch();
+  
+    useEffect(() => {
+  
+      socket.on('test api', (data) => {
+        console.log(data);
+      });
+  
+      socket.on('report data', (data) => {
+        console.log(data);
+  
+        notificationApi()
+          .then((response) => {
+            console.log(response.data.data.getNotification.notifications)
+            dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      });
+  
+    }, [socket])
+    // realtime notification
   return (
     <div>
       <link rel="preconnect" href="https://fonts.googleapis.com" />

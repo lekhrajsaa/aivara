@@ -5,11 +5,9 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Tab from "@mui/material/Tab";
 import classes from "./EditProfile.module.css";
 import { Button, Form, Modal } from "react-bootstrap";
-// import { Xapkey } from "../aivara";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import axios from "axios";
-// import { Visibility } from "@mui/icons-material";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
 import Stack from "@mui/material/Stack";
@@ -44,20 +42,22 @@ const EditProfile = () => {
   const [errorHandle, setErrorHandle] = useState(false);
 
   // logic for enabling and disabling the input field
-
   const [usernameDisabled, setUsernameDisabled] = useState(true);
   const [emailDisabled, setEmailDisabled] = useState(true);
   const [success, setSuccess] = useState(false);
   const [ErrorMessage, setErrorMessage] = useState(false);
+
+  //Enabling and disabling to edit the USERNAME 
   function onusernameClickEditIcon() {
     setUsernameDisabled(!usernameDisabled);
   }
+
+  //Enabling and disabling to edit the LABNAME 
   function onEmailClickEditIcon() {
     setEmailDisabled(!emailDisabled);
   }
 
-  ////TRY
-
+//Function for submitting the USERNAME and LABNAME after they are edited. 
   const onsubmit = async (e) => {
     const Token = localStorage.getItem("token");
     setUsernameDisabled(true);
@@ -94,6 +94,9 @@ const EditProfile = () => {
         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
       },
     };
+
+    // API call for Change in USERNAME and LABNAME
+
     try {
       const resp = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_API}api/v1`,
@@ -106,7 +109,7 @@ const EditProfile = () => {
     }
   };
 
-  //logic for model open and close
+  //logic for password model to open and close
   const [show, setShow] = useState(false);
   const [check, setCheck] = useState(false);
   const handleClose = () => setShow(false);
@@ -114,7 +117,7 @@ const EditProfile = () => {
   const checkMessage = () => {
     setCheck(!check);
   };
-
+ // CHeck for the validation of PASSWORD
   const Passwordvalidate = (value) => {
     if (
       validator.isStrongPassword(value, {
@@ -130,6 +133,7 @@ const EditProfile = () => {
       return false;
     }
   };
+  //Checking if the oldpassword enterd by user equals to the oldpassword
   const onSubmitPassword = async () => {
     const Token = localStorage.getItem("token");
     if (userdata.password !== user.oldPassword) {
@@ -163,6 +167,7 @@ const EditProfile = () => {
         "x-api-key": `${process.env.NEXT_PUBLIC_XAPI}`,
       },
     };
+    //API call for passing NEW_PASSWORD and OLD_PASSWORD
     try {
       if (Passwordvalidate(user.newPassword)) {
         const resp = await axios.post(
@@ -192,7 +197,7 @@ const EditProfile = () => {
       console.log(err);
     }
   };
-
+//Function to show and hide the PASSWORD
   function showPassword() {
     var x = document.getElementById("myInput");
     if (x.type === "password") {
@@ -208,9 +213,7 @@ const EditProfile = () => {
       </a>
       <label className={classes.heading}>Your Profile</label>
 
-      {/* <a onClick={() => router.push("/home")} className={classes.back}>
-        back
-      </a> */}
+      
 
       <div className={classes.details}>
         <form>

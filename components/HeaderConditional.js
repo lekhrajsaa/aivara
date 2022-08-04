@@ -4,7 +4,6 @@ import { Col, Container, Row } from "reactstrap";
 import classes from "./HeaderConditional.module.css";
 import { useRouter } from "next/router";
 import user from "../public/Profile_White.svg";
-// import { Navbar,Container, Nav, NavDropdown } from "react-bootstrap";
 import { CgProfile } from "react-icons/cg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutPopup from "./util/logoutPopup";
@@ -15,7 +14,7 @@ import { setNotification } from '../redux/dataAction';
 
 import axios from "axios";
 
-
+//NAVBAR Without the signout button
 function WithoutSignout(props) {
   return (
     <div className={classes.body}>
@@ -27,7 +26,7 @@ function WithoutSignout(props) {
     </div>
   );
 }
-
+//NAVBAR with Signout button
 function WithSignout(props) {
   const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
   const [showNotificationBox, setShowNotificationBox] = useState(false);
@@ -40,32 +39,13 @@ function WithSignout(props) {
     fetchNotification()
   }, []);
 
-    // const Snackk = () => {
-  //   return (
-  //     <Stack spacing={2} sx={{ width: "100%" }}>
-  //       <Snackbar
-  //         open={newMessage}
-  //         autoHideDuration={6000}
-  //         onClose={() => setNewMessage(false)}
-  //       >
-  //         <Alert
-  //           onClose={() => setNewMessage(false)}
-  //           severity="success"
-  //           sx={{ width: "100%" }}
-  //         >
-  //           {messg}
-  //         </Alert>
-  //       </Snackbar>
-  //     </Stack>
-  //   )
-  // }
-
+//Function to remove the Data from LOCALSTORAGE
   const removeDetail = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     window.location.href = "/";
   };
-
+//Function to fetch NOTIFICATION To header
   const fetchNotification = async () => {
     const token = localStorage.getItem('token');
     const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
@@ -98,7 +78,7 @@ function WithSignout(props) {
       },
       data: data
     };
-
+    //API to fetch NOTIFICATION
     try {
       const response = await axios(config);
       console.log(response.data.data.getNotification.notifications)
@@ -107,7 +87,7 @@ function WithSignout(props) {
       console.log(error)
     }
   }
-
+//function to show any unread notification throw the icon
   function notificationIconClickHandler() {
     setShowNotificationBox((prv) => !prv);
   }
@@ -210,6 +190,7 @@ function WithSignout(props) {
   );
 }
 
+//NAVBAR without PROFILE_ICON
 function WithoutPofile(props) {
   const [profileIcon, setProfileIcon] = useState(true);
 
@@ -241,8 +222,7 @@ function WithoutPofile(props) {
             <div className={classes.dropdown}>
               <button className={classes.dropbtn}>
                 {" "}
-                {/* <img className={classes.img} src="/user.svg"></img> */}
-                {/* <CgProfile className={classes.img} /> */}
+                
                 <img src="./Profile_White.svg" className={classes.img}></img>
               </button>
               <div className={classes.dropdown_content}>
@@ -263,6 +243,7 @@ function WithoutPofile(props) {
   );
 }
 
+//Function to display NAVBAR according to condition
 function Header(props) {
   const headerWithSignout = props.headerWithSignout;
   const icon = props.icon;
