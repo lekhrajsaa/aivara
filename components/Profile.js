@@ -9,7 +9,6 @@ import {
 } from "../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Xapkey } from "../apikey";
-// import { Link, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { BiChevronDown } from "react-icons/bi";
@@ -17,8 +16,6 @@ import { BiChevronUp } from "react-icons/bi";
 
 import { useRouter } from "next/router";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-// import Paper from "@material-ui/core/Paper";
-// import SearchBar from "material-ui-search-bar";
 import { AiOutlineSearch } from "react-icons/ai";
 import empty from "../asset/empty.png";
 import {
