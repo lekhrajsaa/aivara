@@ -5,19 +5,16 @@ import { setNotification } from '../../redux/dataAction';
 import { useRouter } from 'next/router';
 import { style } from '@mui/system';
 
+//destructuring data 
 const allNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotificationsHandler }) => {
 
+ //redux data
   const notifications = useSelector(state => state.userdata.notification);
   const dispatch = useDispatch();
 
   const router = useRouter();
 
-
-
-
-
-
-  // console.log('not', data)
+  //function for changing notification status in database
   function notificationClickHanlder(id) {
 
     const modNotifications = [...notifications];
@@ -28,11 +25,10 @@ const allNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotifica
       }
     })
     dispatch(setNotification(modNotifications))
-    // setShowNotificationBox(false)
-    // console.log("hello")
+    
     router.push('/reports')
   }
-  // console.log("hello",data)
+
 
   return (
     <>

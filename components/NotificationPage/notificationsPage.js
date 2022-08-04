@@ -7,18 +7,20 @@ import { setNotification, setSocketConn } from '../../redux/dataAction';
 import { useSelector, useDispatch } from 'react-redux';
 import AllNotifications from '../NotificationPage/allNotifications'
 const notificationsPage = () => {
-
+ //essential credential for fetching data
   const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+
   const dispatch = useDispatch();
 
+  //fetching data from redux
   const notifications = useSelector((state) => {
     // console.log(state)
     console.log(state.userdata.notification)
     return state.userdata.notification;
   });
 
- 
+ //feching Notifications from server
   const fetchNotification = async () => {
     const token = localStorage.getItem('token');
 
@@ -39,6 +41,7 @@ const notificationsPage = () => {
       variables: {}
     });
 
+    //header configration for fetcing notifications data
     var config = {
       method: 'post',
       url: `${SERVER_URL}api/v1`,
@@ -66,6 +69,7 @@ const notificationsPage = () => {
   }, [])
 
 
+  // request for updating notification status in database
   const checkNotificationsHandler = async (ids) => {
     const token = localStorage.getItem('token')
 
@@ -102,6 +106,7 @@ const notificationsPage = () => {
     }
   }
 
+  //convrting timestap into custom time
   const timeMacker = (timeStamp) => {
     if (timeStamp) {
       const newDate = new Date(timeStamp);
@@ -112,7 +117,7 @@ const notificationsPage = () => {
       return `${h}:${m}`
     }
   }
-
+//convrting timestap into custom date
   const dateMacker = (timeStamp) => {
     if (timeStamp) {
       const newDate = new Date(timeStamp);
@@ -122,32 +127,19 @@ const notificationsPage = () => {
   }
 
 
-  // function viewAllClickHandler() {
-  //   let uncheckedIds = notifications.map(item => item.id);
-  //   checkNotificationsHandler(uncheckedIds);
-
-  //   const modNotifications = [...notifications];
-  //   modNotifications.forEach(item => {
-  //     item.checked = true;
-  //   })
-  //   dispatch(setNotification(modNotifications))
-    
-  // }
+  
 
   return (
     <>
       <Header headerWithSignout={true} />
       <Sidebar />
-  
+  {/* passing data as props */}
       <AllNotifications 
-        // key={notifications.id}
-        // id={notifications.id}
       data={notifications}
       timeMacker={timeMacker}
       dateMacker={dateMacker}
-     
         checkNotificationsHandler={checkNotificationsHandler}
-        // setShowNotificationBox={setShowNotificationBox}
+      
 
     />
     </>
