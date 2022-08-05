@@ -124,7 +124,7 @@ const NotificationBox = ({ setShowNotificationBox }) => {
         <div
             tabIndex={0}
             ref={notificationBox}
-            // onBlur={blurHanlder}
+            //  onBlur={blurHanlder}
             className={classes.mainContainer}
         >
             <div className={classes.triangle}></div>
