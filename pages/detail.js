@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import GenerateDetails from "../components/GenerateDetails";
-import HeaderApp from "../components/HeaderApp";
-import Header from "../components/HeaderConditional";
+import GenerateDetails from "../components/generate_report/GenerateDetails";
+// import HeaderApp from "../components/HeaderApp";
+import Header from "../components/header/HeaderConditional";
 import { useRouter } from "next/router";
 
 import io from 'socket.io-client';

@@ -1,9 +1,9 @@
 import Head from "next/head";
 
-import Footer from "../components/Footer"
-import Header from "../components/Header"
-import classes from "../components/LoginForm.module.css"
-import LoginForm from "../components/LoginForm"
+import Footer from "../components/footer/Footer"
+// import Header from "../components/Header"
+// import classes from "../components/LoginForm.module.css"
+import LoginForm from "../components/signup_and_login/LoginForm"
 import { useState } from "react";
 
 export default function Home() {

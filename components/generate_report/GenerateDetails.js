@@ -9,7 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { Xapkey } from "../apikey";
+import { Xapkey } from "../../apikey";
 import { ResetTvRounded, TryRounded } from "@mui/icons-material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -21,8 +21,8 @@ import Router, { useRouter } from "next/router";
 import FormLabel from "@mui/material/FormLabel";
 
 import FormControl from "@mui/material/FormControl";
-import BackdropBuffer from "./backdrop_buffer/backdrop_buffer";
-import { setDetailData } from "../redux/dataAction";
+import BackdropBuffer from "../backdrop_buffer/backdrop_buffer";
+import { setDetailData } from "../../redux/dataAction";
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });

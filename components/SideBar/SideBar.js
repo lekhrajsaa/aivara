@@ -11,15 +11,6 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 
-// import {
-//   Dialog,
-//   DialogTitle,
-//   Button,
-//   DialogActions,
-//   DialogContent,
-//   DialogContentText,
-// } from "@mui/material";
-
 //import icons from react icons
 import { FaList, FaRegHeart } from "react-icons/fa";
 import {
@@ -45,6 +36,7 @@ import { CgLogOff } from "react-icons/cg";
 import "react-pro-sidebar/dist/css/styles.css";
 import classes from "./SideBar.module.css";
 import LogoutPopup from "../util/logoutPopup";
+// import './Sidebar.css'
 
 const Sidebar = (props) => {
   const router = useRouter();

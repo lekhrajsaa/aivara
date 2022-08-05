@@ -1,13 +1,13 @@
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { Box, Tab, Tabs, TabPanel } from "@mui/material";
-import classes from "./LoginForm.module.css";
-import { setImages } from "../redux/dataAction";
+import classes from "../signup_and_login/LoginForm.module.css";
+import { setImages } from "../../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { Construction } from "@mui/icons-material";
 import axios from "axios";
-import BackdropBuffer from './backdrop_buffer/backdrop_buffer';
+import BackdropBuffer from '../backdrop_buffer/backdrop_buffer';
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 

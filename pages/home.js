@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import Header from "../components/HeaderConditional";
+import Header from "../components/Header/HeaderConditional";
 import Sidebar from "../components/SideBar/SideBar";
-import NewHome from "../components/newHome";
+import NewHome from "../components/home_page/newHome";
 import { useRouter } from "next/router";
 import NotificationBox from "../components/Notifications/notificationBox";
 import { notificationApi } from "../components/Notifications/notificationApi";

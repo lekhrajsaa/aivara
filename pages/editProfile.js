@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import Header from "../components/HeaderConditional";
-import EditProfile from "../components/EditProfile";
+import Header from "../components/header/HeaderConditional";
+import EditProfile from "../components/user_profile/EditProfile";
 export default function home() {
   const router = useRouter();
   const [show, setShow] = useState(true);

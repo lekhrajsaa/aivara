@@ -5,7 +5,7 @@ import store from "../store";
 import { persistGet } from "redux-persist/integration/react";
 import { persistor } from "../store";
 // import './SideBar.css';
-import "../components/SideBar.css";
+import "../components/sidebar/SideBar.css";
 
 
 import io from 'socket.io-client';

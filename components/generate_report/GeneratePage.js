@@ -1,8 +1,8 @@
 
 
-import Header from "../HeaderConditional";
+import Header from "../header/HeaderConditional";
 
-import StyledDropzone from "../Upload"
+import StyledDropzone from "./Upload"
 import { Nav, Container } from "react-bootstrap";
 import classes from "./all.module.css";
 import { route } from "next/dist/server/router";

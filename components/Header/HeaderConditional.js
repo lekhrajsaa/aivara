@@ -3,14 +3,14 @@ import { Col, Container, Row } from "reactstrap";
 
 import classes from "./HeaderConditional.module.css";
 import { useRouter } from "next/router";
-import user from "../public/Profile_White.svg";
+// import user from "../public/Profile_White.svg";
 import { CgProfile } from "react-icons/cg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import LogoutPopup from "./util/logoutPopup";
-import NotificationBox from "./Notifications/notificationBox";
+import LogoutPopup from "../util/logoutPopup";
+import NotificationBox from "../Notifications/notificationBox";
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setNotification } from '../redux/dataAction';
+import { setNotification } from '../../redux/dataAction';
 
 import axios from "axios";
 
@@ -201,6 +201,10 @@ function WithoutPofile(props) {
     window.location.href = "/";
   };
 
+  function logoClickHanlder(){
+    router.push('/home')
+  }
+
   return (
     <div style={{ backgroundColor: "#000000" }} className={classes.mobileH}>
       <nav className={"navbar " + classes.fix}>
@@ -210,9 +214,10 @@ function WithoutPofile(props) {
             className={classes.heading}
           >
             <a
-              href="/Home"
+              // href="/home"
               className={classes.brandname}
-              style={{ color: "white" }}
+              style={{ color: "white", cursor: 'pointer' }}
+              onClick={logoClickHanlder}
             >
               AIVARA
             </a>

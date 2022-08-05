@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import ImageUploaded from "../components/form-submitted/ImageUploaded";
-import Header from "../components/HeaderConditional";
+import Header from "../components/header/HeaderConditional";
 
 import { notificationApi } from "../components/Notifications/notificationApi";
 import { setNotification } from "../redux/dataAction";

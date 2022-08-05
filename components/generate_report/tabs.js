@@ -4,7 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import StyledDropzone from "./Upload";
+import StyledDropzone from "./GenerateReportPages/Upload";
 import { decomposeColor } from "@mui/material";
 
 import PreviewMultipleImages from "./multiplefile";

@@ -1,14 +1,14 @@
 import { Col, Container, Row } from "reactstrap";
-import classes from "./LoginForm.module.css";
+import classes from "../signup_and_login/LoginForm.module.css";
 import axios from "axios";
 import {
   Getting_user_data,
   setAiReportData,
   setPrevPage,
   setReportTableData,
-} from "../redux/dataAction";
+} from "../../redux/dataAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Xapkey } from "../apikey";
+import { Xapkey } from "../../apikey";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import { BiChevronDown } from "react-icons/bi";
@@ -17,7 +17,7 @@ import { BiChevronUp } from "react-icons/bi";
 import { useRouter } from "next/router";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import { AiOutlineSearch } from "react-icons/ai";
-import empty from "../asset/empty.png";
+// import empty from "../asset/empty.png";
 import {
   Dialog,
   DialogTitle,

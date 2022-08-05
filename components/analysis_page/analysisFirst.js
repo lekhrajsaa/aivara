@@ -5,14 +5,14 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import AliceCarousel from "react-alice-carousel";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { useState } from "react";
-import CarouselFinal from "./carousel/carouselFinal";
+import CarouselFinal from "../carousel/carouselFinal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
-import { images } from "./carousel/Images";
+import { images } from "../carousel/Images";
 import {
   BsArrowLeft,
   BsArrowRight,
@@ -29,9 +29,9 @@ import {
   DialogContentText
 } from '@mui/material';
 
-import Test from "./test";
+import Test from "../test";
 import ImagePreview from "./Image_preview/imagePreview";
-import { setAiReportData } from "../redux/dataAction";
+import { setAiReportData } from "../../redux/dataAction";
 // import { ModelTraining } from "@mui/icons-material";
 // import ReactImageAnnotate from "react-image-annotate";
 const image =
@@ -164,15 +164,23 @@ const Analysisheader = () => {
         return index !== id;
       });
 
-      setGenus(temp)
-      setSpecies();
+
+      // setGenus(temp)
       //updating report data
       updatedReportData.data[currentIndex].genus = temp;
-
+      
       console.log(updatedReportData, " and ", DataFromAI)
-
+      
       // console.log(temp)
 
+      return temp;
+    });
+    
+    setSpecies((prevalue) => {
+      let temp = prevalue.filter((item, index) => {
+
+        return index !== id;
+      });
       return temp;
     });
   };

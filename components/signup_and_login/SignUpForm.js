@@ -11,10 +11,10 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 import { ProSidebar, SidebarContent } from "react-pro-sidebar";
-import Header from "./Header";
+import Header from "../Header/Header";
 import "react-pro-sidebar/dist/css/styles.css";
-import sidebar from "./Sidenav.module.css";
-import Footer from "./Footer";
+import sidebar from "../sidebar/Sidenav.module.css";
+import Footer from "../footer/Footer";
 import validator from "validator";
 import { set } from "lodash";
 

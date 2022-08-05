@@ -3,7 +3,7 @@ import { Col, Container, Row } from "reactstrap";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./newHome.module.css";
-import calClass from "./LoginForm.module.css";
+import calClass from "../signup_and_login/LoginForm.module.css";
 import { BiChevronDown } from "react-icons/bi";
 import {
   Button,
@@ -18,7 +18,7 @@ import { FiChevronDown } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
 
 import { DayPicker } from 'react-day-picker';
-import { setPrevPage } from "../redux/dataAction";
+import { setPrevPage } from "../../redux/dataAction";
 
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;

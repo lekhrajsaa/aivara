@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from '../HeaderConditional'
+import Header from '../header/HeaderConditional'
 import Sidebar from '../SideBar/SideBar'
 import axios from 'axios'
 import { useEffect } from 'react'

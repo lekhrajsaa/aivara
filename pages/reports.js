@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Header from "../components/HeaderConditional";
-import Profile from "../components/Profile";
+import Header from "../components/header/HeaderConditional";
+import Profile from "../components/reports_page/Profile";
 import Sidebar from "../components/SideBar/SideBar";
-import classes from "../components/LoginForm.module.css";
+// import classes from "../components/LoginForm.module.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import { Col, Container, Row } from "reactstrap";
 import { useRouter } from "next/router";

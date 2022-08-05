@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import classes from "./imagePreview.module.css";
-import Test from "../test";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import Annotation from "react-image-annotation";
 

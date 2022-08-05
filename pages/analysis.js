@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Analysisheader from "../components/analysisFirst";
+import Analysisheader from "../components/analysis_page/analysisFirst";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { notificationApi } from "../components/Notifications/notificationApi";

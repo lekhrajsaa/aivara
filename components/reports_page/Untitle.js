@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { EmailShareButton } from 'react-share'
-import Header from "../components/HeaderConditional";
+import Header from "../header/HeaderConditional";
 
 
 

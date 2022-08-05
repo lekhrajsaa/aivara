@@ -6,10 +6,10 @@ import SignUpForm from "./SignUpForm";
 
 import { ProSidebar, SidebarContent } from "react-pro-sidebar";
 import { Col, Container, Row } from "reactstrap";
-import sidebar from "./Sidenav.module.css";
-import Header from "./Header";
-import HeaderMobile from "./HeaderMobile";
-import Footer from "./Footer";
+import sidebar from "../sidebar/Sidenav.module.css";
+import Header from "../Header/Header";
+import HeaderMobile from "../Header/HeaderMobile";
+import Footer from "../footer/Footer";
 import axios from "axios";
 
 import Stack from "@mui/material/Stack";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import Header from "../components/HeaderConditional";
-import Untitle from "../components/Untitle";
+// import Header from "../components/HeaderConditional";
+import Untitle from "../components/reports_page/Untitle";
 import { useRouter } from "next/router";
 
 export default function home() {

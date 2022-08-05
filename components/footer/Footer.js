@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "reactstrap";
-import classes from "./LoginForm.module.css";
+import classes from "../signup_and_login/LoginForm.module.css";
 
 const Footer = () => {
   return (
