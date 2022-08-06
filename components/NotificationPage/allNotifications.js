@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { style } from '@mui/system';
 
 //destructuring data 
-const allNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotificationsHandler }) => {
+const allNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotificationsHandler, timestampConverter }) => {
 
  //redux data
   const notifications = useSelector(state => state.userdata.notification);
@@ -59,7 +59,7 @@ const allNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotifica
               <div onClick={() => { notificationClickHanlder(item.id) }} className={`${classes.notificationRow} ${item.checked ? '' : classes.notRead}`} id={item.id}>
                 <div>
                   <span>{item.clientName}</span><br></br>
-                  <span>{timeMacker(item.customTimeStamp)} ,{dateMacker(item.customTimeStamp)}</span>
+                  <span>{timestampConverter(item.customTimeStamp)}</span>
                 </div>
                 <div>
                   {item.reportStatus}
