@@ -100,7 +100,7 @@
   /* -ms-overflow-style: none;   */
   /* Firefox */
   /* scrollbar-width: none;  */
-  /* min-height: 600px; */
+  min-height: 600px;
 
 
 }
