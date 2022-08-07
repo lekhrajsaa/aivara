@@ -58,8 +58,8 @@ const allNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotifica
 
               <div onClick={() => { notificationClickHanlder(item.id) }} className={`${classes.notificationRow} ${item.checked ? '' : classes.notRead}`} id={item.id}>
                 <div>
-                  <span>{item.clientName}</span><br></br>
-                  <span>{timestampConverter(item.customTimeStamp)}</span>
+                  <span style={{ color:"#313131"}}>{item.clientName}</span><br></br>
+                  <span style={{color:"black"}}>{timestampConverter(item.customTimeStamp)}</span>
                 </div>
                 <div>
                   {item.reportStatus}
