@@ -138,10 +138,10 @@ const NotificationsPage = () => {
   const timestampConverter = (stamp) => {
 
     // today
-    if (stamp < NEXT_DAT_IN_MS && stamp > TODAY_IN_MS) { console.log("its today"); return "today"; };
+    if (stamp < NEXT_DAT_IN_MS && stamp > TODAY_IN_MS) { console.log("its today"); return `${timeMacker(stamp)+","+"today"}`; };
 
     // yesterday
-    if (stamp < TODAY_IN_MS && stamp > TODAY_IN_MS - ONE_DAYIN_MS) { console.log("its yester day"); return "yesterday"; };
+    if (stamp < TODAY_IN_MS && stamp > TODAY_IN_MS - ONE_DAYIN_MS) { console.log("its yester day"); return `${timeMacker(stamp) + "," + "Yesterday"}`; };
     
     // custom 30days
     if (stamp < TODAY_IN_MS - ONE_DAYIN_MS && stamp > TODAY_IN_MS - 30 * ONE_DAYIN_MS) {
