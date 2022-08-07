@@ -1,7 +1,7 @@
 import classes from "./ReportSubmit.module.css";
 import { useRouter } from "next/router";
-import getTabs from "./tab";
-import Tabs from 'react-responsive-tabs';
+// import getTabs from "./tab";
+// import Tabs from 'react-responsive-tabs';
 const ReportSubmit = () => {
   const router = useRouter();
   return (

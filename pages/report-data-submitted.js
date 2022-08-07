@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ReportSubmitted from "../components/form-submitted/ReportSubmitted";
-import Header from "../components/HeaderConditional";
+import Header from "../components/Header/HeaderConditional";
 
 import { notificationApi } from "../components/Notifications/notificationApi";
 import { setNotification } from "../redux/dataAction";

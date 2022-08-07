@@ -1,7 +1,7 @@
-import Header from "../components/HeaderConditional";
-import Sidebar from "../components/SideBar/SideBar";
+// import Header from "../components/Header/HeaderConditional";
+// import Sidebar from "../components/SideBar/SideBar";
 // import { BrowserRouter as Router } from "react-router-dom";
-import EmailVerified from "../components/EmailVerified";
+import EmailVerified from "../components/signup_and_login/EmailVerified";
 function home() {
   return (
     <>
