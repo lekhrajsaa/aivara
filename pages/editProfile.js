@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import Header from "../components/header/HeaderConditional";
+import Header from "../components/Header/HeaderConditional";
 import EditProfile from "../components/user_profile/EditProfile";
 export default function home() {
   const router = useRouter();
@@ -15,7 +15,7 @@ export default function home() {
   });
   return (
     <>
-      {/* <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
       <script
         src="https://kit.fontawesome.com/f80c821559.js"
         crossorigin="anonymous"
@@ -30,7 +30,7 @@ export default function home() {
         src="https://kit.fontawesome.com/4a4ddc9f6c.js"
         crossorigin="anonymous"
       ></script>
-      <link rel="stylesheet" type="text/css" href="style.css"></link> */}
+      <link rel="stylesheet" type="text/css" href="style.css"></link>
 
 
       {show && (

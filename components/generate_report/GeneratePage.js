@@ -1,6 +1,6 @@
 
 
-import Header from "../header/HeaderConditional";
+import Header from "../Header/HeaderConditional";
 
 import StyledDropzone from "./Upload"
 import { Nav, Container } from "react-bootstrap";

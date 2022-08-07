@@ -6,7 +6,7 @@ import SignUpForm from "./SignUpForm";
 
 import { ProSidebar, SidebarContent } from "react-pro-sidebar";
 import { Col, Container, Row } from "reactstrap";
-import sidebar from "../sidebar/Sidenav.module.css";
+import sidebar from "../SideBar/Sidenav.module.css";
 import Header from "../Header/Header";
 import HeaderMobile from "../Header/HeaderMobile";
 import Footer from "../footer/Footer";

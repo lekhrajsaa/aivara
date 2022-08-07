@@ -1,12 +1,13 @@
 import React from 'react'
-import Header from '../header/HeaderConditional'
+import Header from '../Header/HeaderConditional'
 import Sidebar from '../SideBar/SideBar'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { setNotification, setSocketConn } from '../../redux/dataAction';
 import { useSelector, useDispatch } from 'react-redux';
 import AllNotifications from '../NotificationPage/allNotifications'
-const notificationsPage = () => {
+
+const NotificationsPage = () => {
   //essential credential for fetching data
   const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
@@ -170,4 +171,4 @@ const notificationsPage = () => {
   )
 }
 
-export default notificationsPage
+export default NotificationsPage

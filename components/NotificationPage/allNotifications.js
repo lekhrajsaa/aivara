@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { style } from '@mui/system';
 
 //destructuring data 
-const allNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotificationsHandler, timestampConverter }) => {
+const AllNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotificationsHandler, timestampConverter }) => {
 
  //redux data
   const notifications = useSelector(state => state.userdata.notification);
@@ -77,4 +77,4 @@ const allNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotifica
   )
 }
 
-export default allNotifications
+export default AllNotifications

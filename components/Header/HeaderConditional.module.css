@@ -124,10 +124,9 @@ box-shadow:
 .righBody {
   display: none;
 }
-.dropdown {
-  /* padding-right: 10%; */
+/* .dropdown {
   margin-left: -15%;
-}
+} */
 
 .notificationDot{
   position: absolute;
