@@ -21,6 +21,7 @@ const NotificationsPage = () => {
     return state.userdata.notification;
   });
 
+  
   //feching Notifications from server
   const fetchNotification = async () => {
     const token = localStorage.getItem('token');
@@ -146,7 +147,7 @@ const NotificationsPage = () => {
     // custom 30days
     if (stamp < TODAY_IN_MS - ONE_DAYIN_MS && stamp > TODAY_IN_MS - 30 * ONE_DAYIN_MS) {
       console.log(`its ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1} days ago`);
-      return `${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1} days ago`;
+      return `${timeMacker(stamp)} , ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1}days ago`;
     };
 
     // beyond 30 days
