@@ -26,6 +26,13 @@ a {
   outline: 2px solid lime;
   /* box-shadow: none !important; */
 }
+.ixSjBM{
+  /* display: none; */
+}
+.kMGxMA{
+  /* z-index: 200; */
+}
+
 
 /*For alice carausel modification*/
 .alice-carousel__stage-item{

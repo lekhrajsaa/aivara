@@ -21,6 +21,7 @@ import {
 
 import ImagePreview from "./Image_preview/imagePreview";
 import { setAiReportData } from "../../redux/dataAction";
+import CarouselPreviewImage from "./CarouselPreviewImage";
 
 const image =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSleNg85PLgTXzYbZyiSuStVjNbdHmrp6NorQ&usqp=CAU";
@@ -155,6 +156,21 @@ const Analysisheader = () => {
 
   // const updatedReportData = DataFromAI;
   const [updatedReportData, setUpdatedReportData] = useState(DataFromAI);
+  const [annotations, setAnnotations] = useState([
+    {
+      geometry: {
+        type: 'RECTANGLE',
+        x: 20,
+        y: 20,
+        width: 40,
+        height: 20,
+      },
+      data: {
+        text: 'test',
+        id: 1
+      }
+    }
+  ]);
 
   const mimage = useSelector((state) => state.userdata.modelimge);
   const router = useRouter();
@@ -249,8 +265,8 @@ const Analysisheader = () => {
     setSpecies(prv => prv.filter((item, index) => i !== index));
     // alert(JSON.stringify(updatedReportData[currentIndex].objects_confidence));
     let newObjectConfs = updatedReportData[currentIndex].objects_confidence.filter((item, index) => i !== index)
-    setUpdatedReportData(prv => { prv[currentIndex].objects_confidence = newObjectConfs; return prv;})
-    setObjectCount(prv => --prv)
+    setUpdatedReportData(prv => { prv[currentIndex].objects_confidence = newObjectConfs; return prv; })
+    setObjectCount(prv => --prv);
     // console.log('codfjsfj', updatedReportData[currentIndex].objects_confidence.filter((item, index) => i !== index))
   };
 
@@ -284,24 +300,48 @@ const Analysisheader = () => {
 
   useEffect(() => {
     console.log('rpt', updatedReportData)
+    console.log('currentIndex', currentIndex)
+    if (updatedReportData) {
 
-    let tempGenus = updatedReportData[currentIndex].objects_confidence.map(item => {
-      let genus = Object.keys(item)[0].split(' ')[0];
-      return genus;
+      updateAnnotations();
+
+      let tempGenus = updatedReportData[currentIndex].objects_confidence.map(item => {
+        let genus = Object.keys(item)[0].split(' ')[0];
+        return genus;
+      })
+      let tempSpecies = updatedReportData[currentIndex].objects_confidence.map(item => {
+        let species = Object.keys(item)[0].split(' ')[1];
+        return species;
+      })
+
+      setGenus(tempGenus);
+      setSpecies(tempSpecies);
+      setObjectCount(updatedReportData[currentIndex].objects_confidence.length)
+    }
+
+  }, [currentIndex, updatedReportData[currentIndex].objects_confidence, open]);
+
+  const updateAnnotations = () => {
+    let tempAnnotations = updatedReportData[currentIndex].objects_confidence.map(obj => {
+      let TEXT = Object.keys(obj)[0];
+      let Label_ID_1 = TEXT + Math.random();
+
+      return {
+        geometry: {
+          type: 'RECTANGLE',
+          x: obj.coordinates.x,
+          y: obj.coordinates.y,
+          width: obj.coordinates.w,
+          height: obj.coordinates.h,
+        },
+        data: {
+          text: TEXT || 'test',
+          id: Label_ID_1
+        }
+      }
     })
-    let tempSpecies = updatedReportData[currentIndex].objects_confidence.map(item => {
-      let species = Object.keys(item)[0].split(' ')[1];
-      return species;
-    })
-
-    setGenus(tempGenus);
-    setSpecies(tempSpecies);
-    setObjectCount(updatedReportData[currentIndex].objects_confidence.length)
-    // }
-
-  }, [currentIndex, updatedReportData, open]);
-
-
+    setAnnotations(tempAnnotations)
+  }
 
 
   function addGenusFormSubmitHanlder(e) {
@@ -446,7 +486,15 @@ const Analysisheader = () => {
 
               <div className={classes.carousel_main}>
                 <div id="bigImage" className={classes.bigImage}>
-                  <img src={galleryItems[currentIndex]} />
+                  {/* <img src={galleryItems[currentIndex]} /> */}
+                  <CarouselPreviewImage
+                    galleryItems={galleryItems}
+                    currentIndex={currentIndex}
+                    setPreviewImage={setPreviewImage}
+                    reportData={updatedReportData}
+                    setUpdatedReportData={setUpdatedReportData}
+                    annotations={annotations}
+                  />
                 </div>
                 <div className={classes.carousel_item}>
                   <AliceCarousel
