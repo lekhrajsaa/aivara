@@ -39,118 +39,129 @@ const style = {
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
+// const DataFromAI = [
+//   {
+//     "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
+//     "objects_confidence": [
+//       {
+//         "gomphonema1 parvulum1": 0.999646,
+//         "coordinates": {
+//           "x": 73,
+//           "y": 21,
+//           "w": 20,
+//           "h": 32
+//         }
+//       },
+//       {
+//         "parvulum2 gomphonema2": 0.999646,
+//         "coordinates": {
+//           "x": 50,
+//           "y": 21,
+//           "w": 20,
+//           "h": 32
+//         }
+//       }
+//     ],
+//     "objects_count": {
+//       "gomphonema parvulum": 1,
+//       "parvulum gomphonema": 1,
+//     }
+//   },
+//   {
+//     "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
+//     "objects_confidence": [
+//       {
+//         "gomphonema3 parvulum3": 0.999646,
+//         "coordinates": {
+//           "x": 3,
+//           "y": 50,
+//           "w": 20,
+//           "h": 10
+//         }
+//       },
+//       {
+//         "parvulum4 gomphonema4": 0.999646,
+//         "coordinates": {
+//           "x": 50,
+//           "y": 21,
+//           "w": 20,
+//           "h": 10
+//         }
+//       }
+//     ],
+//     "objects_count": {
+//       "gomphonema parvulum": 1,
+//       "parvulum gomphonema": 1,
+//     }
+//   },
+//   {
+//     "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
+//     "objects_confidence": [
+//       {
+//         "gomphonema5 parvulum5": 0.999646,
+//         "coordinates": {
+//           "x": 3,
+//           "y": 50,
+//           "w": 20,
+//           "h": 10
+//         }
+//       },
+//       {
+//         "parvulum6 gomphonema6": 0.999646,
+//         "coordinates": {
+//           "x": 50,
+//           "y": 21,
+//           "w": 20,
+//           "h": 10
+//         }
+//       }
+//     ],
+//     "objects_count": {
+//       "gomphonema parvulum": 1,
+//       "parvulum gomphonema": 1,
+//     }
+//   },
+//   {
+//     "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
+//     "objects_confidence": [
+//       {
+//         "gomphonema7 parvulum7": 0.999646,
+//         "coordinates": {
+//           "x": 3,
+//           "y": 50,
+//           "w": 20,
+//           "h": 10
+//         }
+//       },
+//       {
+//         "parvulum8 gomphonema8": 0.999646,
+//         "coordinates": {
+//           "x": 50,
+//           "y": 21,
+//           "w": 20,
+//           "h": 10
+//         }
+//       }
+//     ],
+//     "objects_count": {
+//       "gomphonema parvulum": 1,
+//       "parvulum gomphonema": 1,
+//     }
+//   }
+// ];
+
 const Analysisheader = () => {
   // const DataFromAI = null;
-  const DataFromAI = [
-    {
-      "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
-      "objects_confidence": [
-        {
-          "gomphonema1 parvulum1": 0.999646,
-          "coordinates": {
-            "x": 73,
-            "y": 21,
-            "w": 20,
-            "h": 32
-          }
-        },
-        {
-          "parvulum2 gomphonema2": 0.999646,
-          "coordinates": {
-            "x": 50,
-            "y": 21,
-            "w": 20,
-            "h": 32
-          }
-        }
-      ],
-      "objects_count": {
-        "gomphonema parvulum": 1,
-        "parvulum gomphonema": 1,
-      }
-    },
-    {
-      "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
-      "objects_confidence": [
-        {
-          "gomphonema3 parvulum3": 0.999646,
-          "coordinates": {
-            "x": 3,
-            "y": 50,
-            "w": 20,
-            "h": 10
-          }
-        },
-        {
-          "parvulum4 gomphonema4": 0.999646,
-          "coordinates": {
-            "x": 50,
-            "y": 21,
-            "w": 20,
-            "h": 10
-          }
-        }
-      ],
-      "objects_count": {
-        "gomphonema parvulum": 1,
-        "parvulum gomphonema": 1,
-      }
-    },
-    {
-      "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
-      "objects_confidence": [
-        {
-          "gomphonema5 parvulum5": 0.999646,
-          "coordinates": {
-            "x": 3,
-            "y": 50,
-            "w": 20,
-            "h": 10
-          }
-        },
-        {
-          "parvulum6 gomphonema6": 0.999646,
-          "coordinates": {
-            "x": 50,
-            "y": 21,
-            "w": 20,
-            "h": 10
-          }
-        }
-      ],
-      "objects_count": {
-        "gomphonema parvulum": 1,
-        "parvulum gomphonema": 1,
-      }
-    },
-    {
-      "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
-      "objects_confidence": [
-        {
-          "gomphonema7 parvulum7": 0.999646,
-          "coordinates": {
-            "x": 3,
-            "y": 50,
-            "w": 20,
-            "h": 10
-          }
-        },
-        {
-          "parvulum8 gomphonema8": 0.999646,
-          "coordinates": {
-            "x": 50,
-            "y": 21,
-            "w": 20,
-            "h": 10
-          }
-        }
-      ],
-      "objects_count": {
-        "gomphonema parvulum": 1,
-        "parvulum gomphonema": 1,
-      }
-    }
-  ];
+
+  const tempAiData = useSelector((state) => state.userdata.reportDataFrom_AI); // todo
+  const reportId = tempAiData.reportId; // todo
+  const photos = tempAiData.photos; // todo
+  const report = tempAiData.report; // todo
+  
+  console.log(tempAiData, reportId, photos, report, "ai data test"); // todo delete
+
+  const DataFromAI = tempAiData.report; // * check
+
 
   const dispatch = useDispatch();
 
