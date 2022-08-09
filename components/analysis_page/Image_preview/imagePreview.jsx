@@ -73,7 +73,7 @@ export default class ImagePreview extends Component {
       // console.log('repoData', this.props.reportData)
       console.log('Annotation', annotation)
       let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
-        let text = Object.keys(item)[0];
+        let text = Object.keys(item)[1];
         console.log('text', text)
         return {
           X_CENTER_NORM: item.coordinates.x,
@@ -120,13 +120,13 @@ export default class ImagePreview extends Component {
         let obj = new Object();
         obj[TEXT] = 0;
         let obj1 = {
-          ...obj,
           "coordinates": {
             "x": X_CENTER_NORM,
             "y": Y_CENTER_NORM,
             "w": WIDTH_NORM,
             "h": HEIGHT_NORM
-          }
+          },
+          ...obj
         }
         this.props.reportData[this.props.currentIndex].objects_confidence.push(obj1);
 
@@ -159,7 +159,7 @@ export default class ImagePreview extends Component {
     console.log('report data', this.props.reportData)
     // let Annotations = this.props.reportData.data[this.props.currentIndex].annotations;
     let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
-      let text = Object.keys(item)[0];
+      let text = Object.keys(item)[1];
       console.log('text', text)
       return {
         X_CENTER_NORM: item.coordinates.x,

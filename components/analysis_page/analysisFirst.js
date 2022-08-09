@@ -158,7 +158,7 @@ const Analysisheader = () => {
   const photos = tempAiData.photos; // todo
   const report = tempAiData.report; // todo
   
-  console.log(tempAiData, reportId, photos, report, "ai data test"); // todo delete
+  console.log('all',tempAiData, reportId, photos, report, "ai data test"); // todo delete
 
   const DataFromAI = tempAiData.report; // * check
 
@@ -166,7 +166,7 @@ const Analysisheader = () => {
   const dispatch = useDispatch();
 
   // const updatedReportData = DataFromAI;
-  const [updatedReportData, setUpdatedReportData] = useState(DataFromAI);
+  const [updatedReportData, setUpdatedReportData] = useState(DataFromAI || []);
   const [annotations, setAnnotations] = useState([
     {
       geometry: {
@@ -192,6 +192,7 @@ const Analysisheader = () => {
   const [open, setPreviewImage] = React.useState(false);
   const [miaClass, setMainClass] = useState(false);
   const route = useRouter();
+
 
   //==================species===============
   const speciesKeyDown = (e) => {
@@ -231,7 +232,8 @@ const Analysisheader = () => {
   // Carsousel
   const [currentIndex, setcurrentIndex] = useState(0);
   const [itemsInSlide, setitemsInSlide] = useState(2);
-  const [galleryItems, setgalleryItems] = useState(images);
+  // const [galleryItems, setgalleryItems] = useState(images);
+  const [galleryItems, setgalleryItems] = useState(photos?.map(item => item.url) || []);
   const [openSubmitReportDilogBox, setOpenSubmitReportDilogBox] = useState(false);
 
   const slideTo = (i) => {
@@ -241,7 +243,7 @@ const Analysisheader = () => {
     console.log("slide");
     const { itemsInSlide, item } = event;
 
-    setcurrentIndex((item + 1) % galleryItems.length);
+    setcurrentIndex((item + 1) % galleryItems?.length);
     // console.log(currentIndex ,updatedReportData)
     // setcurrentIndex(item);
     setitemsInSlide(item);
@@ -284,10 +286,10 @@ const Analysisheader = () => {
 
   useEffect(() => {
     const allSlides = document.querySelectorAll('.alice-carousel__stage-item');
-    const bigImg = document.querySelector('#bigImage');
+    const currentImage = galleryItems[currentIndex];
 
     Array.from(allSlides).forEach(slide => {
-      if (slide.children[0].children[0].src === bigImg.children[0].src) {
+      if (slide.children[0].children[0].src === currentImage) {
         slide.children[0].children[0].classList.add('hero');
       } else {
         slide.children[0].children[0].classList.remove('hero');
@@ -317,11 +319,11 @@ const Analysisheader = () => {
       updateAnnotations();
 
       let tempGenus = updatedReportData[currentIndex].objects_confidence.map(item => {
-        let genus = Object.keys(item)[0].split(' ')[0];
+        let genus = Object.keys(item)[1].split(' ')[0];
         return genus;
       })
       let tempSpecies = updatedReportData[currentIndex].objects_confidence.map(item => {
-        let species = Object.keys(item)[0].split(' ')[1];
+        let species = Object.keys(item)[1].split(' ')[1];
         return species;
       })
 
@@ -330,11 +332,11 @@ const Analysisheader = () => {
       setObjectCount(updatedReportData[currentIndex].objects_confidence.length)
     }
 
-  }, [currentIndex, updatedReportData[currentIndex].objects_confidence, open]);
+  }, [currentIndex, updatedReportData[currentIndex]?.objects_confidence, open]);
 
   const updateAnnotations = () => {
     let tempAnnotations = updatedReportData[currentIndex].objects_confidence.map(obj => {
-      let TEXT = Object.keys(obj)[0];
+      let TEXT = Object.keys(obj)[1];
       let Label_ID_1 = TEXT + Math.random();
 
       return {
@@ -399,7 +401,7 @@ const Analysisheader = () => {
               <h5>Taxa details of the classified image</h5>
             </div>
             <div className={classes.analysis_cross_icon}>
-              <AiOutlineClose onClick={() => { route.push("/home"); dispatch(setAiReportData({})) }} />
+              <AiOutlineClose onClick={() => { route.push("/reports"); dispatch(setAiReportData({})) }} />
             </div>
           </div>
           <div className={classes.analysis_body}>
@@ -523,14 +525,14 @@ const Analysisheader = () => {
                     onSlideChanged={handleOnSlideChange}
                     onResized={handleOnSlideChange}
                   >
-                    {galleryItems.map((item, i) => (
+                    {galleryItems?.map((item, i) => (
                       <span key={i} onClick={() => slideTo(i)}>
                         <img className={classes.imagestyle} src={item} />
                       </span>
                     ))}
 
                   </AliceCarousel>
-                  <span style={{ fontFamily: 'Sora', fontSize: '18px', fontWeight: '400' }}>Image: {(currentIndex + 1) + ' / ' + (galleryItems.length)}</span>
+                  <span style={{ fontFamily: 'Sora', fontSize: '18px', fontWeight: '400' }}>Image: {(currentIndex + 1) + ' / ' + (galleryItems?.length)}</span>
                 </div>
               </div>
 
