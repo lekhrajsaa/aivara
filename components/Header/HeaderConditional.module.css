@@ -60,7 +60,6 @@ box-shadow:
 }
 
 .dropdown_content {
-  /* display: none; */
   position: absolute;
   right: 0px;
   background-color: #f1f1f1;
@@ -96,13 +95,6 @@ box-shadow:
   color: 000000;
 }
 
-.dropdown:hover .dropdown_content {
-  /* display: block; */
-}
-
-/* .widthfix{
- height: 2.5;
-} */
 .mobileH {
   /* height: 4vw; */
   min-height: 25px;
