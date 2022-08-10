@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import classes from "../components/Header.module.css";
-import HeaderMobile from "../components/HeaderMobile";
-import styles from "../components/LoginForm.module.css";
+// import classes from "../components/Header.module.css";
+import classes from "../components/Header/Header.module.css";
+import HeaderMobile from "../components/Header/HeaderMobile";
+
+
+// import styles from "../components/LoginForm.module.css";
 import { useRouter } from "next/router";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";

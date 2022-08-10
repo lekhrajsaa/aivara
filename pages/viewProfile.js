@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import Header from "../components/HeaderConditional";
-import ViewProfile from "../components/ViewProfile";
+import Header from "../components/Header/HeaderConditional";
+import ViewProfile from "../components/user_profile/ViewProfile";
 import { useRouter } from "next/router";
 
 export default function home() {

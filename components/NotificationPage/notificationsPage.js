@@ -1,13 +1,14 @@
 import React from 'react'
-import Header from '../header/HeaderConditional'
+import Header from '../Header/HeaderConditional'
 import Sidebar from '../SideBar/SideBar'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { setNotification, setSocketConn } from '../../redux/dataAction';
 import { useSelector, useDispatch } from 'react-redux';
 import AllNotifications from '../NotificationPage/allNotifications'
-const notificationsPage = () => {
- //essential credential for fetching data
+
+const NotificationsPage = () => {
+  //essential credential for fetching data
   const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
   const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
@@ -20,7 +21,8 @@ const notificationsPage = () => {
     return state.userdata.notification;
   });
 
- //feching Notifications from server
+  
+  //feching Notifications from server
   const fetchNotification = async () => {
     const token = localStorage.getItem('token');
 
@@ -57,7 +59,7 @@ const notificationsPage = () => {
       const response = await axios(config);
       console.log(response.data.data.getNotification.notifications)
       dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
-      
+
     } catch (error) {
       console.log(error)
     }
@@ -99,7 +101,7 @@ const notificationsPage = () => {
       try {
         const response = await axios(config);
         console.log(response);
-        
+
       } catch (error) {
         console.log(error)
       }
@@ -117,7 +119,7 @@ const notificationsPage = () => {
       return `${h}:${m}`
     }
   }
-//convrting timestap into custom date
+  //convrting timestap into custom date
   const dateMacker = (timeStamp) => {
     if (timeStamp) {
       const newDate = new Date(timeStamp);
@@ -126,24 +128,48 @@ const notificationsPage = () => {
     }
   }
 
+  // custom day maker
+  const todaay = new Date();
+  const ONE_DAYIN_MS = 86400000;
+  const TODAY_IN_MS = new Date(
+    `${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`
+  ).getTime(); // at 12am
+  const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
 
-  
+  const timestampConverter = (stamp) => {
+
+    // today
+    if (stamp < NEXT_DAT_IN_MS && stamp > TODAY_IN_MS) { console.log("its today"); return `${timeMacker(stamp)+","+"today"}`; };
+
+    // yesterday
+    if (stamp < TODAY_IN_MS && stamp > TODAY_IN_MS - ONE_DAYIN_MS) { console.log("its yester day"); return `${timeMacker(stamp) + "," + "Yesterday"}`; };
+    
+    // custom 30days
+    if (stamp < TODAY_IN_MS - ONE_DAYIN_MS && stamp > TODAY_IN_MS - 30 * ONE_DAYIN_MS) {
+      console.log(`its ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1} days ago`);
+      return `${timeMacker(stamp)} , ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1}days ago`;
+    };
+
+    // beyond 30 days
+    return `${timeMacker(stamp)} , ${dateMacker(stamp)}`
+  }
+
 
   return (
     <>
       <Header headerWithSignout={true} />
       <Sidebar />
-  {/* passing data as props */}
-      <AllNotifications 
-      data={notifications}
-      timeMacker={timeMacker}
-      dateMacker={dateMacker}
+      {/* passing data as props */}
+      <AllNotifications
+        data={notifications}
+        timeMacker={timeMacker}
+        dateMacker={dateMacker}
         checkNotificationsHandler={checkNotificationsHandler}
-      
+        timestampConverter={timestampConverter}
 
-    />
+      />
     </>
   )
 }
 
-export default notificationsPage
+export default NotificationsPage

@@ -320,14 +320,27 @@ const Profile = () => {
         redirect: "follow",
       };
 
-      fetch(`${SERVER_URL}userReportData/${reportId}`, requestOptions)
-        .then((response) => response.text())
+      fetch(`${SERVER_URL}getOneReport/${reportId}`, requestOptions)
+        .then((response) => response.json())
         .then((result) => {
-          console.log(result);
-          dispatch(setAiReportData(JSON.parse(result)));
-          router.push("/analysis");
+          if (result && result.data && result.data.Item) {
+            console.log(result.data.Item, "one");
+            dispatch(setAiReportData(result.data.Item));
+            router.push("/analysis");
+          }
         })
         .catch((error) => console.log("error", error));
+
+      // fetch(`${SERVER_URL}userReportData/${reportId}`, requestOptions)
+      //   .then((response) => response.text())
+      //   .then((result) => {
+      //     console.log(result, "two");
+      //     dispatch(setAiReportData(JSON.parse(result)));
+      //     router.push("/analysis");
+      //   })
+      //   .catch((error) => console.log("error", error));
+
+
     }
   }
 

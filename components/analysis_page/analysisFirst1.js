@@ -3,26 +3,37 @@ import classes from "./analysis.module.css";
 import { AiOutlineClose } from "react-icons/ai";
 import "react-alice-carousel/lib/alice-carousel.css";
 import AliceCarousel from "react-alice-carousel";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { useState } from "react";
+import CarouselFinal from "../carousel/carouselFinal";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 import { useRouter } from "next/router";
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { images } from "../carousel/Images";
 import {
+  BsArrowLeft,
+  BsArrowRight,
   BsEye,
   BsArrowRightShort,
+  AiOutlineDownload,
 } from "react-icons/bs";
 import {
   Dialog,
   DialogTitle,
   Button,
   DialogActions,
+  DialogContent,
+  DialogContentText
 } from '@mui/material';
 
+import Test from "../test";
 import ImagePreview from "./Image_preview/imagePreview";
 import { setAiReportData } from "../../redux/dataAction";
-import CarouselPreviewImage from "./CarouselPreviewImage";
-
+// import { ModelTraining } from "@mui/icons-material";
+// import ReactImageAnnotate from "react-image-annotate";
 const image =
   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSleNg85PLgTXzYbZyiSuStVjNbdHmrp6NorQ&usqp=CAU";
 
@@ -39,149 +50,14 @@ const style = {
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
-// const DataFromAI = [
-//   {
-//     "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
-//     "objects_confidence": [
-//       {
-//         "gomphonema1 parvulum1": 0.999646,
-//         "coordinates": {
-//           "x": 73,
-//           "y": 21,
-//           "w": 20,
-//           "h": 32
-//         }
-//       },
-//       {
-//         "parvulum2 gomphonema2": 0.999646,
-//         "coordinates": {
-//           "x": 50,
-//           "y": 21,
-//           "w": 20,
-//           "h": 32
-//         }
-//       }
-//     ],
-//     "objects_count": {
-//       "gomphonema parvulum": 1,
-//       "parvulum gomphonema": 1,
-//     }
-//   },
-//   {
-//     "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
-//     "objects_confidence": [
-//       {
-//         "gomphonema3 parvulum3": 0.999646,
-//         "coordinates": {
-//           "x": 3,
-//           "y": 50,
-//           "w": 20,
-//           "h": 10
-//         }
-//       },
-//       {
-//         "parvulum4 gomphonema4": 0.999646,
-//         "coordinates": {
-//           "x": 50,
-//           "y": 21,
-//           "w": 20,
-//           "h": 10
-//         }
-//       }
-//     ],
-//     "objects_count": {
-//       "gomphonema parvulum": 1,
-//       "parvulum gomphonema": 1,
-//     }
-//   },
-//   {
-//     "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
-//     "objects_confidence": [
-//       {
-//         "gomphonema5 parvulum5": 0.999646,
-//         "coordinates": {
-//           "x": 3,
-//           "y": 50,
-//           "w": 20,
-//           "h": 10
-//         }
-//       },
-//       {
-//         "parvulum6 gomphonema6": 0.999646,
-//         "coordinates": {
-//           "x": 50,
-//           "y": 21,
-//           "w": 20,
-//           "h": 10
-//         }
-//       }
-//     ],
-//     "objects_count": {
-//       "gomphonema parvulum": 1,
-//       "parvulum gomphonema": 1,
-//     }
-//   },
-//   {
-//     "imageId": "f8c95192-a4b0-4ce7-bbe6-e50421aec514",
-//     "objects_confidence": [
-//       {
-//         "gomphonema7 parvulum7": 0.999646,
-//         "coordinates": {
-//           "x": 3,
-//           "y": 50,
-//           "w": 20,
-//           "h": 10
-//         }
-//       },
-//       {
-//         "parvulum8 gomphonema8": 0.999646,
-//         "coordinates": {
-//           "x": 50,
-//           "y": 21,
-//           "w": 20,
-//           "h": 10
-//         }
-//       }
-//     ],
-//     "objects_count": {
-//       "gomphonema parvulum": 1,
-//       "parvulum gomphonema": 1,
-//     }
-//   }
-// ];
-
 const Analysisheader = () => {
-  // const DataFromAI = null;
-
-  const tempAiData = useSelector((state) => state.userdata.reportDataFrom_AI); // todo
-  const reportId = tempAiData.reportId; // todo
-  const photos = tempAiData.photos; // todo
-  const report = tempAiData.report; // todo
-  
-  console.log(tempAiData, reportId, photos, report, "ai data test"); // todo delete
-
-  const DataFromAI = tempAiData.report; // * check
-
-
+  // const DataFromAI = useSelector((state) => state.userdata.reportDataFrom_AI);
+  const DataFromAI = null;
   const dispatch = useDispatch();
 
   // const updatedReportData = DataFromAI;
   const [updatedReportData, setUpdatedReportData] = useState(DataFromAI);
-  const [annotations, setAnnotations] = useState([
-    {
-      geometry: {
-        type: 'RECTANGLE',
-        x: 20,
-        y: 20,
-        width: 40,
-        height: 20,
-      },
-      data: {
-        text: 'test',
-        id: 1
-      }
-    }
-  ]);
+
 
   const mimage = useSelector((state) => state.userdata.modelimge);
   const router = useRouter();
@@ -269,18 +145,49 @@ const Analysisheader = () => {
 
   // ===============Genus===================
   const genusKeyDown = (e) => {
-    console.log(e)
+    if (e.key !== "Enter") return;
+    const value = e.target.value;
+    if (!value.trim()) return;
+    setGenus([...Genus, value]);
+    e.target.value = "";
+    e.preventDefault()
+
+    //updating report data
+    updatedReportData?.data[currentIndex].genus = [...Genus, value];
+
+    console.log(updatedReportData, " and ", DataFromAI)
   };
-  const genusremoveTag = (i) => {
-    setGenus(prv => prv.filter((item, index) => i !== index));
-    setSpecies(prv => prv.filter((item, index) => i !== index));
-    // alert(JSON.stringify(updatedReportData[currentIndex].objects_confidence));
-    let newObjectConfs = updatedReportData[currentIndex].objects_confidence.filter((item, index) => i !== index)
-    setUpdatedReportData(prv => { prv[currentIndex].objects_confidence = newObjectConfs; return prv; })
-    setObjectCount(prv => --prv);
-    // console.log('codfjsfj', updatedReportData[currentIndex].objects_confidence.filter((item, index) => i !== index))
+  const genusremoveTag = (id) => {
+    // setGenus(Genus.filter((el, i) => i == index));
+    setGenus((prevalue) => {
+      let temp = prevalue.filter((item, index) => {
+
+        return index !== id;
+      });
+
+
+      // setGenus(temp)
+      //updating report data
+      updatedReportData?.data[currentIndex].genus = temp;
+
+      console.log(updatedReportData, " and ", DataFromAI)
+
+      // console.log(temp)
+
+      return temp;
+    });
+
+    setSpecies((prevalue) => {
+      let temp = prevalue.filter((item, index) => {
+
+        return index !== id;
+      });
+      return temp;
+    });
   };
 
+  //ai report data....
+  console.log(DataFromAI);
 
   useEffect(() => {
     const allSlides = document.querySelectorAll('.alice-carousel__stage-item');
@@ -296,64 +203,78 @@ const Analysisheader = () => {
   }, [currentIndex])
 
 
-  // useEffect(() => {
-  //   if (DataFromAI?.data) {
-  //     // console.log(DataFromAI)
+  useEffect(() => {
+    if (DataFromAI?.data) {
+      // console.log(DataFromAI)
 
-  //     const imagesFromAI = DataFromAI?.data.map(item => item.imageUrl);
+      const imagesFromAI = DataFromAI?.data.map(item => item.imageUrl);
 
-  //     console.log(imagesFromAI)
-  //     if (imagesFromAI.length > 0) {
-  //       setgalleryItems(imagesFromAI)
-  //     }
-  //   }
-  // }, [DataFromAI])
+      console.log(imagesFromAI)
+      if (imagesFromAI.length > 0) {
+        setgalleryItems(imagesFromAI)
+      }
+    }
+  }, [DataFromAI])
 
   useEffect(() => {
+    // if (DataFromAI && DataFromAI.data) {
+
+    // let text = JSON.stringify(DataFromAI.data[currentIndex].objects_count);
+    // let names = text.split(":")[0];
+
+    // let newName = names.slice(2, names.length-1)
+
+    // let firstName = newName.split(" ")[0];
+    // let secondName = newName.split(" ")[1];
+
+    // console.log(currentIndex,"test  ", text, " ", names, "length :", names.length, "new ", newName);
+    // console.log(firstName, secondName)     
+    // console.log(DataFromAI.data[0].objects_confidence);
     console.log('rpt', updatedReportData)
-    console.log('currentIndex', currentIndex)
-    if (updatedReportData) {
+    if (updatedReportData?.data[currentIndex].genus && updatedReportData.data[currentIndex].genus.length > 0) {
+      console.log('rrr')
+      console.log(updatedReportData?.data[currentIndex].genus)
+      setGenus(updatedReportData?.data[currentIndex].genus)
+    } else {
+      console.log('confi', updatedReportData)
+      // let tempGenus = DataFromAI.data[currentIndex].objects_confidence.map(item => {
+      let tempGenus = updatedReportData?.data[currentIndex].objects_confidence.map(item => {
+        let text = JSON.stringify(item);
+        let names = text.split(":")[0];
 
-      updateAnnotations();
+        let newName = names.slice(2, names.length - 1)
 
-      let tempGenus = updatedReportData[currentIndex].objects_confidence.map(item => {
-        let genus = Object.keys(item)[0].split(' ')[0];
-        return genus;
+        let firstName = newName.split(" ")[0];
+
+        console.log('confff', firstName)
+        return firstName;
       })
-      let tempSpecies = updatedReportData[currentIndex].objects_confidence.map(item => {
-        let species = Object.keys(item)[0].split(' ')[1];
-        return species;
-      })
-
+      console.log(tempGenus);
       setGenus(tempGenus);
-      setSpecies(tempSpecies);
-      setObjectCount(updatedReportData[currentIndex].objects_confidence.length)
     }
 
-  }, [currentIndex, updatedReportData[currentIndex].objects_confidence, open]);
 
-  const updateAnnotations = () => {
-    let tempAnnotations = updatedReportData[currentIndex].objects_confidence.map(obj => {
-      let TEXT = Object.keys(obj)[0];
-      let Label_ID_1 = TEXT + Math.random();
 
-      return {
-        geometry: {
-          type: 'RECTANGLE',
-          x: obj.coordinates.x,
-          y: obj.coordinates.y,
-          width: obj.coordinates.w,
-          height: obj.coordinates.h,
-        },
-        data: {
-          text: TEXT || 'test',
-          id: Label_ID_1
-        }
-      }
+    let tempSpecies = DataFromAI?.data[currentIndex].objects_confidence.map(item => {
+      let text = JSON.stringify(item);
+      let names = text.split(":")[0];
+
+      let newName = names.slice(2, names.length - 1)
+
+      let secondName = newName.split(" ")[1];
+
+      return secondName;
     })
-    setAnnotations(tempAnnotations)
-  }
 
+
+    console.log(tempSpecies);
+
+
+    setSpecies(tempSpecies);
+    setObjectCount(updatedReportData.data[currentIndex].objects_count)
+    // }
+
+  }, [currentIndex, updatedReportData]);
 
   function addGenusFormSubmitHanlder(e) {
     e.preventDefault();
@@ -448,7 +369,6 @@ const Analysisheader = () => {
               <form onSubmit={(e) => e.preventDefault()} className={classes.analysis_form}>
 
                 <div className="form-group" style={{ marginTop: "10px" }}>
-
                   <label htmlFor="Inputgenus" style={{ fontWeight: "500" }}>
                     Add new Genus
                   </label>
@@ -466,7 +386,6 @@ const Analysisheader = () => {
                       width: '90%',
                     }}
                   />
-
                 </div>
                 <button
                   style={{
@@ -497,15 +416,7 @@ const Analysisheader = () => {
 
               <div className={classes.carousel_main}>
                 <div id="bigImage" className={classes.bigImage}>
-                  {/* <img src={galleryItems[currentIndex]} /> */}
-                  <CarouselPreviewImage
-                    galleryItems={galleryItems}
-                    currentIndex={currentIndex}
-                    setPreviewImage={setPreviewImage}
-                    reportData={updatedReportData}
-                    setUpdatedReportData={setUpdatedReportData}
-                    annotations={annotations}
-                  />
+                  <img src={galleryItems[currentIndex]} />
                 </div>
                 <div className={classes.carousel_item}>
                   <AliceCarousel

@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../HeaderConditional';
+import Header from '../Header/HeaderConditional';
 import CustomProgressBar from './customProgressBar';
 
 import classes from './uploadProgressPage.module.css';

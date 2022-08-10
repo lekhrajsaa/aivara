@@ -528,15 +528,15 @@
 }
 
 .bigImage {
-  /* visibility: hidden; */
   margin-left: 2.7px;
-  /* width: 70%; */
   width: 100%;
   height: 300px;
-  overflow: hidden;
+  overflow: visible;
   border: 2px solid black;
-  /* border: 2px solid rgb(6, 6, 6); */
+  position: relative;
+  z-index: 10;
 }
+
 .bigImage img {
   width: 100%;
   height: 300px;
