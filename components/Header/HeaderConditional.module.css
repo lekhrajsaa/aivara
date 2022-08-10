@@ -60,7 +60,7 @@ box-shadow:
 }
 
 .dropdown_content {
-  display: none;
+  /* display: none; */
   position: absolute;
   right: 0px;
   background-color: #f1f1f1;
@@ -97,7 +97,7 @@ box-shadow:
 }
 
 .dropdown:hover .dropdown_content {
-  display: block;
+  /* display: block; */
 }
 
 /* .widthfix{
@@ -129,11 +129,11 @@ box-shadow:
   margin-left: -15%;
 }
 
-.notificationDot{
+.notificationDot {
   position: absolute;
-  background-color: #3699FB;
-  padding: .25rem;
+  background-color: #3699fb;
+  padding: 0.25rem;
   border-radius: 50%;
-  top: .3rem;
-  right: .15rem;
+  top: 0.3rem;
+  right: 0.15rem;
 }

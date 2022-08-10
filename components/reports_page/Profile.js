@@ -209,41 +209,6 @@ const Profile = () => {
     }
   };
 
-  //ascending order filter of date/time
-  const ascCompare = (a, b) => {
-    const t1 = new Date(a.customTimeStamp).valueOf();
-    const t2 = new Date(b.customTimeStamp).valueOf();
-    console.log(t1 - t2);
-    return t1 - t2;
-  };
-
-  // returns date/time with ascending order
-  const ascTime = () => {
-    if (searchInput !== "") {
-      setFilteredResults(filteredResults.sort(ascCompare));
-    } else {
-      setarray(array.sort(ascCompare));
-    }
-    setArrow(false);
-  };
-
-  //descending order filter of date/time
-  const descCompare = (a, b) => {
-    const t1 = new Date(a.customTimeStamp).valueOf();
-    const t2 = new Date(b.customTimeStamp).valueOf();
-    return t2 - t1;
-  };
-
-  // returns date/time with descending order
-  const descTime = () => {
-    if (searchInput !== "") {
-      setFilteredResults(filteredResults.sort(descCompare));
-    } else {
-      setarray(array.sort(descCompare));
-    }
-    setArrow(true);
-  };
-
   // ascending order filter of client name
   const compare = (a, b) => {
     const labA = a.clientName.toUpperCase();
@@ -288,6 +253,41 @@ const Profile = () => {
       setFilteredResults(filteredResults.sort(dCompare));
     } else {
       setarray(array.sort(dCompare));
+    }
+    setArrow(true);
+  };
+
+  //ascending order filter of date/time
+  const ascCompare = (a, b) => {
+    const t1 = new Date(a.customTimeStamp).valueOf();
+    const t2 = new Date(b.customTimeStamp).valueOf();
+    console.log(t1 - t2);
+    return t1 - t2;
+  };
+
+  // returns date/time with ascending order
+  const ascTime = () => {
+    if (searchInput !== "") {
+      setFilteredResults(filteredResults.sort(ascCompare));
+    } else {
+      setarray(array.sort(ascCompare));
+    }
+    setArrow(false);
+  };
+
+  //descending order filter of date/time
+  const descCompare = (a, b) => {
+    const t1 = new Date(a.customTimeStamp).valueOf();
+    const t2 = new Date(b.customTimeStamp).valueOf();
+    return t2 - t1;
+  };
+
+  // returns date/time with descending order
+  const descTime = () => {
+    if (searchInput !== "") {
+      setFilteredResults(filteredResults.sort(descCompare));
+    } else {
+      setarray(array.sort(descCompare));
     }
     setArrow(true);
   };

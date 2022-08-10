@@ -3,14 +3,12 @@ import { Col, Container, Row } from "reactstrap";
 
 import classes from "./HeaderConditional.module.css";
 import { useRouter } from "next/router";
-// import user from "../public/Profile_White.svg";
-import { CgProfile } from "react-icons/cg";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutPopup from "../util/logoutPopup";
 import NotificationBox from "../Notifications/notificationBox";
 
-import { useSelector, useDispatch } from 'react-redux';
-import { setNotification } from '../../redux/dataAction';
+import { useSelector, useDispatch } from "react-redux";
+import { setNotification } from "../../redux/dataAction";
 
 import axios from "axios";
 
@@ -26,28 +24,29 @@ function WithoutSignout(props) {
     </div>
   );
 }
+
 //NAVBAR with Signout button
 function WithSignout(props) {
   const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
   const [showNotificationBox, setShowNotificationBox] = useState(false);
 
-  const notifications = useSelector(state => state.userdata.notification);
+  const notifications = useSelector((state) => state.userdata.notification);
   const router = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchNotification()
+    fetchNotification();
   }, []);
 
-//Function to remove the Data from LOCALSTORAGE
+  //Function to remove the Data from LOCALSTORAGE
   const removeDetail = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     window.location.href = "/";
   };
-//Function to fetch NOTIFICATION To header
+  //Function to fetch NOTIFICATION To header
   const fetchNotification = async () => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
@@ -63,35 +62,46 @@ function WithSignout(props) {
                 checked
             }
             status
-        }
-    }`,
-      variables: {}
+          }
+        }`,
+      variables: {},
     });
 
     var config = {
-      method: 'post',
+      method: "post",
       url: `${SERVER_URL}api/v1`,
       headers: {
-        'x-api-key': X_API_KEY,
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+        "x-api-key": X_API_KEY,
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
-      data: data
+      data: data,
     };
     //API to fetch NOTIFICATION
     try {
       const response = await axios(config);
-      console.log(response.data.data.getNotification.notifications)
-      dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
+      console.log(response.data.data.getNotification.notifications);
+      dispatch(
+        setNotification(
+          response.data.data.getNotification.notifications.sort(function (
+            a,
+            b
+          ) {
+            return b.customTimeStamp - a.customTimeStamp;
+          })
+        )
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-//function to show any unread notification throw the icon
+  };
+  //function to show any unread notification throw the icon
   function notificationIconClickHandler() {
     setShowNotificationBox((prv) => !prv);
   }
 
+  // dropdown state
+  const [showDropDown, setShowDropDown] = useState(false);
   return (
     <div
       style={{
@@ -126,12 +136,15 @@ function WithSignout(props) {
                 position: "relative",
               }}
             >
-
               <NotificationsIcon
                 onClick={notificationIconClickHandler}
                 style={{ color: "white" }}
               />
-              {notifications && !(notifications?.filter(notif => notif.checked === false).length < 1) && <span className={classes.notificationDot} />}
+              {notifications &&
+                !(
+                  notifications?.filter((notif) => notif.checked === false)
+                    .length < 1
+                ) && <span className={classes.notificationDot} />}
               {/* <span className={classes.notificationDot}/> */}
             </span>
 
@@ -150,33 +163,34 @@ function WithSignout(props) {
                     width: "fit-content",
                   }}
                   className={classes.dropbtn}
+                  onClick={() => setShowDropDown(!showDropDown)}
                 >
                   {" "}
-                  {/* <img className={classes.img} src="/user.svg"></img> */}
-                  {/* <CgProfile className={classes.img} /> */}
                   <img src="./profileIcon.png" className={classes.img}></img>
                 </button>
-                <div className={classes.dropdown_content}>
-                  <a
-                    onClick={() => router.push("/editProfile")}
-                    style={{
-                      cursor: "pointer",
-                      color: "#000000",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Manage accounts
-                  </a>
-                  <a
-                    onClick={() => setOpenLogoutPopup(true)}
-                    style={{ color: "#000000", fontWeight: "500" }}
-                  >
-                    Sign out
-                  </a>
-                  <a href="#" style={{ color: "#000000", fontWeight: "500" }}>
-                    Help & Support
-                  </a>
-                </div>
+                {showDropDown ? (
+                  <div className={classes.dropdown_content}>
+                    <a
+                      onClick={() => router.push("/editProfile")}
+                      style={{
+                        cursor: "pointer",
+                        color: "#000000",
+                        fontWeight: "500",
+                      }}
+                    >
+                      Manage accounts
+                    </a>
+                    <a
+                      onClick={() => setOpenLogoutPopup(true)}
+                      style={{ color: "#000000", fontWeight: "500" }}
+                    >
+                      Sign out
+                    </a>
+                    <a href="#" style={{ color: "#000000", fontWeight: "500" }}>
+                      Help & Support
+                    </a>
+                  </div>
+                ) : null}
               </div>
             </Col>
           </div>
@@ -201,8 +215,8 @@ function WithoutPofile(props) {
     window.location.href = "/";
   };
 
-  function logoClickHanlder(){
-    router.push('/home')
+  function logoClickHanlder() {
+    router.push("/home");
   }
 
   return (
@@ -216,7 +230,7 @@ function WithoutPofile(props) {
             <a
               // href="/home"
               className={classes.brandname}
-              style={{ color: "white", cursor: 'pointer' }}
+              style={{ color: "white", cursor: "pointer" }}
               onClick={logoClickHanlder}
             >
               AIVARA
@@ -227,7 +241,6 @@ function WithoutPofile(props) {
             <div className={classes.dropdown}>
               <button className={classes.dropbtn}>
                 {" "}
-                
                 <img src="./Profile_White.svg" className={classes.img}></img>
               </button>
               <div className={classes.dropdown_content}>
