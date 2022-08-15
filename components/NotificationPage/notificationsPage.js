@@ -21,7 +21,7 @@ const NotificationsPage = () => {
     return state.userdata.notification;
   });
 
-  
+
   //feching Notifications from server
   const fetchNotification = async () => {
     const token = localStorage.getItem('token');
@@ -112,17 +112,25 @@ const NotificationsPage = () => {
   const timeMacker = (timeStamp) => {
     if (timeStamp) {
       const newDate = new Date(timeStamp);
- console.log(newDate)
-      const h = parseInt(newDate.getHours() / 10) === 0 ? `0${newDate.getHours()}` : `${newDate.getHours()}`
-      const m = parseInt(newDate.getMinutes() / 10) === 0 ? `0${newDate.getMinutes()}` : `${newDate.getMinutes()}`
+      console.log(parseInt(newDate.getHours()) % 12)
+      const h = `${(parseInt(newDate.getHours()) % 12) < 10 ? '0' : ''}${parseInt(newDate.getHours()) % 12}`;
+      const m = `${(parseInt(newDate.getMinutes()) % 60) < 10 ? '0' : ''}${parseInt(newDate.getMinutes()) % 60}${parseInt(newDate.getHours()) < 12 ? ' am' : ' pm'}`;
+
+      // const h = parseInt(newDate.getHours() / 10) === 0 ? `0${newDate.getHours()}` : `${newDate.getHours()}`
+      // const m = parseInt(newDate.getMinutes() / 10) === 0 ? `0${newDate.getMinutes()}` : `${newDate.getMinutes()}`
+
+      return `${h}:${m}`
+//  console.log(newDate)
+//       const h = parseInt(newDate.getHours() / 10) === 0 ? `0${newDate.getHours()}` : `${newDate.getHours()}`
+//       const m = parseInt(newDate.getMinutes() / 10) === 0 ? `0${newDate.getMinutes()}` : `${newDate.getMinutes()}`
       
-      if(h>12){
-        const hourFormateIn12hour=h-12;
-        return `${hourFormateIn12hour}:${m} PM`
-      }
-      else{
-        return `${h}:${m} AM`
-      }
+//       if(h>12){
+//         const hourFormateIn12hour=h-12;
+//         return `${hourFormateIn12hour}:${m} PM`
+//       }
+//       else{
+//         return `${h}:${m} AM`
+//       }
      
       // return `${hourFormateIn12hour}:${m}`;
     }
@@ -130,9 +138,14 @@ const NotificationsPage = () => {
   //convrting timestap into custom date
   const dateMacker = (timeStamp) => {
     if (timeStamp) {
-      const newDate = new Date(timeStamp);
 
-      return `${newDate.getDate()}/${newDate.getMonth() + 1}/${JSON.stringify(newDate.getFullYear()).slice(2, 4)}`
+      const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      // const d = new Date();
+      const newDate = new Date(timeStamp);
+      let selectedMonth = month[newDate.getMonth()];
+
+      return `${newDate.getDate()} ${selectedMonth}`
+      // return `${newDate.getDate()}/${newDate.getMonth() + 1}/${JSON.stringify(newDate.getFullYear()).slice(2, 4)}`
     }
   }
 
@@ -147,19 +160,24 @@ const NotificationsPage = () => {
   const timestampConverter = (stamp) => {
 
     // today
-    if (stamp < NEXT_DAT_IN_MS && stamp > TODAY_IN_MS) { console.log("its today"); return `${timeMacker(stamp)+", today"}`; };
+    if (stamp < NEXT_DAT_IN_MS && stamp > TODAY_IN_MS) { console.log("its today"); return `${timeMacker(stamp) + "," + " today"}`; };
 
     // yesterday
-    if (stamp < TODAY_IN_MS && stamp > TODAY_IN_MS - ONE_DAYIN_MS) { console.log("its yester day"); return `${timeMacker(stamp) + ", Yesterday"}`; };
+    if (stamp < TODAY_IN_MS && stamp > TODAY_IN_MS - ONE_DAYIN_MS) { console.log("its yester day"); return `${timeMacker(stamp) + "," + " Yesterday"}`; };
+
+    // if (stamp < NEXT_DAT_IN_MS && stamp > TODAY_IN_MS) { console.log("its today"); return `${timeMacker(stamp)+", today"}`; };
+
+    // // yesterday
+    // if (stamp < TODAY_IN_MS && stamp > TODAY_IN_MS - ONE_DAYIN_MS) { console.log("its yester day"); return `${timeMacker(stamp) + ", Yesterday"}`; };
     
     // custom 30days
-    if (stamp < TODAY_IN_MS - ONE_DAYIN_MS && stamp > TODAY_IN_MS - 30 * ONE_DAYIN_MS) {
-      console.log(`its ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1} days ago`);
-      return `${timeMacker(stamp)} , ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1}days ago`;
+    if (stamp < TODAY_IN_MS - ONE_DAYIN_MS && stamp > TODAY_IN_MS - 2 * ONE_DAYIN_MS) {
+      console.log(`its ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1}days ago`);
+      return `${timeMacker(stamp)}, ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1}days ago`;
     };
 
     // beyond 30 days
-    return `${timeMacker(stamp)} , ${dateMacker(stamp)}`
+    return `${timeMacker(stamp)}, ${dateMacker(stamp)}`
   }
 
 

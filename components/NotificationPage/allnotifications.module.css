@@ -1,45 +1,53 @@
-.notificationBox{
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        overflow-y: scroll;
-    width:75%;
-    height:475px;
-    margin-left:20%;
+.notificationBox {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: scroll;
+    width: 75%;
+    /* height: 475px; */
+    max-height: 70vh;
+    margin-left: 20%;
     /* border:2px solid red; */
 }
-.notificationBox::-webkit-scrollbar{
+
+.notificationBox::-webkit-scrollbar {
     display: none;
 }
 
- .notifi_heading{
+.notifi_heading {
     font-family: 'Sora';
-font-style: normal;
-position:relative;
-font-weight: 700;
-margin: 3% 20%;
-font-size: 20px;
-line-height: 25px;
-color: #000000;
+    font-style: normal;
+    position: relative;
+    font-weight: 700;
+    margin: 3% 20%;
+    font-size: 20px;
+    line-height: 25px;
+    color: #000000;
 
 }
-.notificationBox .notificationRow{
 
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-height: 50px;
-padding:5px 20px;
-font-family: 'Sora';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 18px;
-border-bottom:0.2px solid #9a9999;
+.notificationBox .notificationRow {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* height: 50px; */
+    padding: 5px 20px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    border-bottom: 1px solid #31313113;
 }
-.notificationRow.notRead{
+
+.notificationRow.notRead {
     background-color: #E9F1F9;
     border-left: 4px solid #3699FB;
     font-weight: 600;
-    
+}
+.reportStatus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
