@@ -120,6 +120,19 @@ const NotificationsPage = () => {
       // const m = parseInt(newDate.getMinutes() / 10) === 0 ? `0${newDate.getMinutes()}` : `${newDate.getMinutes()}`
 
       return `${h}:${m}`
+//  console.log(newDate)
+//       const h = parseInt(newDate.getHours() / 10) === 0 ? `0${newDate.getHours()}` : `${newDate.getHours()}`
+//       const m = parseInt(newDate.getMinutes() / 10) === 0 ? `0${newDate.getMinutes()}` : `${newDate.getMinutes()}`
+      
+//       if(h>12){
+//         const hourFormateIn12hour=h-12;
+//         return `${hourFormateIn12hour}:${m} PM`
+//       }
+//       else{
+//         return `${h}:${m} AM`
+//       }
+     
+      // return `${hourFormateIn12hour}:${m}`;
     }
   }
   //convrting timestap into custom date
@@ -152,6 +165,11 @@ const NotificationsPage = () => {
     // yesterday
     if (stamp < TODAY_IN_MS && stamp > TODAY_IN_MS - ONE_DAYIN_MS) { console.log("its yester day"); return `${timeMacker(stamp) + "," + " Yesterday"}`; };
 
+    // if (stamp < NEXT_DAT_IN_MS && stamp > TODAY_IN_MS) { console.log("its today"); return `${timeMacker(stamp)+", today"}`; };
+
+    // // yesterday
+    // if (stamp < TODAY_IN_MS && stamp > TODAY_IN_MS - ONE_DAYIN_MS) { console.log("its yester day"); return `${timeMacker(stamp) + ", Yesterday"}`; };
+    
     // custom 30days
     if (stamp < TODAY_IN_MS - ONE_DAYIN_MS && stamp > TODAY_IN_MS - 2 * ONE_DAYIN_MS) {
       console.log(`its ${Math.floor((TODAY_IN_MS - stamp) / ONE_DAYIN_MS) + 1}days ago`);
