@@ -166,7 +166,7 @@ const Analysisheader = () => {
   const dispatch = useDispatch();
 
   // const updatedReportData = DataFromAI;
-  const [updatedReportData, setUpdatedReportData] = useState(DataFromAI || []);
+  const [updatedReportData, setUpdatedReportData] = useState(tempAiData.report);
   const [annotations, setAnnotations] = useState([
     {
       geometry: {
@@ -237,13 +237,15 @@ const Analysisheader = () => {
   const [openSubmitReportDilogBox, setOpenSubmitReportDilogBox] = useState(false);
 
   const slideTo = (i) => {
-    setcurrentIndex(i);
+    setcurrentIndex(i-1);
   };
   const handleOnSlideChange = (event) => {
     console.log("slide");
     const { itemsInSlide, item } = event;
 
-    setcurrentIndex((item + 1) % galleryItems?.length);
+    if(updatedReportData.length > 1){
+      setcurrentIndex((item + 1) % galleryItems?.length);
+    }
     // console.log(currentIndex ,updatedReportData)
     // setcurrentIndex(item);
     setitemsInSlide(item);
@@ -315,7 +317,7 @@ const Analysisheader = () => {
     console.log('rpt', updatedReportData)
     console.log('currentIndex', currentIndex)
     if (updatedReportData) {
-
+      console.log(updatedReportData, 'formfdsfaj')
       updateAnnotations();
 
       let tempGenus = updatedReportData[currentIndex].objects_confidence.map(item => {
@@ -332,9 +334,10 @@ const Analysisheader = () => {
       setObjectCount(updatedReportData[currentIndex].objects_confidence.length)
     }
 
-  }, [currentIndex, updatedReportData[currentIndex]?.objects_confidence, open]);
+  }, [currentIndex, updatedReportData, open]);
 
   const updateAnnotations = () => {
+    console.log(updatedReportData, currentIndex, 'ff')
     let tempAnnotations = updatedReportData[currentIndex].objects_confidence.map(obj => {
       let TEXT = Object.keys(obj)[1];
       let Label_ID_1 = TEXT + Math.random();
@@ -363,7 +366,7 @@ const Analysisheader = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    if (DataFromAI?.data && updatedReportData?.data) {
+    if (DataFromAI?.data && all?.data) {
 
       const reportId = DataFromAI?.data[0].reportId;
 

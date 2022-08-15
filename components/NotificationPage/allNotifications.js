@@ -61,7 +61,7 @@ const AllNotifications = ({ id, key, data, dateMacker, timeMacker, checkNotifica
                   <span style={{ color:"#313131"}}>{item.clientName}</span><br></br>
                   <span style={{color:"black"}}>{timestampConverter(item.customTimeStamp)}</span>
                 </div>
-                <div>
+                <div className={classes.reportStatus}>
                   {item.reportStatus}
                 </div>
               </div>
