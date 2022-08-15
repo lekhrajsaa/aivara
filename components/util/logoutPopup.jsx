@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from "next/router";
 import {
     Dialog,
     DialogTitle,
@@ -9,12 +10,12 @@ import {
 } from "@mui/material";
 
 const LogoutPopup = ({setOpenLogoutPopup, open}) => {
-
+    const router = useRouter();
     //loggin out the user
     const removeDetail = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("email");
-        router.push('/')
+        router.push('/');
     };
 
     return (
