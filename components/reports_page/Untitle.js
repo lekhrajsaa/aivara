@@ -32,8 +32,10 @@ const Untitle = () => {
 
   const router = useRouter();
 
+  console.log(reportTableData) //todo delete
 
-//Routes to Home 
+
+  //Routes to Home 
   function closeBtnHanlder() {
     router.push('/home')
   }
@@ -46,47 +48,142 @@ const Untitle = () => {
 
       const latitude = geoLocation.latitude;
       const longitude = geoLocation.longitude;
+      const GeoLocation = latitude + " " + longitude;
+
+      let tempo = [];
 
       if (report) {
-        const reportList = report.map(item => {
 
-          let Taxa_Details = "-";
-          let Count_of_Images = 0;
-          let Count_of_taxa = 0;
-          let Relative_Abundance = "-";
-          let GeoLocation = latitude + " " + longitude;
+        // const reportList = report.map(item => {
 
-          if (item.objects_confidence.length > 0) {
-            Taxa_Details = Object.keys(item.objects_confidence[0])[0];
+        //   if (item.objects_count_custom) {
+        //     tempo.push(item.objects_count_custom);
+        //   }
 
-            let temp = report.map(rep => {
 
-              if (rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
-                Count_of_Images++; //increasing by 1 when the texa is matched
-                Count_of_taxa = Count_of_taxa + rep.objects_count; //summing the object count when the texa is matched 
-                return true;
-              }
-            });
+        //   let Taxa_Details = "-";
+        //   let Count_of_Images = 0;
+        //   let Count_of_taxa = 0;
+        //   let Relative_Abundance = "-";
+        //   let GeoLocation = latitude + " " + longitude;
 
-            console.log(temp, "oooop")
+        //   if (item.objects_confidence.length > 0) {
+        //     // Taxa_Details = Object.keys(item.objects_confidence[0])[0];
+
+        //     // let temp = report.map(rep => {
+
+        //     //   if (rep.objects_confidence.length > 0 && Object.keys(rep.objects_confidence[0])[0] == Taxa_Details) {
+        //     //     Count_of_Images++; //increasing by 1 when the texa is matched
+        //     //     Count_of_taxa = Count_of_taxa + rep.objects_count; //summing the object count when the texa is matched 
+        //     //     return true;
+        //     //   }
+        //     // });
+
+        //     // console.log(temp, "oooop")
+
+        //     //todo make sure everything is okay
+        //     //* in one image can be detect multiple organism
+        //     //* then how to show taxa details
+        //     //* what is meant my count of image
+        //     //* what is count of taxa (is it obj count?)
+        //     //todo relative abundance
+
+        //     Taxa_Details = item.objects_confidence[0].detect;
+        //     // Count_of_Images = Object.values()
+        //   }
+
+        //   return (
+        //     <tr>
+        //       <td>{siteCode}</td>
+        //       <td>{GeoLocation}</td>
+        //       <td>{Taxa_Details}</td>
+        //       <td>{Count_of_Images}</td>
+        //       <td>{Count_of_taxa}</td>
+        //       <td>{Relative_Abundance}</td>
+        //     </tr>
+        //   )
+        // })
+
+
+        report.map(item => {
+
+          if (item.objects_count_custom) {
+            tempo.push(item.objects_count_custom);
           }
+
+        })
+
+        // settableData(reportList)
+
+        // console.log(reportList)
+
+        //todo
+
+        console.log(tempo, "test tempoooooooooooooooooooooo 1");
+
+        //
+        let tempo2 = [];
+        tempo.forEach(val => {
+          val.detects.forEach(val2 => {
+            tempo2.push(val2)
+          })
+        });
+
+        console.log(tempo2, "test tempoooooooooooooooooooooo 2");
+
+        tempo2 = [...new Set(tempo2)];
+
+        console.log(tempo2, "test tempoooooooooooooooooooooo 2 new");
+
+        //
+        let Count_of_Images = [];
+        let Count_of_taxa = [];
+
+        tempo2.forEach(item => {
+          let cnt_i = 0;
+          let cnt_t = 0;
+
+          tempo.map(item2 => {
+            if (item2.detects.includes(item)) {
+              cnt_i++;
+
+              console.log(item2.values[item2.detects.indexOf(item)], " of -> ", item);
+              cnt_t += item2.values[item2.detects.indexOf(item)];
+            }
+          })
+
+          Count_of_Images.push(cnt_i);
+          Count_of_taxa.push(cnt_t);
+        });
+
+
+        console.log(Count_of_taxa, "test tempoooooooooooooooooooooo 3", Count_of_Images);
+
+        //*
+
+        const reportList = tempo2.map((item, index) => {
+          let Taxa_Details = item;
+          let Relative_Abundance = "-";
 
           return (
             <tr>
               <td>{siteCode}</td>
               <td>{GeoLocation}</td>
               <td>{Taxa_Details}</td>
-              <td>{Count_of_Images}</td>
-              <td>{Count_of_taxa}</td>
+              <td>{Count_of_Images[index]}</td>
+              <td>{Count_of_taxa[index]}</td>
               <td>{Relative_Abundance}</td>
             </tr>
           )
         })
 
-        settableData(reportList)
+        settableData(reportList); //todo
 
-        console.log(reportList)
+
+        // todo end
       }
+
+
 
     }
   }, [])
@@ -113,7 +210,7 @@ const Untitle = () => {
         body: raw,
         redirect: 'follow'
       };
-//API to get the details of Table
+      //API to get the details of Table
       fetch(`${SERVER_URL}downloadTableViaEmail`, requestOptions)
         .then(response => response.text())
         .then(result => console.log(result))
@@ -138,7 +235,7 @@ const Untitle = () => {
     }
   };
 
-//Function to Uplaod a signature
+  //Function to Uplaod a signature
   function fileInputChangeHandler(e) {
 
     const imgFile = e.target.files[0];
@@ -156,9 +253,9 @@ const Untitle = () => {
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
-    documentTitle:`${pageTitle}`+ "_report",
+    documentTitle: `${pageTitle}` + "_report",
     content: () => componentRef.current,
-    onBeforePrint: () => {table.current.style.maxHeight = 'unset';},
+    onBeforePrint: () => { table.current.style.maxHeight = 'unset'; },
     onAfterPrint: () => setKeepInput(true)
   });
 
@@ -268,3 +365,116 @@ const Untitle = () => {
   );
 };
 export default Untitle;
+
+//* sample report
+
+// [
+//   {
+//       "objects_count": {
+//           "aulacoseira granulata": 2
+//       },
+//       "imageId": "24bb1541-0ec5-4d6c-9e49-55402625d751",
+//       "objects_confidence": [
+//           {
+//               "cordinates": {
+//                   "h": 259,
+//                   "x": 186,
+//                   "y": 116,
+//                   "w": 210
+//               },
+//               "detect": "aulacoseira granulata",
+//               "value": 0.999997
+//           },
+//           {
+//               "cordinates": {
+//                   "h": 234,
+//                   "x": 66,
+//                   "y": 206,
+//                   "w": 169
+//               },
+//               "detect": "aulacoseira granulata",
+//               "value": 0.999997
+//           }
+//       ],
+//       "url": "https://aivara-report-image.s3.ap-south-1.amazonaws.com/0216-08-2022/Aulacoseira%20granulata%20152.jpg"
+//   },
+//   {
+//       "objects_count": {
+//           "aulacoseira granulata": 1
+//       },
+//       "imageId": "24bb1541-0ec5-4d6c-9e49-55402625d751",
+//       "objects_confidence": [
+//           {
+//               "cordinates": {
+//                   "h": 319,
+//                   "x": 200,
+//                   "y": 173,
+//                   "w": 226
+//               },
+//               "detect": "aulacoseira granulata",
+//               "value": 0.999983
+//           }
+//       ],
+//       "url": "https://aivara-report-image.s3.ap-south-1.amazonaws.com/0216-08-2022/Aulacoseira%20granulata%20152.jpg"
+//   },
+//   {
+//       "objects_count": {
+//           "nitzschia palea": 1,
+//           "aulacoseira granulata": 1
+//       },
+//       "imageId": "24bb1541-0ec5-4d6c-9e49-55402625d751",
+//       "objects_confidence": [
+//           {
+//               "cordinates": {
+//                   "h": 273,
+//                   "x": 216,
+//                   "y": 125,
+//                   "w": 252
+//               },
+//               "detect": "aulacoseira granulata",
+//               "value": 1
+//           },
+//           {
+//               "cordinates": {
+//                   "h": 256,
+//                   "x": 284,
+//                   "y": 195,
+//                   "w": 403
+//               },
+//               "detect": "aulacoseira granulata",
+//               "value": 1
+//           }
+//       ],
+//       "url": "https://aivara-report-image.s3.ap-south-1.amazonaws.com/0216-08-2022/Aulacoseira%20granulata%20152.jpg"
+//   },
+//   {
+//       "objects_count": {
+//           "gomphonema parvulum": 1,
+//           "aulacoseira granulata": 1
+//       },
+//       "imageId": "24bb1541-0ec5-4d6c-9e49-55402625d751",
+//       "objects_confidence": [
+//           {
+//               "cordinates": {
+//                   "h": 285,
+//                   "x": 94,
+//                   "y": 116,
+//                   "w": 146
+//               },
+//               "detect": "gomphonema parvulum",
+//               "value": 0.999382
+//           },
+//           {
+//               "cordinates": {
+//                   "h": 271,
+//                   "x": 147,
+//                   "y": 162,
+//                   "w": 195
+//               },
+//               "detect": "gomphonema parvulum",
+//               "value": 0.999382
+//           }
+//       ],
+//       "url": "https://aivara-report-image.s3.ap-south-1.amazonaws.com/0216-08-2022/Aulacoseira%20granulata%20152.jpg"
+//   }
+// ]
