@@ -73,7 +73,7 @@ const EditProfile = () => {
     let body = {
       query: `mutation {
         updateProfile(updateInput:{
-            name: "${user.username}",
+            name: "${user.username}"
             labName: "${user.labName}"s
         })
          {
