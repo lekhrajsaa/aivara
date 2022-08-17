@@ -261,7 +261,7 @@ const Profile = () => {
   const ascCompare = (a, b) => {
     const t1 = new Date(a.customTimeStamp).valueOf();
     const t2 = new Date(b.customTimeStamp).valueOf();
-    console.log(t1 - t2);
+    // console.log(t1 - t2);
     return t1 - t2;
   };
 

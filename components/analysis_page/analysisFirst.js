@@ -157,8 +157,8 @@ const Analysisheader = () => {
   const reportId = tempAiData.reportId; // todo
   const photos = tempAiData.photos; // todo
   const report = tempAiData.report; // todo
-  
-  console.log('all',tempAiData, reportId, photos, report, "ai data test"); // todo delete
+
+  console.log('all', tempAiData, reportId, photos, report, "ai data test"); // todo delete
 
   const DataFromAI = tempAiData.report; // * check
 
@@ -166,7 +166,7 @@ const Analysisheader = () => {
   const dispatch = useDispatch();
 
   // const updatedReportData = DataFromAI;
-  const [updatedReportData, setUpdatedReportData] = useState(tempAiData.report);
+  const [updatedReportData, setUpdatedReportData] = useState(tempAiData.report || []);
   const [annotations, setAnnotations] = useState([
     {
       geometry: {
@@ -237,18 +237,18 @@ const Analysisheader = () => {
   const [openSubmitReportDilogBox, setOpenSubmitReportDilogBox] = useState(false);
 
   const slideTo = (i) => {
-    setcurrentIndex(i-1);
+    // setcurrentIndex(i - 1);
   };
   const handleOnSlideChange = (event) => {
     console.log("slide");
     const { itemsInSlide, item } = event;
 
-    if(updatedReportData.length > 1){
+    if (updatedReportData.length > 1) {
       setcurrentIndex((item + 1) % galleryItems?.length);
+      setitemsInSlide(item);
     }
     // console.log(currentIndex ,updatedReportData)
     // setcurrentIndex(item);
-    setitemsInSlide(item);
 
   };
   const renderNextButton = ({ isDisabled }) => {
@@ -316,16 +316,16 @@ const Analysisheader = () => {
   useEffect(() => {
     console.log('rpt', updatedReportData)
     console.log('currentIndex', currentIndex)
-    if (updatedReportData) {
+    if (updatedReportData.length > 0) {
       console.log(updatedReportData, 'formfdsfaj')
       updateAnnotations();
 
       let tempGenus = updatedReportData[currentIndex].objects_confidence.map(item => {
-        let genus = Object.keys(item)[1].split(' ')[0];
+        let genus = item.detect.split(' ')[0];
         return genus;
       })
       let tempSpecies = updatedReportData[currentIndex].objects_confidence.map(item => {
-        let species = Object.keys(item)[1].split(' ')[1];
+        let species = item.detect.split(' ')[1];
         return species;
       })
 
@@ -334,29 +334,49 @@ const Analysisheader = () => {
       setObjectCount(updatedReportData[currentIndex].objects_confidence.length)
     }
 
-  }, [currentIndex, updatedReportData, open]);
+  }, [currentIndex, updatedReportData[currentIndex]?.objects_confidence, open]);
 
   const updateAnnotations = () => {
     console.log(updatedReportData, currentIndex, 'ff')
-    let tempAnnotations = updatedReportData[currentIndex].objects_confidence.map(obj => {
-      let TEXT = Object.keys(obj)[1];
-      let Label_ID_1 = TEXT + Math.random();
+    let image = new Image()
+    image.src = galleryItems[currentIndex];
 
-      return {
-        geometry: {
-          type: 'RECTANGLE',
-          x: obj.coordinates.x,
-          y: obj.coordinates.y,
-          width: obj.coordinates.w,
-          height: obj.coordinates.h,
-        },
-        data: {
-          text: TEXT || 'test',
-          id: Label_ID_1
+    image.onload = () => {
+      // alert('yu')
+      let tempAnnotations = updatedReportData[currentIndex].objects_confidence.map(obj => {
+        let TEXT = obj.detect;
+        let Label_ID_1 = TEXT + Math.random();
+
+        // return {
+        //   geometry: {
+        //     type: 'RECTANGLE',
+        //     x: 20,
+        //     y: 49,
+        //     width: 32,
+        //     height: 55,
+        //   },
+        //   data: {
+        //     text: TEXT || 'TEST',
+        //     id: Label_ID_1
+        //   }
+        // }
+        return {
+          geometry: {
+            type: 'RECTANGLE',
+            x: obj.cordinates.x / 246,
+            y: obj.cordinates.y / image.height,
+            width: obj.cordinates.w / image.width,
+            height: obj.cordinates.h / image.height,
+          },
+          data: {
+            text: TEXT || 'TEST',
+            id: Label_ID_1
+          }
         }
-      }
-    })
-    setAnnotations(tempAnnotations)
+      })
+      console.log('temp', tempAnnotations)
+      setAnnotations(tempAnnotations)
+    }
   }
 
 
@@ -555,6 +575,7 @@ const Analysisheader = () => {
             {
               open && (
                 <ImagePreview
+                  className={classes.annotation}
                   galleryItems={galleryItems}
                   currentIndex={currentIndex}
                   setPreviewImage={setPreviewImage}

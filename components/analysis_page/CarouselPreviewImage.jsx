@@ -11,6 +11,8 @@ export default class CarouselPreviewImage extends Component {
     shouldComponentUpdate(nextProps){
         if(JSON.stringify(nextProps) === JSON.stringify(this.props)){
             return true;
+        }else{
+            return false
         }
         this.setState({
             ...this.state,
@@ -27,8 +29,15 @@ export default class CarouselPreviewImage extends Component {
     }
 
     componentDidMount() {
-        console.log('report data', this.props.reportData);
+        console.log('report data', this.props.reportData, 'annot', this.props.annotations);
         document.querySelector('.ixSjBM').style.display = 'none';
+
+        this.setState({
+            ...this.state,
+            annotations: [
+                ...this.props.annotations
+            ]
+        })
 
         setTimeout(() => {
             Array.from(document.querySelectorAll('.yvPWU')).forEach((rec) => {

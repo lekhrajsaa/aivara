@@ -20,20 +20,7 @@ export default class ImagePreview extends Component {
       //     id: Math.random(),
       //   },
 
-      // },
-      // {
-      //   geometry: {
-      //     type: "RECTANGLE",
-      //     x: 67.94266903233257,
-      //     y: 13.9272724498402,
-      //     width: 9.796806749655431,
-      //     height: 31.272727272727277,
-      //   },
-      //   data: {
-      //     text: "Demo2",
-      //     id: Math.random(),
-      //   }
-      // },
+      // }
     ],
     annotation: {},
   };
@@ -56,11 +43,6 @@ export default class ImagePreview extends Component {
       width1 = e.target.width;
       console.log('imgHeight', height1, width1)
 
-      // const X_CENTER_NORM = geometry.x / width1;
-      // const Y_CENTER_NORM = geometry.y / height1;
-      // const WIDTH_NORM = geometry.width / width1;
-      // const HEIGHT_NORM = geometry.height / height1;
-
       const X_CENTER_NORM = geometry.x;
       const Y_CENTER_NORM = geometry.y;
       const WIDTH_NORM = geometry.width;
@@ -72,67 +54,87 @@ export default class ImagePreview extends Component {
 
       // console.log('repoData', this.props.reportData)
       console.log('Annotation', annotation)
-      let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
-        let text = Object.keys(item)[1];
-        console.log('text', text)
-        return {
-          X_CENTER_NORM: item.coordinates.x,
-          Y_CENTER_NORM: item.coordinates.y,
-          WIDTH_NORM: item.coordinates.w,
-          HEIGHT_NORM: item.coordinates.h,
-          Label_ID_1: Math.random() + i,
-          TEXT: text
-        }
-      });
+      // let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
+      //   let text = Object.keys(item)[1];
+      //   console.log('text', text)
+      //   return {
+      //     X_CENTER_NORM: item.cordinates.x,
+      //     Y_CENTER_NORM: item.cordinates.y,
+      //     WIDTH_NORM: item.cordinates.w,
+      //     HEIGHT_NORM: item.cordinates.h,
+      //     Label_ID_1: Math.random() + i,
+      //     TEXT: text
+      //   }
+      // });
 
-      if (!Annotations) {
-        // this.props.reportData[this.props.currentIndex]['annotations'] = [{
-        //   X_CENTER_NORM: X_CENTER_NORM,
-        //   Y_CENTER_NORM: Y_CENTER_NORM,
-        //   WIDTH_NORM: WIDTH_NORM,
-        //   HEIGHT_NORM: HEIGHT_NORM,
-        //   Label_ID_1,
-        //   TEXT,
-        // }];
-
-        // this.props.reportData.data[this.props.currentIndex].objects_count++;
-
-
-        let obj = new Object();
-        obj[TEXT] = 0;
-        this.props.reportData[this.props.currentIndex].objects_confidence.push(obj);
-
-        console.log('Yo', this.props.reportData)
-        this.props.setUpdatedReportData(this.props.reportData)
-      } else {
-        console.log('ann', Annotation)
-        // Annotations.push({
-        //   X_CENTER_NORM: X_CENTER_NORM,
-        //   Y_CENTER_NORM: Y_CENTER_NORM,
-        //   WIDTH_NORM: WIDTH_NORM,
-        //   HEIGHT_NORM: HEIGHT_NORM,
-        //   Label_ID_1,
-        //   TEXT,
-        // })
-
-        // this.props.reportData.data[this.props.currentIndex].objects_count = ++this.props.reportData.data[this.props.currentIndex].objects_count;
-        // this.props.reportData[this.props.currentIndex].objects_count++;
-        let obj = new Object();
-        obj[TEXT] = 0;
-        let obj1 = {
-          "coordinates": {
-            "x": X_CENTER_NORM,
-            "y": Y_CENTER_NORM,
-            "w": WIDTH_NORM,
-            "h": HEIGHT_NORM
-          },
-          ...obj
-        }
-        this.props.reportData[this.props.currentIndex].objects_confidence.push(obj1);
-
-        this.props.setUpdatedReportData(this.props.reportData);
-
+      let obj = new Object();
+      obj['detect'] = TEXT;
+      obj['value'] = 0;
+      let obj1 = {
+        "cordinates": {
+          "x": X_CENTER_NORM,
+          "y": Y_CENTER_NORM,
+          "w": WIDTH_NORM,
+          "h": HEIGHT_NORM
+        },
+        ...obj
       }
+      this.props.reportData[this.props.currentIndex].objects_confidence.push(obj1);
+
+      this.props.setUpdatedReportData(this.props.reportData);
+
+    console.log(this.props.reportData)
+
+
+      // if (!Annotations) {
+      //   // this.props.reportData[this.props.currentIndex]['annotations'] = [{
+      //   //   X_CENTER_NORM: X_CENTER_NORM,
+      //   //   Y_CENTER_NORM: Y_CENTER_NORM,
+      //   //   WIDTH_NORM: WIDTH_NORM,
+      //   //   HEIGHT_NORM: HEIGHT_NORM,
+      //   //   Label_ID_1,
+      //   //   TEXT,
+      //   // }];
+
+      //   // this.props.reportData.data[this.props.currentIndex].objects_count++;
+
+
+      //   // let obj = new Object();
+      //   // obj['detect'] = 0;
+      //   // // obj[value] = 0;
+      //   // this.props.reportData[this.props.currentIndex].objects_confidence.push(obj);
+
+      //   // console.log('Yo', this.props.reportData)
+      //   // this.props.setUpdatedReportData(this.props.reportData)
+      // } else {
+      //   console.log('ann', Annotation)
+      //   // Annotations.push({
+      //   //   X_CENTER_NORM: X_CENTER_NORM,
+      //   //   Y_CENTER_NORM: Y_CENTER_NORM,
+      //   //   WIDTH_NORM: WIDTH_NORM,
+      //   //   HEIGHT_NORM: HEIGHT_NORM,
+      //   //   Label_ID_1,
+      //   //   TEXT,
+      //   // })
+
+      //   // this.props.reportData.data[this.props.currentIndex].objects_count = ++this.props.reportData.data[this.props.currentIndex].objects_count;
+      //   // this.props.reportData[this.props.currentIndex].objects_count++;
+      //   let obj = new Object();
+      //   obj[TEXT] = 0;
+      //   let obj1 = {
+      //     "coordinates": {
+      //       "x": X_CENTER_NORM,
+      //       "y": Y_CENTER_NORM,
+      //       "w": WIDTH_NORM,
+      //       "h": HEIGHT_NORM
+      //     },
+      //     ...obj
+      //   }
+      //   this.props.reportData[this.props.currentIndex].objects_confidence.push(obj1);
+
+      //   this.props.setUpdatedReportData(this.props.reportData);
+
+      // }
       console.log(this.props.reportData)
 
       // console.log(Label_ID_1,X_CENTER_NORM,Y_CENTER_NORM,WIDTH_NORM,HEIGHT_NORM);
@@ -158,62 +160,80 @@ export default class ImagePreview extends Component {
   componentDidMount() {
     console.log('report data', this.props.reportData)
     // let Annotations = this.props.reportData.data[this.props.currentIndex].annotations;
-    let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
-      let text = Object.keys(item)[1];
-      console.log('text', text)
-      return {
-        X_CENTER_NORM: item.coordinates.x,
-        Y_CENTER_NORM: item.coordinates.y,
-        WIDTH_NORM: item.coordinates.w,
-        HEIGHT_NORM: item.coordinates.h,
-        Label_ID_1: Math.random() + i,
-        TEXT: text
-      }
-    });
-    if (Annotations) {
-      const img = new Image();
-      img.src = this.props.galleryItems[this.props.currentIndex];
-      let ths = this;
+    let image = new Image();
+    image.src = this.props.galleryItems[this.props.currentIndex];
+    
+    image.onload = () => {
+      // document.querySelector('.annotationBoxContainer').children[0].children[0].width = image.width;
+      // document.querySelector('.annotationBoxContainer').children[0].children[0].height = image.height;
+      
+      let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
+        let text = item.detect;
+        console.log('text', text);
+        // document.querySelector('.lmGPCf').style.width = image.width + 'px';
+        // document.querySelector('.lmGPCf').style.height = image.height + 'px';
+        // X_CENTER_NORM: item.cordinates.x / (image.width),
+        // Y_CENTER_NORM: item.cordinates.y  / image.height,
+        // WIDTH_NORM: item.cordinates.w  / image.width,
+        // HEIGHT_NORM: item.cordinates.h  / image.height,
+        // Label_ID_1: Math.random() + i,
+        // TEXT: text
 
-      img.onload = (e) => {
-        let height1 = e.target.height;
-        let width1 = e.target.width;
-        let annotationArray = [];
+        console.log(item, 'itemdjlk', image.width, image.height)
+        return {
+          X_CENTER_NORM: item.cordinates.x / 4.3,
+          Y_CENTER_NORM: item.cordinates.y / 4.5,
+          WIDTH_NORM: item.cordinates.w / 20,
+          HEIGHT_NORM: item.cordinates.h / 7,
+          Label_ID_1: Math.random() + i,
+          TEXT: text
+        }
+      });
+      
+      if (Annotations) {
+        const img = new Image();
+        img.src = this.props.galleryItems[this.props.currentIndex];
+        let ths = this;
 
-        for (let i = 0; i < Annotations.length; i++) {
-          let { X_CENTER_NORM, Y_CENTER_NORM, WIDTH_NORM, HEIGHT_NORM, Label_ID_1, TEXT } = Annotations[i];
-          annotationArray.push(
-            {
-              geometry: {
-                type: 'RECTANGLE',
-                // x: X_CENTER_NORM * width1,
-                // y: Y_CENTER_NORM * height1,
-                // width: WIDTH_NORM * width1,
-                // height: HEIGHT_NORM * height1,
-                x: X_CENTER_NORM,
-                y: Y_CENTER_NORM,
-                width: WIDTH_NORM,
-                height: HEIGHT_NORM,
-              },
-              data: {
-                text: TEXT || 'test',
-                id: Label_ID_1
-              }
-            })
+        img.onload = (e) => {
+          let height1 = e.target.height;
+          let width1 = e.target.width;
+          let annotationArray = [];
+
+          for (let i = 0; i < Annotations.length; i++) {
+            let { X_CENTER_NORM, Y_CENTER_NORM, WIDTH_NORM, HEIGHT_NORM, Label_ID_1, TEXT } = Annotations[i];
+            console.log('norm', X_CENTER_NORM, Y_CENTER_NORM, WIDTH_NORM, HEIGHT_NORM)
+            annotationArray.push(
+              {
+                geometry: {
+                  type: 'RECTANGLE',
+                  x: X_CENTER_NORM,
+                  y: Y_CENTER_NORM,
+                  width: WIDTH_NORM,
+                  height: HEIGHT_NORM,
+                },
+                data: {
+                  text: TEXT || 'test',
+                  id: Label_ID_1
+                }
+              })
+
+
+          }
+
+          this.setState({
+            annotation: { ...this.state.annotation },
+            annotations: annotationArray
+          })
         }
 
-        this.setState({
-          annotation: { ...this.state.annotation },
-          annotations: annotationArray || []
-        })
+        setTimeout(() => {
+          Array.from(document.querySelectorAll('.yvPWU')).forEach((rec) => {
+            const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
+            rec.style.outline = `2px solid ${randomColor}`;
+          });
+        }, 10)
       }
-
-      setTimeout(() => {
-        Array.from(document.querySelectorAll('.yvPWU')).forEach((rec) => {
-          const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
-          rec.style.outline = `2px solid ${randomColor}`;
-        });
-      }, 10)
     }
 
   }
@@ -234,14 +254,14 @@ export default class ImagePreview extends Component {
 
             <Annotation
               src={this.props.galleryItems[this.props.currentIndex]}
-              alt="Two pebbles anthropomorphized holding hands"
+              alt="Bacteria detected"
               annotations={this.state.annotations}
               type={this.state.type}
               // value={this.state.annotation}
               value={this.state.annotation}
               onChange={this.onChange}
               onSubmit={this.onSubmit}
-              style={{ width: 'fit-content', margin: 'auto' }}
+              // style={{ width: 'fit-content', margin: 'auto' }}
             />
 
           </div>
