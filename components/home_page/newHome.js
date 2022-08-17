@@ -426,7 +426,7 @@ const NewHome = () => {
           
           <a onClick={() => router.push("/detail")}>
             <Button className={classes.GenerateReport}>
-              Generate Report <img src="./edit.png"></img>
+              Generate Report 
             </Button>
             
           </a>

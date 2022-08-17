@@ -6,7 +6,7 @@ import Tab from "@mui/material/Tab";
 import classes from "./EditProfile.module.css";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { BsArrowLeft } from 'react-icons/bs';
@@ -14,6 +14,7 @@ import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import validator from "validator";
+import { Getting_user_data } from "../../redux/dataAction";
 
 
 //saving data edited on variables sent by backend
@@ -38,6 +39,7 @@ const EditProfile = () => {
     setuser({ ...user, [name]: value });
   };
 
+  const dispatch = useDispatch();
   const userdata = useSelector((state) => state.userdata.userdata);
   const [errorHandle, setErrorHandle] = useState(false);
 
@@ -73,7 +75,7 @@ const EditProfile = () => {
     let body = {
       query: `mutation {
         updateProfile(updateInput:{
-            name: "${user.username}",
+            name: "${user.username}"
             labName: "${user.labName}"s
         })
          {
@@ -177,6 +179,7 @@ const EditProfile = () => {
         );
 
         console.log(resp.data.data.updateProfile);
+        dispatch(Getting_user_data(resp.data.data.updateProfile));
         handleClose();
       }
       else {
@@ -205,7 +208,7 @@ const EditProfile = () => {
     } else {
       x.type = "password";
     }
-  }
+  }  
   return (
     <>
       <a onClick={() => router.push("/home")}>
