@@ -32,6 +32,12 @@ const EditProfile = () => {
     newPassword: "",
     checkPassword: "",
   });
+  useEffect(() => {
+    
+      getUserData();
+    
+    
+  }, []);
   let name, value;
   const userInput = (e) => {
     name = e.target.name;
@@ -58,6 +64,43 @@ const EditProfile = () => {
   function onEmailClickEditIcon() {
     setEmailDisabled(!emailDisabled);
   }
+  const getUserData = async () => {
+    const token = localStorage.getItem("token");
+    let body = {
+      query: `{
+        getUser {
+          name
+          labName
+          phoneNo
+          email
+          userId
+          lastLoggedIn
+          password
+        }
+      }`,
+      variables: {},
+    };
+    let options = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${String(token)}`,
+        "x-api-key": process.env.NEXT_PUBLIC_XAPI,
+      },
+    };
+    try {
+      const resp = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_API}api/v1`,
+        body,
+        options
+      );
+      console.log(resp);
+      setuser(resp.data.data.getUser);
+      console.log(user.name);
+      dispatch(Getting_user_data(resp.data.data.getUser));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 //Function for submitting the USERNAME and LABNAME after they are edited. 
   const onsubmit = async (e) => {
@@ -76,7 +119,7 @@ const EditProfile = () => {
       query: `mutation {
         updateProfile(updateInput:{
             name: "${user.username}"
-            labName: "${user.labName}"s
+            labName: "${user.labName}"
         })
          {
             email
@@ -106,6 +149,8 @@ const EditProfile = () => {
         options
       );
       console.log(resp.data.data.getUser);
+      console.log(userdata);
+      getUserData();
     } catch (err) {
       console.log(err);
     }

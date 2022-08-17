@@ -144,8 +144,9 @@ const Profile = () => {
         body,
         options
       );
-      console.log(resp);
+      
       setuser(resp.data.data.getUser);
+      console.log(user);
       dispatch(Getting_user_data(resp.data.data.getUser));
     } catch (err) {
       console.log(err);
