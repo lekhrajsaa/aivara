@@ -191,6 +191,7 @@ const Analysisheader = () => {
 
   const [open, setPreviewImage] = React.useState(false);
   const [miaClass, setMainClass] = useState(false);
+  const [imageSize, setImageSize] = useState({ w: 0, h: 0 })
   const route = useRouter();
 
 
@@ -334,6 +335,13 @@ const Analysisheader = () => {
       setObjectCount(updatedReportData[currentIndex].objects_confidence.length)
     }
 
+    let img = new Image();
+    img.src = galleryItems[currentIndex];
+
+    img.onload = () => {
+      setImageSize({ w: img.width, h: img.height })
+    }
+
   }, [currentIndex, updatedReportData[currentIndex]?.objects_confidence, open]);
 
   const updateAnnotations = () => {
@@ -343,30 +351,33 @@ const Analysisheader = () => {
 
     image.onload = () => {
       // alert('yu')
+      let img = new Image();
+      img.src = galleryItems[currentIndex];
+
       let tempAnnotations = updatedReportData[currentIndex].objects_confidence.map(obj => {
         let TEXT = obj.detect;
         let Label_ID_1 = TEXT + Math.random();
 
-        // return {
-        //   geometry: {
-        //     type: 'RECTANGLE',
-        //     x: 20,
-        //     y: 49,
-        //     width: 32,
-        //     height: 55,
-        //   },
-        //   data: {
-        //     text: TEXT || 'TEST',
-        //     id: Label_ID_1
-        //   }
-        // }
+        //converting coordinates in percent
+        // let x = (obj.cordinates.x * 100) / 416;
+        // let y = (obj.cordinates.y * 100) / 416;
+        // let w = (obj.cordinates.w * 100) / 416;
+        // let h = (obj.cordinates.h * 100) / 416;
+
+        let x = (obj.cordinates.x * 100) / img.width;
+        let y = (obj.cordinates.y * 100) / img.height;
+        let w = (obj.cordinates.w * 100) / img.width;
+        let h = (obj.cordinates.h * 100) / img.height;
+
+
+
         return {
           geometry: {
             type: 'RECTANGLE',
-            x: obj.cordinates.x / 246,
-            y: obj.cordinates.y / image.height,
-            width: obj.cordinates.w / image.width,
-            height: obj.cordinates.h / image.height,
+            x: x,
+            y: y,
+            width: w,
+            height: h,
           },
           data: {
             text: TEXT || 'TEST',
@@ -512,7 +523,7 @@ const Analysisheader = () => {
 
                   onClick={() => setOpenSubmitReportDilogBox(true)}
                 >
-                  Submit<BsArrowRightShort />
+                  Submit <BsArrowRightShort />
                 </button>
               </form>
             </div>
@@ -581,6 +592,7 @@ const Analysisheader = () => {
                   setPreviewImage={setPreviewImage}
                   reportData={updatedReportData}
                   setUpdatedReportData={setUpdatedReportData}
+                  style={{ width: imageSize.w + 'px', height: imageSize.h + 'px' }}
                 />
               )
             }

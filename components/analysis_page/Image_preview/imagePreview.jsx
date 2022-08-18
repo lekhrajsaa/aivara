@@ -83,7 +83,7 @@ export default class ImagePreview extends Component {
 
       this.props.setUpdatedReportData(this.props.reportData);
 
-    console.log(this.props.reportData)
+      console.log(this.props.reportData)
 
 
       // if (!Annotations) {
@@ -162,11 +162,11 @@ export default class ImagePreview extends Component {
     // let Annotations = this.props.reportData.data[this.props.currentIndex].annotations;
     let image = new Image();
     image.src = this.props.galleryItems[this.props.currentIndex];
-    
+
     image.onload = () => {
       // document.querySelector('.annotationBoxContainer').children[0].children[0].width = image.width;
       // document.querySelector('.annotationBoxContainer').children[0].children[0].height = image.height;
-      
+
       let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
         let text = item.detect;
         console.log('text', text);
@@ -181,15 +181,23 @@ export default class ImagePreview extends Component {
 
         console.log(item, 'itemdjlk', image.width, image.height)
         return {
-          X_CENTER_NORM: item.cordinates.x / 4.3,
-          Y_CENTER_NORM: item.cordinates.y / 4.5,
-          WIDTH_NORM: item.cordinates.w / 20,
-          HEIGHT_NORM: item.cordinates.h / 7,
+          X_CENTER_NORM: item.cordinates.x,
+          Y_CENTER_NORM: item.cordinates.y,
+          WIDTH_NORM: item.cordinates.w,
+          HEIGHT_NORM: item.cordinates.h,
           Label_ID_1: Math.random() + i,
           TEXT: text
         }
+        // return {
+        //   X_CENTER_NORM: item.cordinates.x / 4.3,
+        //   Y_CENTER_NORM: item.cordinates.y / 4.5,
+        //   WIDTH_NORM: item.cordinates.w / 20,
+        //   HEIGHT_NORM: item.cordinates.h / 7,
+        //   Label_ID_1: Math.random() + i,
+        //   TEXT: text
+        // }
       });
-      
+
       if (Annotations) {
         const img = new Image();
         img.src = this.props.galleryItems[this.props.currentIndex];
@@ -203,20 +211,29 @@ export default class ImagePreview extends Component {
           for (let i = 0; i < Annotations.length; i++) {
             let { X_CENTER_NORM, Y_CENTER_NORM, WIDTH_NORM, HEIGHT_NORM, Label_ID_1, TEXT } = Annotations[i];
             console.log('norm', X_CENTER_NORM, Y_CENTER_NORM, WIDTH_NORM, HEIGHT_NORM)
+            let obj = Annotations[i];
+
+            //converting coordinates in percent
+            let x = (X_CENTER_NORM * 100) / img.width;
+            let y = (Y_CENTER_NORM * 100) / img.height;
+            let w = (WIDTH_NORM * 100) / img.width;
+            let h = (HEIGHT_NORM * 100) / img.height;
+            
             annotationArray.push(
               {
                 geometry: {
                   type: 'RECTANGLE',
-                  x: X_CENTER_NORM,
-                  y: Y_CENTER_NORM,
-                  width: WIDTH_NORM,
-                  height: HEIGHT_NORM,
+                  x: x,
+                  y: y,
+                  width: w,
+                  height: h,
                 },
                 data: {
-                  text: TEXT || 'test',
+                  text: TEXT || 'TEST',
                   id: Label_ID_1
                 }
-              })
+              }
+            )
 
 
           }
@@ -262,6 +279,7 @@ export default class ImagePreview extends Component {
               onChange={this.onChange}
               onSubmit={this.onSubmit}
               // style={{ width: 'fit-content', margin: 'auto' }}
+              style={this.props.style}
             />
 
           </div>
