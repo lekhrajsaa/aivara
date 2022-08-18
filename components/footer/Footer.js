@@ -1,7 +1,9 @@
 import React from "react";
+//container used for the box to display message inside
 import { Container } from "reactstrap";
 import classes from "../signup_and_login/LoginForm.module.css";
 
+//message to display at bottom of the page
 const Footer = () => {
   return (
      <Container fluid className={classes.footer}>

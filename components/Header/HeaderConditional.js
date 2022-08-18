@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Col, Container, Row } from "reactstrap";
-
+//Col used for navbar dropdown
+import { Col } from "reactstrap";
 import classes from "./HeaderConditional.module.css";
+//useRouter used to redirect page from one to another.
 import { useRouter } from "next/router";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutPopup from "../util/logoutPopup";
 import NotificationBox from "../Notifications/notificationBox";
-
+//useSelector used to access the redux elements and useDispatch used to set or change those elements in redux
 import { useSelector, useDispatch } from "react-redux";
+//setNotification to update the given propery in redux
 import { setNotification } from "../../redux/dataAction";
 
 import axios from "axios";
@@ -27,13 +29,15 @@ function WithoutSignout(props) {
 
 //NAVBAR with Signout button
 function WithSignout(props) {
+//used to erease the localStorage token and email if set to true
   const [openLogoutPopup, setOpenLogoutPopup] = useState(false);
+//used to toggle the notification box
   const [showNotificationBox, setShowNotificationBox] = useState(false);
-
+//get all data for the notification box
   const notifications = useSelector((state) => state.userdata.notification);
   const router = useRouter();
   const dispatch = useDispatch();
-
+//used to fetch all notification before page loads
   useEffect(() => {
     fetchNotification();
   }, []);
@@ -50,6 +54,7 @@ function WithSignout(props) {
     const X_API_KEY = process.env.NEXT_PUBLIC_XAPI;
     const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
+//API to fetch NOTIFICATION
     var data = JSON.stringify({
       query: `{
         getNotification{
@@ -77,7 +82,7 @@ function WithSignout(props) {
       },
       data: data,
     };
-    //API to fetch NOTIFICATION
+  
     try {
       const response = await axios(config);
       console.log(response.data.data.getNotification.notifications);
@@ -95,12 +100,12 @@ function WithSignout(props) {
       console.log(error);
     }
   };
-  //function to show any unread notification throw the icon
+//function to show any unread notification throw the icon
   function notificationIconClickHandler() {
     setShowNotificationBox((prv) => !prv);
   }
 
-  // dropdown state
+// dropdown state of notification 
   const [showDropDown, setShowDropDown] = useState(false);
   return (
     <div
@@ -123,7 +128,7 @@ function WithSignout(props) {
               AIVARA
             </a>
           </div>
-          {/* setProfile(); */}
+        
           {showNotificationBox && (
             <NotificationBox setShowNotificationBox={setShowNotificationBox} />
           )}
@@ -145,7 +150,7 @@ function WithSignout(props) {
                   notifications?.filter((notif) => notif.checked === false)
                     .length < 1
                 ) && <span className={classes.notificationDot} />}
-              {/* <span className={classes.notificationDot}/> */}
+              
             </span>
 
             <Col
@@ -206,15 +211,17 @@ function WithSignout(props) {
 
 //NAVBAR without PROFILE_ICON
 function WithoutPofile(props) {
+  //used to toggle the profile icon
   const [profileIcon, setProfileIcon] = useState(true);
 
   const router = useRouter();
+  //function to erease the token and email after signout
   const removeDetail = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
     window.location.href = "/";
   };
-
+//function to route to the home
   function logoClickHanlder() {
     router.push("/home");
   }
@@ -228,7 +235,7 @@ function WithoutPofile(props) {
             className={classes.heading}
           >
             <a
-              // href="/home"
+              
               className={classes.brandname}
               style={{ color: "white", cursor: "pointer" }}
               onClick={logoClickHanlder}
@@ -236,7 +243,7 @@ function WithoutPofile(props) {
               AIVARA
             </a>
           </div>
-          {/* setProfile(); */}
+          
           <Col md={1} xs={2} className={profileIcon ? classes.righBody : null}>
             <div className={classes.dropdown}>
               <button className={classes.dropbtn}>

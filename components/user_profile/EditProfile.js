@@ -93,9 +93,9 @@ const EditProfile = () => {
         body,
         options
       );
-      console.log(resp);
+      // console.log(resp);
       setuser(resp.data.data.getUser);
-      console.log(user.name);
+      // console.log(user.name);
       dispatch(Getting_user_data(resp.data.data.getUser));
     } catch (err) {
       console.log(err);
@@ -109,7 +109,7 @@ const EditProfile = () => {
     setEmailDisabled(true);
     e.preventDefault();
 
-    if (user.username === "" || user.username.length === 0) {
+    if (user.username === "" || user.username=== undefined) {
       user.username = userdata.name;
     }
     if (user.labName === "" || user.labName.length === 0) {
@@ -148,8 +148,7 @@ const EditProfile = () => {
         body,
         options
       );
-      console.log(resp.data.data.getUser);
-      console.log(userdata);
+      // console.log(resp.data.data.getUser);
       getUserData();
     } catch (err) {
       console.log(err);
@@ -223,7 +222,7 @@ const EditProfile = () => {
           options
         );
 
-        console.log(resp.data.data.updateProfile);
+        // console.log(resp.data.data.updateProfile);
         dispatch(Getting_user_data(resp.data.data.updateProfile));
         handleClose();
       }

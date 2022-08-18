@@ -1,13 +1,13 @@
 import react from "react";
-import {BsArrowLeft} from 'react-icons/bs';
+//useRouter used to route to different pages
 import { useRouter } from "next/router";
-import classes from "./EmailVerified.module.css";
 
+import classes from "./EmailVerified.module.css";
+//Message to be displayed once the email is verified
 const EmailVerified = () => {
-    const router = useRouter();
+  const router = useRouter();
   return (
     <>
-    
       <div className={classes.circle}>
         <img src="./circle_tick.png"></img>
       </div>

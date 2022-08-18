@@ -1,3 +1,4 @@
+//Input box while signing up and and logging in used on Form.js
 const Fields = {
     login:[{
        
