@@ -1,7 +1,9 @@
 import React from "react";
-import Link from "next/link";
 import styles from "./reportSubmitted.module.css";
+//Link used to route to another page
+import Link from "next/link";
 
+//message to display once the report has been successfully submitted
 const ReportSubmitted = () => {
   return (
     <div className={styles.body}>

@@ -1,46 +1,55 @@
 import React, { useEffect, useState } from "react";
+//col container Row used for creating boxes
 import { Col, Container, Row } from "reactstrap";
+//useRouter  used for routing to differnt pages
 import { useRouter } from "next/router";
+//importing and updating data in redux
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./newHome.module.css";
+//Button style and functionality from react -bootstrap
+import { Button } from "react-bootstrap";
+//To show the given data in CircularProgressbar and buildStyles used to customize styles of progress bar
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+//DayPicker used to sort data according to date and display it
+import { DayPicker } from "react-day-picker";
+
+//unused imports might be deleted later
+import { setPrevPage } from "../../redux/dataAction";
 import calClass from "../signup_and_login/LoginForm.module.css";
 import { BiChevronDown } from "react-icons/bi";
-import {
-  Button,
-  ButtonGroup,
-  Dropdown,
-  DropdownButton,
-  SplitButton,
-} from "react-bootstrap";
-import { RiFileEditLine } from "react-icons/ri";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FiChevronDown } from "react-icons/fi";
-import "react-circular-progressbar/dist/styles.css";
+import { RiFileEditLine } from "react-icons/ri";
 
-import { DayPicker } from 'react-day-picker';
-import { setPrevPage } from "../../redux/dataAction";
-
+//XAPIKEY imported from the env.local
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
+
+//SERVER_URL imported from the env.local
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
-
+//Home Page
 const NewHome = () => {
+  //importing all tha data from redux
   const userdata = useSelector((state) => state.userdata.userdata);
   const router = useRouter();
   const dispatch = useDispatch();
+  //Total reports
+  const [totalReport, setTotalReport] = useState(100);
+  //array to store the reports
+  const [array, setarray] = useState([]);
+  //default Time set as Today
+  const [timePeriod, setTimePeriod] = useState("Today");
+  const [timePeriodOpen, setTimePeriodOpen] = useState(false);
+  //Client Number to display on CircularProgressbar
+  const [clientNumber, setClientNumber] = useState(0);
 
-  const [totalReport, setTotalReport] = useState(100)
-  const [array, setarray] = useState([])
-
-  const [timePeriod, setTimePeriod] = useState("Today")
-  const [timePeriodOpen, setTimePeriodOpen] = useState(false)
-  const [clientNumber, setClientNumber] = useState(0)
-  const [reportNumber, setReportNumber] = useState(0)
+  //report Number to display on CircularProgressbar
+  const [reportNumber, setReportNumber] = useState(0);
 
   const selectdayHandler = (e) => {
     setTimePeriod(e.target.innerText);
     setTimePeriodOpen(false);
-  }
+  };
   // geting all report data from database
   const fetchAllReportData = async (token) => {
     var myHeaders = new Headers();
@@ -48,45 +57,49 @@ const NewHome = () => {
     myHeaders.append("Authorization", `Bearer ${token}`);
 
     var requestOptions = {
-      method: 'GET',
+      method: "GET",
       headers: myHeaders,
-      redirect: 'follow'
+      redirect: "follow",
     };
     //API to get all report data
     fetch(`${SERVER_URL}getAllReport`, requestOptions)
-      .then(response => response.json())
-      .then(result => {
+      .then((response) => response.json())
+      .then((result) => {
         if (result && result.data && result.data.Items) {
           console.log(result.data);
 
           if (result.data.ScannedCount) {
-            setTotalReport(result.data.ScannedCount)
+            setTotalReport(result.data.ScannedCount);
           }
 
           //set report no
           const reportNo = result.data.Items.length;
           // setReportNumber(reportNo)
 
-          setarray(result.data.Items)
+          setarray(result.data.Items);
 
           //set client no
           let clientNo = 0;
           if (reportNo > 0) {
-            let clients = result.data.Items.map(item => item.clientName);
-            clientNo = [...new Set(clients)].length
+            let clients = result.data.Items.map((item) => item.clientName);
+            clientNo = [...new Set(clients)].length;
           }
-
 
           setReportNumber(100);
           setClientNumber(100);
 
-          setTimeout(() => { setReportNumber(0); setClientNumber(0); }, 1000);
-          setTimeout(() => { setReportNumber(reportNo); setClientNumber(clientNo); }, 2000);
+          setTimeout(() => {
+            setReportNumber(0);
+            setClientNumber(0);
+          }, 1000);
+          setTimeout(() => {
+            setReportNumber(reportNo);
+            setClientNumber(clientNo);
+          }, 2000);
         }
-
       })
-      .catch(error => {
-        console.log('error', error);
+      .catch((error) => {
+        console.log("error", error);
         setClientNumber(0);
         setReportNumber(0);
       });
@@ -94,50 +107,81 @@ const NewHome = () => {
 
   //
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     if (token) {
       fetchAllReportData(token);
     }
-  }, [])
-
+  }, []);
 
   // calender filtering
   const [isCalendarShow, setIsCalendarShow] = useState(false);
-  const [calenderOption, setCalenderOption] = useState("Today")
+  const [calenderOption, setCalenderOption] = useState("Today");
 
   const todaay = new Date();
   const ONE_DAYIN_MS = 86400000;
-  const TODAY_IN_MS = new Date(`${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`).getTime(); // at 12am
+  const TODAY_IN_MS = new Date(
+    `${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`
+  ).getTime(); // at 12am
   const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
 
   //
   const defaultSelected = {
     from: new Date(TODAY_IN_MS),
-    to: new Date(TODAY_IN_MS)
+    to: new Date(TODAY_IN_MS),
   };
   const [range, setRange] = useState(defaultSelected);
 
-  let footer = <div style={{ display: "flex", justifyContent: "end", borderTop: "rgb(158 158 158) 2px solid" }}>
-    <button
-      onClick={() => {
-        setRange(defaultSelected)
-        setIsCalendarShow(false)
-      }}
-      style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "rgba(95, 165, 250, 0.1)", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
-    >
-      Cancel
-    </button>
-    <button
-      style={{ margin: "20px 10px -5px 10px", borderRadius: "8px", width: "80px", backgroundColor: "#5FA5FA", border: "none", color: "black", padding: "5px", textAlign: "center", textDecoration: "none", display: "inline-bloc" }}
-      onClick={() => {
-        updateCalender()
-        setIsCalendarShow(false)
+  let footer = (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "end",
+        borderTop: "rgb(158 158 158) 2px solid",
       }}
     >
-      Ok
-    </button>
-  </div>;
+      <button
+        onClick={() => {
+          setRange(defaultSelected);
+          setIsCalendarShow(false);
+        }}
+        style={{
+          margin: "20px 10px -5px 10px",
+          borderRadius: "8px",
+          width: "80px",
+          backgroundColor: "rgba(95, 165, 250, 0.1)",
+          border: "none",
+          color: "black",
+          padding: "5px",
+          textAlign: "center",
+          textDecoration: "none",
+          display: "inline-bloc",
+        }}
+      >
+        Cancel
+      </button>
+      <button
+        style={{
+          margin: "20px 10px -5px 10px",
+          borderRadius: "8px",
+          width: "80px",
+          backgroundColor: "#5FA5FA",
+          border: "none",
+          color: "black",
+          padding: "5px",
+          textAlign: "center",
+          textDecoration: "none",
+          display: "inline-bloc",
+        }}
+        onClick={() => {
+          updateCalender();
+          setIsCalendarShow(false);
+        }}
+      >
+        Ok
+      </button>
+    </div>
+  );
 
   if (range?.from) {
     if (!range.to) {
@@ -153,51 +197,51 @@ const NewHome = () => {
 
     // reports for a single day
     if (!range.to) {
-      console.log("single date")
+      console.log("single date");
 
       let toTimee = fromTime + ONE_DAYIN_MS;
-      return filterDateByTimestamp(fromTime, toTimee)
+      return filterDateByTimestamp(fromTime, toTimee);
     }
 
     let toTime = new Date(range.to).getTime(); // in ms
 
     // today
     if (fromTime === toTime) {
-      console.log("today")
+      console.log("today");
 
       let toTimee = toTime + ONE_DAYIN_MS;
-      filterDateByTimestamp(fromTime, toTimee)
+      filterDateByTimestamp(fromTime, toTimee);
     }
 
     // reports for date range
     if (range.from && range.to) {
-      console.log("range of date", range)
-      console.log(new Date(range.from).getTime(), "gg from")
-      console.log(new Date(range.to).getTime(), "gg to")
+      console.log("range of date", range);
+      console.log(new Date(range.from).getTime(), "gg from");
+      console.log(new Date(range.to).getTime(), "gg to");
 
       let toTimee = toTime + ONE_DAYIN_MS;
-      filterDateByTimestamp(fromTime, toTimee)
+      filterDateByTimestamp(fromTime, toTimee);
     }
   }
 
   // filter logic
   function filterDateByTimestamp(startValue, endValue) {
-
     if (array.length === 0) {
       setReportNumber(0);
       setClientNumber(0);
       return;
     }
 
-    const filteredOutput = array.filter(item => {
-
+    const filteredOutput = array.filter((item) => {
       let temp = item.customTimeStamp;
 
-      if (temp <= endValue && temp >= startValue) { return true; }
+      if (temp <= endValue && temp >= startValue) {
+        return true;
+      }
       return false;
     });
 
-    console.log(filteredOutput, " new calender ", startValue, " to ", endValue)
+    console.log(filteredOutput, " new calender ", startValue, " to ", endValue);
 
     if (filteredOutput.length === 0) {
       console.log("pok u");
@@ -212,17 +256,21 @@ const NewHome = () => {
     //set client no
     let clientNo = 0;
     if (reportNo > 0) {
-      let clients = filteredOutput.map(item => item.clientName);
-      clientNo = [...new Set(clients)].length
+      let clients = filteredOutput.map((item) => item.clientName);
+      clientNo = [...new Set(clients)].length;
     }
-
 
     setReportNumber(totalReport);
     setClientNumber(totalReport);
 
-    setTimeout(() => { setReportNumber(0); setClientNumber(0); }, 1000);
-    setTimeout(() => { setReportNumber(reportNo); setClientNumber(clientNo); }, 2000);
-
+    setTimeout(() => {
+      setReportNumber(0);
+      setClientNumber(0);
+    }, 1000);
+    setTimeout(() => {
+      setReportNumber(reportNo);
+      setClientNumber(clientNo);
+    }, 2000);
   }
 
   return (
@@ -247,12 +295,24 @@ const NewHome = () => {
       </Container>
       <div className={classes.parent}>
         <div className={`${classes.clientCount} ${classes.child} `}>
-
           <div className={classes.dropdown}>
-            
-            <h6 style={{ height: "50px", display: "flex", justifyContent: "start", alignItems: "center", fontSize: "18px" }}>
-              <div onClick={() => setIsCalendarShow(!isCalendarShow)} style={{ display: "flex", position: "relative", width: "200px" }}>
-
+            <h6
+              style={{
+                height: "50px",
+                display: "flex",
+                justifyContent: "start",
+                alignItems: "center",
+                fontSize: "18px",
+              }}
+            >
+              <div
+                onClick={() => setIsCalendarShow(!isCalendarShow)}
+                style={{
+                  display: "flex",
+                  position: "relative",
+                  width: "200px",
+                }}
+              >
                 <div style={{ position: "absolute", left: "10px" }}>
                   <svg
                     width="20"
@@ -283,20 +343,37 @@ const NewHome = () => {
                     <path d="M6 8L0 0H12L6 8Z" fill="#838383" />
                   </svg>
                 </div>
-
               </div>
               {isCalendarShow ? (
-                <div style={{ position: "absolute", top: "10px", left: "0px", background: "#fff", padding: "10px", display: "flex", boxShadow: "rgb(158 158 158) 5px 6px 16px 0px", borderRadius: "5%", zIndex: "100", transform: "scale(0.85, 0.8)" }}>
-
-                  <div style={{ width: "140px", padding: "10px", borderRight: "rgb(158 158 158) 2px solid" }}>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "10px",
+                    left: "0px",
+                    background: "#fff",
+                    padding: "10px",
+                    display: "flex",
+                    boxShadow: "rgb(158 158 158) 5px 6px 16px 0px",
+                    borderRadius: "5%",
+                    zIndex: "100",
+                    transform: "scale(0.85, 0.8)",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "140px",
+                      padding: "10px",
+                      borderRight: "rgb(158 158 158) 2px solid",
+                    }}
+                  >
                     <div
                       style={{ marginTop: "25px", textAlign: "start" }}
                       onClick={(e) => {
-                        setCalenderOption("Today")
+                        setCalenderOption("Today");
                         setRange({
                           from: new Date(TODAY_IN_MS),
-                          to: new Date(TODAY_IN_MS)
-                        })
+                          to: new Date(TODAY_IN_MS),
+                        });
                       }}
                     >
                       Today
@@ -304,11 +381,11 @@ const NewHome = () => {
                     <div
                       style={{ marginTop: "25px", textAlign: "start" }}
                       onClick={(e) => {
-                        setCalenderOption("Yesterday")
+                        setCalenderOption("Yesterday");
                         setRange({
                           from: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
-                          to: new Date(TODAY_IN_MS)
-                        })
+                          to: new Date(TODAY_IN_MS),
+                        });
                       }}
                     >
                       Yesterday
@@ -316,11 +393,11 @@ const NewHome = () => {
                     <div
                       style={{ marginTop: "25px", textAlign: "start" }}
                       onClick={(e) => {
-                        setCalenderOption("2 days ago")
+                        setCalenderOption("2 days ago");
                         setRange({
                           from: new Date(TODAY_IN_MS - 2 * ONE_DAYIN_MS),
-                          to: new Date(TODAY_IN_MS)
-                        })
+                          to: new Date(TODAY_IN_MS),
+                        });
                       }}
                     >
                       2 days ago
@@ -328,11 +405,11 @@ const NewHome = () => {
                     <div
                       style={{ marginTop: "25px", textAlign: "start" }}
                       onClick={(e) => {
-                        setCalenderOption("7 days ago")
+                        setCalenderOption("7 days ago");
                         setRange({
                           from: new Date(TODAY_IN_MS - 7 * ONE_DAYIN_MS),
-                          to: new Date(TODAY_IN_MS)
-                        })
+                          to: new Date(TODAY_IN_MS),
+                        });
                       }}
                     >
                       7 days ago
@@ -340,11 +417,11 @@ const NewHome = () => {
                     <div
                       style={{ marginTop: "25px", textAlign: "start" }}
                       onClick={(e) => {
-                        setCalenderOption("15 days ago")
+                        setCalenderOption("15 days ago");
                         setRange({
                           from: new Date(TODAY_IN_MS - 15 * ONE_DAYIN_MS),
-                          to: new Date(TODAY_IN_MS)
-                        })
+                          to: new Date(TODAY_IN_MS),
+                        });
                       }}
                     >
                       15 days ago
@@ -352,11 +429,11 @@ const NewHome = () => {
                     <div
                       style={{ marginTop: "25px", textAlign: "start" }}
                       onClick={(e) => {
-                        setCalenderOption("1 month ago")
+                        setCalenderOption("1 month ago");
                         setRange({
                           from: new Date(TODAY_IN_MS - 30 * ONE_DAYIN_MS),
-                          to: new Date(TODAY_IN_MS)
-                        })
+                          to: new Date(TODAY_IN_MS),
+                        });
                       }}
                     >
                       1 month ago
@@ -364,11 +441,11 @@ const NewHome = () => {
                     <div
                       style={{ marginTop: "25px", textAlign: "start" }}
                       onClick={(e) => {
-                        setCalenderOption("2 month ago")
+                        setCalenderOption("2 month ago");
                         setRange({
                           from: new Date(TODAY_IN_MS - 60 * ONE_DAYIN_MS),
-                          to: new Date(TODAY_IN_MS)
-                        })
+                          to: new Date(TODAY_IN_MS),
+                        });
                       }}
                     >
                       2 month ago
@@ -387,9 +464,7 @@ const NewHome = () => {
                 </div>
               ) : null}
             </h6>
-            
           </div>
-      
 
           <div className={classes.threeparts}>
             <div className={classes.chart}>
@@ -397,7 +472,7 @@ const NewHome = () => {
                 value={(clientNumber / totalReport) * 100}
                 styles={buildStyles({
                   pathColor: "#4EAFE5",
-                  
+
                   trailColor: "rgb(212 230 251 / 20%)",
                   pathTransitionDuration: 0.5,
                 })}
@@ -423,12 +498,8 @@ const NewHome = () => {
           </div>
         </div>
         <div className={`${classes.viewReport} ${classes.child} `}>
-          
           <a onClick={() => router.push("/detail")}>
-            <Button className={classes.GenerateReport}>
-              Generate Report 
-            </Button>
-            
+            <Button className={classes.GenerateReport}>Generate Report</Button>
           </a>
         </div>
       </div>

@@ -1,18 +1,26 @@
 import React from "react";
 import classes from "./LoginForm.module.css";
 import { useState, useEffect } from "react";
+//Slide used for the animation of slide while filling the form
 import Slide from "react-reveal/Slide";
 import Fields from "./Fields";
 
 
 const SignUpForm = () => {
+  //default email 
   const [email, setEmail] = useState("");
+  //default password
   const [password, setPassword] = useState("");
+  //login toggle
   const [login, setLogin] = useState(false);
+  //signup toggle
   const [register, setRegister] = useState(false);
+  //array where all the data will get store
   const [loginData, setLoginData] = useState([]);
   var slide
+  //things to get load before the page loads
   useEffect(() => {
+    //if all the data are true then login else redirect to sign up page
     if (window.location.pathname === "/login") {
       setLogin(true);
       Fields.login[0].show = true;
@@ -39,8 +47,9 @@ const SignUpForm = () => {
     console.log(window.location.pathname);
   }, []);
 
+  //function called once the data in filled on one field to change the field
   const changeField = () => {
-
+//changing the fields
       loginData.slice(0,1).map(function(f,i){
           if(f.show === true ){
               f.show=false

@@ -1,7 +1,9 @@
 import React from "react";
-import Link from "next/link";
 import styles from "./imageUploaded.module.css";
+//Link used to route to another page
+import Link from "next/link";
 
+//messages to display once the image has been successfully uploaded
 const ImageUploaded = () => {
   return (
     <div className={styles.body}>

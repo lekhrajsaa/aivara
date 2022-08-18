@@ -1,7 +1,10 @@
 import React from "react";
 
 import classes from "./LoginForm.module.css";
-// import { Link, NavLink } from "react-router-dom";
+
+
+//This page is not used on any page Will be deleted later
+
 
 const HeaderApp = () => {
   const removeDetail = () => {

@@ -72,7 +72,7 @@ export default function home() {
         <Header headerWithSignout={true} />
         <Sidebar highlite={true} />
 
-        <Profile /* updateReport={updateReport} */ />
+        <Profile  />
       </>
       }
     </>
