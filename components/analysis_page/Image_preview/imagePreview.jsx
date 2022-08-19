@@ -43,10 +43,29 @@ export default class ImagePreview extends Component {
       width1 = e.target.width;
       console.log('imgHeight', height1, width1)
 
-      const X_CENTER_NORM = geometry.x;
-      const Y_CENTER_NORM = geometry.y;
-      const WIDTH_NORM = geometry.width;
-      const HEIGHT_NORM = geometry.height;
+      // const X_CENTER_NORM = geometry.x ;
+      // const Y_CENTER_NORM = geometry.y;
+      // const WIDTH_NORM = geometry.width;
+      // const HEIGHT_NORM = geometry.height;
+
+      // const X_CENTER_NORM = ((geometry.x));
+      // const Y_CENTER_NORM = ((geometry.y));
+      // const WIDTH_NORM = (((geometry.w - geometry.x) * 416));
+      // const HEIGHT_NORM = (((geometry.h - geometry.y) * 416));
+
+      const X_CENTER_NORM = ((geometry.x * 416) / 100);
+      const Y_CENTER_NORM = ((geometry.y * 416) / 100);
+      const WIDTH_NORM = (((geometry.width + geometry.x) * 416) / 100);
+      const HEIGHT_NORM = (((geometry.height + geometry.y) * 416) / 100);
+
+      // alert(X_CENTER_NORM + ' , ' + Y_CENTER_NORM + ' , ' + WIDTH_NORM + ' , ' + HEIGHT_NORM)
+
+      // X_CENTER_NORM: ((item.cordinates.x / 416) * 100),
+      // Y_CENTER_NORM: ((item.cordinates.y / 416) * 100),
+      // WIDTH_NORM: (((item.cordinates.w - item.cordinates.x) / 416) * 100),
+      // HEIGHT_NORM: (((item.cordinates.h - item.cordinates.y) / 416) * 100),
+
+
 
       //Label_ID_1 X_CENTER_NORM Y_CENTER_NORM WIDTH_NORM HEIGHT_NORM
       const Label_ID_1 = `LABEL_ID_${X_CENTER_NORM}_${Y_CENTER_NORM}_${WIDTH_NORM}_${HEIGHT_NORM}`;
@@ -179,12 +198,23 @@ export default class ImagePreview extends Component {
         // Label_ID_1: Math.random() + i,
         // TEXT: text
 
+
+
         console.log(item, 'itemdjlk', image.width, image.height)
         return {
-          X_CENTER_NORM: item.cordinates.x,
-          Y_CENTER_NORM: item.cordinates.y,
-          WIDTH_NORM: item.cordinates.w,
-          HEIGHT_NORM: item.cordinates.h,
+          // X_CENTER_NORM: (((item.cordinates.x * 1200 )/416) * 100)/1200,
+          // Y_CENTER_NORM: (((item.cordinates.y * 1600 )/416) * 100)/1600,
+
+          X_CENTER_NORM: ((item.cordinates.x / 416) * 100),
+          Y_CENTER_NORM: ((item.cordinates.y / 416) * 100),
+          WIDTH_NORM: (((item.cordinates.w - item.cordinates.x) / 416) * 100),
+          HEIGHT_NORM: (((item.cordinates.h - item.cordinates.y) / 416) * 100),
+
+
+          // X_CENTER_NORM: item.cordinates.x,
+          // Y_CENTER_NORM: item.cordinates.y,
+          // WIDTH_NORM: item.cordinates.w,
+          // HEIGHT_NORM: item.cordinates.h,
           Label_ID_1: Math.random() + i,
           TEXT: text
         }
@@ -214,11 +244,15 @@ export default class ImagePreview extends Component {
             let obj = Annotations[i];
 
             //converting coordinates in percent
-            let x = (X_CENTER_NORM * 100) / img.width;
-            let y = (Y_CENTER_NORM * 100) / img.height;
-            let w = (WIDTH_NORM * 100) / img.width;
-            let h = (HEIGHT_NORM * 100) / img.height;
-            
+            let x = X_CENTER_NORM;
+            let y = Y_CENTER_NORM;
+            let w = WIDTH_NORM;
+            let h = HEIGHT_NORM;
+            // let x = (X_CENTER_NORM * 100) / img.width;
+            // let y = (Y_CENTER_NORM * 100) / img.height;
+            // let w = (WIDTH_NORM * 100) / img.width;
+            // let h = (HEIGHT_NORM * 100) / img.height;
+
             annotationArray.push(
               {
                 geometry: {
@@ -279,7 +313,7 @@ export default class ImagePreview extends Component {
               onChange={this.onChange}
               onSubmit={this.onSubmit}
               // style={{ width: 'fit-content', margin: 'auto' }}
-              style={this.props.style}
+              style={{ ...this.props.style, margin: 'auto' }}
             />
 
           </div>

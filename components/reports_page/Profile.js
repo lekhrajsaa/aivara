@@ -212,6 +212,7 @@ const Profile = () => {
 
   // ascending order filter of client name
   const compare = (a, b) => {
+    // alert(JSON.stringify(a))
     const labA = a.clientName.toUpperCase();
     const labB = b.clientName.toUpperCase();
 

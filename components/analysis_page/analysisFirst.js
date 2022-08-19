@@ -158,7 +158,29 @@ const Analysisheader = () => {
   const photos = tempAiData.photos; // todo
   const report = tempAiData.report; // todo
 
-  console.log('all', tempAiData, reportId, photos, report, "ai data test"); // todo delete
+
+  const mimage = useSelector((state) => state.userdata.modelimge);
+  const router = useRouter();
+  const [Genus, setGenus] = React.useState(["family A", "Family B"]);
+  const [Species, setSpecies] = React.useState(["family A", "Family B"]);
+
+  const [objectCount, setObjectCount] = useState(0)
+
+  const [open, setPreviewImage] = React.useState(false);
+  const [miaClass, setMainClass] = useState(false);
+  const [imageSize, setImageSize] = useState({ w: 0, h: 0 })
+
+
+  // Carsousel
+  const [currentIndex, setcurrentIndex] = useState(0);
+  const [itemsInSlide, setitemsInSlide] = useState(2);
+  // const [galleryItems, setgalleryItems] = useState(images);
+  const [galleryItems, setgalleryItems] = useState(photos?.map(item => item.url) || images);
+  const [openSubmitReportDilogBox, setOpenSubmitReportDilogBox] = useState(false);
+
+  const route = useRouter();
+
+  console.log('all', tempAiData, reportId, photos, report, "ai data test", currentIndex); // todo delete
 
   const DataFromAI = tempAiData.report; // * check
 
@@ -183,16 +205,7 @@ const Analysisheader = () => {
     }
   ]);
 
-  const mimage = useSelector((state) => state.userdata.modelimge);
-  const router = useRouter();
-  const [Genus, setGenus] = React.useState(["family A", "Family B"]);
-  const [Species, setSpecies] = React.useState(["family A", "Family B"]);
-  const [objectCount, setObjectCount] = useState(0)
 
-  const [open, setPreviewImage] = React.useState(false);
-  const [miaClass, setMainClass] = useState(false);
-  const [imageSize, setImageSize] = useState({ w: 0, h: 0 })
-  const route = useRouter();
 
 
   //==================species===============
@@ -230,12 +243,7 @@ const Analysisheader = () => {
   // const modelImage = localStorage.getItem("model");
   // console.log("image : ", modelImage);
 
-  // Carsousel
-  const [currentIndex, setcurrentIndex] = useState(0);
-  const [itemsInSlide, setitemsInSlide] = useState(2);
-  // const [galleryItems, setgalleryItems] = useState(images);
-  const [galleryItems, setgalleryItems] = useState(photos?.map(item => item.url) || []);
-  const [openSubmitReportDilogBox, setOpenSubmitReportDilogBox] = useState(false);
+
 
   const slideTo = (i) => {
     // setcurrentIndex(i - 1);
@@ -364,12 +372,57 @@ const Analysisheader = () => {
         // let w = (obj.cordinates.w * 100) / 416;
         // let h = (obj.cordinates.h * 100) / 416;
 
-        let x = (obj.cordinates.x * 100) / img.width;
-        let y = (obj.cordinates.y * 100) / img.height;
-        let w = (obj.cordinates.w * 100) / img.width;
-        let h = (obj.cordinates.h * 100) / img.height;
+        let nx = img.width / obj.cordinates.x;
+        let ny = img.height / obj.cordinates.y;
+        let nw = img.width / obj.cordinates.w;
+        let nh = img.height / obj.cordinates.h;
+
+        
+
+        // let x = (416 / nx * 100) / 416;
+        // let y = (416 / ny * 100) / 416;
+        // let w = (416 / nw * 100) / 416;
+        // let h = (416 / nh * 100) / 416;
 
 
+        // let x = (416 / nx * 100) / img.width;
+        // let y = (416 / ny * 100) / img.height;
+        // let w = (416 / nw * 100) / img.width;
+        // let h = (416 / nh * 100) / img.height;
+
+        // let x = (img.width / nx * 360) / img.width;
+        // let y = (img.height / ny * 260) / img.height;
+        // let w = (img.width / nw * 100) / img.width;
+        // let h = (img.height / nh * 100) / img.height;
+
+        // let x = (obj.cordinates.x * 100) / img.width;
+        // let y = (obj.cordinates.y * 100) / img.height;
+        // let w = (obj.cordinates.w * 100) / img.width;
+        // let h = (obj.cordinates.h * 100) / img.height;
+
+        /*
+
+          if x = 200 when xx is 1000
+          what is x be when xx is 500
+
+          let x = 200
+          let xx = 1000
+
+          xx / x = n
+          1000 / 200 = 5
+
+          500 / x = 5
+          5 * x = 500
+          500 / 5 = x      x = xx / n
+          x = 100
+
+        */
+
+        
+        const x = ((obj.cordinates.x / 416) * 100);
+        const y = ((obj.cordinates.y / 416) * 100);
+        const w = (((obj.cordinates.w - obj.cordinates.x) / 416) * 100);
+        const h = (((obj.cordinates.h - obj.cordinates.y) / 416) * 100);
 
         return {
           geometry: {
@@ -397,15 +450,17 @@ const Analysisheader = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    if (DataFromAI?.data && all?.data) {
+    // alert('submit1')
+    if (updatedReportData) {
+      // alert('submit')
 
-      const reportId = DataFromAI?.data[0].reportId;
+      const reportId = tempAiData.reportId;
 
       console.log(reportId)
 
       var raw = JSON.stringify({
         "reportId": reportId,
-        "data": updatedReportData?.data
+        "data": updatedReportData
       });
 
       var requestOptions = {
@@ -417,7 +472,12 @@ const Analysisheader = () => {
 
       fetch(`${SERVER_URL}updateReportData`, requestOptions)
         .then(response => response.text())
-        .then(result => { console.log(result); router.push('/reports'); dispatch(setAiReportData({})) })
+        .then(result => {
+          console.log(result);
+          alert('success');
+          // router.push('/reports'); 
+          dispatch(setAiReportData({}))
+        })
         .catch(error => { console.log('error', error); alert('something went wrong') });
     }
   }
@@ -449,19 +509,23 @@ const Analysisheader = () => {
               <div className={classes.analysis_tags}>
                 {/* <div> */}
                 <p>Genus identified</p>
-                {Genus.map((tag, index) => (
-                  <div className={classes.tag_item_div} key={index}>
-                    <span className={classes.tag_text}>
-                      {tag}
-                      <button
-                        className={classes.tag_delete}
-                        onClick={() => genusremoveTag(index)}
-                      >
-                        <AiOutlineClose />
-                      </button>
-                    </span>
-                  </div>
-                ))}
+
+                <div>
+
+                  {Genus.map((tag, index) => (
+                    <div className={classes.tag_item_div} key={index} style={{ margin: '20px 5px' }}>
+                      <span className={classes.tag_text}>
+                        {tag}
+                        <button
+                          className={classes.tag_delete}
+                          onClick={() => genusremoveTag(index)}
+                        >
+                          <AiOutlineClose />
+                        </button>
+                      </span>
+                    </div>
+                  ))}
+                </div>
                 {/* </div> */}
 
                 <div className={classes.analysis_body_tag}>
@@ -483,7 +547,7 @@ const Analysisheader = () => {
               </div>
               <form onSubmit={(e) => e.preventDefault()} className={classes.analysis_form}>
 
-                <div className="form-group" style={{ marginTop: "10px" }}>
+                {/* <div className="form-group" style={{ marginTop: "10px" }}>
 
                   <label htmlFor="Inputgenus" style={{ fontWeight: "500" }}>
                     Add new Genus
@@ -503,7 +567,7 @@ const Analysisheader = () => {
                     }}
                   />
 
-                </div>
+                </div> */}
                 <button
                   style={{
                     position: "absolute",
