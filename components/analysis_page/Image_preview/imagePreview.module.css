@@ -67,8 +67,8 @@
 .annotationBoxContainer{
     margin: auto;
     margin-top: 50px;
-    height: 70vh;
-    width: 80%;
+    height: 80vh;
+    width: 85%;
     /* outline: 2px solid white; */
     overflow: scroll;
 }
