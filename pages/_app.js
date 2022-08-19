@@ -1,18 +1,20 @@
 import "../styles/globals.css";
 import "bootstrap/dist/css/bootstrap.css";
+//provider provides the necessary data from the redux
 import { Provider } from "react-redux";
 import store from "../store";
-import { persistGet } from "redux-persist/integration/react";
+//accesing persistor from store
 import { persistor } from "../store";
-// import './SideBar.css';
+
 import "../components/SideBar/SideBar.css";
 
-
+//unused imports might be deleted later
+import { persistGet } from "redux-persist/integration/react";
 import io from 'socket.io-client';
 import { useEffect, useRef, useState } from "react";
 import { Alert, Snackbar, Stack } from "@mui/material";
 
-// const SOCKET_URL = "https://dev.aivara.in";
+
 
 function MyApp({ Component, pageProps }) {
 

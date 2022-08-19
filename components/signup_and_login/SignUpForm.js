@@ -1,53 +1,84 @@
 import React from "react";
 import classes from "./LoginForm.module.css";
 import { useState } from "react";
+//Slide used for the animation of slide while filling the form
 import Slide from "react-reveal/Slide";
+//Cookies used to store name
 import Cookies from "js-cookie";
-import axios from "axios";
+//container used for the box to display content inside it
 import { Col, Container, Row } from "reactstrap";
+//Stack used to display error message one on another on login and signup
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
+//Snackbar used to display error message 
 import Snackbar from "@mui/material/Snackbar";
+//MuiAlert used for alerts errors
 import MuiAlert from "@mui/material/Alert";
-
+//react-pro-sidebar used for the sidebar present in login and signup page
 import { ProSidebar, SidebarContent } from "react-pro-sidebar";
 import Header from "../Header/Header";
 import "react-pro-sidebar/dist/css/styles.css";
 import sidebar from "../SideBar/Sidenav.module.css";
 import Footer from "../footer/Footer";
+//validator used to validate password and its condition
 import validator from "validator";
+//unused imports might be deleted later
 import { set } from "lodash";
+import axios from "axios";
+import Button from "@mui/material/Button";
 
+
+//Alert on a page
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 var errors;
+//Signup form
 const SignUpForm = () => {
+  //Capture name from the form
   const [name, setName] = useState("");
+  //capture email from the form
   const [email, setEmail] = useState("");
+  //capture phoneNumber from the form
   const [phoneNumber, setPhoneNumber] = useState("");
+  //Capture labName from the form
   const [labName, setLabName] = useState("");
+  //Capture password from the form
   const [password, setPassword] = useState("");
+  //Capture confirmPassword from the form
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  //toggle the message to display on the form
   const [showName, setShowName] = useState(true);
+  //show email on form once back button is clicked
   const [showEmail, setShowEmail] = useState(false);
+  //show labName on form once back button is clicked
   const [showLabName, setShowLabName] = useState(false);
+  //show Phone Number on form once back button is clicked
   const [showPhoneNumber, setShowPhoneNumber] = useState(false);
+  //show password on form once back button is clicked
   const [showPassword, setShowPassword] = useState(false);
+  //Show confirmPassword on form once back button is clicked
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  //Message to display while filling form
   const [text, setText] = useState("Enter name");
+  //setNameDisplay used to toggle when to show it or not
   const [nameDisplay, setNameDisplay] = useState("name");
+  //setLabNameDisplay used to toggle when to show it or not
   const [labNameDisplay, setLabNameDisplay] = useState("hidden");
+  //setEmailDisplay used to toggle when to show it or not
   const [emailDisplay, setEmailDisplay] = useState("hidden");
+  //setPhoneNumberDisplay used to toggle when to show it or not
   const [phoneNumberDisplay, setPhoneNumberDisplay] = useState("hidden");
+  //setPhoneNumberDisplay used to toggle when to show it or not
   const [passwordDisplay, setPasswordDisplay] = useState("hidden");
+  //setConfirmPasswordDisplay //used to toggle when to show it or not
   const [confirmPasswordDisplay, setConfirmPasswordDisplay] =
     useState("hidden");
+    //to confirm wether the given input is correct and validate successfully
   const [success, setSuccess] = useState(false);
+  //to display error message if there exists any
   const [ErrorMessage, setErrorMessage] = useState(false);
 
+//function to validate email if its valid or not
   const validateEmail = (email) => {
     return String(email)
       .toLowerCase()
@@ -55,12 +86,13 @@ const SignUpForm = () => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
+  //function to validate phone number 
   const validatePhoneNumber = (number) => {
     return String(number).match(
       /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
     );
   };
-
+//function to validate password in its length,upercase,lowercase,symbols
   const Passwordvalidate = (value) => {
     if (
       validator.isStrongPassword(value, {
@@ -77,12 +109,13 @@ const SignUpForm = () => {
     }
   };
 
+//not used might be deleted later
   let textinfo = () => {
     <div>
       <h1>Strong password</h1>
     </div>;
   };
-
+//function to handle once the back button is pressed on signup page
   const handleBack = () => {
     if (showLabName) {
       setShowLabName(false);
@@ -131,6 +164,8 @@ const SignUpForm = () => {
       setShowConfirmPassword(false);
     }
   };
+
+  //function to handle form once enter button is pressed
   const enterKey = async (e) => {
     if (e.key === "Enter") {
       if (showName) {
@@ -233,32 +268,8 @@ const SignUpForm = () => {
                 "Content-Type": "application/json",
               },
             };
-            // try {
-            //   const resp = await axios.post(
-            //     `http://localhost:5000/api/v1`,
-            //     body,
-            //     options
-            //   );
-            //   const data = await resp.json();
-            //   console.log(data);
-            //   if (data != null && data.data.signup.status === 200) {
-            //     localStorage.setItem("email", email);
-            //     window.location.href = "/verify";
-            //   }
-            //   if (data.errors && data.errors[0].status === 401) {
-            //     console.log(data.errors[0].message);
-            //     errors = data.errors[0].message;
-            //     setErrorMessage(true);
-            //   } else {
-            //     errors = "server Error";
-            //     setErrorMessage(true);
-            //   }
-
-            //   setErrorMessage(true);
-            // } catch (err) {
-            //   console.log(err);
-            // }
-
+            
+//Api call to post all the details and validate it
             fetch(`${process.env.NEXT_PUBLIC_SERVER_API}api/v1`, {
               method: "POST",
               headers: {
@@ -304,7 +315,7 @@ const SignUpForm = () => {
       }
     }
   };
-
+//function to manipulate form according to the field
   const changeField = async () => {
     if (showName) {
       setShowLabName(true);
@@ -352,7 +363,7 @@ const SignUpForm = () => {
         setText("confirm  password");
         setConfirmPasswordDisplay("password");
       } else {
-        // errors = "please Enter valid password";
+        //error message
         errors = (
           <div>
             <h6>Password must contains</h6>
@@ -400,22 +411,7 @@ const SignUpForm = () => {
               "Content-Type": "application/json",
             },
           };
-          // try {
-          //   const resp = await axios.post(
-          //     "http://localhost:5000/api/v1",
-          //     body,
-          //     options
-          //   );
-          //   console.log(resp);
-          //   if (resp.status === 200) {
-          //     window.location.href = "/verify";
-          //   } else {
-          //     errors = "Email Already Registered";
-          //     setErrorMessage(true);
-          //   }
-          // } catch (err) {
-          //   console.log(err);
-          // }
+    //Api call to submit all the details of the user
 
           fetch(`${process.env.NEXT_PUBLIC_SERVER_API}api/v1`, {
             method: "POST",

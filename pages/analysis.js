@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Analysisheader from "../components/analysis_page/analysisFirst";
+//useRouter used to route to another page
 import { useRouter } from "next/router";
+//useDispatch used to dispach data to redux
 import { useDispatch } from "react-redux";
 import { notificationApi } from "../components/Notifications/notificationApi";
 import { setNotification } from "../redux/dataAction";

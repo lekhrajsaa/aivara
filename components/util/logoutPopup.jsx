@@ -1,5 +1,8 @@
 import React from 'react';
+//useRouter used to route to another page
 import { useRouter } from "next/router";
+//Dialog used for container and rest are its components used in it to 
+//display the message 
 import {
     Dialog,
     DialogTitle,
@@ -9,9 +12,10 @@ import {
     DialogContentText,
 } from "@mui/material";
 
+//logout model 
 const LogoutPopup = ({setOpenLogoutPopup, open}) => {
     const router = useRouter();
-    //loggin out the user
+    //loggind out the user by removing token and email and routing to signin page
     const removeDetail = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("email");
@@ -21,7 +25,6 @@ const LogoutPopup = ({setOpenLogoutPopup, open}) => {
     return (
         <Dialog
             open={open}
-            // onClose={() => setOpen(false)}
             aria-labelledby="dilog-title"
             aria-aria-describedby="dilog-description"
             sx={{ p: 2 }}

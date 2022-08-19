@@ -1,30 +1,48 @@
 import React, { useState, useEffect } from "react";
+//EditIcon used for icon on page
 import EditIcon from "@mui/icons-material/Edit";
+//Icon used on a page tick
 import DoneIcon from "@mui/icons-material/Done";
+//Icon used to hide and display password
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import Tab from "@mui/material/Tab";
+
 import classes from "./EditProfile.module.css";
+//Button form and model used form react 
 import { Button, Form, Modal } from "react-bootstrap";
+//useRouter used to route to another page
 import { useRouter } from "next/router";
+//useSelector used to access the redux elements and useDispatch used to set or change those elements in redux
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { AiOutlineArrowLeft } from 'react-icons/ai';
+//icon used for back button
 import { BsArrowLeft } from 'react-icons/bs';
+//Stack used to display error message one on another 
 import Stack from "@mui/material/Stack";
+//Snackbar used to display error message 
 import Snackbar from "@mui/material/Snackbar";
+//MuiAlert used for alerts errors
 import MuiAlert from "@mui/material/Alert";
+//validator used to validate the password
 import validator from "validator";
+//Getting_user_data used to get data from the redux
 import { Getting_user_data } from "../../redux/dataAction";
+//unused imports might be deleted later
+import Tab from "@mui/material/Tab";
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 
-//saving data edited on variables sent by backend
+
+//Alert on a page
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 var errors;
 let masg;
+
+//saving data edited on variables sent by backend
 const EditProfile = () => {
   const router = useRouter();
+  //Storing the edited value 
   const [user, setuser] = useState({
     username: "",
     labName: "",
@@ -39,20 +57,25 @@ const EditProfile = () => {
     
   }, []);
   let name, value;
+  //userInput updates the redux
   const userInput = (e) => {
     name = e.target.name;
     value = e.target.value;
     setuser({ ...user, [name]: value });
   };
-
+  //dispatch sends data to redux
   const dispatch = useDispatch();
+  //imports data from redux
   const userdata = useSelector((state) => state.userdata.userdata);
+  //toggle error Handle state 
   const [errorHandle, setErrorHandle] = useState(false);
 
   // logic for enabling and disabling the input field
+  //allows to enable or desable edit username
   const [usernameDisabled, setUsernameDisabled] = useState(true);
+  //allows to enable or desable edit labname
   const [emailDisabled, setEmailDisabled] = useState(true);
-  const [success, setSuccess] = useState(false);
+  //toggle Error message
   const [ErrorMessage, setErrorMessage] = useState(false);
 
   //Enabling and disabling to edit the USERNAME 
@@ -64,6 +87,7 @@ const EditProfile = () => {
   function onEmailClickEditIcon() {
     setEmailDisabled(!emailDisabled);
   }
+  //Getting user data from the server
   const getUserData = async () => {
     const token = localStorage.getItem("token");
     let body = {
@@ -148,7 +172,7 @@ const EditProfile = () => {
         body,
         options
       );
-      // console.log(resp.data.data.getUser);
+      
       getUserData();
     } catch (err) {
       console.log(err);
@@ -156,14 +180,19 @@ const EditProfile = () => {
   };
 
   //logic for password model to open and close
+  //logic for open and close of model
   const [show, setShow] = useState(false);
+  //used once the user click on comfirm password to close model
   const [check, setCheck] = useState(false);
+  //function to close the model
   const handleClose = () => setShow(false);
+  //function to open the model
   const handleShow = () => setShow(true);
+  //function to confirm password
   const checkMessage = () => {
     setCheck(!check);
   };
- // CHeck for the validation of PASSWORD
+ // Check for the validation of PASSWORD
   const Passwordvalidate = (value) => {
     if (
       validator.isStrongPassword(value, {
@@ -227,6 +256,7 @@ const EditProfile = () => {
         handleClose();
       }
       else {
+        //errors to display  if the password does not match the following criteria
         errors = (
           <div>
             <h6>Password must contains</h6>
@@ -244,6 +274,7 @@ const EditProfile = () => {
       console.log(err);
     }
   };
+
 //Function to show and hide the PASSWORD
   function showPassword() {
     var x = document.getElementById("myInput");

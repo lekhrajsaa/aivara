@@ -12,31 +12,46 @@ import sidebar from "../SideBar/Sidenav.module.css";
 import Header from "../Header/Header";
 import HeaderMobile from "../Header/HeaderMobile";
 import Footer from "../footer/Footer";
+//Stack used to display error message one on another on login and signup
+import Stack from "@mui/material/Stack";
+//Snackbar used to display error message 
+import Snackbar from "@mui/material/Snackbar";
+//MuiAlert used for alerts errors
+import MuiAlert from "@mui/material/Alert";
+//not used imports might be deleted later
+import Button from "@mui/material/Button";
 import axios from "axios";
 
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
 
+//Alert on a page
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 var errors;
+//login Form
 const LoginForm = () => {
+  //Message to display while filling form
   const [text, setText] = useState("enter email id");
+  //toggle message to show or not
   const [show, setShow] = useState(false);
-
+  //fieldDisplay used to hide password
   const [fieldDisplay, setFieldDisplay] = useState("hidden");
+  //Capture email of user they enter
   const [email, setEmail] = useState("");
+  //Capture password of user they enter
   const [password, setPassword] = useState("");
+  //Default loginState false;
   const [login, setLogin] = useState(false);
+  //setRegister To know wether the user is registerd or not
   const [register, setRegister] = useState(false);
+  //setDis set to none once back
   const [dis, setDis] = useState("block");
-
-  const [success, setSuccess] = useState(false);
+  //setErrorMessage used to store error messages
   const [ErrorMessage, setErrorMessage] = useState(false);
+  //Not used might be deleted later
+  const [success, setSuccess] = useState(false);
 
+  //Things to get load before page
   useEffect(() => {
     if (window.location.pathname === "/") {
       setLogin(true);
@@ -45,6 +60,8 @@ const LoginForm = () => {
     }
     console.log(window.location.pathname);
   }, []);
+
+  //to store email while we go back in signin
   const handleBack = () => {
     if (login) {
       setText("enter email");
@@ -54,6 +71,7 @@ const LoginForm = () => {
     }
   };
   console.log(process.env.REACT_APP_SERVER);
+  //function to move next form once we press enter
   const enterKey = async (e) => {
     if (e.key === "Enter") {
       if (show) {
@@ -112,6 +130,7 @@ const LoginForm = () => {
       setFieldDisplay("password");
     }
   };
+  //function to validate email and password and route to dashboard
   const changeField = async () => {
     if (show) {
       console.log(email, password);
@@ -133,6 +152,7 @@ const LoginForm = () => {
         },
       };
 
+      //API call for validating email and password and route to the dashboard
       await fetch(`${process.env.NEXT_PUBLIC_SERVER_API}api/v1`, {
         method: "POST",
         headers: {
@@ -167,9 +187,7 @@ const LoginForm = () => {
     setFieldDisplay("password");
   };
   return (
-    // <div className="row" style={{ marginTop: "10%", marginLeft: "10%" }}>
-
-    //   <div className="col-md-5 col-xs-12">
+    
     <>
       <HeaderMobile />
       {login ? (
@@ -217,7 +235,7 @@ const LoginForm = () => {
                   <a onClick={() => handleBack()}>back</a>
                 </div>
                 <div
-                  // className="mb-3"
+                  
                   style={{
                     flex: 1,
                     alignItems: "center",
@@ -357,10 +375,9 @@ const LoginForm = () => {
         </Snackbar>
       </Stack>
     </>
-    //   </div>
-    // </div>
+    
   );
 };
 
 export default LoginForm;
-//"http://localhost:5000/api/v1"
+
