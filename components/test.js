@@ -1,3 +1,7 @@
+//This page is only for testing
+//No use in real project
+
+
 import React, { Component } from "react";
 import Annotation from "react-image-annotation";
 
