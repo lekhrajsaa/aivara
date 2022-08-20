@@ -1,13 +1,17 @@
 
 
 import Header from "../Header/HeaderConditional";
-
 import StyledDropzone from "./Upload"
+//react-bootstrap used for the box to display content inside it
 import { Nav, Container } from "react-bootstrap";
 import classes from "./all.module.css";
-import { route } from "next/dist/server/router";
+//useRouter used to route to another page
 import { useRouter } from "next/router";
+//not in used might be deleted later
+import { route } from "next/dist/server/router";
 
+
+//FUnction to take image as input from user
 const GeneratePage = () => {
   const route = useRouter();
 
@@ -23,14 +27,7 @@ const GeneratePage = () => {
       {/* <BasicTabs/> */}
       <div
         className={classes.con}
-      // style={{
-      //   marginTop: "2%",
-      //   fontWeight: "700",
-      //   fontFamily: "Sora",
-      //   fontSize: "110%",
-
-      //   marginLeft: "10%",
-      // }}
+     
       >
         <Container>
           <Nav className="me-auto">
