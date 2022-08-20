@@ -1,6 +1,7 @@
 import React from 'react';
 import cls from './backdrop_buffer.module.css';
 
+//Text to display when report Analysis is in process
 const BackdropBuffer = ({bufferText}) => {
     return (
         <div className={cls.backdrop}>

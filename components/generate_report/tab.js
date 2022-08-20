@@ -1,3 +1,7 @@
+//NOTE
+//this page is currently not in use
+//might be deleted later
+
 import React, { Component } from 'react';
 // import { render } from 'react-dom';
 // import Tabs from 'react-responsive-tabs';

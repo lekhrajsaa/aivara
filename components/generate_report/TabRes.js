@@ -1,3 +1,10 @@
+//NOTE
+//this page is currently not in use
+//might be deleted later
+
+
+
+
 import React from "react";
 import PropTypes from "prop-types";
 import makeStyles from "@material-ui/core/styles";
