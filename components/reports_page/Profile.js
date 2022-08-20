@@ -313,7 +313,7 @@ const Profile = () => {
 
     if (reportId && token) {
       var myHeaders = new Headers();
-      myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
+      myHeaders.append("x-api-key", XAPIKEY);
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       var requestOptions = {
@@ -672,7 +672,7 @@ const Profile = () => {
                           setCalenderOption("Yesterday");
                           setRange({
                             from: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS),
+                            to: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
                           });
                         }}
                       >

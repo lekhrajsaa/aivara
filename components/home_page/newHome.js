@@ -384,7 +384,7 @@ const NewHome = () => {
                         setCalenderOption("Yesterday");
                         setRange({
                           from: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
-                          to: new Date(TODAY_IN_MS),
+                          to: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
                         });
                       }}
                     >
