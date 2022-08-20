@@ -68,6 +68,8 @@ const Profile = () => {
   const [name, setName] = useState();
   //Getharing all the required data from the redux
   const userdata = useSelector((state) => state.userdata.userdata);
+  //Updating report table as soon as new data comes from notification
+  const update_report_table = useSelector((state) => state.userdata.notification);
   //Get the labdata of the following user
   const [array, setarray] = useState(labdata);
   //Sort the reports according to date and time
@@ -95,7 +97,7 @@ const Profile = () => {
   // for toggle the up and down arrow icon
   const [arrow, setArrow] = useState(true);
 
-  
+
 
   // for  toggle class
   //Once the report is seatched make the search bar empty
@@ -109,7 +111,7 @@ const Profile = () => {
   //check wether the report status is complete or in process
   const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] =
     useState(false);
-    //check wether the report staus is in Ai Process
+  //check wether the report staus is in Ai Process
   const [openInAiProcessDilogBox, setOpenInAiProcessDilogBox] = useState(false);
   //check wether the report is incomplete
   const [incompleteReportId, setIncompleteReportId] = useState("");
@@ -122,11 +124,11 @@ const Profile = () => {
       setopenAlpha(true);
     }
   };
-//data to get load before the page loads
+  //data to get load before the page loads
   useEffect(() => {
     setFilteredResults(array);
   }, [array]);
-//Function to check status of the report
+  //Function to check status of the report
   const statusCheck = () => {
     if (openStatus) {
       setopenStatus(false);
@@ -143,7 +145,7 @@ const Profile = () => {
     }
   };
 
-//function to get all the user details 
+  //function to get all the user details 
   const getUserData = async () => {
     let body = {
       query: `{
@@ -173,7 +175,7 @@ const Profile = () => {
         body,
         options
       );
-      
+
       setuser(resp.data.data.getUser);
       console.log(user);
       dispatch(Getting_user_data(resp.data.data.getUser));
@@ -193,7 +195,7 @@ const Profile = () => {
       headers: myHeaders,
       redirect: "follow",
     };
-//API call to get all the report data of that perticular user
+    //API call to get all the report data of that perticular user
     fetch(`${SERVER_URL}getAllReport`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -204,7 +206,7 @@ const Profile = () => {
       })
       .catch((error) => console.log("error", error));
   };
-//Function to load data before page does and send all the reports to the redux
+  //Function to load data before page does and send all the reports to the redux
   useEffect(() => {
     dispatch(setPrevPage("/reports"));
     setToken(localStorage.getItem("token"));
@@ -219,7 +221,7 @@ const Profile = () => {
       setsearchBarTab(true);
       setdatalenghtIszreo(true);
     }
-  }, [token]);
+  }, [token, update_report_table]);
 
   console.log(filteredResults);
 
@@ -393,7 +395,7 @@ const Profile = () => {
       return `${h}:${m}`;
     }
   };
-//function to sort the reports according to the date selected
+  //function to sort the reports according to the date selected
   const dateMacker = (timeStamp) => {
     if (timeStamp) {
       const newDate = new Date(timeStamp);
@@ -421,7 +423,7 @@ const Profile = () => {
       headers: myHeaders,
       redirect: "follow",
     };
-//api call to get that perticular report
+    //api call to get that perticular report
     fetch(`${SERVER_URL}getOneReport/${reportId}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -439,7 +441,7 @@ const Profile = () => {
   const [isCalendarShow, setIsCalendarShow] = useState(false);
   //default message on the calender
   const [calenderOption, setCalenderOption] = useState("Today");
-//Get todays date
+  //Get todays date
   const todaay = new Date();
   //milisecond in one day
   const ONE_DAYIN_MS = 86400000;
@@ -457,7 +459,7 @@ const Profile = () => {
 
   //Store the date range in this 
   const [range, setRange] = useState(defaultSelected);
-//Footer of the dropdown calender
+  //Footer of the dropdown calender
   let footer = (
     <div
       style={{

@@ -28,17 +28,21 @@ export default function newHom() {
     const dispatch = useDispatch();
   
     useEffect(() => {
-  
+
+      // socket test
       socket.on('test api', (data) => {
         console.log(data);
       });
   
+      // listening for ai report generate
       socket.on('report data', (data) => {
         console.log(data);
   
+        // notification api calling for notification update
         notificationApi()
           .then((response) => {
             console.log(response.data.data.getNotification.notifications)
+            // updating notification data
             dispatch(setNotification(response.data.data.getNotification.notifications.sort(function (a, b) { return b.customTimeStamp - a.customTimeStamp })))
           })
           .catch((err) => {
@@ -47,6 +51,7 @@ export default function newHom() {
       });
   
     }, [socket])
+    // realtime notification
     // realtime notification
   return (
     <>
