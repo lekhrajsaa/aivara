@@ -474,7 +474,7 @@ const GenerateDetails = () => {
           </Row>
 
           {/* ============================================= */}
-          <button className={classes.sub} onClick={SubmitReport} style={{ margin: "10px " }}>
+          <button className={classes.sub} onClick={SubmitReport}>
             SUBMIT
           </button>
         </Container>
