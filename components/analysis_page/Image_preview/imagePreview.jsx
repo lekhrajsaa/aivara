@@ -23,6 +23,7 @@ export default class ImagePreview extends Component {
       // }
     ],
     annotation: {},
+    activeAnnotations: [],
   };
 
   onChange = (annotation) => {
@@ -317,6 +318,10 @@ export default class ImagePreview extends Component {
 
   }
 
+  activeAnnotationComparator = (a, b) => {
+    return a.data.id === b
+  }
+
   render() {
     return (
       <div className={classes.backdrop}>
@@ -341,6 +346,9 @@ export default class ImagePreview extends Component {
               onSubmit={this.onSubmit}
               // style={{ width: 'fit-content', margin: 'auto' }}
               style={{ ...this.props.style, margin: 'auto' }}
+
+              activeAnnotationComparator={this.activeAnnotationComparator}
+              activeAnnotations={this.state.activeAnnotations}
             />
 
           </div>
@@ -350,7 +358,14 @@ export default class ImagePreview extends Component {
             target={"_blank"}
             download
           >
-            <p className={classes.image_modal_download}>
+            <p
+              className={classes.image_modal_download}
+              onClick={() => {
+                this.setState({
+                  activeAnnotations: this.state.annotations.map(data => data.data.id)
+                })
+              }}
+            >
               <FileDownloadOutlinedIcon />
               Download
             </p>
@@ -359,4 +374,4 @@ export default class ImagePreview extends Component {
       </div>
     );
   }
-}
+};

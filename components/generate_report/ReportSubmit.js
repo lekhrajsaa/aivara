@@ -1,7 +1,8 @@
 import classes from "./ReportSubmit.module.css";
+//useRouter used to route to another page
 import { useRouter } from "next/router";
-// import getTabs from "./tab";
-// import Tabs from 'react-responsive-tabs';
+
+//Function to display message after the user successfully submits the image and other details
 const ReportSubmit = () => {
   const router = useRouter();
   return (

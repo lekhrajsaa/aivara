@@ -6,7 +6,7 @@ import Slide from "react-reveal/Slide";
 import SignUpForm from "./SignUpForm";
 //react-pro-sidebar used for the sidebar present in login and signup page
 import { ProSidebar, SidebarContent } from "react-pro-sidebar";
-//container used for the box to display content inside it
+//reactstrap used for the box to display content inside it
 import { Col, Container, Row } from "reactstrap";
 import sidebar from "../SideBar/Sidenav.module.css";
 import Header from "../Header/Header";

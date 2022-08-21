@@ -1,3 +1,4 @@
+//reactstrap used for the box to display content inside it
 import { Col, Container, Row } from "reactstrap";
 import classes from "../signup_and_login/LoginForm.module.css";
 import axios from "axios";
@@ -7,17 +8,18 @@ import {
   setPrevPage,
   setReportTableData,
 } from "../../redux/dataAction";
+//useSelector used to access the redux elements and useDispatch used to set or change those elements in redux
 import { useDispatch, useSelector } from "react-redux";
-import { Xapkey } from "../../apikey";
 import { useState, useEffect } from "react";
-import Cookies from "js-cookie";
+//Icon used open the dropdown
 import { BiChevronDown } from "react-icons/bi";
+//icon used to close the dropdown
 import { BiChevronUp } from "react-icons/bi";
-
+//useRouter used to route to another page
 import { useRouter } from "next/router";
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
-import { AiOutlineSearch } from "react-icons/ai";
-// import empty from "../asset/empty.png";
+//Dialog used for container and rest are its components used in it to 
+//display the message 
 import {
   Dialog,
   DialogTitle,
@@ -26,15 +28,22 @@ import {
   DialogContent,
   DialogContentText,
 } from "@mui/material";
-
 import Router from "next/router";
-
+//DayPicker to sort data according to the selected date
 import { DayPicker } from "react-day-picker";
 
+//unnused imports might be deleted later
+import { Xapkey } from "../../apikey";
+import Cookies from "js-cookie";
+import { AiOutlineSearch } from "react-icons/ai";
+
+//importing serverAPI from env.local 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
+//importing xapiKEY from env.local 
 const XAPIKEY = process.env.NEXT_PUBLIC_XAPI;
 // const SERVER_URL = "http://localhost:5000/";
 
+//default data to the reports
 const labdata = [
   {
     labname: "Shree Datta Pathology Lab",
@@ -47,48 +56,67 @@ const labdata = [
     status: "incomplete",
   },
 ];
-
+//Function to display the list of reports and other data realted to it
 const Profile = () => {
+  //get reports according to the user
   const [user, setuser] = useState([]);
+  //get token of the user
   const [token, setToken] = useState();
+  //timePeriod set default to Today
   const [timePeriod, SettimePeriod] = useState("Today");
+  //not in use
   const [name, setName] = useState();
+  //Getharing all the required data from the redux
   const userdata = useSelector((state) => state.userdata.userdata);
-  // console.log("this is useradata")
-  // console.log(userdata)
+  //Updating report table as soon as new data comes from notification
+  const update_report_table = useSelector((state) => state.userdata.notification);
+  //Get the labdata of the following user
   const [array, setarray] = useState(labdata);
+  //Sort the reports according to date and time
   const [dateTimeOpened, setDateTimeOpened] = useState(false);
+  //Date and time of the following report 
   const [dateTimeValue, setDateTimeValue] = useState("Date/Time");
+  //Date of the given report
   const [showDate, setShowDate] = useState(true);
+  //Time of the given report
   const [showTime, setShowTime] = useState(true);
 
   const router = useRouter();
   const dispatch = useDispatch();
+  //Storing value searched in search bar
   const [searchInput, setSearchInput] = useState("");
 
   // filter output
+  //Reports after the search is applied
   const [filteredResults, setFilteredResults] = useState([]);
+  //If any input then set it to true else false
   const [searchBarTab, setsearchBarTab] = useState(true);
+  //Not in use Might be deleted later
   const [tableheaderTab, settableheaderTab] = useState(true);
 
   // for toggle the up and down arrow icon
   const [arrow, setArrow] = useState(true);
 
-  //
-  // const [startDate, setstartDate] = useState('')
-  // const [endDate, setendDate] = useState('')
+
 
   // for  toggle class
+  //Once the report is seatched make the search bar empty
   const [datalenghtIszreo, setdatalenghtIszreo] = useState(false);
+  //Toggle the arrangement of reports
   const [openAlpha, setopenAlpha] = useState(false);
+  //Toggle the status of the report
   const [openStatus, setopenStatus] = useState(false);
+  //used to sort data in days
   const [openday, setopenday] = useState(false);
+  //check wether the report status is complete or in process
   const [openIncompleteStatusDilogBox, setOpenIncompleteStatusDilogBox] =
     useState(false);
+  //check wether the report staus is in Ai Process
   const [openInAiProcessDilogBox, setOpenInAiProcessDilogBox] = useState(false);
+  //check wether the report is incomplete
   const [incompleteReportId, setIncompleteReportId] = useState("");
 
-  // sorting arrangement
+  // Function for sorting arrangement toggle
   const sortbox = () => {
     if (openAlpha) {
       setopenAlpha(false);
@@ -96,11 +124,11 @@ const Profile = () => {
       setopenAlpha(true);
     }
   };
-
+  //data to get load before the page loads
   useEffect(() => {
     setFilteredResults(array);
   }, [array]);
-
+  //Function to check status of the report
   const statusCheck = () => {
     if (openStatus) {
       setopenStatus(false);
@@ -108,6 +136,7 @@ const Profile = () => {
       setopenStatus(true);
     }
   };
+  //Function to toggle the open day 
   const daysfilter = () => {
     if (openday) {
       setopenday(false);
@@ -116,6 +145,7 @@ const Profile = () => {
     }
   };
 
+  //function to get all the user details 
   const getUserData = async () => {
     let body = {
       query: `{
@@ -138,13 +168,14 @@ const Profile = () => {
         "x-api-key": process.env.NEXT_PUBLIC_XAPI,
       },
     };
+    //Api call to get the details of the user
     try {
       const resp = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_API}api/v1`,
         body,
         options
       );
-      
+
       setuser(resp.data.data.getUser);
       console.log(user);
       dispatch(Getting_user_data(resp.data.data.getUser));
@@ -153,7 +184,7 @@ const Profile = () => {
     }
   };
 
-  // geting all report data from database
+  // Function for geting all report data from database
   const fetchAllReportData = async () => {
     var myHeaders = new Headers();
     myHeaders.append("x-api-key", XAPIKEY);
@@ -164,7 +195,7 @@ const Profile = () => {
       headers: myHeaders,
       redirect: "follow",
     };
-
+    //API call to get all the report data of that perticular user
     fetch(`${SERVER_URL}getAllReport`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -175,7 +206,7 @@ const Profile = () => {
       })
       .catch((error) => console.log("error", error));
   };
-
+  //Function to load data before page does and send all the reports to the redux
   useEffect(() => {
     dispatch(setPrevPage("/reports"));
     setToken(localStorage.getItem("token"));
@@ -190,11 +221,11 @@ const Profile = () => {
       setsearchBarTab(true);
       setdatalenghtIszreo(true);
     }
-  }, [token]);
+  }, [token, update_report_table]);
 
   console.log(filteredResults);
 
-  // searching Reports
+  // Function for searching Reports
   const searchItems = (searchValue) => {
     setSearchInput(searchValue);
     if (searchInput !== "") {
@@ -210,7 +241,7 @@ const Profile = () => {
     }
   };
 
-  // ascending order filter of client name
+  //Function to kepp reports on ascending order filter of client name
   const compare = (a, b) => {
     // alert(JSON.stringify(a))
     const labA = a.clientName.toUpperCase();
@@ -306,14 +337,14 @@ const Profile = () => {
     );
     setopenStatus(false);
   };
-
+  //Function to take user to the analysis page to anotate image
   function completeNowClickHanlder(e) {
     const token = localStorage.getItem("token");
     const reportId = incompleteReportId;
 
     if (reportId && token) {
       var myHeaders = new Headers();
-      myHeaders.append("x-api-key", "d002d6d0-500e-42a4-a6c9-c18a74b81d88");
+      myHeaders.append("x-api-key", XAPIKEY);
       myHeaders.append("Authorization", `Bearer ${token}`);
 
       var requestOptions = {
@@ -345,7 +376,7 @@ const Profile = () => {
 
     }
   }
-
+  //function to show date and time of the report
   const timeMacker = (timeStamp) => {
     if (timeStamp) {
       const newDate = new Date(timeStamp);
@@ -364,7 +395,7 @@ const Profile = () => {
       return `${h}:${m}`;
     }
   };
-
+  //function to sort the reports according to the date selected
   const dateMacker = (timeStamp) => {
     if (timeStamp) {
       const newDate = new Date(timeStamp);
@@ -380,7 +411,7 @@ const Profile = () => {
   // console.log(timeMacker(1657474021848));
   // console.log(dateMacker(1657474021848));
 
-  //fetchOneReport
+  //Function to fetch all details of that perticular report 
   const fetchOneReport = (reportId) => {
     console.log(reportId);
     var myHeaders = new Headers();
@@ -392,7 +423,7 @@ const Profile = () => {
       headers: myHeaders,
       redirect: "follow",
     };
-
+    //api call to get that perticular report
     fetch(`${SERVER_URL}getOneReport/${reportId}`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
@@ -406,23 +437,29 @@ const Profile = () => {
   };
 
   // calender filtering
+  //whether to show or hide calander
   const [isCalendarShow, setIsCalendarShow] = useState(false);
+  //default message on the calender
   const [calenderOption, setCalenderOption] = useState("Today");
-
+  //Get todays date
   const todaay = new Date();
+  //milisecond in one day
   const ONE_DAYIN_MS = 86400000;
+  //Function to get the todays full date and time
   const TODAY_IN_MS = new Date(
     `${todaay.getFullYear()}-${todaay.getMonth() + 1}-${todaay.getDate()}`
   ).getTime(); // at 12am
   const NEXT_DAT_IN_MS = TODAY_IN_MS + ONE_DAYIN_MS - 1; //today at 11.59.00
 
-  //
+  //default date to be selected
   const defaultSelected = {
     from: new Date(TODAY_IN_MS),
     to: new Date(TODAY_IN_MS),
   };
-  const [range, setRange] = useState(defaultSelected);
 
+  //Store the date range in this 
+  const [range, setRange] = useState(defaultSelected);
+  //Footer of the dropdown calender
   let footer = (
     <div
       style={{
@@ -672,7 +709,7 @@ const Profile = () => {
                           setCalenderOption("Yesterday");
                           setRange({
                             from: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
-                            to: new Date(TODAY_IN_MS),
+                            to: new Date(TODAY_IN_MS - ONE_DAYIN_MS),
                           });
                         }}
                       >

@@ -1,3 +1,8 @@
+//NOTE
+//this page is currently not in use
+//might be deleted later
+
+
 import * as React from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";

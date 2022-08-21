@@ -1,16 +1,22 @@
 import React, { useMemo, useState, useEffect, useRef } from "react";
+//useDropzone used for taking image as input
 import { useDropzone } from "react-dropzone";
-import { Box, Tab, Tabs, TabPanel } from "@mui/material";
 import classes from "../signup_and_login/LoginForm.module.css";
-import { setImages } from "../../redux/dataAction";
+//useSelector used to access the redux elements and useDispatch used to set or change those elements in redux
 import { useDispatch, useSelector } from "react-redux";
+//useRouter used to route to another page
 import { useRouter } from "next/router";
-import { Construction } from "@mui/icons-material";
 import axios from "axios";
-import BackdropBuffer from '../backdrop_buffer/backdrop_buffer';
 
+//unused imports might be deleted later
+import BackdropBuffer from '../backdrop_buffer/backdrop_buffer';
+import { setImages } from "../../redux/dataAction";
+import { Construction } from "@mui/icons-material";
+
+//importing serverApi from env.local
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_API;
 
+//basic css stying for the titlte in gen page
 const baseStyle = {
   flex: 1,
   display: "flex",
@@ -27,33 +33,39 @@ const baseStyle = {
 
   fontFamily: "Sora",
 };
-
+//css styling for title if its focused
 const focusedStyle = {
   borderColor: "#2196f3",
 };
-
+//css styling if the dropzone accepts that file
 const acceptStyle = {
   borderColor: "#00e676",
 };
-
+//css styling if the dropzone rejects the file
 const rejectStyle = {
   borderColor: "#ff1744",
 };
 
 
-//Function To GEt the IMAGES from the user
+//Function To Get the IMAGES from the user
 function StyledDropzone(props) {
+  //Storing the filename of the file 
   const [fileName, setFileName] = useState([]);
+  //Storing token of the user
   const [Token, setToken] = useState();
+  //Storing file in an array
   const [files, setFiles] = useState([]);
+  //used to send details to redux
   const dispatch = useDispatch();
   const router = useRouter();
+  //Storing images data 
   const [ImageData, setImagedata] = useState([]);
-
+//importing all data from the redux
   const detailPageData = useSelector((state) => state.userdata.detailData);
-
+//if process on going then set it to true and display message
   const [pleaseWait, setPleaseWait] = useState(false);
 
+//function to take image as input
   const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } =
     useDropzone({
       accept: "image/jpeg,image/png,image/tif,image/tiff",
@@ -72,11 +84,12 @@ function StyledDropzone(props) {
       },
     });
   console.log(fileName);
+  //imporing token before page loads
   useEffect(() => {
     setToken(localStorage.getItem("token"));
   }, []);
 
-  
+  //Basisc styling for title
   const style = useMemo(
     () => ({
       ...baseStyle,
@@ -87,7 +100,7 @@ function StyledDropzone(props) {
     [isFocused, isDragAccept, isDragReject]
   );
 
-  
+  //function to set all data at one and store it 
   async function submitHandlder(images) {
 //Function to GET other details from the User 
     const { clientName, sampleType, generatedBy, siteCode, latitude, longitude } = detailPageData;
