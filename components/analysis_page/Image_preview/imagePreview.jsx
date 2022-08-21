@@ -98,10 +98,38 @@ export default class ImagePreview extends Component {
         },
         ...obj
       }
+      let currentDiatomCount = 0;
+      let alreadyHasOne = false;
+
+      let object_confidence = this.props.reportData[this.props.currentIndex].objects_confidence;
+
+      for(let i = 0; i < object_confidence.length; i++){
+        let item = object_confidence[i];
+
+        if(item.detect === TEXT){
+          currentDiatomCount = this.props.reportData[this.props.currentIndex].objects_count_custom.values[i] + 1;
+          this.props.reportData[this.props.currentIndex].objects_count[TEXT] = currentDiatomCount;
+          this.props.reportData[this.props.currentIndex].objects_count_custom.values[i] = currentDiatomCount;
+          alreadyHasOne = true;
+          break;
+        }else{
+          alreadyHasOne = false;
+        }
+      }
+
+      // alert(alreadyHasOne)
+      if(!alreadyHasOne){
+        currentDiatomCount = 1;
+        this.props.reportData[this.props.currentIndex].objects_count[TEXT] = 1;
+        this.props.reportData[this.props.currentIndex].objects_count_custom.detects.push(TEXT);
+        this.props.reportData[this.props.currentIndex].objects_count_custom.values.push(currentDiatomCount);
+      }
+      
+      // this.props.reportData[this.props.currentIndex].objects_count_custom.values.push(TEXT);
+      
       this.props.reportData[this.props.currentIndex].objects_confidence.push(obj1);
-
       this.props.setUpdatedReportData(this.props.reportData);
-
+      
       console.log(this.props.reportData)
 
 
@@ -308,7 +336,6 @@ export default class ImagePreview extends Component {
               alt="Bacteria detected"
               annotations={this.state.annotations}
               type={this.state.type}
-              // value={this.state.annotation}
               value={this.state.annotation}
               onChange={this.onChange}
               onSubmit={this.onSubmit}

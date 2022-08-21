@@ -9,12 +9,12 @@ const ReportSubmit = () => {
     <div className={classes.body}>
       <p>
         Your report has been submitted <br></br>Track under review section <span className={classes.link}
-        onClick={() => router.push("/home")}
+        onClick={() => router.push("/reports")}
         style={{ cursor: "pointer" }} >link</span>
       </p>
     </div>
     <div className={classes.mid}>
-        <p onClick={() => router.push("/newHome")}
+        <p onClick={() => router.push("/reports")}
                   style={{ cursor: "pointer" }} >back to dashboard</p>
     </div>
     <div className={classes.footer}>

@@ -139,14 +139,70 @@ const Analysisheader = () => {
       className="alice_carousel__prev_btn" />;
   };
 
-  const genusremoveTag = (i) => {
+  const genusremoveTag = (i, genus) => {
     // alert(i)
-    let newObjectConfs = updatedReportData[currentIndex].objects_confidence.filter((item, index) => i !== index);
-    setUpdatedReportData(prv => { prv[currentIndex].objects_confidence = newObjectConfs; return prv; })
-    setGenus(prv => prv.filter((item, index) => i !== index));
-    setSpecies(prv => prv.filter((item, index) => i !== index));
+    let currentImageReport = updatedReportData[currentIndex];
+    // let newObjectConfs = currentImageReport.objects_confidence.filter((item, index) => i !== index);
+
+    let newObjectConfs = [];
+    let conf = currentImageReport.objects_confidence;
+    let oneDeleted = false;
+    for (let i = 0; i < conf.length; i++) {
+      let item = conf[i];
+      if (item.detect.split(' ')[0] === genus) {
+        console.log('ad', item.detect.split(' ')[0], genus)
+        if (!oneDeleted) {
+          oneDeleted = true;
+          if(currentImageReport.objects_count[item.detect] > 1){
+            currentImageReport.objects_count[item.detect] = --currentImageReport.objects_count[item.detect];
+          }else{
+            delete currentImageReport.objects_count[item.detect];
+          }
+        } else {
+          newObjectConfs.push(item);
+        }
+      } else {
+        console.log('aa', item.detect.split(' ')[0], genus)
+        newObjectConfs.push(item);
+      }
+    }
+
+    let currentDiatomCount = currentImageReport.objects_count_custom.values[i];
+    if (currentDiatomCount > 1) {
+      currentDiatomCount--;
+      currentImageReport.objects_count_custom.values[i] = currentDiatomCount;
+    } else {
+      delete currentImageReport.objects_count[currentImageReport.objects_confidence[i].detect.trim()];
+      currentImageReport.objects_count_custom.detects.splice(i, 1);
+      currentImageReport.objects_count_custom.values.splice(i, 1)
+    }
+
+    setUpdatedReportData(prv => {
+      currentImageReport.objects_confidence = newObjectConfs;
+      return updatedReportData;
+    })
+
+    updatePage()
+
+    // let tempGenus = updatedReportData[currentIndex].objects_count_custom.detects.map((item, i)=> {
+    //   let count = updatedReportData[currentIndex].objects_count_custom.values[i];
+    //   if(count > 1){
+    //     let genus = item.split(' ')[0] + '(' + count + ')';
+    //     return genus;
+    //   }else{
+    //     let genus = item.split(' ')[0];
+    //     return genus;
+    //   }
+    // })
+    // let tempSpecies = updatedReportData[currentIndex].objects_count_custom.detects.map(item => {
+    //   let species = item.split(' ')[1];
+    //   return species;
+    // })
+
+    // setGenus(prv => prv.filter((item, index) => i !== index));
+    // setSpecies(prv => prv.filter((item, index) => i !== index));
     // alert(JSON.stringify(updatedReportData[currentIndex].objects_confidence));
-    updateAnnotations()
+    // updateAnnotations()
     // setObjectCount(prv => --prv);
   };
 
@@ -165,25 +221,45 @@ const Analysisheader = () => {
   }, [currentIndex])
 
   useEffect(() => {
+    updatePage()
+  }, [currentIndex, updatedReportData[currentIndex]?.objects_confidence, open]);
+
+
+  function updatePage() {
     console.log('rpt', updatedReportData)
     console.log('currentIndex', currentIndex)
     if (updatedReportData.length > 0 && updatedReportData[currentIndex].objects_confidence.length > 0) {
       console.log(updatedReportData, 'formfdsfaj')
-      updateAnnotations();
 
-      let tempGenus = updatedReportData[currentIndex].objects_confidence.map(item => {
-        let genus = item.detect.split(' ')[0];
-        return genus;
+      let tempGenus = updatedReportData[currentIndex].objects_count_custom.detects.map((item, i) => {
+        let count = updatedReportData[currentIndex].objects_count_custom.values[i];
+        if (count > 1) {
+          let genus = item.split(' ')[0] + '(' + count + ')';
+          return genus;
+        } else {
+          let genus = item.split(' ')[0];
+          return genus;
+        }
       })
-      let tempSpecies = updatedReportData[currentIndex].objects_confidence.map(item => {
-        let species = item.detect.split(' ')[1];
+      let tempSpecies = updatedReportData[currentIndex].objects_count_custom.detects.map(item => {
+        let species = item.split(' ')[1];
         return species;
       })
+
+      // let tempGenus = updatedReportData[currentIndex].objects_confidence.map(item => {
+      //   let genus = item.detect.split(' ')[0];
+      //   return genus;
+      // })
+      // let tempSpecies = updatedReportData[currentIndex].objects_confidence.map(item => {
+      //   let species = item.detect.split(' ')[1];
+      //   return species;
+      // })
 
       setGenus(tempGenus);
       setSpecies(tempSpecies);
       setObjectCount(updatedReportData[currentIndex].objects_confidence.length)
-    }else{
+      updateAnnotations();
+    } else {
       setGenus([]);
       setSpecies([]);
       setObjectCount(updatedReportData[currentIndex].objects_confidence.length);
@@ -196,8 +272,8 @@ const Analysisheader = () => {
     img.onload = () => {
       setImageSize({ w: img.width, h: img.height })
     }
+  }
 
-  }, [currentIndex, updatedReportData[currentIndex]?.objects_confidence, open]);
 
   const updateAnnotations = () => {
     console.log(updatedReportData, currentIndex, 'ff')
@@ -211,7 +287,7 @@ const Analysisheader = () => {
       let tempAnnotations = updatedReportData[currentIndex].objects_confidence.map(obj => {
         let TEXT = obj.detect;
         let Label_ID_1 = TEXT + Math.random();
-        
+
         const x = ((obj.cordinates.x / 416) * 100);
         const y = ((obj.cordinates.y / 416) * 100);
         const w = (((obj.cordinates.w - obj.cordinates.x) / 416) * 100);
@@ -251,13 +327,13 @@ const Analysisheader = () => {
   function addGenusFormSubmitHanlder(e) {
     e.preventDefault();
 
+    console.log('subm', updatedReportData)
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     // alert('submit1')
     if (updatedReportData) {
       // alert('submit')
-
       const reportId = tempAiData.reportId;
 
       console.log(reportId)
@@ -278,8 +354,7 @@ const Analysisheader = () => {
         .then(response => response.text())
         .then(result => {
           console.log(result);
-          alert('success');
-          router.push('/reports'); 
+          router.push('/reportSubmit');  
           dispatch(setAiReportData({}))
         })
         .catch(error => { console.log('error', error); alert('something went wrong') });
@@ -321,7 +396,7 @@ const Analysisheader = () => {
                         {tag}
                         <button
                           className={classes.tag_delete}
-                          onClick={() => genusremoveTag(index)}
+                          onClick={() => genusremoveTag(index, tag.split('(')[0])}
                         >
                           <AiOutlineClose />
                         </button>
@@ -408,7 +483,7 @@ const Analysisheader = () => {
                 </div>
                 <div className={classes.carousel_item}>
                   <AliceCarousel
-                    responsive={{0: {items: 4,},}}
+                    responsive={{ 0: { items: 4, }, }}
                     infinite={true}
                     disableDotsControls={true}
                     renderPrevButton={renderPrevButton}
@@ -451,7 +526,7 @@ const Analysisheader = () => {
                   setPreviewImage={setPreviewImage}
                   reportData={updatedReportData}
                   setUpdatedReportData={setUpdatedReportData}
-                  style={{ width: imageSize.w + 'px', height: imageSize.h + 'px' }}  
+                  style={{ width: imageSize.w + 'px', height: imageSize.h + 'px' }}
                 />
               )
             }

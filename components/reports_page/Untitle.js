@@ -37,7 +37,7 @@ const Untitle = () => {
 
   //Routes to Home 
   function closeBtnHanlder() {
-    router.push('/home')
+    router.push('/reports')
   }
 
   useEffect(() => {
