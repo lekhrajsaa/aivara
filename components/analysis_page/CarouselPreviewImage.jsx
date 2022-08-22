@@ -8,29 +8,8 @@ export default class CarouselPreviewImage extends Component {
         annotation: {},
     };
 
-    shouldComponentUpdate(nextProps){
-        if(JSON.stringify(nextProps) === JSON.stringify(this.props)){
-            return true;
-        }else{
-            return false
-        }
-        this.setState({
-            ...this.state,
-            annotations: [
-                ...nextProps.annotations
-            ]
-        })
-        setTimeout(() => {
-            Array.from(document.querySelectorAll('.yvPWU')).forEach((rec) => {
-                const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
-                rec.style.outline = `2px solid ${randomColor}`;
-            });
-        }, 10)
-    }
-
     componentDidMount() {
-        console.log('report data', this.props.reportData, 'annot', this.props.annotations);
-        document.querySelector('.ixSjBM').style.display = 'none';
+        document.querySelector('.ixSjBM').style.display = 'none'; //hiding 'click and drag to annotate'
 
         this.setState({
             ...this.state,
@@ -38,7 +17,7 @@ export default class CarouselPreviewImage extends Component {
                 ...this.props.annotations
             ]
         })
-
+        //changing the color of annotation rectangles to a random color
         setTimeout(() => {
             Array.from(document.querySelectorAll('.yvPWU')).forEach((rec) => {
                 const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
@@ -53,7 +32,7 @@ export default class CarouselPreviewImage extends Component {
             <Annotation
                 // disableAnnotation={true}
                 src={this.props.galleryItems[this.props.currentIndex]}
-                alt="Two pebbles anthropomorphized holding hands"
+                alt="Sample image of water"
                 annotations={this.props.annotations}
                 type="OVAL"
                 value={this.state.annotation}

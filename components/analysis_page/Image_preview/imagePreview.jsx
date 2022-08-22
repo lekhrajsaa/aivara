@@ -6,6 +6,7 @@ import Annotation from "react-image-annotation";
 export default class ImagePreview extends Component {
   state = {
     annotations: [
+      //This is left commented here to understand the structure anotation object
       // {
       //   geometry: {
       //     type: "RECTANGLE",
@@ -19,7 +20,6 @@ export default class ImagePreview extends Component {
       //     text: "Demo1",
       //     id: Math.random(),
       //   },
-
       // }
     ],
     annotation: {},
@@ -30,164 +30,66 @@ export default class ImagePreview extends Component {
     this.setState({ annotation });
   };
 
+  //Runs when we annotate and submit the annotaion
   onSubmit = (annotation) => {
     const { geometry, data } = annotation;
-    // console.log(geometry);
-    console.log('dta', data);
-    let height1;
-    let width1;
-    const img = new Image();
-    img.src = this.props.galleryItems[this.props.currentIndex];
 
-    img.onload = (e) => {
-      height1 = e.target.height;
-      width1 = e.target.width;
-      console.log('imgHeight', height1, width1)
+    //Converting x,y,w,h(in %) came from Annotion from to x1, y1, x2, y2(in px) and to relative an 416x416 image (see comments on componetDidMount function)
+    const X_CENTER_NORM = ((geometry.x * 416) / 100);
+    const Y_CENTER_NORM = ((geometry.y * 416) / 100);
+    const WIDTH_NORM = (((geometry.width + geometry.x) * 416) / 100);
+    const HEIGHT_NORM = (((geometry.height + geometry.y) * 416) / 100);
+    const TEXT = data.text.trim();
 
-      // const X_CENTER_NORM = geometry.x ;
-      // const Y_CENTER_NORM = geometry.y;
-      // const WIDTH_NORM = geometry.width;
-      // const HEIGHT_NORM = geometry.height;
-
-      // const X_CENTER_NORM = ((geometry.x));
-      // const Y_CENTER_NORM = ((geometry.y));
-      // const WIDTH_NORM = (((geometry.w - geometry.x) * 416));
-      // const HEIGHT_NORM = (((geometry.h - geometry.y) * 416));
-
-      const X_CENTER_NORM = ((geometry.x * 416) / 100);
-      const Y_CENTER_NORM = ((geometry.y * 416) / 100);
-      const WIDTH_NORM = (((geometry.width + geometry.x) * 416) / 100);
-      const HEIGHT_NORM = (((geometry.height + geometry.y) * 416) / 100);
-
-      // alert(X_CENTER_NORM + ' , ' + Y_CENTER_NORM + ' , ' + WIDTH_NORM + ' , ' + HEIGHT_NORM)
-
-      // X_CENTER_NORM: ((item.cordinates.x / 416) * 100),
-      // Y_CENTER_NORM: ((item.cordinates.y / 416) * 100),
-      // WIDTH_NORM: (((item.cordinates.w - item.cordinates.x) / 416) * 100),
-      // HEIGHT_NORM: (((item.cordinates.h - item.cordinates.y) / 416) * 100),
+    //createing the object as the object structure of report data
+    let obj = new Object();
+    obj['detect'] = TEXT;
+    obj['value'] = 0;
+    let obj1 = {
+      "cordinates": {
+        "x": X_CENTER_NORM,
+        "y": Y_CENTER_NORM,
+        "w": WIDTH_NORM,
+        "h": HEIGHT_NORM
+      },
+      ...obj
+    }
 
 
 
-      //Label_ID_1 X_CENTER_NORM Y_CENTER_NORM WIDTH_NORM HEIGHT_NORM
-      const Label_ID_1 = `LABEL_ID_${X_CENTER_NORM}_${Y_CENTER_NORM}_${WIDTH_NORM}_${HEIGHT_NORM}`;
-      const TEXT = data.text.trim();
+    //Logic for checking if the diatom already in the annotations
+    let currentDiatomCount = 0;
+    let alreadyHasOne = false; //detected diatom
 
-      // console.log('repoData', this.props.reportData)
-      console.log('Annotation', annotation)
-      // let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
-      //   let text = Object.keys(item)[1];
-      //   console.log('text', text)
-      //   return {
-      //     X_CENTER_NORM: item.cordinates.x,
-      //     Y_CENTER_NORM: item.cordinates.y,
-      //     WIDTH_NORM: item.cordinates.w,
-      //     HEIGHT_NORM: item.cordinates.h,
-      //     Label_ID_1: Math.random() + i,
-      //     TEXT: text
-      //   }
-      // });
+    let object_confidence = this.props.reportData[this.props.currentIndex].objects_confidence;
 
-      let obj = new Object();
-      obj['detect'] = TEXT;
-      obj['value'] = 0;
-      let obj1 = {
-        "cordinates": {
-          "x": X_CENTER_NORM,
-          "y": Y_CENTER_NORM,
-          "w": WIDTH_NORM,
-          "h": HEIGHT_NORM
-        },
-        ...obj
+    //looping through also diatom objets in object_confidence
+    for (let i = 0; i < object_confidence.length; i++) {
+      let item = object_confidence[i];
+
+      //if annotation text is matched to new annotation text
+      if (item.detect === TEXT) {
+        currentDiatomCount = this.props.reportData[this.props.currentIndex].objects_count_custom.values[i] + 1;
+        this.props.reportData[this.props.currentIndex].objects_count[TEXT] = currentDiatomCount;
+        this.props.reportData[this.props.currentIndex].objects_count_custom.values[i] = currentDiatomCount;
+        alreadyHasOne = true;
+        break;
+      } else {
+        alreadyHasOne = false;
       }
-      let currentDiatomCount = 0;
-      let alreadyHasOne = false;
+    }
 
-      let object_confidence = this.props.reportData[this.props.currentIndex].objects_confidence;
+    if (!alreadyHasOne) {
+      currentDiatomCount = 1;
+      this.props.reportData[this.props.currentIndex].objects_count[TEXT] = 1;
+      this.props.reportData[this.props.currentIndex].objects_count_custom.detects.push(TEXT);
+      this.props.reportData[this.props.currentIndex].objects_count_custom.values.push(currentDiatomCount);
+    }
 
-      for(let i = 0; i < object_confidence.length; i++){
-        let item = object_confidence[i];
+    this.props.reportData[this.props.currentIndex].objects_confidence.push(obj1);
+    this.props.setUpdatedReportData(this.props.reportData);
 
-        if(item.detect === TEXT){
-          currentDiatomCount = this.props.reportData[this.props.currentIndex].objects_count_custom.values[i] + 1;
-          this.props.reportData[this.props.currentIndex].objects_count[TEXT] = currentDiatomCount;
-          this.props.reportData[this.props.currentIndex].objects_count_custom.values[i] = currentDiatomCount;
-          alreadyHasOne = true;
-          break;
-        }else{
-          alreadyHasOne = false;
-        }
-      }
-
-      // alert(alreadyHasOne)
-      if(!alreadyHasOne){
-        currentDiatomCount = 1;
-        this.props.reportData[this.props.currentIndex].objects_count[TEXT] = 1;
-        this.props.reportData[this.props.currentIndex].objects_count_custom.detects.push(TEXT);
-        this.props.reportData[this.props.currentIndex].objects_count_custom.values.push(currentDiatomCount);
-      }
-      
-      // this.props.reportData[this.props.currentIndex].objects_count_custom.values.push(TEXT);
-      
-      this.props.reportData[this.props.currentIndex].objects_confidence.push(obj1);
-      this.props.setUpdatedReportData(this.props.reportData);
-      
-      console.log(this.props.reportData)
-
-
-      // if (!Annotations) {
-      //   // this.props.reportData[this.props.currentIndex]['annotations'] = [{
-      //   //   X_CENTER_NORM: X_CENTER_NORM,
-      //   //   Y_CENTER_NORM: Y_CENTER_NORM,
-      //   //   WIDTH_NORM: WIDTH_NORM,
-      //   //   HEIGHT_NORM: HEIGHT_NORM,
-      //   //   Label_ID_1,
-      //   //   TEXT,
-      //   // }];
-
-      //   // this.props.reportData.data[this.props.currentIndex].objects_count++;
-
-
-      //   // let obj = new Object();
-      //   // obj['detect'] = 0;
-      //   // // obj[value] = 0;
-      //   // this.props.reportData[this.props.currentIndex].objects_confidence.push(obj);
-
-      //   // console.log('Yo', this.props.reportData)
-      //   // this.props.setUpdatedReportData(this.props.reportData)
-      // } else {
-      //   console.log('ann', Annotation)
-      //   // Annotations.push({
-      //   //   X_CENTER_NORM: X_CENTER_NORM,
-      //   //   Y_CENTER_NORM: Y_CENTER_NORM,
-      //   //   WIDTH_NORM: WIDTH_NORM,
-      //   //   HEIGHT_NORM: HEIGHT_NORM,
-      //   //   Label_ID_1,
-      //   //   TEXT,
-      //   // })
-
-      //   // this.props.reportData.data[this.props.currentIndex].objects_count = ++this.props.reportData.data[this.props.currentIndex].objects_count;
-      //   // this.props.reportData[this.props.currentIndex].objects_count++;
-      //   let obj = new Object();
-      //   obj[TEXT] = 0;
-      //   let obj1 = {
-      //     "coordinates": {
-      //       "x": X_CENTER_NORM,
-      //       "y": Y_CENTER_NORM,
-      //       "w": WIDTH_NORM,
-      //       "h": HEIGHT_NORM
-      //     },
-      //     ...obj
-      //   }
-      //   this.props.reportData[this.props.currentIndex].objects_confidence.push(obj1);
-
-      //   this.props.setUpdatedReportData(this.props.reportData);
-
-      // }
-      console.log(this.props.reportData)
-
-      // console.log(Label_ID_1,X_CENTER_NORM,Y_CENTER_NORM,WIDTH_NORM,HEIGHT_NORM);
-    };
-
+    //setting the states of annotaions
     this.setState({
       annotation: {},
       annotations: this.state.annotations.concat({
@@ -198,7 +100,8 @@ export default class ImagePreview extends Component {
         },
       }),
     });
-    // console.log(annotations);
+
+    //Changing the color of annotation rectangle to a random color
     setTimeout(() => {
       const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
       document.querySelectorAll('.yvPWU')[document.querySelectorAll('.yvPWU').length - 1].style.outline = `2px solid ${randomColor}`;
@@ -206,118 +109,68 @@ export default class ImagePreview extends Component {
   };
 
   componentDidMount() {
-    console.log('report data', this.props.reportData)
-    // let Annotations = this.props.reportData.data[this.props.currentIndex].annotations;
-    let image = new Image();
-    image.src = this.props.galleryItems[this.props.currentIndex];
-
-    image.onload = () => {
-      // document.querySelector('.annotationBoxContainer').children[0].children[0].width = image.width;
-      // document.querySelector('.annotationBoxContainer').children[0].children[0].height = image.height;
-
-      let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
-        let text = item.detect;
-        console.log('text', text);
-        // document.querySelector('.lmGPCf').style.width = image.width + 'px';
-        // document.querySelector('.lmGPCf').style.height = image.height + 'px';
-        // X_CENTER_NORM: item.cordinates.x / (image.width),
-        // Y_CENTER_NORM: item.cordinates.y  / image.height,
-        // WIDTH_NORM: item.cordinates.w  / image.width,
-        // HEIGHT_NORM: item.cordinates.h  / image.height,
-        // Label_ID_1: Math.random() + i,
-        // TEXT: text
-
-
-
-        console.log(item, 'itemdjlk', image.width, image.height)
-        return {
-          // X_CENTER_NORM: (((item.cordinates.x * 1200 )/416) * 100)/1200,
-          // Y_CENTER_NORM: (((item.cordinates.y * 1600 )/416) * 100)/1600,
-
-          X_CENTER_NORM: ((item.cordinates.x / 416) * 100),
-          Y_CENTER_NORM: ((item.cordinates.y / 416) * 100),
-          WIDTH_NORM: (((item.cordinates.w - item.cordinates.x) / 416) * 100),
-          HEIGHT_NORM: (((item.cordinates.h - item.cordinates.y) / 416) * 100),
-
-
-          // X_CENTER_NORM: item.cordinates.x,
-          // Y_CENTER_NORM: item.cordinates.y,
-          // WIDTH_NORM: item.cordinates.w,
-          // HEIGHT_NORM: item.cordinates.h,
-          Label_ID_1: Math.random() + i,
-          TEXT: text
-        }
-        // return {
-        //   X_CENTER_NORM: item.cordinates.x / 4.3,
-        //   Y_CENTER_NORM: item.cordinates.y / 4.5,
-        //   WIDTH_NORM: item.cordinates.w / 20,
-        //   HEIGHT_NORM: item.cordinates.h / 7,
-        //   Label_ID_1: Math.random() + i,
-        //   TEXT: text
-        // }
-      });
-
-      if (Annotations) {
-        const img = new Image();
-        img.src = this.props.galleryItems[this.props.currentIndex];
-        let ths = this;
-
-        img.onload = (e) => {
-          let height1 = e.target.height;
-          let width1 = e.target.width;
-          let annotationArray = [];
-
-          for (let i = 0; i < Annotations.length; i++) {
-            let { X_CENTER_NORM, Y_CENTER_NORM, WIDTH_NORM, HEIGHT_NORM, Label_ID_1, TEXT } = Annotations[i];
-            console.log('norm', X_CENTER_NORM, Y_CENTER_NORM, WIDTH_NORM, HEIGHT_NORM)
-            let obj = Annotations[i];
-
-            //converting coordinates in percent
-            let x = X_CENTER_NORM;
-            let y = Y_CENTER_NORM;
-            let w = WIDTH_NORM;
-            let h = HEIGHT_NORM;
-            // let x = (X_CENTER_NORM * 100) / img.width;
-            // let y = (Y_CENTER_NORM * 100) / img.height;
-            // let w = (WIDTH_NORM * 100) / img.width;
-            // let h = (HEIGHT_NORM * 100) / img.height;
-
-            annotationArray.push(
-              {
-                geometry: {
-                  type: 'RECTANGLE',
-                  x: x,
-                  y: y,
-                  width: w,
-                  height: h,
-                },
-                data: {
-                  text: TEXT || 'TEST',
-                  id: Label_ID_1
-                }
-              }
-            )
-
-
-          }
-
-          this.setState({
-            annotation: { ...this.state.annotation },
-            annotations: annotationArray
-          })
-        }
-
-        setTimeout(() => {
-          Array.from(document.querySelectorAll('.yvPWU')).forEach((rec) => {
-            const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
-            rec.style.outline = `2px solid ${randomColor}`;
-          });
-        }, 10)
+    //looping through object_confidence to get the data and convert it to the structure of annotation object
+    let Annotations = this.props.reportData[this.props.currentIndex].objects_confidence.map((item, i) => {
+      let text = item.detect;
+      return {
+        //Here we are converting the cordinates(x1 y1 x2 y2) sent from Ai to x,y,w,h(in %)
+        //The ai sents the cordinate according after convrting images into 416x416 width height
+        //tha'ts why its 416-----------------V   here
+        X_CENTER_NORM: ((item.cordinates.x / 416) * 100),
+        Y_CENTER_NORM: ((item.cordinates.y / 416) * 100),
+        WIDTH_NORM: (((item.cordinates.w - item.cordinates.x) / 416) * 100),
+        HEIGHT_NORM: (((item.cordinates.h - item.cordinates.y) / 416) * 100),
+        Label_ID_1: Math.random() + i,
+        TEXT: text
       }
+    });
+
+    if (Annotations) {
+      let annotationArray = [];
+
+      for (let i = 0; i < Annotations.length; i++) {
+        let { X_CENTER_NORM, Y_CENTER_NORM, WIDTH_NORM, HEIGHT_NORM, Label_ID_1, TEXT } = Annotations[i];
+
+        let x = X_CENTER_NORM;
+        let y = Y_CENTER_NORM;
+        let w = WIDTH_NORM;
+        let h = HEIGHT_NORM;
+
+        annotationArray.push(
+          {
+            geometry: {
+              type: 'RECTANGLE',
+              x: x,
+              y: y,
+              width: w,
+              height: h,
+            },
+            data: {
+              text: TEXT,
+              id: Label_ID_1
+            }
+          }
+        )
+      }
+
+      //setting the annotions
+      this.setState({
+        annotation: { ...this.state.annotation },
+        annotations: annotationArray
+      })
+
+      //Changing the color of annotation rectangle to a random color
+      setTimeout(() => {
+        Array.from(document.querySelectorAll('.yvPWU')).forEach((rec) => {
+          const randomColor = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
+          rec.style.outline = `2px solid ${randomColor}`;
+        });
+      }, 10)
     }
 
   }
 
+  //for make the annotation text visible
   activeAnnotationComparator = (a, b) => {
     return a.data.id === b
   }
@@ -338,7 +191,7 @@ export default class ImagePreview extends Component {
 
             <Annotation
               src={this.props.galleryItems[this.props.currentIndex]}
-              alt="Bacteria detected"
+              alt="Sample image of water"
               annotations={this.state.annotations}
               type={this.state.type}
               value={this.state.annotation}
@@ -346,7 +199,6 @@ export default class ImagePreview extends Component {
               onSubmit={this.onSubmit}
               // style={{ width: 'fit-content', margin: 'auto' }}
               style={{ ...this.props.style, margin: 'auto' }}
-
               activeAnnotationComparator={this.activeAnnotationComparator}
               activeAnnotations={this.state.activeAnnotations}
             />
@@ -355,7 +207,7 @@ export default class ImagePreview extends Component {
           <a
             className="button"
             href={this.props.galleryItems[this.props.currentIndex]}
-            target={"_blank"}
+            // target={"_blank"}
             download
           >
             <p

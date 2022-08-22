@@ -153,9 +153,9 @@ const Analysisheader = () => {
         console.log('ad', item.detect.split(' ')[0], genus)
         if (!oneDeleted) {
           oneDeleted = true;
-          if(currentImageReport.objects_count[item.detect] > 1){
+          if (currentImageReport.objects_count[item.detect] > 1) {
             currentImageReport.objects_count[item.detect] = --currentImageReport.objects_count[item.detect];
-          }else{
+          } else {
             delete currentImageReport.objects_count[item.detect];
           }
         } else {
@@ -183,27 +183,6 @@ const Analysisheader = () => {
     })
 
     updatePage()
-
-    // let tempGenus = updatedReportData[currentIndex].objects_count_custom.detects.map((item, i)=> {
-    //   let count = updatedReportData[currentIndex].objects_count_custom.values[i];
-    //   if(count > 1){
-    //     let genus = item.split(' ')[0] + '(' + count + ')';
-    //     return genus;
-    //   }else{
-    //     let genus = item.split(' ')[0];
-    //     return genus;
-    //   }
-    // })
-    // let tempSpecies = updatedReportData[currentIndex].objects_count_custom.detects.map(item => {
-    //   let species = item.split(' ')[1];
-    //   return species;
-    // })
-
-    // setGenus(prv => prv.filter((item, index) => i !== index));
-    // setSpecies(prv => prv.filter((item, index) => i !== index));
-    // alert(JSON.stringify(updatedReportData[currentIndex].objects_confidence));
-    // updateAnnotations()
-    // setObjectCount(prv => --prv);
   };
 
 
@@ -354,7 +333,7 @@ const Analysisheader = () => {
         .then(response => response.text())
         .then(result => {
           console.log(result);
-          router.push('/reportSubmit');  
+          router.push('/reportSubmit');
           dispatch(setAiReportData({}))
         })
         .catch(error => { console.log('error', error); alert('something went wrong') });
@@ -385,13 +364,11 @@ const Analysisheader = () => {
                 </p>
               </div>
               <div className={classes.analysis_tags}>
-                {/* <div> */}
                 <p>Genus identified</p>
-
-                <div>
+                <div className={classes.tagsContainer}>
 
                   {Genus.map((tag, index) => (
-                    <div className={classes.tag_item_div} key={index} style={{ margin: '20px 5px' }}>
+                    <div className={classes.tag_item_div} key={index}>
                       <span className={classes.tag_text}>
                         {tag}
                         <button
@@ -404,23 +381,24 @@ const Analysisheader = () => {
                     </div>
                   ))}
                 </div>
-                {/* </div> */}
 
                 <div className={classes.analysis_body_tag}>
                   <p>Specific identified</p>
-                  {Species && Species.map((tag, index) => (
-                    <div className={classes.tag_item_div} key={index}>
-                      <span className={classes.tag_text}>
-                        {tag}
-                        <button
-                          className={classes.tag_delete}
-                        // onClick={() => speciesremoveTag(index)}
-                        >
-                          {/* <AiOutlineClose /> */}
-                        </button>
-                      </span>
-                    </div>
-                  ))}
+                  <div className={classes.tagsContainer}>
+                    {Species && Species.map((tag, index) => (
+                      <div className={classes.tag_item_div} key={index}>
+                        <span className={classes.tag_text}>
+                          {tag}
+                          <button
+                            className={classes.tag_delete}
+                          // onClick={() => speciesremoveTag(index)}
+                          >
+                            {/* <AiOutlineClose /> */}
+                          </button>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
               <form onSubmit={(e) => e.preventDefault()} className={classes.analysis_form}>
